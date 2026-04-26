@@ -146,26 +146,28 @@ export default function HomeScreen() {
         >
           {/* Total Balance Card */}
           <SectionHeader title={t('exchange.section.total_balance')} />
-          <LiquidSurface radius={Radius.xxl} style={styles.card}>
-            {/* Range Picker */}
-            <View style={styles.rangeRow}>
-              {CHART_RANGES.map((r) => (
-                <TouchableOpacity
-                  key={r}
-                  style={[styles.rangeBtn, chartRange === r && styles.rangeBtnActive]}
-                  onPress={() => setChartRange(r)}
-                >
-                  <Text style={[styles.rangeBtnText, chartRange === r && styles.rangeBtnTextActive]}>
-                    {chartRangeLabel(r)}
-                  </Text>
-                </TouchableOpacity>
-              ))}
+          <LiquidSurface radius={Radius.xxl}>
+            <View style={styles.card}>
+              {/* Range Picker */}
+              <View style={styles.rangeRow}>
+                {CHART_RANGES.map((r) => (
+                  <TouchableOpacity
+                    key={r}
+                    style={[styles.rangeBtn, chartRange === r && styles.rangeBtnActive]}
+                    onPress={() => setChartRange(r)}
+                  >
+                    <Text style={[styles.rangeBtnText, chartRange === r && styles.rangeBtnTextActive]}>
+                      {chartRangeLabel(r)}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+              <View style={styles.balanceRow}>
+                <Text style={styles.balanceLabel}>{t('exchange.all_accounts')}</Text>
+                <Text style={styles.balanceValue}>{totalBalance.toFixed(2)} USDT</Text>
+              </View>
+              <BalanceChart snapshots={snapshots} range={chartRange} height={160} />
             </View>
-            <View style={styles.balanceRow}>
-              <Text style={styles.balanceLabel}>{t('exchange.all_accounts')}</Text>
-              <Text style={styles.balanceValue}>{totalBalance.toFixed(2)} USDT</Text>
-            </View>
-            <BalanceChart snapshots={snapshots} range={chartRange} height={120} />
           </LiquidSurface>
 
           {/* Structure Card */}
@@ -221,6 +223,7 @@ export default function HomeScreen() {
           <View style={{ height: 40 }} />
         </ScrollView>
       </SafeAreaView>
+      {portfolio.isLoading && <LoadingView />}
     </View>
   );
 }

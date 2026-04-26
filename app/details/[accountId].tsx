@@ -106,21 +106,23 @@ export default function AccountDetailsScreen() {
 
           {/* Balance chart */}
           <SectionHeader title={t('details.section.balance')} />
-          <LiquidSurface radius={Radius.xxl} style={styles.chartCard}>
-            <View style={styles.rangeRow}>
-              {CHART_RANGES.map((r) => (
-                <TouchableOpacity
-                  key={r}
-                  style={[styles.rangeBtn, chartRange === r && styles.rangeBtnActive]}
-                  onPress={() => setChartRange(r)}
-                >
-                  <Text style={[styles.rangeBtnText, chartRange === r && styles.rangeBtnTextActive]}>
-                    {chartRangeLabel(r)}
-                  </Text>
-                </TouchableOpacity>
-              ))}
+          <LiquidSurface radius={Radius.xxl}>
+            <View style={styles.chartCard}>
+              <View style={styles.rangeRow}>
+                {CHART_RANGES.map((r) => (
+                  <TouchableOpacity
+                    key={r}
+                    style={[styles.rangeBtn, chartRange === r && styles.rangeBtnActive]}
+                    onPress={() => setChartRange(r)}
+                  >
+                    <Text style={[styles.rangeBtnText, chartRange === r && styles.rangeBtnTextActive]}>
+                      {chartRangeLabel(r)}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+              <BalanceChart snapshots={snapshots} range={chartRange} height={160} />
             </View>
-            <BalanceChart snapshots={snapshots} range={chartRange} height={120} />
           </LiquidSurface>
 
           {/* Wallet sections */}
