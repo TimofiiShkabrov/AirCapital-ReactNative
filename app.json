@@ -2,7 +2,7 @@
   "expo": {
     "name": "AirCapital",
     "slug": "AirCapital",
-    "version": "1.0.0",
+    "version": "2.2.0427.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "aircapital",
@@ -19,7 +19,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.tim_qiq.AirCapital"
     },
     "web": {
       "output": "static",
@@ -41,6 +42,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "a2821bcd-746c-4c69-a511-6abf03991367"
+      }
     }
   }
 }
