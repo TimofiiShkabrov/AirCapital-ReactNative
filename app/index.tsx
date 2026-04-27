@@ -127,9 +127,14 @@ export default function HomeScreen() {
       <SafeAreaView style={styles.fill}>
         <View style={styles.header}>
           <Text style={styles.appTitle}>{t('app.title')}</Text>
-          <TouchableOpacity onPress={openSettings} hitSlop={8}>
-            <Ionicons name="settings-outline" size={22} color="rgba(255,255,255,0.75)" />
-          </TouchableOpacity>
+          <View style={styles.headerActions}>
+            <TouchableOpacity onPress={() => router.push('/terminal')} hitSlop={8}>
+              <Ionicons name="pulse-outline" size={22} color="rgba(255,255,255,0.75)" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={openSettings} hitSlop={8}>
+              <Ionicons name="settings-outline" size={22} color="rgba(255,255,255,0.75)" />
+            </TouchableOpacity>
+          </View>
         </View>
 
         <ScrollView
@@ -237,6 +242,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
+  },
+  headerActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.lg,
   },
   appTitle: {
     fontSize: FontSize.headline,

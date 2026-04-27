@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { getAllAccounts, loadKeys } from '../services/secureStore';
 import { addSnapshots } from '../services/balanceHistory';
-import { errorKey } from '../services/errorHelper';
+import { errorKey, formatApiError } from '../services/errorHelper';
 import i18n from '../i18n';
 import type {
   ExchangeAccount,
@@ -317,7 +317,7 @@ async function loadBinanceAccounts(
       ]);
 
       if (walletsRes.error) {
-        failures[account.id] = i18n.t(errorKey(walletsRes.error));
+        failures[account.id] = formatApiError(walletsRes.error, (k) => i18n.t(k));
       } else {
         set((s) => ({
           ...s,
@@ -439,7 +439,7 @@ async function loadBybitAccounts(
 
       const walletRes = await BybitAPI.fetchWallet(keys);
       if (walletRes.error) {
-        failures[account.id] = i18n.t(errorKey(walletRes.error));
+        failures[account.id] = formatApiError(walletRes.error, (k) => i18n.t(k));
         return;
       }
 
@@ -650,7 +650,7 @@ async function loadBingXAccounts(
       ]);
 
       if (spotRes.error) {
-        failures[account.id] = i18n.t(errorKey(spotRes.error));
+        failures[account.id] = formatApiError(spotRes.error, (k) => i18n.t(k));
       }
 
       set((s) => ({
@@ -771,7 +771,7 @@ async function loadGateAccounts(
       ]);
 
       if (totalRes.error) {
-        failures[account.id] = i18n.t(errorKey(totalRes.error));
+        failures[account.id] = formatApiError(totalRes.error, (k) => i18n.t(k));
       } else {
         set((s) => ({
           ...s,
@@ -878,7 +878,7 @@ async function loadOkxAccounts(
       ]);
 
       if (balRes.error) {
-        failures[account.id] = i18n.t(errorKey(balRes.error));
+        failures[account.id] = formatApiError(balRes.error, (k) => i18n.t(k));
       } else {
         set((s) => ({
           ...s,

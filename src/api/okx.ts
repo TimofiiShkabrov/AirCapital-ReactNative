@@ -50,7 +50,7 @@ export interface OkxAccountBalance {
   code: string;
   data: {
     totalEq: string;
-    details: { ccy: string; eq: string; eqUsd: string }[];
+    details: { ccy: string; eq: string; eqUsd: string; availBal?: string; availEq?: string; cashBal?: string }[];
   }[];
 }
 

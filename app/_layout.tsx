@@ -32,6 +32,7 @@ export default function RootLayout() {
         <Stack.Screen name="settings" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />
         <Stack.Screen name="details/[accountId]" />
         <Stack.Screen name="wallet" />
+        <Stack.Screen name="terminal" />
       </Stack>
     </GestureHandlerRootView>
   );

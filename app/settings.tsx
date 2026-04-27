@@ -149,6 +149,34 @@ export default function SettingsScreen() {
             </TouchableOpacity>
           </LiquidCard>
 
+          {selectedExchange === 'okx' && (
+            <LiquidCard title={t('settings.api_instruction.okx_title')}>
+              <View style={styles.instructions}>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.okx_1')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.okx_2')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.okx_3')}</Text>
+                <Text style={styles.instructionWarning}>{t('settings.api_instruction.okx_4')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.okx_5')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.okx_6')}</Text>
+              </View>
+            </LiquidCard>
+          )}
+
+          {selectedExchange === 'binance' && (
+            <LiquidCard title={t('settings.api_instruction.binance_title')}>
+              <View style={styles.instructions}>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.binance_1')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.binance_2')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.binance_3')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.binance_4')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.binance_5')}</Text>
+                <Text style={styles.instructionWarning}>{t('settings.api_instruction.binance_6')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.binance_7')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.binance_8')}</Text>
+              </View>
+            </LiquidCard>
+          )}
+
           {/* Account label */}
           <LiquidCard title={t('settings.account.title')}>
             <GlassInput
@@ -372,6 +400,20 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   pickerValue: { fontSize: FontSize.subheadline, fontWeight: '600', color: '#FFFFFF' },
+  instructions: {
+    gap: Spacing.sm,
+  },
+  instructionText: {
+    fontSize: FontSize.caption,
+    lineHeight: 18,
+    color: 'rgba(255,255,255,0.58)',
+  },
+  instructionWarning: {
+    fontSize: FontSize.caption,
+    lineHeight: 18,
+    fontWeight: '800',
+    color: '#FF9500',
+  },
   saveBtn: {
     flexDirection: 'row',
     justifyContent: 'center',
