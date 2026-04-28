@@ -22,6 +22,9 @@ export interface PositionItem {
   quantity: number;
   valueUSDT?: number;
   percentChange?: number;
+  netProfitUSDT?: number;
+  netPercentChange?: number;
+  feeUSDT?: number;
   investedUSDT?: number;
   kind: 'spot' | 'futures';
 }

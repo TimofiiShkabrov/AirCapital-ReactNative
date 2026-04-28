@@ -2,14 +2,19 @@
   "expo": {
     "name": "AirCapital",
     "slug": "AirCapital",
-    "version": "2.2.0427.2",
+    "version": "2.2.0428.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "aircapital",
+    "scheme": "AirCapital",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "tim.AirCapital",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "appleTeamId": "QJJFV9YPU3"
     },
     "android": {
       "adaptiveIcon": {

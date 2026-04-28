@@ -53,6 +53,8 @@ export interface GateSpotTrade {
   side: string;
   amount: string;
   price: string;
+  fee?: string;
+  fee_currency?: string;
   create_time?: string;
 }
 
@@ -61,6 +63,7 @@ export interface GateFuturesPosition {
   size: string;
   entry_price?: string;
   mark_price?: string;
+  unrealised_pnl?: string;
   update_time?: number;
 }
 

@@ -26,6 +26,7 @@ import SegmentedControl from '../src/components/terminal/SegmentedControl';
 import TerminalInput from '../src/components/terminal/TerminalInput';
 import TradeSettings from '../src/components/terminal/TradeSettings';
 import { useAccountsStore } from '../src/store/accountsStore';
+import { usePortfolioStore } from '../src/store/portfolioStore';
 import styles from '../src/screens/terminal/styles';
 import { fetchSpotAccount as fetchBinanceSpotAccount } from '../src/api/binance';
 import { fetchAccountBalance } from '../src/api/okx';
@@ -82,6 +83,7 @@ import {
 } from '../src/trading/grid';
 import type {
   ExchangeAccount,
+  PositionItem,
 } from '../src/types/common';
 import type {
   GridDraft,
@@ -107,6 +109,8 @@ export default function TerminalScreen() {
   const { t } = useTranslation();
   const accounts = useAccountsStore((s) => s.accounts);
   const loadAccounts = useAccountsStore((s) => s.loadAccounts);
+  const loadPortfolioData = usePortfolioStore((s) => s.loadData);
+  const terminalPositions = usePortfolioStore((s) => s.getPositionsForAccount);
   const tradingAccounts = useMemo(
     () => accounts.filter((account): account is ExchangeAccount & { exchange: TradingExchange } => (
       account.exchange === 'okx' || account.exchange === 'binance'
@@ -162,11 +166,18 @@ export default function TerminalScreen() {
       ? currentLeverage
       : parsePositiveNumber(instrument?.lever ?? '')
     : undefined;
+  const activePositions = useMemo(() => (
+    selectedAccount
+      ? terminalPositions(selectedAccount, venue === 'spot' ? 'spot' : 'futures')
+        .filter((position) => positionMatchesInstrument(position, instId, selectedExchange))
+      : []
+  ), [instId, selectedAccount, selectedExchange, terminalPositions, venue]);
 
   useEffect(() => {
     void loadAccounts();
+    void loadPortfolioData();
     void loadGridPlans().then(setGridPlans);
-  }, [loadAccounts]);
+  }, [loadAccounts, loadPortfolioData]);
 
   useEffect(() => {
     if (!selectedAccountId && tradingAccounts[0]) {
@@ -1094,6 +1105,37 @@ export default function TerminalScreen() {
                   )}
                 </LiquidCard>
 
+                <LiquidCard title={t('terminal.positions')}>
+                  {activePositions.length === 0 ? (
+                    <Text style={styles.muted}>{t('terminal.no_positions', { instId })}</Text>
+                  ) : (
+                    activePositions.slice(0, 8).map((position) => (
+                      <View key={position.id} style={styles.positionBlock}>
+                        <View style={styles.positionHead}>
+                          <View>
+                            <Text style={styles.planTitle}>{position.symbol}</Text>
+                            <Text style={styles.muted}>
+                              {t('terminal.position_qty')} {formatDecimal(position.quantity)}
+                            </Text>
+                          </View>
+                          <View style={styles.orderRight}>
+                            <Text style={[styles.positionNet, { color: netColor(position.netProfitUSDT) }]}>
+                              {formatSignedUSDT(position.netProfitUSDT)}
+                            </Text>
+                            <Text style={styles.muted}>{formatSignedPercent(position.netPercentChange)}</Text>
+                          </View>
+                        </View>
+                        <View style={styles.summaryRow}>
+                          <Text style={styles.summaryLabel}>{t('terminal.position_value')}</Text>
+                          <Text style={styles.summaryValue}>
+                            {position.valueUSDT != null ? `${formatCurrencyAmount(position.valueUSDT)} USDT` : '—'}
+                          </Text>
+                        </View>
+                      </View>
+                    ))
+                  )}
+                </LiquidCard>
+
                 <LiquidCard title={t('terminal.order_feed')}>
                   <TouchableOpacity style={styles.secondaryBtn} onPress={refreshOpenOrders}>
                     <Text style={styles.secondaryText}>{t('terminal.refresh_orders')}</Text>
@@ -1574,6 +1616,35 @@ async function cancelExchangeOrders(
     clientOrderId: order.clOrdId,
   })));
   if (result.error) throw new Error(t('terminal.network_error', { exchange: 'Binance' }));
+}
+
+function positionMatchesInstrument(position: PositionItem, instId: string, exchange: TradingExchange): boolean {
+  const positionSymbol = normalizePositionSymbol(position.symbol, exchange);
+  const selectedSymbol = normalizePositionSymbol(instId, exchange);
+  const baseSymbol = parseInstrumentParts(instId, exchange).base.toUpperCase();
+  return positionSymbol === selectedSymbol || positionSymbol === baseSymbol;
+}
+
+function normalizePositionSymbol(symbol: string, exchange: TradingExchange): string {
+  if (exchange === 'okx') return symbol.toUpperCase();
+  return symbol.replace(/[-_/]/g, '').toUpperCase();
+}
+
+function formatSignedUSDT(value?: number): string {
+  if (value == null) return '—';
+  return `${value > 0 ? '+' : ''}${formatCurrencyAmount(value)} USDT`;
+}
+
+function formatSignedPercent(value?: number): string {
+  if (value == null) return '—';
+  return `${value > 0 ? '+' : ''}${formatDecimal(value.toFixed(2))}%`;
+}
+
+function netColor(value?: number): string {
+  if (value == null) return 'rgba(255,255,255,0.55)';
+  if (value > 0) return '#34C759';
+  if (value < 0) return '#FF3B30';
+  return 'rgba(255,255,255,0.55)';
 }
 
 function normalizeBinanceInstrument(item: BinanceSymbolInfo, venue: TradingVenue): OkxInstrument {

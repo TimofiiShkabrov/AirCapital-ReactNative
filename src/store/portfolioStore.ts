@@ -24,6 +24,7 @@ interface TradeFill {
   side: 'buy' | 'sell';
   quantity: number;
   price: number;
+  feeUSDT?: number;
 }
 
 interface BinanceAccountData {
@@ -70,6 +71,7 @@ interface PortfolioState {
   getTotalBalance: () => number;
   getAccountBalance: (account: ExchangeAccount) => number;
   getWalletTypeSections: (account: ExchangeAccount) => WalletTypeSection[];
+  getPositionsForAccount: (account: ExchangeAccount, kind?: 'spot' | 'futures') => PositionItem[];
   getPositionsForSection: (account: ExchangeAccount, section: WalletTypeSection) => PositionItem[];
   setSelectedWalletSection: (section: WalletTypeSection) => void;
 }
@@ -90,7 +92,7 @@ function costBasis(
     if (t.side === 'buy') {
       if (qty === 0) openedAt = t.time;
       qty += t.quantity;
-      cost += t.quantity * t.price;
+      cost += t.quantity * t.price + (t.feeUSDT ?? 0);
     } else {
       if (qty <= 0) continue;
       const avg = cost / qty;
@@ -107,6 +109,54 @@ function costBasis(
 function pctChange(current?: number, invested?: number): number | undefined {
   if (current == null || invested == null || invested <= 0) return undefined;
   return ((current - invested) / invested) * 100;
+}
+
+const ESTIMATED_SPOT_CLOSE_FEE_RATE = 0.001;
+const ESTIMATED_FUTURES_TAKER_FEE_RATE = 0.0006;
+
+function feeToUSDT(
+  fee: number | string | undefined,
+  feeAsset: string | undefined,
+  price: number,
+  baseAsset: string,
+): number | undefined {
+  const amount = typeof fee === 'string' ? parseFloat(fee) : fee;
+  if (!amount || !Number.isFinite(amount)) return undefined;
+  const asset = feeAsset?.toUpperCase();
+  const absFee = Math.abs(amount);
+  if (!asset || STABLE.has(asset)) return absFee;
+  if (asset === baseAsset.toUpperCase() && price > 0) return absFee * price;
+  return undefined;
+}
+
+function spotNetMetrics(
+  valueUSDT?: number,
+  investedUSDT?: number,
+  isStable = false,
+): Pick<PositionItem, 'netProfitUSDT' | 'netPercentChange' | 'feeUSDT'> {
+  if (valueUSDT == null || investedUSDT == null || investedUSDT <= 0) return {};
+  const closeFee = isStable ? 0 : valueUSDT * ESTIMATED_SPOT_CLOSE_FEE_RATE;
+  const netProfitUSDT = valueUSDT - investedUSDT - closeFee;
+  return {
+    netProfitUSDT,
+    netPercentChange: (netProfitUSDT / investedUSDT) * 100,
+    feeUSDT: closeFee,
+  };
+}
+
+function futuresNetMetrics(
+  valueUSDT: number,
+  investedUSDT: number,
+  grossPnlUSDT: number,
+): Pick<PositionItem, 'netProfitUSDT' | 'netPercentChange' | 'feeUSDT'> {
+  if (investedUSDT <= 0) return {};
+  const feeUSDT = (valueUSDT + investedUSDT) * ESTIMATED_FUTURES_TAKER_FEE_RATE;
+  const netProfitUSDT = grossPnlUSDT - feeUSDT;
+  return {
+    netProfitUSDT,
+    netPercentChange: (netProfitUSDT / investedUSDT) * 100,
+    feeUSDT,
+  };
 }
 
 function msToDate(ms?: number | string | null): Date | undefined {
@@ -220,6 +270,17 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => ({
       case 'okx':
         return okxWalletSections(id, okxData[id]);
     }
+  },
+
+  getPositionsForAccount: (account, kind) => {
+    const { spotPositions, futuresPositions } = get();
+    const id = account.id;
+    const positions = kind === 'spot'
+      ? (spotPositions[id] ?? [])
+      : kind === 'futures'
+        ? (futuresPositions[id] ?? [])
+        : [...(spotPositions[id] ?? []), ...(futuresPositions[id] ?? [])];
+    return [...positions].sort((a, b) => (b.valueUSDT ?? 0) - (a.valueUSDT ?? 0));
   },
 
   getPositionsForSection: (account, section) => {
@@ -356,6 +417,7 @@ async function loadBinanceAccounts(
                 side: t.isBuyer ? 'buy' : 'sell',
                 quantity: parseFloat(t.qty) || 0,
                 price: parseFloat(t.price) || 0,
+                feeUSDT: feeToUSDT(t.commission, t.commissionAsset, parseFloat(t.price) || 0, asset),
               }));
             }
           }),
@@ -372,6 +434,7 @@ async function loadBinanceAccounts(
           const basis = costBasis(trades, qty);
           const invested = basis.invested ?? (isStable ? valueUSDT : undefined);
           const pct = pctChange(valueUSDT, invested) ?? (isStable ? 0 : undefined);
+          const net = spotNetMetrics(valueUSDT, invested, isStable);
           return [
             {
               id: uid(),
@@ -380,6 +443,7 @@ async function loadBinanceAccounts(
               quantity: qty,
               valueUSDT,
               percentChange: pct,
+              ...net,
               investedUSDT: invested,
               kind: 'spot',
             } satisfies PositionItem,
@@ -400,16 +464,21 @@ async function loadBinanceAccounts(
           const mark = parseFloat(p.markPrice ?? '') || 0;
           if (entry <= 0 || mark <= 0) return [];
           const dir = amt >= 0 ? 1 : -1;
-          const pct = ((mark - entry) / entry) * 100 * dir;
+          const invested = entry * Math.abs(amt);
+          const valueUSDT = Math.abs(amt) * mark;
+          const grossPnl = parseFloat(p.unRealizedProfit ?? '') || (mark - entry) * Math.abs(amt) * dir;
+          const pct = (grossPnl / invested) * 100;
+          const net = futuresNetMetrics(valueUSDT, invested, grossPnl);
           return [
             {
               id: uid(),
               symbol: p.symbol,
               openedAt: msToDate(p.updateTime)?.toISOString(),
               quantity: Math.abs(amt),
-              valueUSDT: Math.abs(amt) * mark,
+              valueUSDT,
               percentChange: pct,
-              investedUSDT: entry * Math.abs(amt),
+              ...net,
+              investedUSDT: invested,
               kind: 'futures',
             } satisfies PositionItem,
           ];
@@ -492,6 +561,7 @@ async function loadBybitAccounts(
                   side: e.side.toLowerCase() === 'buy' ? 'buy' : 'sell',
                   quantity: qty,
                   price,
+                  feeUSDT: feeToUSDT(e.execFee, e.feeCurrency, price, asset),
                 } as TradeFill,
               ];
             });
@@ -508,6 +578,7 @@ async function loadBybitAccounts(
           const basis = costBasis(trades, qty);
           const invested = basis.invested ?? (isStable ? valueUSDT : undefined);
           const pct = pctChange(valueUSDT, invested) ?? (isStable ? 0 : undefined);
+          const net = spotNetMetrics(valueUSDT, invested, isStable);
           return [
             {
               id: uid(),
@@ -516,6 +587,7 @@ async function loadBybitAccounts(
               quantity: qty,
               valueUSDT,
               percentChange: pct,
+              ...net,
               investedUSDT: invested,
               kind: 'spot',
             } satisfies PositionItem,
@@ -553,10 +625,14 @@ async function loadBybitAccounts(
             if (valueUSDT <= 0) continue;
             const dir = p.side.toLowerCase() === 'sell' ? -1 : 1;
             const invested = entry > 0 ? Math.abs(size) * entry : valueUSDT;
+            const grossPnl = parseFloat(p.unrealisedPnl ?? '') || (
+              entry > 0 && mark > 0 ? (mark - entry) * Math.abs(size) * dir : 0
+            );
             const pct =
-              entry > 0 && mark > 0
-                ? ((mark - entry) / entry) * 100 * dir
+              invested > 0
+                ? (grossPnl / invested) * 100
                 : undefined;
+            const net = futuresNetMetrics(valueUSDT, invested, grossPnl);
             allFutures.push({
               id: uid(),
               symbol: p.symbol,
@@ -564,6 +640,7 @@ async function loadBybitAccounts(
               quantity: Math.abs(size),
               valueUSDT,
               percentChange: pct,
+              ...net,
               investedUSDT: invested,
               kind: 'futures',
             });
@@ -690,6 +767,7 @@ async function loadBingXAccounts(
                 side: t.isBuyer ? 'buy' : 'sell',
                 quantity: parseFloat(t.qty) || 0,
                 price: parseFloat(t.price) || 0,
+                feeUSDT: feeToUSDT(t.commission, t.commissionAsset, parseFloat(t.price) || 0, asset),
               }));
             }
           }),
@@ -703,6 +781,7 @@ async function loadBingXAccounts(
           const basis = costBasis(trades, qty);
           const invested = basis.invested ?? (isStable ? valueUSDT : undefined);
           const pct = pctChange(valueUSDT, invested) ?? (isStable ? 0 : undefined);
+          const net = spotNetMetrics(valueUSDT, invested, isStable);
           return [
             {
               id: uid(),
@@ -711,6 +790,7 @@ async function loadBingXAccounts(
               quantity: qty,
               valueUSDT,
               percentChange: pct,
+              ...net,
               investedUSDT: invested,
               kind: 'spot',
             } satisfies PositionItem,
@@ -731,15 +811,20 @@ async function loadBingXAccounts(
           const mark = parseFloat(p.markPrice ?? '') || 0;
           if (entry <= 0 || mark <= 0) return [];
           const dir = amt >= 0 ? 1 : -1;
+          const invested = entry * Math.abs(amt);
+          const valueUSDT = Math.abs(amt) * mark;
+          const grossPnl = parseFloat(p.unrealizedProfit ?? '') || (mark - entry) * Math.abs(amt) * dir;
+          const net = futuresNetMetrics(valueUSDT, invested, grossPnl);
           return [
             {
               id: uid(),
               symbol: p.symbol,
               openedAt: msToDate(p.updateTime)?.toISOString(),
               quantity: Math.abs(amt),
-              valueUSDT: Math.abs(amt) * mark,
-              percentChange: ((mark - entry) / entry) * 100 * dir,
-              investedUSDT: entry * Math.abs(amt),
+              valueUSDT,
+              percentChange: (grossPnl / invested) * 100,
+              ...net,
+              investedUSDT: invested,
               kind: 'futures',
             } satisfies PositionItem,
           ];
@@ -804,6 +889,7 @@ async function loadGateAccounts(
                 side: t.side.toLowerCase() === 'buy' ? 'buy' : 'sell',
                 quantity: parseFloat(t.amount) || 0,
                 price: parseFloat(t.price) || 0,
+                feeUSDT: feeToUSDT(t.fee, t.fee_currency, parseFloat(t.price) || 0, asset),
               }));
             }
           }),
@@ -817,6 +903,7 @@ async function loadGateAccounts(
           const basis = costBasis(trades, qty);
           const invested = basis.invested ?? (isStable ? valueUSDT : undefined);
           const pct = pctChange(valueUSDT, invested) ?? (isStable ? 0 : undefined);
+          const net = spotNetMetrics(valueUSDT, invested, isStable);
           return [
             {
               id: uid(),
@@ -825,6 +912,7 @@ async function loadGateAccounts(
               quantity: qty,
               valueUSDT,
               percentChange: pct,
+              ...net,
               investedUSDT: invested,
               kind: 'spot',
             } satisfies PositionItem,
@@ -841,15 +929,20 @@ async function loadGateAccounts(
           const mark = parseFloat(p.mark_price ?? '') || 0;
           if (entry <= 0 || mark <= 0) return [];
           const dir = size >= 0 ? 1 : -1;
+          const invested = entry * Math.abs(size);
+          const valueUSDT = Math.abs(size) * mark;
+          const grossPnl = parseFloat(p.unrealised_pnl ?? '') || (mark - entry) * Math.abs(size) * dir;
+          const net = futuresNetMetrics(valueUSDT, invested, grossPnl);
           return [
             {
               id: uid(),
               symbol: p.contract,
               openedAt: sToDate(p.update_time)?.toISOString(),
               quantity: Math.abs(size),
-              valueUSDT: Math.abs(size) * mark,
-              percentChange: ((mark - entry) / entry) * 100 * dir,
-              investedUSDT: entry * Math.abs(size),
+              valueUSDT,
+              percentChange: (grossPnl / invested) * 100,
+              ...net,
+              investedUSDT: invested,
               kind: 'futures',
             } satisfies PositionItem,
           ];
@@ -934,6 +1027,7 @@ async function loadOkxAccounts(
                     side: f.side.toLowerCase() === 'buy' ? 'buy' : 'sell',
                     quantity: qty,
                     price,
+                    feeUSDT: feeToUSDT(f.fee, f.feeCcy, price, asset),
                   } as TradeFill,
                 ];
               });
@@ -948,6 +1042,7 @@ async function loadOkxAccounts(
           const basis = costBasis(trades, qty);
           const invested = basis.invested ?? (isStable ? valueUSDT : undefined);
           const pct = pctChange(valueUSDT, invested) ?? (isStable ? 0 : undefined);
+          const net = spotNetMetrics(valueUSDT, invested, isStable);
           return [
             {
               id: uid(),
@@ -956,6 +1051,7 @@ async function loadOkxAccounts(
               quantity: qty,
               valueUSDT,
               percentChange: pct,
+              ...net,
               investedUSDT: invested,
               kind: 'spot',
             } satisfies PositionItem,
@@ -972,15 +1068,20 @@ async function loadOkxAccounts(
           const mark = parseFloat(p.markPx ?? '') || 0;
           if (entry <= 0 || mark <= 0) return [];
           const dir = amt >= 0 ? 1 : -1;
+          const invested = entry * Math.abs(amt);
+          const valueUSDT = Math.abs(amt) * mark;
+          const grossPnl = parseFloat(p.upl ?? '') || (mark - entry) * Math.abs(amt) * dir;
+          const net = futuresNetMetrics(valueUSDT, invested, grossPnl);
           return [
             {
               id: uid(),
               symbol: p.instId,
               openedAt: msToDate(p.cTime)?.toISOString(),
               quantity: Math.abs(amt),
-              valueUSDT: Math.abs(amt) * mark,
-              percentChange: ((mark - entry) / entry) * 100 * dir,
-              investedUSDT: entry * Math.abs(amt),
+              valueUSDT,
+              percentChange: (grossPnl / invested) * 100,
+              ...net,
+              investedUSDT: invested,
               kind: 'futures',
             } satisfies PositionItem,
           ];

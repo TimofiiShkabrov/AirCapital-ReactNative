@@ -45,6 +45,7 @@ const en = {
       opened: 'Opened:',
       quantity: 'Qty:',
       value: 'Value:',
+      net: 'Nett:',
     },
   },
 
@@ -154,6 +155,10 @@ const en = {
     cancel_grid: 'Cancel',
     recalc: 'Recalc',
     order_feed: 'Order feed',
+    positions: 'Positions',
+    no_positions: 'No open positions for {{instId}}.',
+    position_value: 'Value',
+    position_qty: 'Qty',
     refresh_orders: 'Refresh orders',
     no_open_orders: 'No open orders for {{instId}}.',
     real_request_warning: 'This is a real {{exchange}} LIVE request. Check API key permissions: Read + Trade, no Withdraw.',

@@ -75,6 +75,8 @@ export interface BybitExecutionResponse {
       execQty: string;
       execTime: string;
       side: string;
+      execFee?: string;
+      feeCurrency?: string;
     }[];
   };
 }

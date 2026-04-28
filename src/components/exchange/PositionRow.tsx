@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import type { PositionItem } from '../../types/common';
 import { FontSize, Spacing } from '../../constants/theme';
 import LiquidSurface from '../ui/LiquidSurface';
+import { formatCurrencyAmount } from '../../trading/grid';
 
 interface Props {
   position: PositionItem;
@@ -18,17 +19,18 @@ function formatQty(v: number): string {
 export default function PositionRow({ position }: Props) {
   const { t } = useTranslation();
 
+  const displayPct = position.netPercentChange ?? position.percentChange;
   const pctText =
-    position.percentChange != null
-      ? `${position.percentChange > 0 ? '+' : ''}${position.percentChange.toFixed(2)}%`
+    displayPct != null
+      ? `${displayPct > 0 ? '+' : ''}${displayPct.toFixed(2)}%`
       : '—';
 
   const pctColor =
-    position.percentChange == null
+    displayPct == null
       ? 'rgba(255,255,255,0.45)'
-      : position.percentChange > 0
+      : displayPct > 0
         ? '#34C759'
-        : position.percentChange < 0
+        : displayPct < 0
           ? '#FF3B30'
           : 'rgba(255,255,255,0.45)';
 
@@ -43,6 +45,18 @@ export default function PositionRow({ position }: Props) {
 
   const valueText =
     position.valueUSDT != null ? `${position.valueUSDT.toFixed(2)} USDT` : '—';
+  const netText =
+    position.netProfitUSDT != null
+      ? `${position.netProfitUSDT > 0 ? '+' : ''}${formatCurrencyAmount(position.netProfitUSDT)} USDT`
+      : '—';
+  const netColor =
+    position.netProfitUSDT == null
+      ? 'rgba(255,255,255,0.55)'
+      : position.netProfitUSDT > 0
+        ? '#34C759'
+        : position.netProfitUSDT < 0
+          ? '#FF3B30'
+          : 'rgba(255,255,255,0.55)';
 
   return (
     <LiquidSurface radius={22}>
@@ -61,6 +75,10 @@ export default function PositionRow({ position }: Props) {
           <Text style={styles.value}>
             {t('positions.field.value')} {valueText}
           </Text>
+        </View>
+        <View style={styles.footer}>
+          <Text style={styles.netLabel}>{t('positions.field.net')}</Text>
+          <Text style={[styles.netValue, { color: netColor }]}>{netText}</Text>
         </View>
       </View>
     </LiquidSurface>
@@ -104,6 +122,15 @@ const styles = StyleSheet.create({
   value: {
     fontSize: FontSize.subheadline,
     color: 'rgba(255,255,255,0.55)',
+    fontVariant: ['tabular-nums'],
+  },
+  netLabel: {
+    fontSize: FontSize.subheadline,
+    color: 'rgba(255,255,255,0.55)',
+  },
+  netValue: {
+    fontSize: FontSize.subheadline,
+    fontWeight: '700',
     fontVariant: ['tabular-nums'],
   },
 });

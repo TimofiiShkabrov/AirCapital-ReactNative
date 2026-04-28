@@ -45,6 +45,7 @@ const ru = {
       opened: 'Открыта:',
       quantity: 'Кол-во:',
       value: 'Стоимость:',
+      net: 'Nett:',
     },
   },
 
@@ -154,6 +155,10 @@ const ru = {
     cancel_grid: 'Отмена',
     recalc: 'Recalc',
     order_feed: 'Лента ордеров',
+    positions: 'Позиции',
+    no_positions: 'Открытых позиций по {{instId}} нет.',
+    position_value: 'Стоимость',
+    position_qty: 'Кол-во',
     refresh_orders: 'Обновить ордера',
     no_open_orders: 'Открытых ордеров по {{instId}} нет.',
     real_request_warning: 'Это реальный {{exchange}} LIVE-запрос. Проверьте API key: Read + Trade, без Withdraw.',

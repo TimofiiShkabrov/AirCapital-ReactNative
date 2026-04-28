@@ -32,7 +32,7 @@ export interface BingXFuturesWallet {
 
 export interface BingXSpotTradeResponse {
   code: number;
-  data?: { price: string; qty: string; time: number; isBuyer: boolean }[];
+  data?: { price: string; qty: string; time: number; isBuyer: boolean; commission?: string; commissionAsset?: string }[];
 }
 
 export interface BingXFuturesPositionResponse {
@@ -42,6 +42,7 @@ export interface BingXFuturesPositionResponse {
     positionAmt: string;
     avgPrice?: string;
     markPrice?: string;
+    unrealizedProfit?: string;
     updateTime?: number;
   }[];
 }

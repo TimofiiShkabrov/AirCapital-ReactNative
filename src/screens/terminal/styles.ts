@@ -214,6 +214,22 @@ const styles = StyleSheet.create({
   orderRight: {
     alignItems: 'flex-end',
   },
+  positionBlock: {
+    gap: Spacing.sm,
+    paddingVertical: Spacing.sm,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: 'rgba(255,255,255,0.08)',
+  },
+  positionHead: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: Spacing.md,
+  },
+  positionNet: {
+    fontSize: FontSize.subheadline,
+    fontWeight: '900',
+    fontVariant: ['tabular-nums'],
+  },
   footerMessage: {
     paddingHorizontal: Spacing.md,
     color: 'rgba(52,199,89,0.95)',

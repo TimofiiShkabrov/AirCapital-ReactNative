@@ -41,6 +41,8 @@ export interface BinanceSpotTrade {
   qty: string;
   time: number;
   isBuyer: boolean;
+  commission?: string;
+  commissionAsset?: string;
 }
 
 export interface BinanceFuturesPosition {
@@ -48,6 +50,7 @@ export interface BinanceFuturesPosition {
   positionAmt: string;
   entryPrice: string;
   markPrice?: string;
+  unRealizedProfit?: string;
   updateTime?: number;
 }
 

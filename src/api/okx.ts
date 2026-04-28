@@ -61,6 +61,7 @@ export interface OkxPositionResponse {
     pos: string;
     avgPx: string;
     markPx?: string;
+    upl?: string;
     cTime?: string;
   }[];
 }
@@ -72,6 +73,8 @@ export interface OkxFillResponse {
     side: string;
     fillPx?: string;
     fillSz?: string;
+    fee?: string;
+    feeCcy?: string;
     ts?: string;
     fillTime?: string;
   }[];
