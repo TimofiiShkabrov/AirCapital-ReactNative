@@ -220,6 +220,7 @@ export default function HomeScreen() {
                 account={account}
                 label={accountLabel(account, accounts, t)}
                 balance={portfolio.getAccountBalance(account)}
+                errorMessage={portfolio.accountFailures[account.id]}
                 onPress={() => router.push(`/details/${account.id}`)}
               />
             ))}

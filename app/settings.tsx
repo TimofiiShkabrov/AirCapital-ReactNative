@@ -177,6 +177,19 @@ export default function SettingsScreen() {
             </LiquidCard>
           )}
 
+          {selectedExchange === 'bybit' && (
+            <LiquidCard title={t('settings.api_instruction.bybit_title')}>
+              <View style={styles.instructions}>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.bybit_1')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.bybit_2')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.bybit_3')}</Text>
+                <Text style={styles.instructionWarning}>{t('settings.api_instruction.bybit_4')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.bybit_5')}</Text>
+                <Text style={styles.instructionText}>{t('settings.api_instruction.bybit_6')}</Text>
+              </View>
+            </LiquidCard>
+          )}
+
           {/* Account label */}
           <LiquidCard title={t('settings.account.title')}>
             <GlassInput

@@ -63,13 +63,13 @@ export interface GridOrderPreview {
 export interface GridPlan {
   id: string;
   accountId: string;
-  exchange: Extract<Exchange, 'okx' | 'binance'>;
+  exchange: Extract<Exchange, 'okx' | 'binance' | 'bybit'>;
   status: 'draft' | 'active' | 'paused' | 'canceled' | 'completed';
   createdAt: string;
   updatedAt: string;
   draft: GridDraft;
   orders: GridOrderPreview[];
-  exchangeOrderIds: { clOrdId: string; ordId?: string; state?: string; message?: string }[];
+  exchangeOrderIds: { clOrdId: string; ordId?: string; state?: string; message?: string; algo?: boolean }[];
 }
 
 export interface SingleOrderDraft {

@@ -1,50 +1,60 @@
-# Welcome to your Expo app 👋
+# AirCapital
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+AirCapital is an Expo React Native app for crypto portfolio tracking and controlled LIVE trading.
 
-## Get started
+It can sync balances and positions from Binance, Bybit, BingX, OKX, and Gate.io. The trading terminal currently supports LIVE order actions for OKX, Binance, and Bybit.
 
-1. Install dependencies
+## Safety Model
 
-   ```bash
-   npm install
-   ```
+AirCapital sends real exchange requests. Use API keys with:
 
-2. Start the app
+- Read permission for portfolio sync.
+- Trade permission only for accounts that should trade from the app.
+- Withdraw permission disabled.
+- IP whitelist enabled when the exchange supports it.
 
-   ```bash
-   npx expo start
-   ```
+API keys are stored on-device with `expo-secure-store`. Account metadata and local grid plans are stored with AsyncStorage.
 
-In the output, you'll find options to open the app in a
+## Supported Features
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Portfolio total across saved exchange accounts.
+- Per-account wallet sections and spot/futures positions.
+- Balance history snapshots for total/account charts.
+- Local language switch: English and Russian.
+- OKX trading: spot/swap single orders, grid orders, attached TP/SL, cancel, close swap position.
+- Binance trading: spot/swap single orders, grid orders, USD-M TP/SL via futures algo orders, cancel, close swap position.
+- Bybit trading: spot/linear single orders, grid orders, native TP/SL fields, cancel, close linear position.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Known Trading Limits
 
-## Get a fresh project
+- BingX and Gate.io are portfolio-only in the current terminal.
+- Binance Spot TP/SL is not automated. The app blocks Binance Spot TP/SL submission instead of silently ignoring it.
+- Bybit Spot market TP/SL is blocked; use Bybit Spot limit orders for TP in this terminal.
+- Binance USD-M TP/SL uses `/fapi/v1/algoOrder`; large grids are capped to 200 conditional TP/SL orders.
+- Grid plans are local state. Always verify open orders on the exchange after network errors or partial acceptance.
 
-When you're ready, run:
+## Development
 
 ```bash
-npm run reset-project
+npm install
+npm start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Useful checks:
 
-## Learn more
+```bash
+npm run lint
+npm run test
+npx tsc --noEmit
+npx expo-doctor
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+For iOS local builds, CocoaPods must be installed:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+pod --version
+```
 
-## Join the community
+## Release
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Read [docs/release-checklist.md](docs/release-checklist.md) before shipping, and run the manual trading scenarios in [docs/live-trading-qa.md](docs/live-trading-qa.md) with small amounts.

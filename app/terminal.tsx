@@ -31,21 +31,47 @@ import styles from '../src/screens/terminal/styles';
 import { fetchSpotAccount as fetchBinanceSpotAccount } from '../src/api/binance';
 import { fetchAccountBalance } from '../src/api/okx';
 import {
+  cancelBybitBatchOrders,
+  fetchBybitFeeRate,
+  fetchBybitInstruments,
+  fetchBybitOpenOrders,
+  fetchBybitTicker,
+  fetchWallet as fetchBybitWallet,
+  fetchPositions as fetchBybitPositions,
+  placeBybitBatchOrders,
+  placeBybitOrder,
+  setBybitLeverage,
+  switchBybitMarginMode,
+  switchBybitPositionMode,
+  type BybitCategory,
+  type BybitFeeRateResponse,
+  type BybitInstrumentInfo,
+  type BybitOpenOrder,
+  type BybitOrderRequest,
+  type BybitPositionResponse,
+  type BybitTicker,
+} from '../src/api/bybit';
+import {
+  cancelBinanceAlgoOrders,
   cancelBinanceOrders,
+  fetchBinancePositionRisk,
   fetchBinanceCommission,
   fetchBinanceExchangeInfo,
   fetchBinanceFuturesBalance,
   fetchBinanceLeverageBracket,
   fetchBinanceOpenOrders,
   fetchBinanceTicker,
+  placeBinanceAlgoOrder,
   placeBinanceGridOrders,
   placeBinanceOrder,
   setBinanceLeverage,
   setBinanceMarginType,
   setBinancePositionMode,
+  type BinanceAlgoOrderRequest,
   type BinanceCommission,
   type BinanceOpenOrder,
   type BinanceOrderRequest,
+  type BinancePositionRisk,
   type BinanceSymbolInfo,
   type BinanceTicker,
 } from '../src/api/binanceTrade';
@@ -100,9 +126,11 @@ import type {
 } from '../src/trading/types';
 
 type ConfirmAction = 'single' | 'grid' | 'cancel-plan' | 'pause-plan' | 'close-plan';
-type TradingExchange = 'okx' | 'binance';
-type TerminalTicker = OkxTicker | BinanceTicker;
-type TerminalOpenOrder = OkxPendingOrder | BinanceOpenOrder;
+type TradingExchange = 'okx' | 'binance' | 'bybit';
+type TerminalTicker = OkxTicker | BinanceTicker | BybitTicker;
+type TerminalOpenOrder = OkxPendingOrder | BinanceOpenOrder | BybitOpenOrder;
+
+const BINANCE_MAX_PROTECTION_ORDERS = 200;
 
 export default function TerminalScreen() {
   const router = useRouter();
@@ -113,7 +141,7 @@ export default function TerminalScreen() {
   const terminalPositions = usePortfolioStore((s) => s.getPositionsForAccount);
   const tradingAccounts = useMemo(
     () => accounts.filter((account): account is ExchangeAccount & { exchange: TradingExchange } => (
-      account.exchange === 'okx' || account.exchange === 'binance'
+      account.exchange === 'okx' || account.exchange === 'binance' || account.exchange === 'bybit'
     )),
     [accounts],
   );
@@ -553,6 +581,12 @@ export default function TerminalScreen() {
 
       const singleTp = parsePositiveNumber(singleTpText);
       const singleSl = venue === 'swap' ? parsePositiveNumber(singleSlText) : undefined;
+      if (selectedExchange === 'binance' && venue === 'spot' && singleTp) {
+        throw new Error(t('terminal.binance_spot_tpsl_unavailable'));
+      }
+      if (selectedExchange === 'bybit' && venue === 'spot' && orderType === 'market' && singleTp) {
+        throw new Error(t('terminal.bybit_spot_market_tpsl_unavailable'));
+      }
       if (selectedExchange === 'okx' && (singleTp || singleSl)) {
         const okxPayload = payload as OkxOrderRequest;
         okxPayload.attachAlgoOrds = [{
@@ -561,10 +595,58 @@ export default function TerminalScreen() {
           ...(singleSl ? { slTriggerPx: String(roundPrice(singleSl, instrument)), slOrdPx: '-1' } : {}),
         }];
       }
+      if (selectedExchange === 'bybit' && (singleTp || singleSl)) {
+        const bybitPayload = payload as BybitOrderRequest;
+        if (singleTp) {
+          bybitPayload.takeProfit = String(roundPrice(singleTp, instrument));
+          bybitPayload.tpTriggerBy = 'LastPrice';
+          bybitPayload.tpOrderType = 'Market';
+        }
+        if (singleSl && venue === 'swap') {
+          bybitPayload.stopLoss = String(roundPrice(singleSl, instrument));
+          bybitPayload.slTriggerBy = 'LastPrice';
+          bybitPayload.slOrderType = 'Market';
+        }
+        if (venue === 'swap') bybitPayload.tpslMode = 'Partial';
+      }
 
       const orderId = await placeSingleExchangeOrder(selectedExchange, keys, venue, payload, t);
-      setLastMessage(t('terminal.order_sent', { id: orderId || clientOrderId }));
+      const protectionAcks = selectedExchange === 'binance'
+        ? await placeBinanceProtectionOrders(
+          keys,
+          buildBinanceProtectionOrders({
+            instId,
+            venue,
+            side,
+            quantity,
+            tpPrice: singleTp,
+            slPrice: singleSl,
+            positionMode,
+            posSide: positionSideFor(side),
+            clientIdPrefix: 'acps',
+          }),
+          t,
+        )
+        : [];
+      const failedProtection = protectionAcks.filter((ack) => !ack.ok);
+      const protectionMsg = protectionAcks.length > 0
+        ? ` · ${t('terminal.protection_orders_sent', {
+          live: protectionAcks.length - failedProtection.length,
+          total: protectionAcks.length,
+        })}`
+        : '';
+      setLastMessage(`${t('terminal.order_sent', { id: orderId || clientOrderId })}${protectionMsg}`);
       setConfirmAction(null);
+      if (failedProtection.length > 0) {
+        Alert.alert(
+          t('terminal.protection_partial'),
+          t('terminal.protection_rejected', {
+            live: protectionAcks.length - failedProtection.length,
+            total: protectionAcks.length,
+            message: failedProtection[0]?.message || t('terminal.unknown_reason'),
+          }),
+        );
+      }
       await refreshOpenOrders();
     } catch (e) {
       Alert.alert(t('terminal.order_not_sent'), errorMessage(e, t));
@@ -585,6 +667,7 @@ export default function TerminalScreen() {
     refreshOpenOrders,
     selectedAccount,
     selectedExchange,
+    positionMode,
     side,
     singleSlText,
     singleTpText,
@@ -599,6 +682,10 @@ export default function TerminalScreen() {
     if (!draft || previewOrders.length === 0) return;
     if (!instrument || instrument.state !== 'live') {
       Alert.alert(t('terminal.grid_not_sent'), t('terminal.select_live_ticker', { exchange: exchangeLabel(selectedExchange) }));
+      return;
+    }
+    if (selectedExchange === 'binance' && venue === 'spot' && draft.tpPercent) {
+      Alert.alert(t('terminal.grid_not_sent'), t('terminal.binance_spot_tpsl_unavailable'));
       return;
     }
     const validOrders = previewOrders.filter((order) => !order.warning);
@@ -630,6 +717,26 @@ export default function TerminalScreen() {
       if (liveAcks.length === 0) {
         throw new Error(failedAcks[0]?.message || t('terminal.no_grid_orders_accepted', { exchange: exchangeLabel(selectedExchange) }));
       }
+      const liveClientIds = new Set(liveAcks.map((ack) => ack.clOrdId));
+      const protectionRequests = selectedExchange === 'binance'
+        ? validOrders
+          .filter((order) => liveClientIds.has(order.clOrdId))
+          .flatMap((order) => buildBinanceProtectionOrders({
+              instId,
+              venue,
+              side: 'buy',
+              quantity: order.quantity,
+              tpPrice: order.tpPrice,
+              slPrice: order.slPrice,
+              positionMode: draft.positionMode,
+              posSide: positionSideFor('buy'),
+              clientIdPrefix: `acgp${order.index}`,
+            }))
+        : [];
+      const limitedProtectionRequests = protectionRequests.slice(0, BINANCE_MAX_PROTECTION_ORDERS);
+      const skippedProtection = protectionRequests.length - limitedProtectionRequests.length;
+      const protectionAcks = await placeBinanceProtectionOrders(keys, limitedProtectionRequests, t);
+      const failedProtection = protectionAcks.filter((ack) => !ack.ok);
 
       const now = new Date().toISOString();
       const plan: GridPlan = {
@@ -641,29 +748,55 @@ export default function TerminalScreen() {
         updatedAt: now,
         draft,
         orders: validOrders,
-        exchangeOrderIds: result.map((ack) => ({
-          clOrdId: ack.clOrdId,
-          ordId: ack.ordId,
-          state: ack.ok ? 'live' : 'failed',
-          message: ack.ok ? undefined : ack.message,
-        })),
+        exchangeOrderIds: [
+          ...result.map((ack) => ({
+            clOrdId: ack.clOrdId,
+            ordId: ack.ordId,
+            state: ack.ok ? 'live' : 'failed',
+            message: ack.ok ? undefined : ack.message,
+          })),
+          ...protectionAcks.map((ack) => ({
+            clOrdId: ack.clOrdId,
+            ordId: ack.ordId,
+            state: ack.ok ? 'live' : 'failed',
+            message: ack.ok ? undefined : ack.message,
+            algo: true,
+          })),
+        ],
       };
       await saveGridPlan(plan);
       setGridPlans(await loadGridPlans());
       const totalSent = orders.length;
       const skippedMsg = skippedCount > 0 ? t('terminal.skipped_min', { count: skippedCount }) : '';
-      setLastMessage(t('terminal.grid_sent', { live: liveAcks.length, total: totalSent, skipped: skippedMsg }));
+      const protectionMsg = protectionAcks.length > 0
+        ? ` · ${t('terminal.protection_orders_sent', {
+          live: protectionAcks.length - failedProtection.length,
+          total: protectionAcks.length,
+        })}`
+        : '';
+      setLastMessage(`${t('terminal.grid_sent', { live: liveAcks.length, total: totalSent, skipped: skippedMsg })}${protectionMsg}`);
       setConfirmAction(null);
-      if (failedAcks.length > 0) {
+      if (failedAcks.length > 0 || failedProtection.length > 0 || skippedProtection > 0) {
         Alert.alert(
           t('terminal.grid_partial'),
-          t('terminal.grid_rejected', {
-            live: liveAcks.length,
-            total: totalSent,
-            exchange: exchangeLabel(selectedExchange),
-            failed: failedAcks.length,
-            message: failedAcks[0]?.message || t('terminal.unknown_reason'),
-          }),
+          skippedProtection > 0
+            ? t('terminal.protection_limit_reached', {
+              sent: limitedProtectionRequests.length,
+              total: protectionRequests.length,
+            })
+            : failedProtection.length > 0
+            ? t('terminal.protection_rejected', {
+              live: protectionAcks.length - failedProtection.length,
+              total: protectionAcks.length,
+              message: failedProtection[0]?.message || t('terminal.unknown_reason'),
+            })
+            : t('terminal.grid_rejected', {
+              live: liveAcks.length,
+              total: totalSent,
+              exchange: exchangeLabel(selectedExchange),
+              failed: failedAcks.length,
+              message: failedAcks[0]?.message || t('terminal.unknown_reason'),
+            }),
         );
       }
       await refreshOpenOrders();
@@ -691,19 +824,7 @@ export default function TerminalScreen() {
     setBusy(true);
     try {
       const keys = selectedAccount ? await loadKeys(selectedAccount) : undefined;
-      // Only cancel orders the exchange actually accepted — failed/skipped ones never existed there.
-      const orders = plan.exchangeOrderIds
-        .filter((order) => order.state !== 'failed' && (order.ordId || order.clOrdId))
-        .map((order) => ({
-          instId: plan.draft.instId,
-          ordId: order.ordId || undefined,
-          clOrdId: order.ordId ? undefined : order.clOrdId,
-        }));
-      if (keys?.passphrase && orders.length > 0) {
-        await cancelExchangeOrders(plan.exchange, keys, plan.draft.venue, plan.draft.instId, orders, t);
-      } else if (keys && selectedAccount?.exchange === 'binance' && orders.length > 0) {
-        await cancelExchangeOrders(plan.exchange, keys, plan.draft.venue, plan.draft.instId, orders, t);
-      }
+      if (keys) await cancelPlanExchangeOrders(plan, keys, t);
       setGridPlans(await updateGridPlan(plan.id, (item) => ({
         ...item,
         status: nextStatus,
@@ -730,16 +851,24 @@ export default function TerminalScreen() {
     setBusy(true);
     try {
       const keys = await requireKeys(selectedAccount, t);
-      const result = await closeOkxPosition(keys, {
-        instId: plan.draft.instId,
-        mgnMode: plan.draft.marginMode,
-        posSide: plan.draft.positionMode === 'long_short_mode' ? 'long' : 'net',
-        autoCxl: true,
-        clOrdId: makeClientOrderId('close'),
-      });
-      if (result.error) throw new Error(t('terminal.network_error', { exchange: 'OKX' }));
-      const envelopeError = okxEnvelopeFailed(result.data);
-      if (envelopeError) throw new Error(envelopeError);
+      if (plan.exchange === 'okx') {
+        const result = await closeOkxPosition(keys, {
+          instId: plan.draft.instId,
+          mgnMode: plan.draft.marginMode,
+          posSide: plan.draft.positionMode === 'long_short_mode' ? 'long' : 'net',
+          autoCxl: true,
+          clOrdId: makeClientOrderId('close'),
+        });
+        if (result.error) throw new Error(t('terminal.network_error', { exchange: 'OKX' }));
+        const envelopeError = okxEnvelopeFailed(result.data);
+        if (envelopeError) throw new Error(envelopeError);
+      } else if (plan.exchange === 'binance') {
+        await cancelPlanExchangeOrders(plan, keys, t);
+        await closeBinancePlanPosition(keys, plan, t);
+      } else {
+        await cancelPlanExchangeOrders(plan, keys, t);
+        await closeBybitPlanPosition(keys, plan, t);
+      }
       setGridPlans(await updateGridPlan(plan.id, (item) => ({
         ...item,
         status: 'completed',
@@ -1098,6 +1227,9 @@ export default function TerminalScreen() {
                         </View>
                         <View style={styles.planActions}>
                           <PlanButton label={t('terminal.cancel_grid')} danger onPress={() => { setTargetPlan(plan); setConfirmAction('cancel-plan'); }} />
+                          {plan.draft.venue === 'swap' ? (
+                            <PlanButton label={t('terminal.close_position')} danger onPress={() => { setTargetPlan(plan); setConfirmAction('close-plan'); }} />
+                          ) : null}
                           <PlanButton label={t('terminal.recalc')} onPress={() => editPlan(plan)} />
                         </View>
                       </View>
@@ -1189,6 +1321,83 @@ function buildAlgoAttachment(order: GridOrderPreview): import('../src/api/okxTra
   };
 }
 
+function buildBinanceProtectionOrders(params: {
+  instId: string;
+  venue: TradingVenue;
+  side: TradeSide;
+  quantity: number;
+  tpPrice?: number;
+  slPrice?: number;
+  positionMode: PositionMode;
+  posSide?: 'long' | 'short';
+  clientIdPrefix: string;
+}): BinanceAlgoOrderRequest[] {
+  if (params.venue !== 'swap' || params.quantity <= 0 || (!params.tpPrice && !params.slPrice)) return [];
+  const closeSide: 'BUY' | 'SELL' = params.side === 'buy' ? 'SELL' : 'BUY';
+  const positionSide: 'BOTH' | 'LONG' | 'SHORT' = params.posSide === 'short' ? 'SHORT' : params.posSide === 'long' ? 'LONG' : 'BOTH';
+  const quantity = formatDecimal(params.quantity);
+  const base = {
+    algoType: 'CONDITIONAL' as const,
+    symbol: params.instId,
+    side: closeSide,
+    quantity,
+    positionSide,
+    workingType: 'CONTRACT_PRICE' as const,
+    ...(params.positionMode === 'net_mode' ? { reduceOnly: true } : {}),
+  };
+  const orders: BinanceAlgoOrderRequest[] = [];
+  if (params.tpPrice) {
+    orders.push({
+      ...base,
+      type: 'TAKE_PROFIT_MARKET',
+      triggerPrice: formatDecimal(params.tpPrice),
+      clientAlgoId: makeClientOrderId(`${params.clientIdPrefix}tp`),
+    });
+  }
+  if (params.slPrice) {
+    orders.push({
+      ...base,
+      type: 'STOP_MARKET',
+      triggerPrice: formatDecimal(params.slPrice),
+      clientAlgoId: makeClientOrderId(`${params.clientIdPrefix}sl`),
+    });
+  }
+  return orders;
+}
+
+async function placeBinanceProtectionOrders(
+  keys: NonNullable<Awaited<ReturnType<typeof loadKeys>>>,
+  orders: BinanceAlgoOrderRequest[],
+  t: TFunction,
+): Promise<UnifiedAck[]> {
+  const acks: UnifiedAck[] = [];
+  for (const order of orders) {
+    const result = await placeBinanceAlgoOrder(keys, order);
+    if (result.error) {
+      acks.push({
+        ok: false,
+        clOrdId: order.clientAlgoId ?? '',
+        message: t('terminal.network_error', { exchange: 'Binance' }),
+      });
+    } else if (result.data.code && String(result.data.code) !== '200') {
+      acks.push({
+        ok: false,
+        clOrdId: order.clientAlgoId ?? result.data.clientAlgoId ?? '',
+        ordId: result.data.algoId ? String(result.data.algoId) : undefined,
+        message: result.data.msg || `Binance algo error ${result.data.code}`,
+      });
+    } else {
+      acks.push({
+        ok: true,
+        clOrdId: result.data.clientAlgoId ?? order.clientAlgoId ?? '',
+        ordId: result.data.algoId ? String(result.data.algoId) : undefined,
+      });
+    }
+    if (orders.length > 1) await sleep(250);
+  }
+  return acks;
+}
+
 async function requireKeys(account: ExchangeAccount, t: TFunction): Promise<NonNullable<Awaited<ReturnType<typeof loadKeys>>>> {
   const keys = await loadKeys(account);
   if (!keys) throw new Error(t('terminal.keys_not_found', { exchange: exchangeLabel(account.exchange as TradingExchange) }));
@@ -1225,6 +1434,17 @@ function okxFeeReserveRate(fee?: OkxTradeFee): number {
 function binanceFeeReserveRate(fee?: BinanceCommission): number {
   const maker = Number(fee?.standardCommission?.maker ?? NaN);
   const taker = Number(fee?.standardCommission?.taker ?? NaN);
+  const exchangeRate = Math.max(
+    Number.isFinite(maker) ? Math.abs(maker) : 0,
+    Number.isFinite(taker) ? Math.abs(taker) : 0,
+  );
+  return Math.min(0.01, Math.max(exchangeRate, 0.001) + 0.0002);
+}
+
+function bybitFeeReserveRate(fee?: BybitFeeRateResponse): number {
+  const first = fee?.list?.[0];
+  const maker = Number(first?.makerFeeRate ?? NaN);
+  const taker = Number(first?.takerFeeRate ?? NaN);
   const exchangeRate = Math.max(
     Number.isFinite(maker) ? Math.abs(maker) : 0,
     Number.isFinite(taker) ? Math.abs(taker) : 0,
@@ -1273,11 +1493,14 @@ function sortInstruments(instruments: OkxInstrument[], exchange: TradingExchange
 }
 
 function exchangeLabel(exchange: TradingExchange): string {
-  return exchange === 'binance' ? 'Binance' : 'OKX';
+  if (exchange === 'binance') return 'Binance';
+  if (exchange === 'bybit') return 'Bybit';
+  return 'OKX';
 }
 
 function tickerLast(ticker?: TerminalTicker): string | undefined {
   if (!ticker) return undefined;
+  if ('lastPrice' in ticker) return formatDecimal(ticker.lastPrice);
   return formatDecimal('last' in ticker ? ticker.last : ticker.price);
 }
 
@@ -1290,11 +1513,15 @@ function openOrderSide(order: TerminalOpenOrder): string {
 }
 
 function openOrderType(order: TerminalOpenOrder): string {
-  return 'ordType' in order ? order.ordType : order.type;
+  if ('ordType' in order) return order.ordType;
+  if ('orderType' in order) return order.orderType;
+  return order.type;
 }
 
 function openOrderClientId(order: TerminalOpenOrder): string {
-  return 'clOrdId' in order ? order.clOrdId || order.ordId : order.clientOrderId || String(order.orderId);
+  if ('clOrdId' in order) return order.clOrdId || order.ordId;
+  if ('orderLinkId' in order) return order.orderLinkId || order.orderId;
+  return order.clientOrderId || String(order.orderId);
 }
 
 function openOrderPrice(order: TerminalOpenOrder): string {
@@ -1303,17 +1530,33 @@ function openOrderPrice(order: TerminalOpenOrder): string {
 }
 
 function openOrderSize(order: TerminalOpenOrder): string {
-  return formatDecimal('sz' in order ? order.sz : order.origQty);
+  if ('sz' in order) return formatDecimal(order.sz);
+  if ('origQty' in order) return formatDecimal(order.origQty);
+  return formatDecimal(order.leavesQty || order.qty);
 }
 
 function openOrderState(order: TerminalOpenOrder): string {
-  return 'state' in order ? order.state : order.status;
+  if ('state' in order) return order.state;
+  if ('orderStatus' in order) return order.orderStatus;
+  return order.status;
 }
 
 async function fetchPublicInstruments(exchange: TradingExchange, venue: TradingVenue): Promise<OkxInstrument[]> {
   if (exchange === 'okx') {
     const res = await fetchOkxPublicInstruments(venue);
     return res.data?.code === '0' ? sortInstruments(res.data.data, exchange) : [];
+  }
+  if (exchange === 'bybit') {
+    const category = bybitCategory(venue);
+    const instruments: BybitInstrumentInfo[] = [];
+    let cursor: string | undefined;
+    do {
+      const res = await fetchBybitInstruments(category, undefined, cursor);
+      if (res.data?.retCode !== 0) break;
+      instruments.push(...(res.data.result.list ?? []));
+      cursor = res.data.result.nextPageCursor || undefined;
+    } while (cursor);
+    return sortInstruments(instruments.map((item) => normalizeBybitInstrument(item, venue)), exchange);
   }
   const res = await fetchBinanceExchangeInfo(venue);
   return res.data ? sortInstruments(res.data.symbols.map((item) => normalizeBinanceInstrument(item, venue)), exchange) : [];
@@ -1328,6 +1571,12 @@ async function fetchInstrument(
     const res = await fetchOkxPublicInstruments(venue, instId);
     return res.data?.code === '0' ? res.data.data.find((item) => item.instId === instId) : undefined;
   }
+  if (exchange === 'bybit') {
+    const res = await fetchBybitInstruments(bybitCategory(venue), instId);
+    return res.data?.retCode === 0 && res.data.result.list[0]
+      ? normalizeBybitInstrument(res.data.result.list[0], venue)
+      : undefined;
+  }
   const res = await fetchBinanceExchangeInfo(venue, instId);
   return res.data?.symbols[0] ? normalizeBinanceInstrument(res.data.symbols[0], venue) : undefined;
 }
@@ -1340,6 +1589,10 @@ async function fetchTicker(
   if (exchange === 'okx') {
     const res = await fetchOkxTicker(instId);
     return res.data?.code === '0' ? res.data.data[0] : undefined;
+  }
+  if (exchange === 'bybit') {
+    const res = await fetchBybitTicker(bybitCategory(venue), instId);
+    return res.data?.retCode === 0 ? res.data.result.list[0] : undefined;
   }
   const res = await fetchBinanceTicker(venue, instId);
   return res.data;
@@ -1354,6 +1607,10 @@ async function fetchTradeFeeReserveRate(
   if (exchange === 'okx') {
     const res = await fetchOkxTradeFee(keys, venue, instId);
     return okxFeeReserveRate(res.data?.code === '0' ? res.data.data[0] : undefined);
+  }
+  if (exchange === 'bybit') {
+    const res = await fetchBybitFeeRate(keys, bybitCategory(venue), instId);
+    return bybitFeeReserveRate(res.data?.retCode === 0 ? res.data.result : undefined);
   }
   if (venue === 'spot') {
     const res = await fetchBinanceCommission(keys, instId);
@@ -1373,6 +1630,13 @@ async function fetchCurrentLeverage(
     const info = res.data?.code === '0' ? res.data.data[0] : undefined;
     return parsePositiveNumber(info?.lever ?? '');
   }
+  if (exchange === 'bybit') {
+    const res = await fetchBybitPositions(keys, 'linear', 'USDT');
+    const position = res.data?.retCode === 0
+      ? res.data.result?.list.find((item) => item.symbol === instId)
+      : undefined;
+    return parsePositiveNumber(position?.leverage ?? '');
+  }
   const res = await fetchBinanceLeverageBracket(keys, instId);
   const bracket = Array.isArray(res.data) ? res.data[0] : res.data;
   return bracket?.brackets?.[0]?.initialLeverage;
@@ -1389,6 +1653,14 @@ async function fetchDepositQuote(
     if (res.data?.code !== '0') return 0;
     const detail = res.data.data[0]?.details.find((item) => item.ccy.toUpperCase() === quoteCcy.toUpperCase());
     return parsePositiveNumber(detail?.availBal ?? detail?.availEq ?? detail?.eq ?? '') ?? 0;
+  }
+  if (exchange === 'bybit') {
+    const res = await fetchBybitWallet(keys);
+    if (res.data?.retCode !== 0) return 0;
+    const coin = res.data.result.list
+      .flatMap((wallet) => wallet.coin)
+      .find((item) => item.coin.toUpperCase() === quoteCcy.toUpperCase());
+    return parsePositiveNumber(coin?.availableToWithdraw ?? coin?.walletBalance ?? coin?.equity ?? '') ?? 0;
   }
   if (venue === 'swap') {
     const res = await fetchBinanceFuturesBalance(keys);
@@ -1409,6 +1681,10 @@ async function fetchOpenOrders(
   if (exchange === 'okx') {
     const res = await fetchOkxPendingOrders(keys, instId, venue);
     return res.data?.code === '0' ? res.data.data : [];
+  }
+  if (exchange === 'bybit') {
+    const res = await fetchBybitOpenOrders(keys, bybitCategory(venue), instId);
+    return res.data?.retCode === 0 ? res.data.result.list : [];
   }
   const res = await fetchBinanceOpenOrders(keys, venue, instId);
   return res.data ?? [];
@@ -1437,6 +1713,41 @@ async function applyExchangeSwapSettings(
     return;
   }
 
+  if (exchange === 'bybit') {
+    const leverage = String(Math.max(1, Math.round(payload.leverage)));
+    if (payload.positionMode === 'long_short_mode') {
+      const modeRes = await switchBybitPositionMode(keys, {
+        category: 'linear',
+        symbol: payload.instId,
+        mode: 3,
+      });
+      if (modeRes.error) throw new Error(t('terminal.position_mode_failed'));
+      assertBybitOk(modeRes.data, t('terminal.bybit_position_mode_api_forbidden'), [0, 110025]);
+    }
+
+    if (payload.marginMode === 'isolated') {
+      const marginRes = await switchBybitMarginMode(keys, {
+        category: 'linear',
+        symbol: payload.instId,
+        tradeMode: 1,
+        buyLeverage: leverage,
+        sellLeverage: leverage,
+      });
+      if (marginRes.error) throw new Error(t('terminal.margin_mode_failed'));
+      assertBybitOk(marginRes.data, t('terminal.bybit_margin_mode_api_forbidden'), [0, 110026]);
+    }
+
+    const leverageRes = await setBybitLeverage(keys, {
+      category: 'linear',
+      symbol: payload.instId,
+      buyLeverage: leverage,
+      sellLeverage: leverage,
+    });
+    if (leverageRes.error) throw new Error(t('terminal.leverage_failed'));
+    assertBybitOk(leverageRes.data, t('terminal.bybit_leverage_api_forbidden'), [0, 110043]);
+    return;
+  }
+
   await setBinancePositionMode(keys, payload.positionMode);
   await setBinanceMarginType(keys, payload.instId, payload.marginMode);
   const leverageRes = await setBinanceLeverage(keys, payload.instId, payload.leverage);
@@ -1457,7 +1768,7 @@ function buildSingleOrderPayload(
     clientOrderId: string;
     posSide?: 'long' | 'short';
   },
-): OkxOrderRequest | BinanceOrderRequest {
+): OkxOrderRequest | BinanceOrderRequest | BybitOrderRequest {
   if (exchange === 'okx') {
     const payload: OkxOrderRequest = {
       instId: params.instId,
@@ -1473,6 +1784,30 @@ function buildSingleOrderPayload(
     if (params.orderType === 'limit') payload.px = params.price.toString();
     if (params.venue === 'spot' && params.orderType === 'market' && params.side === 'buy') payload.tgtCcy = 'quote_ccy';
     if (params.venue === 'swap' && params.posSide) payload.posSide = params.posSide;
+    return payload;
+  }
+
+  if (exchange === 'bybit') {
+    const payload: BybitOrderRequest = {
+      category: bybitCategory(params.venue),
+      symbol: params.instId,
+      side: params.side === 'buy' ? 'Buy' : 'Sell',
+      orderType: params.orderType === 'limit' ? 'Limit' : 'Market',
+      qty: params.venue === 'spot' && params.orderType === 'market' && params.side === 'buy'
+        ? params.quoteAmount.toFixed(8)
+        : params.quantity.toString(),
+      orderLinkId: params.clientOrderId,
+    };
+    if (params.orderType === 'limit') {
+      payload.timeInForce = 'GTC';
+      payload.price = params.price.toString();
+    } else {
+      payload.timeInForce = 'IOC';
+    }
+    if (params.venue === 'spot' && params.orderType === 'market' && params.side === 'buy') {
+      payload.marketUnit = 'quoteCoin';
+    }
+    if (params.venue === 'swap') payload.positionIdx = bybitPositionIdx(params.posSide);
     return payload;
   }
 
@@ -1505,7 +1840,7 @@ function buildGridOrderPayload(
     posSide?: 'long' | 'short';
     algoAttachment: import('../src/api/okxTrade').OkxAlgoAttachment | null;
   },
-): OkxOrderRequest | BinanceOrderRequest {
+): OkxOrderRequest | BinanceOrderRequest | BybitOrderRequest {
   if (exchange === 'okx') {
     return {
       instId: params.instId,
@@ -1518,6 +1853,31 @@ function buildGridOrderPayload(
       tag: 'AirCapital',
       ...(params.venue === 'swap' && params.posSide ? { posSide: params.posSide } : {}),
       ...(params.algoAttachment ? { attachAlgoOrds: [params.algoAttachment] } : {}),
+    };
+  }
+  if (exchange === 'bybit') {
+    return {
+      category: bybitCategory(params.venue),
+      symbol: params.instId,
+      side: 'Buy',
+      orderType: 'Limit',
+      timeInForce: 'GTC',
+      price: params.order.price.toString(),
+      qty: params.order.quantity.toString(),
+      orderLinkId: params.order.clOrdId,
+      ...(params.venue === 'swap' ? { positionIdx: bybitPositionIdx(params.posSide) } : {}),
+      ...(params.order.tpPrice ? {
+        takeProfit: String(params.order.tpPrice),
+        tpTriggerBy: 'LastPrice' as const,
+        tpslMode: params.venue === 'swap' ? 'Partial' as const : undefined,
+        tpOrderType: 'Market' as const,
+      } : {}),
+      ...(params.order.slPrice && params.venue === 'swap' ? {
+        stopLoss: String(params.order.slPrice),
+        slTriggerBy: 'LastPrice' as const,
+        tpslMode: 'Partial' as const,
+        slOrderType: 'Market' as const,
+      } : {}),
     };
   }
   return {
@@ -1536,7 +1896,7 @@ async function placeSingleExchangeOrder(
   exchange: TradingExchange,
   keys: NonNullable<Awaited<ReturnType<typeof loadKeys>>>,
   venue: TradingVenue,
-  payload: OkxOrderRequest | BinanceOrderRequest,
+  payload: OkxOrderRequest | BinanceOrderRequest | BybitOrderRequest,
   t: TFunction,
 ): Promise<string | undefined> {
   if (exchange === 'okx') {
@@ -1547,6 +1907,12 @@ async function placeSingleExchangeOrder(
     const failed = result.data.data.find((ack) => ack.sCode !== '0');
     if (failed) throw new Error(failed.sMsg || `OKX order error ${failed.sCode}`);
     return result.data.data[0]?.ordId;
+  }
+  if (exchange === 'bybit') {
+    const result = await placeBybitOrder(keys, payload as BybitOrderRequest);
+    if (result.error) throw new Error(t('terminal.network_error', { exchange: 'Bybit' }));
+    assertBybitOk(result.data, result.data.retMsg || 'Bybit order error');
+    return result.data.result.orderId || result.data.result.orderLinkId;
   }
   const result = await placeBinanceOrder(keys, venue, payload as BinanceOrderRequest);
   if (result.error) throw new Error(t('terminal.network_error', { exchange: 'Binance' }));
@@ -1565,7 +1931,7 @@ async function placeGridExchangeOrders(
   exchange: TradingExchange,
   keys: NonNullable<Awaited<ReturnType<typeof loadKeys>>>,
   venue: TradingVenue,
-  orders: (OkxOrderRequest | BinanceOrderRequest)[],
+  orders: (OkxOrderRequest | BinanceOrderRequest | BybitOrderRequest)[],
   t: TFunction,
 ): Promise<UnifiedAck[]> {
   if (exchange === 'okx') {
@@ -1580,6 +1946,25 @@ async function placeGridExchangeOrders(
       ordId: ack.ordId,
       message: ack.sCode !== '0' ? ack.sMsg : undefined,
     }));
+  }
+  if (exchange === 'bybit') {
+    const result = await placeBybitBatchOrders(keys, bybitCategory(venue), orders as BybitOrderRequest[]);
+    if (result.error) throw new Error(t('terminal.network_error', { exchange: 'Bybit' }));
+    if (result.data.retCode !== 0 && result.data.result.list.length === 0) {
+      throw new Error(result.data.retMsg || `Bybit batch error ${result.data.retCode}`);
+    }
+    const retList = result.data.retExtInfo?.list ?? [];
+    return (orders as BybitOrderRequest[]).map((order, index) => {
+      const ack = result.data.result.list[index];
+      const ret = retList[index];
+      const ok = !ret || ret.code === 0;
+      return {
+        ok,
+        clOrdId: ack?.orderLinkId || order.orderLinkId || '',
+        ordId: ack?.orderId,
+        message: ok ? undefined : ret?.msg,
+      };
+    });
   }
   const result = await placeBinanceGridOrders(keys, venue, orders as BinanceOrderRequest[]);
   if (result.error) throw new Error(t('terminal.network_error', { exchange: 'Binance' }));
@@ -1611,11 +1996,126 @@ async function cancelExchangeOrders(
     }
     return;
   }
+  if (exchange === 'bybit') {
+    const result = await cancelBybitBatchOrders(keys, bybitCategory(venue), instId, orders.map((order) => ({
+      orderId: order.ordId,
+      orderLinkId: order.clOrdId,
+    })));
+    if (result.error) throw new Error(t('terminal.network_error', { exchange: 'Bybit' }));
+    if (result.data.retCode !== 0 && result.data.result.list.length === 0) {
+      throw new Error(result.data.retMsg || `Bybit cancel error ${result.data.retCode}`);
+    }
+    return;
+  }
   const result = await cancelBinanceOrders(keys, venue, instId, orders.map((order) => ({
     orderId: order.ordId,
     clientOrderId: order.clOrdId,
   })));
   if (result.error) throw new Error(t('terminal.network_error', { exchange: 'Binance' }));
+}
+
+async function cancelPlanExchangeOrders(
+  plan: GridPlan,
+  keys: NonNullable<Awaited<ReturnType<typeof loadKeys>>>,
+  t: TFunction,
+): Promise<void> {
+  if (plan.exchange === 'okx' && !keys.passphrase) return;
+  const acceptedOrders = plan.exchangeOrderIds.filter((order) => order.state !== 'failed' && (order.ordId || order.clOrdId));
+  const normalOrders = acceptedOrders.filter((order) => !order.algo);
+  const algoOrders = acceptedOrders.filter((order) => order.algo);
+
+  if (normalOrders.length > 0) {
+    await cancelExchangeOrders(
+      plan.exchange,
+      keys,
+      plan.draft.venue,
+      plan.draft.instId,
+      normalOrders.map((order) => ({
+        ordId: order.ordId || undefined,
+        clOrdId: order.ordId ? undefined : order.clOrdId,
+      })),
+      t,
+    );
+  }
+
+  if (plan.exchange === 'binance' && algoOrders.length > 0) {
+    const result = await cancelBinanceAlgoOrders(keys, algoOrders.map((order) => ({
+      algoId: order.ordId,
+      clientAlgoId: order.ordId ? undefined : order.clOrdId,
+    })));
+    if (result.error) throw new Error(t('terminal.network_error', { exchange: 'Binance' }));
+  }
+}
+
+async function closeBinancePlanPosition(
+  keys: NonNullable<Awaited<ReturnType<typeof loadKeys>>>,
+  plan: GridPlan,
+  t: TFunction,
+): Promise<void> {
+  const riskRes = await fetchBinancePositionRisk(keys, plan.draft.instId);
+  if (riskRes.error) throw new Error(t('terminal.network_error', { exchange: 'Binance' }));
+  const position = findBinancePlanPosition(riskRes.data, plan);
+  const amount = parsePositiveNumber(position?.positionAmt?.replace('-', '') ?? '');
+  if (!position || !amount) throw new Error(t('terminal.no_position_to_close'));
+  const rawAmount = Number(position.positionAmt);
+  const side = rawAmount >= 0 ? 'SELL' : 'BUY';
+  const payload: BinanceOrderRequest = {
+    symbol: plan.draft.instId,
+    side,
+    type: 'MARKET',
+    quantity: formatDecimal(amount),
+    newClientOrderId: makeClientOrderId('close'),
+    positionSide: position.positionSide,
+    ...(plan.draft.positionMode === 'net_mode' ? { reduceOnly: true } : {}),
+  };
+  const orderRes = await placeBinanceOrder(keys, 'swap', payload);
+  if (orderRes.error) throw new Error(t('terminal.network_error', { exchange: 'Binance' }));
+  if (orderRes.data.code) throw new Error(orderRes.data.msg || `Binance order error ${orderRes.data.code}`);
+}
+
+async function closeBybitPlanPosition(
+  keys: NonNullable<Awaited<ReturnType<typeof loadKeys>>>,
+  plan: GridPlan,
+  t: TFunction,
+): Promise<void> {
+  const positionRes = await fetchBybitPositions(keys, 'linear', 'USDT');
+  if (positionRes.error) throw new Error(t('terminal.network_error', { exchange: 'Bybit' }));
+  if (positionRes.data.retCode !== 0) throw new Error(`Bybit position error ${positionRes.data.retCode}`);
+  const position = findBybitPlanPosition(positionRes.data, plan);
+  const amount = parsePositiveNumber(position?.size ?? '');
+  if (!position || !amount) throw new Error(t('terminal.no_position_to_close'));
+  const side = position.side === 'Buy' ? 'Sell' : 'Buy';
+  const payload: BybitOrderRequest = {
+    category: 'linear',
+    symbol: plan.draft.instId,
+    side,
+    orderType: 'Market',
+    qty: formatDecimal(amount),
+    orderLinkId: makeClientOrderId('close'),
+    positionIdx: bybitPositionIdxFromRaw(position.positionIdx),
+    reduceOnly: true,
+  };
+  const orderRes = await placeBybitOrder(keys, payload);
+  if (orderRes.error) throw new Error(t('terminal.network_error', { exchange: 'Bybit' }));
+  assertBybitOk(orderRes.data, orderRes.data.retMsg || 'Bybit close error');
+}
+
+function findBinancePlanPosition(positions: BinancePositionRisk[], plan: GridPlan): BinancePositionRisk | undefined {
+  const side = plan.draft.positionMode === 'long_short_mode' ? 'LONG' : 'BOTH';
+  return positions.find((position) => (
+    position.symbol === plan.draft.instId
+    && position.positionSide === side
+    && Number(position.positionAmt) !== 0
+  ));
+}
+
+function findBybitPlanPosition(response: BybitPositionResponse, plan: GridPlan): NonNullable<BybitPositionResponse['result']>['list'][number] | undefined {
+  const positionIdx = plan.draft.positionMode === 'long_short_mode' ? 1 : 0;
+  return response.result?.list.find((position) => (
+    position.symbol === plan.draft.instId
+    && (position.positionIdx ?? 0) === positionIdx
+    && Number(position.size) !== 0
+  ));
 }
 
 function positionMatchesInstrument(position: PositionItem, instId: string, exchange: TradingExchange): boolean {
@@ -1647,6 +2147,46 @@ function netColor(value?: number): string {
   return 'rgba(255,255,255,0.55)';
 }
 
+function bybitCategory(venue: TradingVenue): BybitCategory {
+  return venue === 'spot' ? 'spot' : 'linear';
+}
+
+function bybitPositionIdx(posSide?: 'long' | 'short'): 0 | 1 | 2 {
+  if (posSide === 'long') return 1;
+  if (posSide === 'short') return 2;
+  return 0;
+}
+
+function bybitPositionIdxFromRaw(value?: number): 0 | 1 | 2 {
+  return value === 1 || value === 2 ? value : 0;
+}
+
+function assertBybitOk(envelope: { retCode: number; retMsg?: string }, fallback: string, okCodes = [0]): void {
+  if (okCodes.includes(envelope.retCode)) return;
+  if (envelope.retCode === 100028 || envelope.retCode === 110067) throw new Error(fallback);
+  throw new Error(envelope.retMsg || fallback || `Bybit error ${envelope.retCode}`);
+}
+
+function normalizeBybitInstrument(item: BybitInstrumentInfo, venue: TradingVenue): OkxInstrument {
+  const lot = item.lotSizeFilter;
+  return {
+    instType: venue === 'spot' ? 'SPOT' : 'SWAP',
+    instId: item.symbol,
+    baseCcy: item.baseCoin,
+    quoteCcy: item.quoteCoin,
+    settleCcy: item.settleCoin,
+    tickSz: item.priceFilter.tickSize || '0.01',
+    lotSz: lot.qtyStep ?? lot.basePrecision ?? '0.000001',
+    minSz: lot.minOrderQty ?? lot.basePrecision ?? '0',
+    minNotional: lot.minNotionalValue ?? lot.minOrderAmt,
+    maxLmtSz: lot.maxOrderQty ?? lot.maxLimitOrderQty,
+    maxMktSz: lot.maxMktOrderQty ?? lot.maxMarketOrderQty,
+    lever: item.leverageFilter?.maxLeverage,
+    state: item.status === 'Trading' ? 'live' : item.status.toLowerCase(),
+    ctVal: '1',
+  };
+}
+
 function normalizeBinanceInstrument(item: BinanceSymbolInfo, venue: TradingVenue): OkxInstrument {
   const priceFilter = item.filters.find((filter) => filter.filterType === 'PRICE_FILTER');
   const lotFilter = item.filters.find((filter) => filter.filterType === 'LOT_SIZE');
@@ -1667,4 +2207,8 @@ function normalizeBinanceInstrument(item: BinanceSymbolInfo, venue: TradingVenue
     state: item.status === 'TRADING' ? 'live' : item.status.toLowerCase(),
     ctVal: '1',
   };
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

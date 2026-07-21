@@ -74,6 +74,7 @@ export interface BinanceOrderRequest {
   timeInForce?: 'GTC';
   newClientOrderId?: string;
   positionSide?: 'BOTH' | 'LONG' | 'SHORT';
+  reduceOnly?: boolean;
 }
 
 export interface BinanceOrderAck {
@@ -95,6 +96,43 @@ export interface BinanceOpenOrder {
   status: string;
   type: string;
   side: string;
+}
+
+export interface BinancePositionRisk {
+  symbol: string;
+  positionAmt: string;
+  positionSide: 'BOTH' | 'LONG' | 'SHORT';
+  entryPrice: string;
+  markPrice: string;
+  unRealizedProfit: string;
+}
+
+export interface BinanceAlgoOrderRequest {
+  algoType: 'CONDITIONAL';
+  symbol: string;
+  side: 'BUY' | 'SELL';
+  type: 'STOP_MARKET' | 'TAKE_PROFIT_MARKET';
+  triggerPrice: string;
+  quantity?: string;
+  closePosition?: boolean;
+  clientAlgoId?: string;
+  positionSide?: 'BOTH' | 'LONG' | 'SHORT';
+  reduceOnly?: boolean;
+  workingType?: 'CONTRACT_PRICE' | 'MARK_PRICE';
+  priceProtect?: boolean;
+}
+
+export interface BinanceAlgoOrderAck {
+  algoId?: number;
+  clientAlgoId?: string;
+  algoType?: string;
+  orderType?: string;
+  symbol?: string;
+  side?: string;
+  positionSide?: string;
+  algoStatus?: string;
+  code?: number | string;
+  msg?: string;
 }
 
 export async function fetchBinanceExchangeInfo(
@@ -131,6 +169,13 @@ export async function fetchBinanceLeverageBracket(
   symbol: string,
 ): Promise<ApiResult<BinanceLeverageBracket | BinanceLeverageBracket[]>> {
   return signedRequest('swap', 'GET', '/fapi/v1/leverageBracket', { symbol }, keys);
+}
+
+export async function fetchBinancePositionRisk(
+  keys: APIKeys,
+  symbol: string,
+): Promise<ApiResult<BinancePositionRisk[]>> {
+  return signedRequest('swap', 'GET', '/fapi/v3/positionRisk', { symbol }, keys);
 }
 
 export async function setBinancePositionMode(
@@ -171,6 +216,13 @@ export async function placeBinanceOrder(
 ): Promise<ApiResult<BinanceOrderAck>> {
   const path = venue === 'spot' ? '/api/v3/order' : '/fapi/v1/order';
   return signedRequest(venue, 'POST', path, { ...order, newOrderRespType: 'ACK' }, keys);
+}
+
+export async function placeBinanceAlgoOrder(
+  keys: APIKeys,
+  order: BinanceAlgoOrderRequest,
+): Promise<ApiResult<BinanceAlgoOrderAck>> {
+  return signedRequest('swap', 'POST', '/fapi/v1/algoOrder', { ...order }, keys);
 }
 
 export async function placeBinanceGridOrders(
@@ -224,6 +276,22 @@ export async function cancelBinanceOrders(
     }, keys);
     if (result.data) all.push(result.data);
     await delay(SPOT_ORDER_DELAY_MS);
+  }
+  return { data: all };
+}
+
+export async function cancelBinanceAlgoOrders(
+  keys: APIKeys,
+  orders: { algoId?: string; clientAlgoId?: string }[],
+): Promise<ApiResult<BinanceAlgoOrderAck[]>> {
+  const all: BinanceAlgoOrderAck[] = [];
+  for (const order of orders) {
+    const result = await signedRequest<BinanceAlgoOrderAck>('swap', 'DELETE', '/fapi/v1/algoOrder', {
+      ...(order.algoId ? { algoId: order.algoId } : { clientAlgoId: order.clientAlgoId }),
+    }, keys);
+    if (result.error) return result;
+    all.push(result.data);
+    await delay(250);
   }
   return { data: all };
 }
@@ -287,7 +355,7 @@ async function signedRequest<T>(
   venue: TradingVenue,
   method: 'GET' | 'POST' | 'DELETE',
   path: string,
-  params: Record<string, string | number | undefined>,
+  params: Record<string, string | number | boolean | undefined>,
   keys: APIKeys,
 ): Promise<ApiResult<T>> {
   const query = signedQuery(params, keys.secretKey);
@@ -304,7 +372,7 @@ async function signedRequest<T>(
   }
 }
 
-function signedQuery(params: Record<string, string | number | undefined>, secret: string): string {
+function signedQuery(params: Record<string, string | number | boolean | undefined>, secret: string): string {
   const query = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {
     if (value != null && value !== '') query.set(key, String(value));

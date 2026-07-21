@@ -2,10 +2,10 @@
   "expo": {
     "name": "AirCapital",
     "slug": "AirCapital",
-    "version": "2.2.0428.1",
+    "version": "2.2.428",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "AirCapital",
+    "scheme": "aircapital",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "ios": {
@@ -42,7 +42,9 @@
           "backgroundColor": "#0D1219"
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-font",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,

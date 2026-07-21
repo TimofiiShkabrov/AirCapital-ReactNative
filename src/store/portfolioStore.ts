@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { getAllAccounts, loadKeys } from '../services/secureStore';
 import { addSnapshots } from '../services/balanceHistory';
-import { errorKey, formatApiError } from '../services/errorHelper';
+import { formatApiError } from '../services/errorHelper';
 import i18n from '../i18n';
 import type {
   ExchangeAccount,

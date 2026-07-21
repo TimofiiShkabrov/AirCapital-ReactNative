@@ -73,6 +73,7 @@ export default function AccountDetailsScreen() {
   const balance = portfolio.getAccountBalance(account);
   const walletSections = portfolio.getWalletTypeSections(account);
   const label = accountLabel(account, accounts, t);
+  const accountFailure = portfolio.accountFailures[account.id];
 
   return (
     <View style={styles.root}>
@@ -103,6 +104,19 @@ export default function AccountDetailsScreen() {
               <Text style={styles.overviewBalance}>{balance.toFixed(2)} USDT</Text>
             </View>
           </LiquidSurface>
+          {accountFailure ? (
+            <LiquidSurface radius={Radius.lg}>
+              <View style={styles.errorBanner}>
+                <View style={styles.errorIcon}>
+                  <Ionicons name="warning" size={16} color="#FF9500" />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.errorTitle}>{t('exchange.account_error_title')}</Text>
+                  <Text style={styles.errorText}>{accountFailure}</Text>
+                </View>
+              </View>
+            </LiquidSurface>
+          ) : null}
 
           {/* Balance chart */}
           <SectionHeader title={t('details.section.balance')} />
@@ -191,6 +205,30 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#FFFFFF',
     fontVariant: ['tabular-nums'],
+  },
+  errorBanner: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: Spacing.md,
+    padding: Spacing.lg,
+  },
+  errorIcon: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,149,0,0.16)',
+  },
+  errorTitle: {
+    fontSize: FontSize.subheadline,
+    fontWeight: '700',
+    color: '#FFFFFF',
+  },
+  errorText: {
+    marginTop: 2,
+    fontSize: FontSize.caption,
+    color: 'rgba(255,149,0,0.82)',
   },
   chartCard: {
     padding: Spacing.lg,
