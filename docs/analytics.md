@@ -39,11 +39,11 @@ The app sends only static `screen_view` names: `overview`, `exchanges`, `statist
 
 The web URL and measurement ID match source code. Enhanced measurement is configured for page loads and scrolls; browser-history page views, outgoing clicks, site search, forms, videos and downloads are disabled to avoid overlap with the site's explicit events. Google signals and user-provided data collection are off. The Internal Traffic filter is in testing mode, so it does not discard visitors. Advertising personalization is disabled for all regions. The event-scoped custom dimension `Action` maps to `action`. `download_click` is registered as a key event once per session, with no default monetary value; it measures a store-link click, not an installation. The coming-soon buttons do not send it.
 
-The initial Railway fallback was resolved by selecting `TimofiiShkabrov/AirCapital-ReactNative` / `main` and setting `PORT=80` to match domain routing. The deployed `/`, `/demo`, `/faq`, `/contact` and `/healthz` all returned HTTP 200. Live browser checks confirmed no Google tag before consent or after refusal, and exactly one matching Google tag script after acceptance. Receipt of events in GA Realtime remains a release check.
+The initial Railway fallback was resolved by selecting `TimofiiShkabrov/AirCapital-ReactNative` / `main` and setting `PORT=80` to match domain routing. The deployed `/`, `/demo`, `/faq`, `/contact` and `/healthz` all returned HTTP 200. Live browser checks confirmed no Google tag before consent or after refusal, and exactly one matching Google tag script after acceptance. Live GA Realtime receipt was confirmed later the same day: one active user, two `page_view` events (home and demo), plus `demo_open`, `demo_tab_change` and `session_start`. The setup checker still reported no tag because its visit does not grant consent; this is expected with basic consent mode and does not override the verified event receipt.
 
 ## Delivery validation
 
-Local policy tests cover opt-in, persisted consent, refusal, pending-event cancellation, storage failure, visibility, deduplication and route sanitization. These are not proof of delivery to Google.
+Local policy tests cover opt-in, persisted consent, refusal, pending-event cancellation, storage failure, visibility, deduplication and route sanitization. These are not proof of delivery to Google; the separate live web delivery check above is. Native delivery still needs an installed release build.
 
 Local iOS simulator Release build succeeded with native Firebase; compiled privacy defaults were verified. Android Expo prebuild and JavaScript export are checked separately; this machine lacks Java/Android SDK, so no local APK build was performed.
 

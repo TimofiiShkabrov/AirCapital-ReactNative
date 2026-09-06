@@ -4,7 +4,7 @@ export const SITE = {
   origin: process.env.EXPO_PUBLIC_SITE_URL || "",
   appStore: process.env.EXPO_PUBLIC_APP_STORE_URL || "",
   googlePlay: process.env.EXPO_PUBLIC_GOOGLE_PLAY_URL || "",
-  email: process.env.EXPO_PUBLIC_CONTACT_EMAIL || "",
+  email: process.env.EXPO_PUBLIC_CONTACT_EMAIL || "timofii.shkabrov@gmail.com",
   telegram: process.env.EXPO_PUBLIC_TELEGRAM_URL || "",
 };
 export function publicLink(
