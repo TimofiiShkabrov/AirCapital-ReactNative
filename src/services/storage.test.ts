@@ -1,133 +1,136 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { GridPlan } from '../trading/types';
-import type { ExchangeAccount } from '../types/common';
-import { deleteAccount, getAllAccounts, loadKeys, saveAccount } from './secureStore';
-import { loadGridPlans, saveGridPlan, updateGridPlan } from './gridPlansStore';
+import { describe, expect, it } from "vitest";
+import { storage } from "../test/setup";
+import {
+  deleteAccount,
+  getAllAccounts,
+  loadKeys,
+  saveAccount,
+} from "./secureStore";
+import { readPrivate, writePrivate } from "./encryptedStorage";
+import {
+  addSnapshot,
+  getSnapshots,
+  removeAccountHistory,
+} from "./balanceHistory";
+import { loadArchivedPlans } from "./legacyPlans";
 
-const mockState = vi.hoisted(() => ({
-  asyncStorage: new Map<string, string>(),
-  secureStorage: new Map<string, string>(),
-}));
-
-vi.mock('@react-native-async-storage/async-storage', () => ({
-  default: {
-    getItem: vi.fn((key: string) => Promise.resolve(mockState.asyncStorage.get(key) ?? null)),
-    setItem: vi.fn((key: string, value: string) => {
-      mockState.asyncStorage.set(key, value);
-      return Promise.resolve();
-    }),
-    removeItem: vi.fn((key: string) => {
-      mockState.asyncStorage.delete(key);
-      return Promise.resolve();
-    }),
-  },
-}));
-
-vi.mock('expo-secure-store', () => ({
-  getItemAsync: vi.fn((key: string) => Promise.resolve(mockState.secureStorage.get(key) ?? null)),
-  setItemAsync: vi.fn((key: string, value: string) => {
-    mockState.secureStorage.set(key, value);
-    return Promise.resolve();
-  }),
-  deleteItemAsync: vi.fn((key: string) => {
-    mockState.secureStorage.delete(key);
-    return Promise.resolve();
-  }),
-}));
-
-const gridPlan = (id: string, updatedAt: string): GridPlan => ({
-  id,
-  accountId: 'account-1',
-  exchange: 'okx',
-  status: 'active',
-  createdAt: updatedAt,
-  updatedAt,
-  draft: {
-    venue: 'spot',
-    instId: 'BTC-USDT',
-    quoteCcy: 'USDT',
-    totalQuote: 100,
-    minPrice: 90,
-    maxPrice: 110,
-    spacingMode: 'count',
-    gridCount: 3,
-    martingalePercent: 0,
-    marginMode: 'cross',
-    positionMode: 'net_mode',
-    leverage: 1,
-  },
-  orders: [],
-  exchangeOrderIds: [],
-});
-
-describe('secure account storage', () => {
-  beforeEach(() => {
-    mockState.asyncStorage.clear();
-    mockState.secureStorage.clear();
+const keys = {
+  apiKey: "test-key",
+  secretKey: "test-secret",
+  passphrase: "test-passphrase",
+};
+describe("protected storage and migration", () => {
+  it("separates credentials and encrypts account metadata and financial history", async () => {
+    const account = await saveAccount(keys, "okx", " Private account ");
+    await addSnapshot({ type: "account", accountId: account.id }, 123.456);
+    expect((await getAllAccounts())[0].label).toBe("Private account");
+    expect(await loadKeys(account)).toEqual(keys);
+    const raw = Array.from(storage.data.values()).join(" ");
+    expect(raw).not.toContain("Private account");
+    expect(raw).not.toContain("123.456");
+    expect(raw).not.toContain("test-secret");
   });
-
-  it('stores account metadata separately from API keys', async () => {
-    const account = await saveAccount(
-      { apiKey: 'api-key', secretKey: 'secret-key', passphrase: 'passphrase' },
-      'okx',
-      ' Main ',
-    );
-
-    expect(account.label).toBe('Main');
-    expect(await getAllAccounts()).toEqual([account]);
-    expect(await loadKeys(account)).toEqual({
-      apiKey: 'api-key',
-      secretKey: 'secret-key',
-      passphrase: 'passphrase',
-    });
+  it("D-05: serializes concurrent saves without losing either account", async () => {
+    await Promise.all([saveAccount(keys, "binance"), saveAccount(keys, "okx")]);
+    expect(await getAllAccounts()).toHaveLength(2);
   });
-
-  it('sorts accounts by exchange order and created date', async () => {
-    const accounts: ExchangeAccount[] = [
-      { id: 'late-okx', exchange: 'okx', createdAt: '2024-01-02T00:00:00.000Z' },
-      { id: 'binance', exchange: 'binance', createdAt: '2024-01-03T00:00:00.000Z' },
-      { id: 'early-okx', exchange: 'okx', createdAt: '2024-01-01T00:00:00.000Z' },
-    ];
-    mockState.asyncStorage.set('aircapital.exchangeAccounts.v1', JSON.stringify(accounts));
-
-    expect((await getAllAccounts()).map((account) => account.id)).toEqual(['binance', 'early-okx', 'late-okx']);
-  });
-
-  it('deletes account metadata and all secure key entries', async () => {
-    const account = await saveAccount({ apiKey: 'api', secretKey: 'secret', passphrase: 'pass' }, 'okx');
-
+  it("S-02: failed key deletion remains visible and can be retried", async () => {
+    const account = await saveAccount(keys, "okx");
+    storage.rejectDelete = true;
+    await expect(deleteAccount(account)).rejects.toThrow("deletionPending");
+    expect((await getAllAccounts())[0].state).toBe("deletionPending");
+    expect(storage.secrets.has(`account_${account.id}_apiKey`)).toBe(true);
+    storage.rejectDelete = false;
     await deleteAccount(account);
-
     expect(await getAllAccounts()).toEqual([]);
     expect(await loadKeys(account)).toBeNull();
   });
-});
-
-describe('grid plan storage', () => {
-  beforeEach(() => {
-    mockState.asyncStorage.clear();
-    mockState.secureStorage.clear();
+  it("preserves a recoverable record when secret setup fails", async () => {
+    storage.rejectSecretWrite = true;
+    await expect(saveAccount(keys, "binance")).rejects.toThrow();
+    const account = (await getAllAccounts())[0];
+    expect(account.state).toBe("setupPending");
+    storage.rejectSecretWrite = false;
+    await deleteAccount(account);
+    expect(await getAllAccounts()).toEqual([]);
   });
-
-  it('saves newest plan first and updates plans in place', async () => {
-    await saveGridPlan(gridPlan('old', '2024-01-01T00:00:00.000Z'));
-    await saveGridPlan(gridPlan('new', '2024-01-02T00:00:00.000Z'));
-
-    const updated = await updateGridPlan('old', (plan) => ({
-      ...plan,
-      status: 'paused',
-      updatedAt: '2024-01-03T00:00:00.000Z',
-    }));
-
-    expect(updated.find((plan) => plan.id === 'old')?.status).toBe('paused');
-    expect((await loadGridPlans()).map((plan) => plan.id)).toEqual(['old', 'new']);
+  it("does not fall back to plaintext when secure storage is unavailable", async () => {
+    storage.available = false;
+    await expect(saveAccount(keys, "binance")).rejects.toThrow(
+      "secureStorageUnavailable",
+    );
+    expect(storage.data.size).toBe(0);
   });
-
-  it('migrates legacy OKX grid plans to the current storage key', async () => {
-    const legacy = gridPlan('legacy', '2024-01-01T00:00:00.000Z');
-    mockState.asyncStorage.set('aircapital.okx.gridPlans.v1', JSON.stringify([legacy]));
-
-    expect(await loadGridPlans()).toEqual([legacy]);
-    expect(mockState.asyncStorage.has('aircapital.trading.gridPlans.v2')).toBe(true);
+  it("migrates plaintext history, including true zeros and negative equity", async () => {
+    storage.data.set(
+      "aircapital.balanceSnapshots.v1",
+      JSON.stringify([
+        {
+          id: "old",
+          scope: { type: "total" },
+          timestamp: "2026-01-01T00:00:00Z",
+          balanceUSDT: 100,
+        },
+      ]),
+    );
+    await addSnapshot({ type: "total" }, 0);
+    const history = await getSnapshots({ type: "total" });
+    expect(history.map((s) => s.balanceUSDT)).toEqual([100, 0]);
+    expect(history[0].calculationVersion).toBeUndefined();
+    await addSnapshot({ type: "account", accountId: "negative" }, -10);
+    expect(
+      (await getSnapshots({ type: "account", accountId: "negative" }))[0]
+        .balanceUSDT,
+    ).toBe(-10);
+    expect(storage.data.get("aircapital.balanceSnapshots.v1")).not.toContain(
+      "balanceUSDT",
+    );
+  });
+  it("rejects ciphertext tampering without resetting or overwriting the data", async () => {
+    await writePrivate("private", { balance: 100 });
+    const box = JSON.parse(storage.data.get("private")!);
+    box.ciphertext =
+      (box.ciphertext[0] === "0" ? "1" : "0") + box.ciphertext.slice(1);
+    const corrupted = JSON.stringify(box);
+    storage.data.set("private", corrupted);
+    await expect(readPrivate("private", {})).rejects.toThrow();
+    expect(storage.data.get("private")).toBe(corrupted);
+  });
+  it("does not generate a replacement key when encrypted data loses its key", async () => {
+    await writePrivate("private", { balance: 100 });
+    storage.secrets.clear();
+    await expect(readPrivate("private", {})).rejects.toThrow(
+      "encryptionKeyMissing",
+    );
+    expect(storage.secrets.size).toBe(0);
+  });
+  it("archives existing orders and plan data without making an exchange request", async () => {
+    const original = {
+      id: "plan",
+      exchange: "okx",
+      draft: { instId: "BTC-USDT", totalQuote: 123 },
+      exchangeOrderIds: ["existing-order"],
+    };
+    storage.data.set(
+      "aircapital.trading.gridPlans.v2",
+      JSON.stringify([original]),
+    );
+    const plans = await loadArchivedPlans();
+    expect(plans[0].orderIds).toEqual(["existing-order"]);
+    expect(plans[0].legacy).toEqual(original);
+    expect(await loadArchivedPlans()).toEqual(plans);
+    expect(storage.data.has("aircapital.trading.gridPlans.v2")).toBe(false);
+    expect(fetch).not.toHaveBeenCalled();
+  });
+  it("removes related aggregate history while retaining unrelated account snapshots", async () => {
+    await addSnapshot({ type: "total" }, 100);
+    await addSnapshot({ type: "account", accountId: "a" }, 40);
+    await addSnapshot({ type: "account", accountId: "b" }, 60);
+    await removeAccountHistory("a");
+    expect(await getSnapshots({ type: "total" })).toEqual([]);
+    expect(await getSnapshots({ type: "account", accountId: "a" })).toEqual([]);
+    expect(
+      await getSnapshots({ type: "account", accountId: "b" }),
+    ).toHaveLength(1);
   });
 });

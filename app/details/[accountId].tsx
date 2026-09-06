@@ -1,256 +1,111 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from "react";
+import { ScrollView, View, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
+import { usePortfolioStore } from "../../src/store/portfolioStore";
+import { getSnapshots } from "../../src/services/balanceHistory";
+import { periodHistory, periodMetrics } from "../../src/domain/analytics";
+import { useMonitorTheme } from "../../src/components/monitor/theme";
 import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-} from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useTranslation } from 'react-i18next';
-import { Ionicons } from '@expo/vector-icons';
-
-import LiquidBackground from '../../src/components/ui/LiquidBackground';
-import LiquidSurface from '../../src/components/ui/LiquidSurface';
-import SectionHeader from '../../src/components/ui/SectionHeader';
-import BalanceChart from '../../src/components/charts/BalanceChart';
-import WalletTypeRow from '../../src/components/exchange/WalletTypeRow';
-
-import { useAccountsStore } from '../../src/store/accountsStore';
-import { usePortfolioStore } from '../../src/store/portfolioStore';
-import { getSnapshots } from '../../src/services/balanceHistory';
-import { EXCHANGE_CONFIG } from '../../src/constants/exchanges';
-import type { BalanceSnapshot, ChartRange, WalletTypeSection } from '../../src/types/common';
-import { chartRangeLabel } from '../../src/types/common';
-import { FontSize, Radius, Spacing } from '../../src/constants/theme';
-import { accountLabel } from '../../src/utils/accounts';
-
-const CHART_RANGES: ChartRange[] = ['day', 'week', 'month'];
-
-export default function AccountDetailsScreen() {
-  const { accountId } = useLocalSearchParams<{ accountId: string }>();
-  const router = useRouter();
-  const { t } = useTranslation();
-  const accounts = useAccountsStore((s) => s.accounts);
-  const portfolio = usePortfolioStore();
-
-  const account = accounts.find((a) => a.id === accountId);
-  const [snapshots, setSnapshots] = useState<BalanceSnapshot[]>([]);
-  const [chartRange, setChartRange] = useState<ChartRange>('day');
-
-  useEffect(() => {
-    if (!accountId) return;
-    getSnapshots({ type: 'account', accountId }).then(setSnapshots);
-  }, [accountId]);
-
-  const handleWalletPress = useCallback(
-    (section: WalletTypeSection) => {
-      portfolio.setSelectedWalletSection(section);
-      router.push({
-        pathname: '/wallet',
-        params: { accountId: accountId!, sectionId: section.id },
+  Card,
+  Heading,
+  IconButton,
+  Label,
+  Action,
+  useMoney,
+  s,
+} from "../../src/components/monitor/primitives";
+import HistoryChart from "../../src/components/monitor/HistoryChart";
+import WalletDetails from "../../src/components/monitor/WalletDetails";
+import { EXCHANGE_CONFIG } from "../../src/constants/exchanges";
+import type { BalanceSnapshot } from "../../src/types/common";
+export default function AccountDetails() {
+  const { accountId } = useLocalSearchParams<{ accountId: string }>(),
+    router = useRouter(),
+    { t } = useTranslation(),
+    c = useMonitorTheme(),
+    money = useMoney(),
+    portfolio = usePortfolioStore();
+  const loadData = usePortfolioStore((s) => s.loadData);
+  const [history, setHistory] = useState<BalanceSnapshot[]>([]),
+    [error, setError] = useState(false);
+  const account = portfolio.accounts.find((a) => a.id === accountId),
+    observation = portfolio.observations[accountId],
+    sync = portfolio.sync[accountId];
+  useFocusEffect(
+    useCallback(() => {
+      void loadData().then(async () => {
+        try {
+          setHistory(await getSnapshots({ type: "account", accountId }));
+        } catch {
+          setError(true);
+        }
       });
-    },
-    [accountId, portfolio, router],
+    }, [accountId, loadData]),
   );
-
-  if (!account) {
-    return (
-      <View style={styles.root}>
-        <LiquidBackground />
-        <SafeAreaView style={styles.fill}>
-          <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
-            <Ionicons name="chevron-back" size={24} color="rgba(255,255,255,0.75)" />
-          </TouchableOpacity>
-        </SafeAreaView>
-      </View>
-    );
-  }
-
-  const config = EXCHANGE_CONFIG[account.exchange];
-  const balance = portfolio.getAccountBalance(account);
-  const walletSections = portfolio.getWalletTypeSections(account);
-  const label = accountLabel(account, accounts, t);
-  const accountFailure = portfolio.accountFailures[account.id];
-
+  const snapshots = periodHistory(history, "month", Date.now(), [accountId]),
+    metrics = periodMetrics(snapshots, [accountId]);
   return (
-    <View style={styles.root}>
-      <LiquidBackground />
-      <SafeAreaView style={styles.fill}>
-        <View style={styles.navBar}>
-          <TouchableOpacity onPress={() => router.back()} hitSlop={8}>
-            <Ionicons name="chevron-back" size={24} color="rgba(255,255,255,0.75)" />
-          </TouchableOpacity>
-          <Text style={styles.navTitle}>{config.label}</Text>
-          <View style={{ width: 32 }} />
-        </View>
-
-        <ScrollView
-          style={styles.scroll}
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          {/* Overview card */}
-          <SectionHeader title={t('details.section.overview')} />
-          <LiquidSurface radius={Radius.xxl}>
-            <View style={styles.overviewInner}>
-              <Image source={config.logo} style={styles.logo} resizeMode="contain" />
-              <View style={styles.overviewMeta}>
-                <Text style={styles.overviewName}>{config.label}</Text>
-                {label ? <Text style={styles.overviewLabel}>{label}</Text> : null}
-              </View>
-              <Text style={styles.overviewBalance}>{balance.toFixed(2)} USDT</Text>
-            </View>
-          </LiquidSurface>
-          {accountFailure ? (
-            <LiquidSurface radius={Radius.lg}>
-              <View style={styles.errorBanner}>
-                <View style={styles.errorIcon}>
-                  <Ionicons name="warning" size={16} color="#FF9500" />
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.errorTitle}>{t('exchange.account_error_title')}</Text>
-                  <Text style={styles.errorText}>{accountFailure}</Text>
-                </View>
-              </View>
-            </LiquidSurface>
-          ) : null}
-
-          {/* Balance chart */}
-          <SectionHeader title={t('details.section.balance')} />
-          <LiquidSurface radius={Radius.xxl}>
-            <View style={styles.chartCard}>
-              <View style={styles.rangeRow}>
-                {CHART_RANGES.map((r) => (
-                  <TouchableOpacity
-                    key={r}
-                    style={[styles.rangeBtn, chartRange === r && styles.rangeBtnActive]}
-                    onPress={() => setChartRange(r)}
-                  >
-                    <Text style={[styles.rangeBtnText, chartRange === r && styles.rangeBtnTextActive]}>
-                      {chartRangeLabel(r)}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-              <BalanceChart snapshots={snapshots} range={chartRange} height={160} />
-            </View>
-          </LiquidSurface>
-
-          {/* Wallet sections */}
-          <SectionHeader title={t('details.section.wallets')} />
-          <View style={styles.walletList}>
-            {walletSections.map((section, index) => (
-              <WalletTypeRow
-                key={section.id}
-                section={section}
-                isFirst={index === 0}
-                isLast={index === walletSections.length - 1}
-                onPress={() => handleWalletPress(section)}
-              />
-            ))}
-          </View>
-
-          <View style={{ height: 40 }} />
-        </ScrollView>
-      </SafeAreaView>
-    </View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }}>
+      <View
+        style={[
+          s.row,
+          { paddingHorizontal: 20 },
+          c.rtl && { flexDirection: "row-reverse" },
+        ]}
+      >
+        <IconButton
+          label={t("monitor.back")}
+          icon="arrow-back"
+          onPress={() =>
+            router.canGoBack() ? router.back() : router.replace("/")
+          }
+        />
+        <Heading>
+          {account
+            ? EXCHANGE_CONFIG[account.exchange].label
+            : t("monitor.accounts")}
+        </Heading>
+        <IconButton
+          label={t("monitor.settings")}
+          icon="settings-outline"
+          onPress={() => router.push("/settings")}
+        />
+      </View>
+      <ScrollView contentContainerStyle={s.page}>
+        {error && <Label>{t("monitor.storageError")}</Label>}
+        <Card>
+          <Label>{account?.label || t("monitor.balance")}</Label>
+          <Text style={{ fontSize: 34, fontWeight: "600", color: c.text }}>
+            {sync?.status === "partial" ? "≈ " : ""}
+            {money(observation?.balanceUSDT)}{" "}
+            <Text style={{ fontSize: 14 }}>USDT</Text>
+          </Text>
+          <Label>{t(`monitor.${sync?.status ?? "error"}`)}</Label>
+          {sync?.error && (
+            <Label>
+              {t(`monitor.${sync.error}`, {
+                defaultValue: t("monitor.genericError"),
+              })}
+            </Label>
+          )}
+          {metrics && (
+            <Text
+              style={{ color: metrics.delta < 0 ? c.negative : c.positive }}
+            >
+              {money(metrics.delta, true)} USDT (
+              {money(metrics.percent, true, true)})
+            </Text>
+          )}
+          <HistoryChart snapshots={snapshots} />
+        </Card>
+        <WalletDetails observation={observation} sync={sync} />
+        <Action
+          label={t("monitor.flows")}
+          onPress={() => router.push("/flows")}
+        />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  root: { flex: 1 },
-  fill: { flex: 1 },
-  navBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
-  },
-  navTitle: {
-    fontSize: FontSize.headline,
-    fontWeight: '700',
-    color: '#FFFFFF',
-  },
-  backBtn: {
-    padding: Spacing.md,
-  },
-  scroll: { flex: 1 },
-  scrollContent: {
-    paddingHorizontal: Spacing.lg,
-    gap: Spacing.sm,
-  },
-  overviewInner: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: Spacing.md,
-    padding: Spacing.lg,
-  },
-  logo: { width: 36, height: 36, borderRadius: 10 },
-  overviewMeta: { flex: 1 },
-  overviewName: {
-    fontSize: FontSize.headline,
-    fontWeight: '700',
-    color: '#FFFFFF',
-  },
-  overviewLabel: {
-    fontSize: FontSize.caption,
-    color: 'rgba(255,255,255,0.50)',
-  },
-  overviewBalance: {
-    fontSize: FontSize.headline,
-    fontWeight: '600',
-    color: '#FFFFFF',
-    fontVariant: ['tabular-nums'],
-  },
-  errorBanner: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: Spacing.md,
-    padding: Spacing.lg,
-  },
-  errorIcon: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255,149,0,0.16)',
-  },
-  errorTitle: {
-    fontSize: FontSize.subheadline,
-    fontWeight: '700',
-    color: '#FFFFFF',
-  },
-  errorText: {
-    marginTop: 2,
-    fontSize: FontSize.caption,
-    color: 'rgba(255,149,0,0.82)',
-  },
-  chartCard: {
-    padding: Spacing.lg,
-    gap: Spacing.md,
-  },
-  rangeRow: {
-    flexDirection: 'row',
-    gap: Spacing.xs,
-  },
-  rangeBtn: {
-    flex: 1,
-    paddingVertical: 6,
-    borderRadius: 8,
-    alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255,0.06)',
-  },
-  rangeBtnActive: { backgroundColor: 'rgba(0,212,255,0.18)' },
-  rangeBtnText: {
-    fontSize: FontSize.caption,
-    fontWeight: '600',
-    color: 'rgba(255,255,255,0.45)',
-  },
-  rangeBtnTextActive: { color: 'rgba(0,212,255,0.95)' },
-  walletList: {},
-});

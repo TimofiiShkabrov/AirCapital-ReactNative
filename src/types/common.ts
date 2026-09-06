@@ -1,8 +1,15 @@
-export type Exchange = 'binance' | 'bybit' | 'bingx' | 'okx' | 'gateio';
+export type Exchange = "binance" | "bybit" | "bingx" | "okx" | "gateio";
 
-export const ALL_EXCHANGES: Exchange[] = ['binance', 'bybit', 'bingx', 'okx', 'gateio'];
+export const ALL_EXCHANGES: Exchange[] = [
+  "binance",
+  "bybit",
+  "bingx",
+  "okx",
+  "gateio",
+];
 
 export interface ExchangeAccount {
+  state?: "active" | "setupPending" | "deletionPending";
   id: string;
   exchange: Exchange;
   label?: string;
@@ -26,7 +33,7 @@ export interface PositionItem {
   netPercentChange?: number;
   feeUSDT?: number;
   investedUSDT?: number;
-  kind: 'spot' | 'futures';
+  kind: "spot" | "futures";
 }
 
 export interface ExchangeDetailRow {
@@ -45,6 +52,8 @@ export interface WalletTypeSection {
 }
 
 export interface BalanceSnapshot {
+  calculationVersion?: 2;
+  members?: string[];
   id: string;
   scope: BalanceScope;
   timestamp: string;
@@ -52,35 +61,44 @@ export interface BalanceSnapshot {
 }
 
 export type BalanceScope =
-  | { type: 'total' }
-  | { type: 'account'; accountId: string }
-  | { type: 'exchange'; exchange: Exchange };
+  | { type: "total" }
+  | { type: "account"; accountId: string }
+  | { type: "exchange"; exchange: Exchange };
 
-export type ChartRange = 'day' | 'week' | 'month';
+export type ChartRange = "day" | "week" | "month" | "all";
 
 export function chartRangeLabel(range: ChartRange): string {
   switch (range) {
-    case 'day': return '24H';
-    case 'week': return '7D';
-    case 'month': return '30D';
+    case "all":
+      return "ALL";
+    case "day":
+      return "24H";
+    case "week":
+      return "7D";
+    case "month":
+      return "30D";
   }
 }
 
 export function chartRangeStartDate(range: ChartRange): Date {
   const now = new Date();
   switch (range) {
-    case 'day':
+    case "all":
+      return new Date(0);
+    case "day":
       return new Date(now.getTime() - 24 * 60 * 60 * 1000);
-    case 'week':
+    case "week":
       return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-    case 'month':
+    case "month":
       return new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
   }
 }
 
 export function scopeEquals(a: BalanceScope, b: BalanceScope): boolean {
   if (a.type !== b.type) return false;
-  if (a.type === 'account' && b.type === 'account') return a.accountId === b.accountId;
-  if (a.type === 'exchange' && b.type === 'exchange') return a.exchange === b.exchange;
+  if (a.type === "account" && b.type === "account")
+    return a.accountId === b.accountId;
+  if (a.type === "exchange" && b.type === "exchange")
+    return a.exchange === b.exchange;
   return true;
 }

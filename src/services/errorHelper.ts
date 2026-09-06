@@ -1,4 +1,5 @@
 export type NetworkError =
+  | 'timeout'
   | 'noData'
   | 'decodingError'
   | 'tooManyRequests'
@@ -30,9 +31,8 @@ export function mapHttpError(status: number): ApiError {
   }
 }
 
-export function mapCatchError(e: unknown): ApiError {
-  const raw = e instanceof Error ? e.message : String(e);
-  return { code: 'unknownError', raw };
+export function mapCatchError(_e: unknown): ApiError {
+  return { code: 'unknownError' };
 }
 
 export function errorCode(error: NetworkError | ApiError): NetworkError {
@@ -56,9 +56,5 @@ export function errorKey(error: NetworkError | ApiError): string {
 
 /** Human-readable message: i18n label + raw network detail if present */
 export function formatApiError(err: ApiError, t: (k: string) => string): string {
-  const base = t(errorKey(err.code));
-  if (err.raw && err.code === 'unknownError') {
-    return `${base}: ${err.raw}`;
-  }
-  return base;
+  return t(errorKey(err.code));
 }

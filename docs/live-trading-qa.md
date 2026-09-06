@@ -1,3 +1,5 @@
+> Historical document for the removed terminal. Do not use these trading scenarios to validate the current read-only app. See [current release checks](release-checklist.md).
+
 # LIVE Trading QA Checklist
 
 Use a separate low-balance exchange account or subaccount. API keys must have Read + Trade only, no Withdraw.

@@ -1,83 +1,118 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { BalanceSnapshot, BalanceScope, ExchangeAccount, Exchange } from '../types/common';
-import { scopeEquals } from '../types/common';
+import type {
+  BalanceSnapshot,
+  BalanceScope,
+  ExchangeAccount,
+  Exchange,
+} from "../types/common";
+import { scopeEquals } from "../types/common";
+import { readPrivate, writePrivate } from "./encryptedStorage";
+import { serialQueue } from "./serial";
 
-const STORAGE_KEY = 'aircapital.balanceSnapshots.v1';
-
-function generateId(): string {
-  return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+const STORAGE_KEY = "aircapital.balanceSnapshots.v1";
+const serial = serialQueue();
+export async function loadAllSnapshots(): Promise<BalanceSnapshot[]> {
+  const all = await readPrivate<BalanceSnapshot[]>(STORAGE_KEY, []);
+  if (
+    !Array.isArray(all) ||
+    all.some(
+      (s) =>
+        !s?.scope ||
+        !Number.isFinite(s.balanceUSDT) ||
+        !Number.isFinite(Date.parse(s.timestamp)),
+    )
+  )
+    throw new Error("invalidHistory");
+  return all;
 }
-
-async function loadAll(): Promise<BalanceSnapshot[]> {
-  try {
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-}
-
-async function saveAll(snapshots: BalanceSnapshot[]): Promise<void> {
-  try {
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(snapshots));
-  } catch {}
-}
-
-export async function getSnapshots(scope: BalanceScope): Promise<BalanceSnapshot[]> {
-  const all = await loadAll();
-  const scoped = all
+export async function getSnapshots(
+  scope: BalanceScope,
+): Promise<BalanceSnapshot[]> {
+  return (await loadAllSnapshots())
     .filter((s) => scopeEquals(s.scope, scope))
-    .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
-  return filterNonZero(scoped);
+    .sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
 }
-
-export async function addSnapshot(scope: BalanceScope, balanceUSDT: number): Promise<void> {
-  const all = await loadAll();
-  const now = new Date();
-  const nowMs = now.getTime();
-
-  const lastIdx = [...all]
-    .reverse()
-    .findIndex((s) => scopeEquals(s.scope, scope));
-  const actualLastIdx = lastIdx === -1 ? -1 : all.length - 1 - lastIdx;
-
-  if (actualLastIdx !== -1) {
-    const last = all[actualLastIdx];
-    const lastMs = new Date(last.timestamp).getTime();
-
-    if (balanceUSDT === 0 && last.balanceUSDT > 0 && nowMs - lastMs < 10 * 60 * 1000) {
-      return;
-    }
-
-    if (nowMs - lastMs < 30 * 60 * 1000) {
-      all[actualLastIdx] = { ...last, timestamp: now.toISOString(), balanceUSDT };
-    } else {
-      all.push({ id: generateId(), scope, timestamp: now.toISOString(), balanceUSDT });
-    }
-  } else {
-    if (balanceUSDT === 0) return;
-    all.push({ id: generateId(), scope, timestamp: now.toISOString(), balanceUSDT });
-  }
-
-  await saveAll(all);
+function append(
+  all: BalanceSnapshot[],
+  scope: BalanceScope,
+  balanceUSDT: number,
+  timestamp: string,
+  members?: string[],
+) {
+  if (!Number.isFinite(balanceUSDT)) throw new Error("invalidBalance");
+  const last = all.filter((s) => scopeEquals(s.scope, scope)).at(-1);
+  // Preserve genuine zeros, negative equity and the initial observation. Only exact duplicate timestamps are replaced.
+  const next: BalanceSnapshot = {
+    id: `${timestamp}-${scope.type}-${all.length}`,
+    scope,
+    timestamp,
+    balanceUSDT,
+    calculationVersion: 2,
+    members: members?.slice().sort(),
+  };
+  if (last?.timestamp === timestamp) all.splice(all.indexOf(last), 1, next);
+  else all.push(next);
 }
-
-export async function addSnapshots(
-  total: number,
+export function addSnapshot(
+  scope: BalanceScope,
+  balanceUSDT: number,
+): Promise<void> {
+  return serial(async () => {
+    const all = await loadAllSnapshots();
+    append(all, scope, balanceUSDT, new Date().toISOString());
+    await writePrivate(STORAGE_KEY, all);
+  });
+}
+export function addSnapshots(
+  total: number | undefined,
   accounts: ExchangeAccount[],
   balances: Record<string, number>,
   exchangeTotals: Partial<Record<Exchange, number>>,
+  timestamp = new Date().toISOString(),
 ): Promise<void> {
-  await addSnapshot({ type: 'total' }, total);
-  for (const account of accounts) {
-    await addSnapshot({ type: 'account', accountId: account.id }, balances[account.id] ?? 0);
-  }
-  for (const [exchange, bal] of Object.entries(exchangeTotals)) {
-    await addSnapshot({ type: 'exchange', exchange: exchange as Exchange }, bal ?? 0);
-  }
+  return serial(async () => {
+    const all = await loadAllSnapshots();
+    if (total !== undefined)
+      append(
+        all,
+        { type: "total" },
+        total,
+        timestamp,
+        accounts.map((a) => a.id),
+      );
+    for (const account of accounts)
+      if (balances[account.id] !== undefined)
+        append(
+          all,
+          { type: "account", accountId: account.id },
+          balances[account.id],
+          timestamp,
+          [account.id],
+        );
+    for (const [exchange, balance] of Object.entries(exchangeTotals))
+      if (balance !== undefined)
+        append(
+          all,
+          { type: "exchange", exchange: exchange as Exchange },
+          balance,
+          timestamp,
+          accounts.filter((a) => a.exchange === exchange).map((a) => a.id),
+        );
+    await writePrivate(STORAGE_KEY, all);
+  });
 }
-
-function filterNonZero(snapshots: BalanceSnapshot[]): BalanceSnapshot[] {
-  const hasNonZero = snapshots.some((s) => s.balanceUSDT > 0.000001);
-  return hasNonZero ? snapshots.filter((s) => s.balanceUSDT > 0.000001) : snapshots;
+export function removeAccountHistory(accountId: string): Promise<void> {
+  return serial(async () => {
+    const all = await loadAllSnapshots();
+    // Aggregate records contain the removed account's data too. Keep unrelated account-level records.
+    await writePrivate(
+      STORAGE_KEY,
+      all.filter((s) =>
+        s.scope.type === "account"
+          ? s.scope.accountId !== accountId
+          : s.members
+            ? !s.members.includes(accountId)
+            : false,
+      ),
+    );
+  });
 }

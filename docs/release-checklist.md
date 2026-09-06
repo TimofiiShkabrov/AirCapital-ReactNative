@@ -1,51 +1,39 @@
-# Release Checklist
+# Release checks for the read-only monitor
 
-## Required Checks
+## Automated
 
-```bash
-npm install
-npm run lint
-npm run test
+```sh
+npm ci
+npm test
 npx tsc --noEmit
-npx expo-doctor
+npm run lint
 npx expo install --check
+npx expo export --platform all --output-dir .expo/monitor-build
 ```
 
-Do not use `npm audit fix --force` casually. At the time this checklist was written, the force fix path wants a breaking Expo SDK upgrade.
+Inspect remaining npm advisories by reachability. Do not apply a forced Expo major upgrade without native validation.
 
-## Native Tooling
+## Native acceptance
 
-- CocoaPods installed and available with `pod --version`.
-- Xcode command line tools installed for iOS builds.
-- Android Studio SDK and emulator installed for Android builds.
-- Restart any running Expo dev server after dependency changes.
+- Rebuild the native client after installing Crypto, Local Authentication, Screen Capture, File System and Sharing.
+- Test cold start, authentication success/cancel/failure, app switcher, background/resume, device lock and network loss on iOS and Android.
+- Verify protected storage migration, interrupted setup/removal, missing encryption key and readable JSON export. An OS backup is not a portable encrypted backup.
+- Test accessibility, larger system fonts, Arabic RTL and light/dark modes on devices.
+- Review the App Store encryption declaration against the newly introduced application encryption before submission.
 
-## App Config
+## Exchange acceptance
 
-- `app.json` scheme is lowercase: `aircapital`.
-- iOS bundle id and Android package are final.
-- App icon, adaptive icon, splash, and favicon are final assets.
-- EAS project id is present.
-- Production profile uses Android app bundle.
+- Use explicit read-only test accounts; never require trading/withdrawal/transfer permission.
+- Reconcile each supported wallet and total against the exchange; test empty and negative equity, non-USDT funding, Earn active/pending/closed, revoked keys and 429/errors.
+- Confirm the global endpoints are available for the target account/region and publish actual product coverage.
+- Inspect the resulting bundle/source graph for order creation/cancellation or account-changing endpoints.
+- Verify old terminal links and grid-plan migration. Existing exchange orders remain on the exchange.
 
-## Security Review
+## Product acceptance
 
-- API setup instructions say Read + Trade only.
-- API setup instructions say Withdraw must stay disabled.
-- LIVE request warnings are visible before trading.
-- Binance Spot TP/SL is blocked until explicitly implemented.
-- Exchange errors are visible per account.
-
-## Store Text Draft
-
-Short description:
-
-AirCapital tracks crypto balances across exchanges and provides controlled LIVE trading tools for OKX, Binance, and Bybit.
-
-Privacy summary:
-
-AirCapital stores exchange API keys locally on the device using secure storage. The app communicates directly with configured exchange APIs to sync balances, positions, and orders. Do not enable withdrawal permissions on exchange API keys.
-
-Support:
-
-For support, include device platform, app version, exchange, account label, approximate time, and the visible API error. Never send API secrets.
+- Demo stays separate from live storage and is visibly labelled.
+- A failed source never produces a fake successful snapshot or unexplained zero.
+- History uses explicit observation dates and matching account membership; legacy calculations remain distinguishable.
+- Cash flows are labelled manual. Confirmed coverage is required for flow-adjusted results; percentages describe balance change.
+- All real credentials are rejected on web. No plaintext localStorage fallback exists.
+- No billing, push delivery or continuous server monitoring is advertised until implemented.
