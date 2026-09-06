@@ -7,6 +7,7 @@ import * as Observations from "./observations";
 import { saveAccount } from "./secureStore";
 import { getSnapshots } from "./balanceHistory";
 import { usePortfolioStore } from "../store/portfolioStore";
+import { connectionStatus } from "../domain/connectionStatus";
 const keys = {
   apiKey: "test-key",
   secretKey: "test-secret",
@@ -49,6 +50,67 @@ function healthyBybit() {
   return { wallet, earn };
 }
 describe("deposit monitoring regression coverage", () => {
+  it("preserves readable wallets when only optional Earn permissions are missing", async () => {
+    const api = healthyBybit();
+    api.earn.mockResolvedValue({
+      data: { retCode: 10005, result: {} },
+    } as never);
+    const result = await Observations.observeAccount(
+      { id: "bybit", exchange: "bybit", createdAt: "2026-09-06" },
+      keys,
+      1,
+    );
+    expect(result).toMatchObject({ balanceUSDT: 100, complete: false });
+    expect(result.issues).toContain("apiPermissionDenied");
+  });
+  it("shows expired keys as an actionable connection issue and preserves saved history", async () => {
+    const account = await saveAccount(keys, "bybit");
+    const api = healthyBybit();
+    await usePortfolioStore.getState().loadData();
+    api.wallet.mockClear();
+    vi.mocked(Bybit.fetchBybitApiKeyInfo).mockResolvedValue({
+      data: { retCode: 33004, result: {} },
+    } as never);
+    vi.setSystemTime(new Date("2026-09-06T11:00:00Z"));
+    await usePortfolioStore.getState().loadData();
+    const state = usePortfolioStore.getState();
+    expect(state.sync[account.id]).toMatchObject({
+      status: "stale",
+      error: "credentialsExpired",
+      lastSuccessAt: "2026-09-06T10:00:00.000Z",
+    });
+    expect(connectionStatus(account, state.sync[account.id])).toBe(
+      "connectionRequired",
+    );
+    expect(state.observations[account.id].balanceUSDT).toBe(110);
+    expect(await getSnapshots({ type: "total" })).toHaveLength(1);
+    expect(api.wallet).not.toHaveBeenCalled();
+    healthyBybit();
+    await usePortfolioStore.getState().loadData();
+    expect(
+      connectionStatus(account, usePortfolioStore.getState().sync[account.id]),
+    ).toBe("fresh");
+  });
+  it("does not blame permissions when key metadata is missing", async () => {
+    healthyBybit();
+    vi.mocked(Bybit.fetchBybitApiKeyInfo).mockResolvedValue({
+      data: { retCode: 0, result: {} },
+    } as never);
+    await expect(Observations.verifyReadOnly("bybit", keys)).rejects.toThrow(
+      "invalidResponse",
+    );
+  });
+  it("does not swallow a revoked key as an empty optional wallet", async () => {
+    vi.spyOn(BingX, "fetchSpotWallet").mockResolvedValue({
+      data: { code: 100401 },
+    } as never);
+    await expect(
+      Observations.observeAccount(
+        { id: "bingx", exchange: "bingx", createdAt: "2026-09-06" },
+        keys,
+      ),
+    ).rejects.toThrow("credentialsRejected");
+  });
   it("D-01: repeated Bybit Earn refresh is idempotent and closed positions disappear", async () => {
     const account = await saveAccount(keys, "bybit"),
       api = healthyBybit();

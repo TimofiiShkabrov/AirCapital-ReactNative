@@ -2,6 +2,35 @@ import { describe, expect, it, vi } from "vitest";
 import { readJson } from "./request";
 import { mapCatchError, formatApiError } from "./errorHelper";
 describe("read-only transport", () => {
+  it.each([
+    [
+      "api.bybit.com",
+      401,
+      { retCode: 33004, retMsg: "sensitive data" },
+      "credentialsExpired",
+    ],
+    ["api.binance.com", 400, { code: -2015 }, "credentialsRejected"],
+    ["www.okx.com", 401, { code: "50110" }, "apiIpRestricted"],
+    ["api.gateio.ws", 401, { label: "INVALID_KEY" }, "credentialsRejected"],
+    ["api.bybit.com", 429, {}, "tooManyRequests"],
+    ["api.bybit.com", 500, { retCode: 33004 }, "exchengeError"],
+  ])(
+    "classifies %s HTTP %s without exposing response messages",
+    async (host, status, body, code) => {
+      vi.spyOn(globalThis, "fetch").mockResolvedValue(
+        new Response(JSON.stringify(body), { status: status as number }),
+      );
+      expect(await readJson(`https://${host}/`)).toEqual({ error: { code } });
+    },
+  );
+  it("preserves a non-JSON WAF response as a temporary access error", async () => {
+    vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response("<html>Blocked</html>", { status: 403 }),
+    );
+    expect(await readJson("https://api.bybit.com/")).toEqual({
+      error: { code: "limitWAF" },
+    });
+  });
   it("only sends GET requests and refuses redirects and unknown hosts", async () => {
     const mock = vi
       .spyOn(globalThis, "fetch")

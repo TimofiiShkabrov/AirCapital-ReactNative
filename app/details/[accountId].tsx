@@ -16,6 +16,8 @@ import {
 } from "../../src/components/monitor/primitives";
 import HistoryChart from "../../src/components/monitor/HistoryChart";
 import WalletDetails from "../../src/components/monitor/WalletDetails";
+import ConnectionNotice from "../../src/components/monitor/ConnectionNotice";
+import { connectionError } from "../../src/domain/connectionStatus";
 import { EXCHANGE_CONFIG } from "../../src/constants/exchanges";
 import { useScreenLoad } from "../../src/hooks/useScreenLoad";
 import { loadAccountData } from "../../src/services/screenData";
@@ -67,20 +69,25 @@ export default function AccountDetails() {
         >
           <Card>
             <Label>{account?.label || t("monitor.balance")}</Label>
-            <Text style={{ fontSize: 34, fontWeight: "600", color: c.text }}>
-              {sync?.status === "partial" ? "≈ " : ""}
-              {money(observation?.balanceUSDT)}{" "}
-              <Text style={{ fontSize: 14 }}>USDT</Text>
-            </Text>
-            <Label>{t(`monitor.${sync?.status ?? "error"}`)}</Label>
-            {sync?.error && (
-              <Label>
-                {t(`monitor.${sync.error}`, {
-                  defaultValue: t("monitor.genericError"),
-                })}
-              </Label>
+            {observation?.balanceUSDT !== undefined ? (
+              <Text style={{ fontSize: 34, fontWeight: "600", color: c.text }}>
+                {sync?.status === "partial" ? "≈ " : ""}
+                {money(observation?.balanceUSDT)}{" "}
+                <Text style={{ fontSize: 14 }}>USDT</Text>
+              </Text>
+            ) : (
+              <Heading>{t("monitor.balanceUnavailable")}</Heading>
             )}
-            {metrics && (
+            {observation && (
+              <Label>{t(`monitor.${sync?.status ?? "error"}`)}</Label>
+            )}
+            {account && (
+              <ConnectionNotice
+                accountId={account.id}
+                error={connectionError(account, sync)}
+              />
+            )}
+            {metrics && sync?.status === "fresh" && (
               <Text
                 style={{ color: metrics.delta < 0 ? c.negative : c.positive }}
               >
@@ -88,9 +95,13 @@ export default function AccountDetails() {
                 {money(metrics.percent, true, true)})
               </Text>
             )}
-            <HistoryChart snapshots={snapshots} />
+            {(snapshots.length > 0 || observation) && (
+              <HistoryChart snapshots={snapshots} />
+            )}
           </Card>
-          <WalletDetails observation={observation} sync={sync} />
+          {observation && (
+            <WalletDetails observation={observation} sync={sync} />
+          )}
           <Action
             label={t("monitor.flows")}
             onPress={() => router.push("/flows")}

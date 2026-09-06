@@ -1,4 +1,15 @@
 import { mapHttpError, type ApiError } from "./errorHelper";
+import { exchangeConnectionError } from "../domain/connectionStatus";
+import type { Exchange } from "../types/common";
+
+const EXCHANGES: Record<string, Exchange> = {
+  "api.binance.com": "binance",
+  "fapi.binance.com": "binance",
+  "api.bybit.com": "bybit",
+  "www.okx.com": "okx",
+  "open-api.bingx.com": "bingx",
+  "api.gateio.ws": "gateio",
+};
 
 export type ApiResult<T> =
   { data: T; error?: never } | { data?: never; error: ApiError };
@@ -37,7 +48,16 @@ export async function readJson<T>(
         signal: controller.signal,
         redirect: "error",
       });
-      if (!response.ok) return { error: mapHttpError(response.status) };
+      if (!response.ok) {
+        // Authentication errors may carry the useful code in a 4xx body.
+        // Return only an allowlisted identifier, never the raw response.
+        const body = await response.json().catch(() => undefined);
+        const code =
+          response.status < 500
+            ? exchangeConnectionError(EXCHANGES[parsed.hostname], body)
+            : undefined;
+        return { error: code ? { code } : mapHttpError(response.status) };
+      }
       return { data: (await response.json()) as T };
     })();
     const timeout = new Promise<ApiResult<T>>((resolve) => {

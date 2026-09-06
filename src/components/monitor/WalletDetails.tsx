@@ -18,6 +18,15 @@ export default function WalletDetails({
   return (
     <Card>
       <Heading>{t("monitor.wallets")}</Heading>
+      {sync?.status === "stale" && observation && (
+        <Label>
+          {t("monitor.savedAt", {
+            date: new Date(observation.observedAt).toLocaleString(
+              i18n.language,
+            ),
+          })}
+        </Label>
+      )}
       {(observation?.wallets ?? []).map((w) => (
         <View
           key={w.id}
@@ -54,12 +63,14 @@ export default function WalletDetails({
             {t(`monitor.${issue}`, { defaultValue: t("monitor.partial") })}
           </Label>
         ))}
-      <Label>
-        {t("monitor.lastSuccess")}:{" "}
-        {sync?.lastSuccessAt
-          ? new Date(sync.lastSuccessAt).toLocaleString(i18n.language)
-          : "—"}
-      </Label>
+      {sync?.lastSuccessAt && (
+        <Label>
+          {t("monitor.lastSuccess")}:{" "}
+          {sync?.lastSuccessAt
+            ? new Date(sync.lastSuccessAt).toLocaleString(i18n.language)
+            : "—"}
+        </Label>
+      )}
       {observation?.valuationSource && (
         <Label>
           {t("monitor.sourceNote")}: {observation.valuationSource}

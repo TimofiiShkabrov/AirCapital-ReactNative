@@ -1,4 +1,6 @@
-export type NetworkError =
+import type { ConnectionError } from "../domain/connectionStatus";
+
+export type NetworkError = ConnectionError
   | 'timeout'
   | 'noData'
   | 'decodingError'
@@ -19,7 +21,7 @@ export interface ApiError {
 
 export function mapHttpError(status: number): ApiError {
   switch (status) {
-    case 401: return { code: 'malformedRequests' };
+    case 401: return { code: 'credentialsRejected' };
     case 429: return { code: 'tooManyRequests' };
     case 403: return { code: 'limitWAF' };
     case 409: return { code: 'cancelReplace' };

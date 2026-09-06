@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { useSettingsStore } from "../src/store/settingsStore";
 import { confirmCoverage } from "../src/services/cashFlows";
@@ -26,7 +25,16 @@ import {
 import { EXCHANGE_CONFIG } from "../src/constants/exchanges";
 import HistoryChart from "../src/components/monitor/HistoryChart";
 import WalletDetails from "../src/components/monitor/WalletDetails";
+import ConnectionNotice from "../src/components/monitor/ConnectionNotice";
+import {
+  connectionError,
+  connectionStatus,
+  needsReconnect,
+} from "../src/domain/connectionStatus";
 import BrandIcon from "../src/components/monitor/BrandIcon";
+import BottomNavigation, {
+  type MonitorPage,
+} from "../src/components/monitor/BottomNavigation";
 import { useMonitorTheme } from "../src/components/monitor/theme";
 import {
   Action,
@@ -44,7 +52,6 @@ import { useScreenLoad } from "../src/hooks/useScreenLoad";
 import { loadOverviewData } from "../src/services/screenData";
 import { LoadBoundary, BusyOverlay } from "../src/components/monitor/LoadState";
 
-type Page = "overview" | "exchanges" | "statistics";
 export default function HomeScreen() {
   const c = useMonitorTheme(),
     { t, i18n } = useTranslation(),
@@ -55,7 +62,7 @@ export default function HomeScreen() {
   const { reload } = load;
   const history = load.data?.history ?? [];
   const ledger = load.data?.ledger ?? { flows: [], coverage: [] };
-  const [page, setPage] = useState<Page>("overview"),
+  const [page, setPage] = useState<MonitorPage>("overview"),
     [range, setRange] = useState<ChartRange>("month"),
     [filter, setFilter] = useState("all");
   const [expanded, setExpanded] = useState<string>(),
@@ -130,6 +137,9 @@ export default function HomeScreen() {
   const unavailableCount = selected.filter(
     (a) => sync[a.id]?.status !== "fresh",
   ).length;
+  const reconnectCount = selected.filter((a) =>
+    needsReconnect(connectionError(a, sync[a.id])),
+  ).length;
   const labelDate = (date: string) =>
     new Date(date).toLocaleString(i18n.language, {
       day: "numeric",
@@ -179,6 +189,7 @@ export default function HomeScreen() {
   const exchangeRows = selected.map((account) => {
     const data = observations[account.id],
       status = sync[account.id];
+    const error = connectionError(account, status);
     const accountHistory = periodHistory(
       sourceHistory.filter(
         (x) => x.scope.type === "account" && x.scope.accountId === account.id,
@@ -232,44 +243,43 @@ export default function HomeScreen() {
             >
               {EXCHANGE_CONFIG[account.exchange].label}
             </Text>
-            <Label>{account.label || t("monitor.balance")}</Label>
-            <Label>{t(`monitor.${status?.status ?? "error"}`)}</Label>
+            {account.label && <Label>{account.label}</Label>}
+            <Label>{t(`monitor.${connectionStatus(account, status)}`)}</Label>
           </View>
-          <View
-            style={{
-              alignItems: c.rtl ? "flex-start" : "flex-end",
-              gap: 5,
-              maxWidth: "49%",
-            }}
-          >
-            <Text style={{ color: c.text, fontSize: 16, fontWeight: "500" }}>
-              {status?.status === "partial" ? "≈ " : ""}
-              {money(data?.balanceUSDT)}
-            </Text>
-            <Text style={{ color: color(change?.delta), fontSize: 12 }}>
-              {money(
-                status?.status === "partial" ? undefined : change?.delta,
-                true,
-              )}{" "}
-              ·{" "}
-              {money(
-                status?.status === "partial" ? undefined : change?.percent,
-                true,
-                true,
+          {data?.balanceUSDT !== undefined && (
+            <View
+              style={{
+                alignItems: c.rtl ? "flex-start" : "flex-end",
+                gap: 5,
+                maxWidth: "49%",
+              }}
+            >
+              <Text style={{ color: c.text, fontSize: 16, fontWeight: "500" }}>
+                {status?.status === "partial" ? "≈ " : ""}
+                {money(data?.balanceUSDT)}
+              </Text>
+              {status?.status === "fresh" && change && (
+                <Text style={{ color: color(change.delta), fontSize: 12 }}>
+                  {money(change.delta, true)} ·{" "}
+                  {money(change.percent, true, true)}
+                </Text>
               )}
-            </Text>
-          </View>
+              {status?.status === "stale" && (
+                <Label>{t("monitor.savedBalance")}</Label>
+              )}
+            </View>
+          )}
         </Pressable>
+        {(needsReconnect(error) || expanded === account.id) && (
+          <ConnectionNotice
+            accountId={account.id}
+            error={error}
+            showTitle={false}
+          />
+        )}
         {expanded === account.id && (
           <View style={{ marginTop: 10, gap: 10 }}>
-            {status?.error && (
-              <Label>
-                {t(`monitor.${status.error}`, {
-                  defaultValue: t("monitor.genericError"),
-                })}
-              </Label>
-            )}
-            <WalletDetails observation={data} sync={status} />
+            {data && <WalletDetails observation={data} sync={status} />}
             {!demoMode && (
               <Action
                 label={t("monitor.details")}
@@ -299,502 +309,488 @@ export default function HomeScreen() {
     }
   };
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: c.bg }}
-      edges={["top", "left", "right", "bottom"]}
-    >
-      <View style={[styles.shell, { backgroundColor: c.bg }]}>
-        <View
-          style={[styles.header, c.rtl && { flexDirection: "row-reverse" }]}
-        >
+    <View style={{ flex: 1, backgroundColor: c.bg }}>
+      <SafeAreaView
+        style={{ flex: 1, minHeight: 0 }}
+        edges={["top", "left", "right"]}
+      >
+        <View style={[styles.shell, { backgroundColor: c.bg }]}>
           <View
-            style={[
-              s.row,
-              { gap: 8 },
-              c.rtl && { flexDirection: "row-reverse" },
-            ]}
+            style={[styles.header, c.rtl && { flexDirection: "row-reverse" }]}
           >
-            <BrandIcon />
-            <Text
-              style={{
-                color: c.text,
-                fontSize: 19,
-                fontWeight: "600",
-                letterSpacing: -0.4,
-              }}
+            <View
+              style={[
+                s.row,
+                { gap: 8 },
+                c.rtl && { flexDirection: "row-reverse" },
+              ]}
             >
-              AirCapital
-            </Text>
-          </View>
-          <View style={{ flexDirection: c.rtl ? "row-reverse" : "row" }}>
-            <IconButton
-              label={t(
-                settings.hideAmounts ? "monitor.visible" : "monitor.hidden",
-              )}
-              icon={settings.hideAmounts ? "eye-off-outline" : "eye-outline"}
-              loading={privacySaving}
-              onPress={() => {
-                setPrivacySaving(true);
-                void settings
-                  .setHideAmounts(!settings.hideAmounts)
-                  .catch(() => setMessage(t("monitor.storageError")))
-                  .finally(() => setPrivacySaving(false));
-              }}
-            />
-            <IconButton
-              label={t("monitor.refresh")}
-              icon="refresh-outline"
-              disabled={load.isLoading || demoMode}
-              loading={!demoMode && load.isLoading}
-              onPress={() => void reload()}
-            />
-            <IconButton
-              label={t("monitor.settings")}
-              icon="settings-outline"
-              onPress={() => router.push("/settings")}
-            />
-          </View>
-        </View>
-        <ScrollView
-          contentContainerStyle={{
-            paddingHorizontal: 20,
-            paddingBottom: 28,
-            gap: 14,
-          }}
-          refreshControl={
-            <RefreshControl
-              refreshing={!demoMode && load.isLoading}
-              onRefresh={() => !demoMode && void reload()}
-              tintColor={c.accent}
-            />
-          }
-        >
-          <LoadBoundary
-            loading={!demoMode && load.isLoading}
-            error={demoMode ? undefined : load.error}
-            onRetry={() => void reload()}
-          >
-            <View style={[s.row, c.rtl && { flexDirection: "row-reverse" }]}>
+              <BrandIcon />
               <Text
-                style={{
-                  fontSize: 11,
-                  color: c.accent,
-                  backgroundColor: c.tint,
-                  borderRadius: 6,
-                  paddingVertical: 4,
-                  paddingHorizontal: 7,
-                }}
-              >
-                {demoMode ? t("monitor.demo") : t("monitor.readOnly")}
-              </Text>
-              {demoMode && (
-                <Pressable
-                  accessibilityRole="button"
-                  onPress={() => {
-                    setDemoMode(false);
-                    void reload();
-                    setFilter("all");
-                    setExpanded(undefined);
-                  }}
-                  style={{ minHeight: 44, justifyContent: "center" }}
-                >
-                  <Text style={{ fontSize: 12, color: c.muted }}>
-                    {t("monitor.exitDemo")}
-                  </Text>
-                </Pressable>
-              )}
-            </View>
-            <View style={[s.row, c.rtl && { flexDirection: "row-reverse" }]}>
-              <Text
-                accessibilityRole="header"
                 style={{
                   color: c.text,
-                  fontSize: 27,
+                  fontSize: 19,
                   fontWeight: "600",
-                  flexShrink: 1,
+                  letterSpacing: -0.4,
                 }}
               >
-                {t(`monitor.${page}`)}
+                AirCapital
               </Text>
-              {accounts.length > 0 && (
-                <Picker
-                  label={t("monitor.filterExchange")}
-                  value={filter}
-                  choices={[
-                    { value: "all", label: t("monitor.all") },
-                    ...Array.from(new Set(accounts.map((a) => a.exchange))).map(
-                      (e) => ({ value: e, label: EXCHANGE_CONFIG[e].label }),
-                    ),
-                  ]}
-                  onChange={(value) => {
-                    setFilter(value);
-                    setExpanded(undefined);
-                  }}
-                />
-              )}
             </View>
-            {!!message && (
-              <Card>
-                <Text accessibilityRole="alert" style={{ color: c.negative }}>
-                  {message || t("monitor.storageError")}
-                </Text>
-              </Card>
-            )}
-            {!accounts.length ? (
-              <Card style={{ paddingVertical: 35, gap: 20 }}>
-                <BrandIcon size={64} />
-                <Heading>{t("monitor.emptyTitle")}</Heading>
-                <Label>{t("monitor.emptyBody")}</Label>
-                <Action
-                  primary
-                  label={t("monitor.connect")}
-                  icon="add-outline"
-                  onPress={() => router.push("/settings")}
-                />
-                <Action
-                  label={t("monitor.tryDemo")}
-                  onPress={() => {
-                    setDemoMode(true);
-                    setFilter("all");
-                  }}
-                />
-              </Card>
-            ) : (
-              <>
-                {page === "overview" && (
-                  <Card>
-                    <Label>
-                      {t(
-                        fullyCovered
-                          ? filter === "all"
-                            ? "monitor.total"
-                            : "monitor.balance"
-                          : "monitor.partialTotal",
-                      )}
-                    </Label>
-                    <Text
-                      style={{
-                        color: c.text,
-                        fontSize: 36,
-                        fontWeight: "600",
-                        letterSpacing: -1,
-                        textAlign: c.rtl ? "right" : "left",
-                      }}
-                    >
-                      {fullyCovered ? "" : "≈ "}
-                      {money(balance)}{" "}
-                      <Text
-                        style={{
-                          color: c.muted,
-                          fontSize: 14,
-                          fontWeight: "400",
-                          letterSpacing: 0,
-                        }}
-                      >
-                        USDT
-                      </Text>
+            <View style={{ flexDirection: c.rtl ? "row-reverse" : "row" }}>
+              <IconButton
+                label={t(
+                  settings.hideAmounts ? "monitor.visible" : "monitor.hidden",
+                )}
+                icon={settings.hideAmounts ? "eye-off-outline" : "eye-outline"}
+                loading={privacySaving}
+                onPress={() => {
+                  setPrivacySaving(true);
+                  void settings
+                    .setHideAmounts(!settings.hideAmounts)
+                    .catch(() => setMessage(t("monitor.storageError")))
+                    .finally(() => setPrivacySaving(false));
+                }}
+              />
+              <IconButton
+                label={t("monitor.refresh")}
+                icon="refresh-outline"
+                disabled={load.isLoading || demoMode}
+                loading={!demoMode && load.isLoading}
+                onPress={() => void reload()}
+              />
+              <IconButton
+                label={t("monitor.settings")}
+                icon="settings-outline"
+                onPress={() => router.push("/settings")}
+              />
+            </View>
+          </View>
+          <ScrollView
+            contentContainerStyle={{
+              paddingHorizontal: 20,
+              paddingBottom: 28,
+              gap: 14,
+            }}
+            refreshControl={
+              <RefreshControl
+                refreshing={!demoMode && load.isLoading}
+                onRefresh={() => !demoMode && void reload()}
+                tintColor={c.accent}
+              />
+            }
+          >
+            <LoadBoundary
+              loading={!demoMode && load.isLoading}
+              error={demoMode ? undefined : load.error}
+              onRetry={() => void reload()}
+            >
+              {demoMode && (
+                <View
+                  style={[s.row, c.rtl && { flexDirection: "row-reverse" }]}
+                >
+                  <Text
+                    style={{
+                      fontSize: 11,
+                      color: c.accent,
+                      backgroundColor: c.tint,
+                      borderRadius: 6,
+                      paddingVertical: 4,
+                      paddingHorizontal: 7,
+                    }}
+                  >
+                    {t("monitor.demo")}
+                  </Text>
+                  <Pressable
+                    accessibilityRole="button"
+                    onPress={() => {
+                      setDemoMode(false);
+                      void reload();
+                      setFilter("all");
+                      setExpanded(undefined);
+                    }}
+                    style={{ minHeight: 44, justifyContent: "center" }}
+                  >
+                    <Text style={{ fontSize: 12, color: c.muted }}>
+                      {t("monitor.exitDemo")}
                     </Text>
-                    {metrics && complete ? (
-                      <Text
-                        accessibilityLiveRegion="polite"
-                        style={{
-                          color: color(metrics.delta),
-                          fontSize: 14,
-                          textAlign: c.rtl ? "right" : "left",
-                        }}
-                      >
-                        {money(metrics.delta, true)} USDT (
-                        {money(metrics.percent, true, true)})
-                      </Text>
-                    ) : (
-                      <Label>{t("monitor.historyNeeded")}</Label>
-                    )}
-                    {periods}
-                    <HistoryChart snapshots={snapshots} demo={demoMode} />
-                    <View
-                      style={{
-                        borderTopWidth: 1,
-                        borderTopColor: c.line,
-                        paddingTop: 10,
-                      }}
-                    >
-                      <Label>
-                        {load.isLoading && !demoMode
-                          ? t("monitor.refreshing")
-                          : complete
-                            ? t("monitor.fresh")
-                            : `${t("monitor.partial")} · ${unavailableCount}`}
-                        {complete &&
-                        selected[0] &&
-                        sync[selected[0].id]?.lastSuccessAt
-                          ? ` · ${labelDate(sync[selected[0].id].lastSuccessAt!)}`
-                          : ""}
-                      </Label>
-                    </View>
-                  </Card>
+                  </Pressable>
+                </View>
+              )}
+              <View style={[s.row, c.rtl && { flexDirection: "row-reverse" }]}>
+                <Text
+                  accessibilityRole="header"
+                  style={{
+                    color: c.text,
+                    fontSize: 27,
+                    fontWeight: "600",
+                    flexShrink: 1,
+                  }}
+                >
+                  {t(`monitor.${page}`)}
+                </Text>
+                {accounts.length > 0 && (
+                  <Picker
+                    label={t("monitor.filterExchange")}
+                    value={filter}
+                    choices={[
+                      { value: "all", label: t("monitor.all") },
+                      ...Array.from(
+                        new Set(accounts.map((a) => a.exchange)),
+                      ).map((e) => ({
+                        value: e,
+                        label: EXCHANGE_CONFIG[e].label,
+                      })),
+                    ]}
+                    onChange={(value) => {
+                      setFilter(value);
+                      setExpanded(undefined);
+                    }}
+                  />
                 )}
-                {coverageWarnings.map((issue) => (
-                  <Label key={issue}>{t(`monitor.${issue}`)}</Label>
-                ))}
-                {page === "exchanges" && (
-                  <>
-                    {periods}
-                    <Action
-                      label={t("monitor.addAccount")}
-                      icon="add-outline"
-                      onPress={() => router.push("/settings")}
-                    />
-                  </>
-                )}
-                {page !== "statistics" && (
-                  <View style={{ gap: 2 }}>
-                    <View
-                      style={[
-                        s.row,
-                        { marginTop: 7 },
-                        c.rtl && { flexDirection: "row-reverse" },
-                      ]}
-                    >
-                      <Heading>{t("monitor.sources")}</Heading>
-                      {page === "overview" && (
-                        <Pressable
-                          accessibilityRole="button"
-                          onPress={() => setPage("statistics")}
-                          style={{ minHeight: 44, justifyContent: "center" }}
-                        >
-                          <Text style={{ color: c.accent, fontSize: 13 }}>
-                            {t("monitor.details")}
-                          </Text>
-                        </Pressable>
-                      )}
-                    </View>
-                    {exchangeRows}
-                    <Label style={{ marginTop: 12 }}>
-                      {t("monitor.allValues")}
-                    </Label>
-                  </View>
-                )}
-                {page === "statistics" && (
-                  <>
-                    {periods}
-                    {metrics ? (
-                      <>
-                        <Card>
-                          <Label>{t("monitor.change")}</Label>
+              </View>
+              {!!message && (
+                <Card>
+                  <Text accessibilityRole="alert" style={{ color: c.negative }}>
+                    {message || t("monitor.storageError")}
+                  </Text>
+                </Card>
+              )}
+              {!accounts.length ? (
+                <Card style={{ paddingVertical: 35, gap: 20 }}>
+                  <Heading>{t("monitor.emptyTitle")}</Heading>
+                  <Label>{t("monitor.emptyBody")}</Label>
+                  <Action
+                    primary
+                    label={t("monitor.connect")}
+                    icon="add-outline"
+                    onPress={() => router.push("/settings")}
+                  />
+                  <Action
+                    label={t("monitor.tryDemo")}
+                    onPress={() => {
+                      setDemoMode(true);
+                      setFilter("all");
+                    }}
+                  />
+                </Card>
+              ) : (
+                <>
+                  {page === "overview" && (
+                    <Card>
+                      {balance === undefined ? (
+                        <>
+                          <Heading>{t("monitor.balanceUnavailable")}</Heading>
+                          <Label>
+                            {t(
+                              reconnectCount
+                                ? "monitor.restoreToContinue"
+                                : "monitor.retryBalance",
+                            )}
+                          </Label>
+                          {snapshots.length > 0 && (
+                            <>
+                              {periods}
+                              <HistoryChart snapshots={snapshots} />
+                            </>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          <Label>
+                            {t(
+                              fullyCovered
+                                ? filter === "all"
+                                  ? "monitor.total"
+                                  : "monitor.balance"
+                                : "monitor.partialTotal",
+                            )}
+                          </Label>
                           <Text
                             style={{
-                              color: color(metrics.delta),
-                              fontSize: 32,
+                              color: c.text,
+                              fontSize: 36,
                               fontWeight: "600",
+                              letterSpacing: -1,
+                              textAlign: c.rtl ? "right" : "left",
                             }}
                           >
-                            {money(metrics.delta, true)}{" "}
-                            <Text style={{ fontSize: 14 }}>USDT</Text>
-                          </Text>
-                          <Label>{money(metrics.percent, true, true)}</Label>
-                          <Label>
-                            {t("monitor.from")}:{" "}
-                            {labelDate(metrics.first.timestamp)} ·{" "}
-                            {t("monitor.to")}:{" "}
-                            {labelDate(metrics.last.timestamp)}
-                          </Label>
-                          {(
-                            [
-                              ["opening", metrics.first.balanceUSDT],
-                              ["closing", metrics.last.balanceUSDT],
-                              ["deposits", metrics.deposits],
-                              ["withdrawals", metrics.withdrawals],
-                            ] as const
-                          ).map(([label, value]) => (
-                            <View
-                              key={label}
-                              style={[
-                                s.row,
-                                {
-                                  borderBottomColor: c.line,
-                                  borderBottomWidth: 1,
-                                  paddingVertical: 10,
-                                },
-                                c.rtl && { flexDirection: "row-reverse" },
-                              ]}
-                            >
-                              <Text
-                                style={{
-                                  color: c.text,
-                                  fontSize: 14,
-                                  flexShrink: 1,
-                                }}
-                              >
-                                {t(`monitor.${label}`)}
-                              </Text>
-                              <Text
-                                style={{ color: c.text, fontWeight: "500" }}
-                              >
-                                {label === "deposits" || label === "withdrawals"
-                                  ? metrics.complete
-                                    ? money(value)
-                                    : "—"
-                                  : money(value)}
-                              </Text>
-                            </View>
-                          ))}
-                          <View
-                            style={{
-                              backgroundColor: c.tint,
-                              padding: 14,
-                              borderRadius: 12,
-                              gap: 6,
-                            }}
-                          >
-                            <Text style={{ color: c.text, fontSize: 14 }}>
-                              {t("monitor.result")}
-                            </Text>
+                            {fullyCovered ? "" : "≈ "}
+                            {money(balance)}{" "}
                             <Text
                               style={{
-                                color: color(metrics.result),
-                                fontSize: 24,
+                                color: c.muted,
+                                fontSize: 14,
+                                fontWeight: "400",
+                                letterSpacing: 0,
+                              }}
+                            >
+                              USDT
+                            </Text>
+                          </Text>
+                          {metrics && complete ? (
+                            <Text
+                              accessibilityLiveRegion="polite"
+                              style={{
+                                color: color(metrics.delta),
+                                fontSize: 14,
+                                textAlign: c.rtl ? "right" : "left",
+                              }}
+                            >
+                              {money(metrics.delta, true)} USDT (
+                              {money(metrics.percent, true, true)})
+                            </Text>
+                          ) : (
+                            <Label>{t("monitor.historyNeeded")}</Label>
+                          )}
+                          {periods}
+                          <HistoryChart snapshots={snapshots} demo={demoMode} />
+                          <View
+                            style={{
+                              borderTopWidth: 1,
+                              borderTopColor: c.line,
+                              paddingTop: 10,
+                            }}
+                          >
+                            <Label>
+                              {load.isLoading && !demoMode
+                                ? t("monitor.refreshing")
+                                : complete
+                                  ? t("monitor.fresh")
+                                  : `${t("monitor.partial")} · ${unavailableCount}`}
+                              {complete &&
+                              selected[0] &&
+                              sync[selected[0].id]?.lastSuccessAt
+                                ? ` · ${labelDate(sync[selected[0].id].lastSuccessAt!)}`
+                                : ""}
+                            </Label>
+                          </View>
+                        </>
+                      )}
+                    </Card>
+                  )}
+                  {coverageWarnings.map((issue) => (
+                    <Label key={issue}>{t(`monitor.${issue}`)}</Label>
+                  ))}
+                  {page === "exchanges" && (
+                    <>
+                      {periods}
+                      <Action
+                        label={t("monitor.addAccount")}
+                        icon="add-outline"
+                        onPress={() => router.push("/settings")}
+                      />
+                    </>
+                  )}
+                  {page !== "statistics" && (
+                    <View style={{ gap: 2 }}>
+                      <View
+                        style={[
+                          s.row,
+                          { marginTop: 7 },
+                          c.rtl && { flexDirection: "row-reverse" },
+                        ]}
+                      >
+                        <Heading>{t("monitor.sources")}</Heading>
+                        {page === "overview" && (
+                          <Pressable
+                            accessibilityRole="button"
+                            onPress={() => setPage("statistics")}
+                            style={{ minHeight: 44, justifyContent: "center" }}
+                          >
+                            <Text style={{ color: c.accent, fontSize: 13 }}>
+                              {t("monitor.details")}
+                            </Text>
+                          </Pressable>
+                        )}
+                      </View>
+                      {exchangeRows}
+                      <Label style={{ marginTop: 12 }}>
+                        {t("monitor.allValues")}
+                      </Label>
+                    </View>
+                  )}
+                  {page === "statistics" && (
+                    <>
+                      {periods}
+                      {metrics ? (
+                        <>
+                          <Card>
+                            <Label>{t("monitor.change")}</Label>
+                            <Text
+                              style={{
+                                color: color(metrics.delta),
+                                fontSize: 32,
                                 fontWeight: "600",
                               }}
                             >
-                              {money(metrics.result, true)} USDT
+                              {money(metrics.delta, true)}{" "}
+                              <Text style={{ fontSize: 14 }}>USDT</Text>
                             </Text>
-                          </View>
-                          <Label>
-                            {t(
-                              metrics.complete
-                                ? demoMode
-                                  ? "monitor.demo"
-                                  : "monitor.flowComplete"
-                                : "monitor.flowsUnknown",
-                            )}
-                          </Label>
-                          {!demoMode && (
-                            <>
-                              <Action
-                                label={t("monitor.flows")}
-                                onPress={() => router.push("/flows")}
-                              />
-                              {!metrics.complete && (
-                                <Action
-                                  label={t("monitor.confirmFlows")}
-                                  onPress={() => setConfirm(true)}
-                                />
-                              )}
-                            </>
-                          )}
-                        </Card>
-                        <Heading>{t("monitor.contribution")}</Heading>
-                        {selected.map((account) => {
-                          // Use the same exact endpoints as the aggregate; never mix differently covered periods.
-                          const history = sourceHistory.filter(
-                            (s) =>
-                              s.scope.type === "account" &&
-                              s.scope.accountId === account.id &&
-                              (s.timestamp === metrics.first.timestamp ||
-                                s.timestamp === metrics.last.timestamp),
-                          );
-                          const result =
-                            history.length === 2
-                              ? periodMetrics(history, [account.id])
-                              : undefined;
-                          return (
+                            <Label>{money(metrics.percent, true, true)}</Label>
+                            <Label>
+                              {t("monitor.from")}:{" "}
+                              {labelDate(metrics.first.timestamp)} ·{" "}
+                              {t("monitor.to")}:{" "}
+                              {labelDate(metrics.last.timestamp)}
+                            </Label>
+                            {(
+                              [
+                                ["opening", metrics.first.balanceUSDT],
+                                ["closing", metrics.last.balanceUSDT],
+                                ["deposits", metrics.deposits],
+                                ["withdrawals", metrics.withdrawals],
+                              ] as const
+                            ).map(([label, value]) => (
+                              <View
+                                key={label}
+                                style={[
+                                  s.row,
+                                  {
+                                    borderBottomColor: c.line,
+                                    borderBottomWidth: 1,
+                                    paddingVertical: 10,
+                                  },
+                                  c.rtl && { flexDirection: "row-reverse" },
+                                ]}
+                              >
+                                <Text
+                                  style={{
+                                    color: c.text,
+                                    fontSize: 14,
+                                    flexShrink: 1,
+                                  }}
+                                >
+                                  {t(`monitor.${label}`)}
+                                </Text>
+                                <Text
+                                  style={{ color: c.text, fontWeight: "500" }}
+                                >
+                                  {label === "deposits" ||
+                                  label === "withdrawals"
+                                    ? metrics.complete
+                                      ? money(value)
+                                      : "—"
+                                    : money(value)}
+                                </Text>
+                              </View>
+                            ))}
                             <View
-                              key={account.id}
-                              style={[
-                                s.row,
-                                c.rtl && { flexDirection: "row-reverse" },
-                              ]}
+                              style={{
+                                backgroundColor: c.tint,
+                                padding: 14,
+                                borderRadius: 12,
+                                gap: 6,
+                              }}
                             >
-                              <Text style={{ color: c.text, flexShrink: 1 }}>
-                                {EXCHANGE_CONFIG[account.exchange].label}
-                                {account.label ? ` · ${account.label}` : ""}
+                              <Text style={{ color: c.text, fontSize: 14 }}>
+                                {t("monitor.result")}
                               </Text>
-                              <Text style={{ color: color(result?.delta) }}>
-                                {money(result?.delta, true)} USDT
+                              <Text
+                                style={{
+                                  color: color(metrics.result),
+                                  fontSize: 24,
+                                  fontWeight: "600",
+                                }}
+                              >
+                                {money(metrics.result, true)} USDT
                               </Text>
                             </View>
-                          );
-                        })}
-                      </>
-                    ) : (
-                      <Card>
-                        <Label>{t("monitor.historyNeeded")}</Label>
-                        {!demoMode && (
-                          <Action
-                            label={t("monitor.flows")}
-                            onPress={() => router.push("/flows")}
-                          />
-                        )}
-                      </Card>
-                    )}
-                  </>
-                )}
-                {snapshots[0] && page !== "statistics" && (
-                  <Label>
-                    {t("monitor.historySince", {
-                      date: labelDate(snapshots[0].timestamp),
-                    })}
-                  </Label>
-                )}
-                {!demoMode &&
-                  history.some((s) => s.calculationVersion !== 2) && (
-                    <Label>{t("monitor.originalHistory")}</Label>
+                            <Label>
+                              {t(
+                                metrics.complete
+                                  ? demoMode
+                                    ? "monitor.demo"
+                                    : "monitor.flowComplete"
+                                  : "monitor.flowsUnknown",
+                              )}
+                            </Label>
+                            {!demoMode && (
+                              <>
+                                <Action
+                                  label={t("monitor.flows")}
+                                  onPress={() => router.push("/flows")}
+                                />
+                                {!metrics.complete && (
+                                  <Action
+                                    label={t("monitor.confirmFlows")}
+                                    onPress={() => setConfirm(true)}
+                                  />
+                                )}
+                              </>
+                            )}
+                          </Card>
+                          <Heading>{t("monitor.contribution")}</Heading>
+                          {selected.map((account) => {
+                            // Use the same exact endpoints as the aggregate; never mix differently covered periods.
+                            const history = sourceHistory.filter(
+                              (s) =>
+                                s.scope.type === "account" &&
+                                s.scope.accountId === account.id &&
+                                (s.timestamp === metrics.first.timestamp ||
+                                  s.timestamp === metrics.last.timestamp),
+                            );
+                            const result =
+                              history.length === 2
+                                ? periodMetrics(history, [account.id])
+                                : undefined;
+                            return (
+                              <View
+                                key={account.id}
+                                style={[
+                                  s.row,
+                                  c.rtl && { flexDirection: "row-reverse" },
+                                ]}
+                              >
+                                <Text style={{ color: c.text, flexShrink: 1 }}>
+                                  {EXCHANGE_CONFIG[account.exchange].label}
+                                  {account.label ? ` · ${account.label}` : ""}
+                                </Text>
+                                <Text style={{ color: color(result?.delta) }}>
+                                  {money(result?.delta, true)} USDT
+                                </Text>
+                              </View>
+                            );
+                          })}
+                        </>
+                      ) : (
+                        <Card>
+                          <Label>{t("monitor.historyNeeded")}</Label>
+                          {!demoMode && (
+                            <Action
+                              label={t("monitor.flows")}
+                              onPress={() => router.push("/flows")}
+                            />
+                          )}
+                        </Card>
+                      )}
+                    </>
                   )}
-              </>
-            )}
-            {!demoMode && <Label>{t("monitor.background")}</Label>}
-          </LoadBoundary>
-        </ScrollView>
-        <View
-          style={[
-            styles.nav,
-            { backgroundColor: c.panel, borderTopColor: c.line },
-            c.rtl && { flexDirection: "row-reverse" },
-          ]}
-        >
-          {(["overview", "exchanges", "statistics"] as Page[]).map((item) => (
-            <Pressable
-              key={item}
-              accessibilityRole="button"
-              accessibilityLabel={t(`monitor.${item}`)}
-              accessibilityState={{ selected: page === item }}
-              onPress={() => {
-                setPage(item);
-                setExpanded(undefined);
-              }}
-              style={{
-                flex: 1,
-                minHeight: 58,
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 5,
-                borderRadius: 12,
-                backgroundColor: page === item ? c.tint : c.panel,
-              }}
-            >
-              <Ionicons
-                name={
-                  item === "overview"
-                    ? "grid-outline"
-                    : item === "exchanges"
-                      ? "layers-outline"
-                      : "stats-chart-outline"
-                }
-                size={21}
-                color={page === item ? c.accent : c.muted}
-              />
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: page === item ? c.accent : c.muted,
-                }}
-              >
-                {t(`monitor.${item}`)}
-              </Text>
-            </Pressable>
-          ))}
+                  {snapshots[0] && page !== "statistics" && (
+                    <Label>
+                      {t("monitor.historySince", {
+                        date: labelDate(snapshots[0].timestamp),
+                      })}
+                    </Label>
+                  )}
+                  {!demoMode &&
+                    history.some((s) => s.calculationVersion !== 2) && (
+                      <Label>{t("monitor.originalHistory")}</Label>
+                    )}
+                </>
+              )}
+              {!demoMode && <Label>{t("monitor.background")}</Label>}
+            </LoadBoundary>
+          </ScrollView>
         </View>
-      </View>
+      </SafeAreaView>
+      <BottomNavigation
+        selected={page}
+        onChange={(next) => {
+          setPage(next);
+          setExpanded(undefined);
+        }}
+      />
       <BusyOverlay visible={saving && !confirm} />
       <Confirm
         visible={confirm}
@@ -804,7 +800,7 @@ export default function HomeScreen() {
         onCancel={() => setConfirm(false)}
         busy={saving}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -832,5 +828,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  nav: { flexDirection: "row", padding: 8, gap: 5, borderTopWidth: 1 },
 });

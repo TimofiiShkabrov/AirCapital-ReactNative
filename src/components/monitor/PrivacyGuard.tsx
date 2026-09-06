@@ -3,6 +3,8 @@ import { AppState, Platform, View, ActivityIndicator } from "react-native";
 import { useTranslation } from "react-i18next";
 import * as LocalAuthentication from "expo-local-authentication";
 import * as ScreenCapture from "expo-screen-capture";
+import { useStore } from "zustand";
+import { privacySession } from "../../services/privacySession";
 import { useSettingsStore } from "../../store/settingsStore";
 import { Action, Heading, Label } from "./primitives";
 import { useMonitorTheme } from "./theme";
@@ -15,11 +17,10 @@ export default function PrivacyGuard({
   const settings = useSettingsStore(),
     c = useMonitorTheme(),
     { t } = useTranslation();
-  const [unlocked, setUnlocked] = useState(false),
-    [background, setBackground] = useState(AppState.currentState !== "active"),
-    [busy, setBusy] = useState(false),
-    [error, setError] = useState("");
-  const authenticating = useRef(false);
+  const session = useStore(privacySession.store);
+  const { unlocked, busy } = session;
+  const background = session.appState !== "active";
+  const [error, setError] = useState("");
   // Preserve an in-progress native file picker behind the opaque lock screen.
   // On a cold locked start, the application content is still never mounted.
   const contentMounted = useRef(false);
@@ -34,34 +35,33 @@ export default function PrivacyGuard({
       void ScreenCapture.preventScreenCaptureAsync("aircapital").catch(() =>
         setError(t("monitor.privacyUnavailable")),
       );
-    const subscription = AppState.addEventListener("change", (state) => {
-      setBackground(state !== "active");
-      if (state !== "active" && !authenticating.current) setUnlocked(false);
-    });
+    privacySession.setAppState(AppState.currentState ?? "unknown");
+    const subscription = AppState.addEventListener(
+      "change",
+      privacySession.setAppState,
+    );
     return () => {
       subscription.remove();
     };
   }, [t]);
-  const unlock = async () => {
-    if (authenticating.current) return;
-    authenticating.current = true;
-    setBusy(true);
-    setError("");
-    try {
-      const result = await LocalAuthentication.authenticateAsync({
+  useEffect(() => {
+    privacySession.configure(settings.hydrated, settings.lockEnabled);
+    void privacySession.autoUnlock(() =>
+      LocalAuthentication.authenticateAsync({
         promptMessage: t("monitor.unlock"),
         cancelLabel: t("monitor.cancel"),
         disableDeviceFallback: false,
-      });
-      if (result.success) setUnlocked(true);
-      else setError(t("monitor.authFailed"));
-    } catch {
-      setError(t("monitor.authFailed"));
-    } finally {
-      authenticating.current = false;
-      setBusy(false);
-    }
-  };
+      }),
+    );
+  }, [settings.hydrated, settings.lockEnabled, session, t]);
+  const unlock = () =>
+    privacySession.authenticate(() =>
+      LocalAuthentication.authenticateAsync({
+        promptMessage: t("monitor.unlock"),
+        cancelLabel: t("monitor.cancel"),
+        disableDeviceFallback: false,
+      }),
+    );
   const covered =
     !settings.hydrated || background || (settings.lockEnabled && !unlocked);
   return (
@@ -125,6 +125,7 @@ export default function PrivacyGuard({
             </>
           )}
           {!!error && <Label>{error}</Label>}
+          {session.failed && <Label>{t("monitor.authFailed")}</Label>}
         </View>
       )}
     </View>

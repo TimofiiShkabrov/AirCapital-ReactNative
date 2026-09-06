@@ -7,9 +7,15 @@ import type { APIKeys, ExchangeAccount, Exchange } from "../types/common";
 import type { AccountObservation, WalletBalance } from "../types/monitor";
 import { numeric, sum, multiply } from "../domain/money";
 import { readJson, mapLimit, type ApiResult } from "./request";
+import {
+  exchangeConnectionError,
+  needsReconnect,
+} from "../domain/connectionStatus";
 
-function unwrap<T>(result: ApiResult<T>): T {
+function unwrap<T>(result: ApiResult<T>, exchange?: Exchange): T {
   if (result.error) throw new Error(result.error.code);
+  const connectionError = exchangeConnectionError(exchange, result.data);
+  if (connectionError) throw new Error(connectionError);
   const value = result.data as T & { retCode?: number; code?: number | string };
   if (
     !value ||
@@ -45,12 +51,20 @@ export async function verifyReadOnly(
   keys: APIKeys,
 ): Promise<"verified" | "declared"> {
   if (exchange === "bybit") {
-    const info = unwrap(await Bybit.fetchBybitApiKeyInfo(keys));
+    const info = unwrap(await Bybit.fetchBybitApiKeyInfo(keys), exchange);
+    if (info.result?.readOnly !== 0 && info.result?.readOnly !== 1)
+      throw new Error("invalidResponse");
     if (info.result?.readOnly !== 1) throw new Error("readOnlyRequired");
     return "verified";
   }
   if (exchange === "binance") {
-    const info = unwrap(await Binance.fetchApiRestrictions(keys));
+    const info = unwrap(await Binance.fetchApiRestrictions(keys), exchange);
+    if (
+      typeof info.enableReading !== "boolean" ||
+      typeof info.enableWithdrawals !== "boolean" ||
+      typeof info.enableSpotAndMarginTrading !== "boolean"
+    )
+      throw new Error("invalidResponse");
     if (
       info.enableReading !== true ||
       info.enableWithdrawals !== false ||
@@ -63,8 +77,9 @@ export async function verifyReadOnly(
     return "verified";
   }
   if (exchange === "okx") {
-    const info = unwrap(await OKX.fetchConfiguration(keys));
+    const info = unwrap(await OKX.fetchConfiguration(keys), exchange);
     const permission = array(info.data)[0]?.perm;
+    if (typeof permission !== "string") throw new Error("invalidResponse");
     if (permission !== "read_only") throw new Error("readOnlyRequired");
     return "verified";
   }
@@ -77,6 +92,8 @@ export async function observeAccount(
   keys: APIKeys,
   usdRate?: number,
 ): Promise<AccountObservation> {
+  const unwrapAccount = <T>(result: ApiResult<T>) =>
+    unwrap(result, account.exchange);
   const wallets: WalletBalance[] = [];
   const issues: string[] = [];
   const priceCache = new Map<string, Promise<number | undefined>>();
@@ -182,14 +199,19 @@ export async function observeAccount(
   ) => {
     try {
       wallets.push(await fn());
-    } catch {
+    } catch (error) {
+      if (error instanceof Error && needsReconnect(error.message)) {
+        // A missing optional wallet permission must not discard readable wallets.
+        if (error.message === "apiPermissionDenied") issues.push(error.message);
+        else throw error;
+      }
       wallets.push({ id, name, assets: [], status: "unavailable" });
     }
   };
 
   switch (account.exchange) {
     case "binance": {
-      const list = array(unwrap(await Binance.fetchWallets(keys)));
+      const list = array(unwrapAccount(await Binance.fetchWallets(keys)));
       const names = new Set<string>();
       for (const item of list) {
         if (typeof item.walletName !== "string" || names.has(item.walletName))
@@ -208,7 +230,7 @@ export async function observeAccount(
     }
     case "bybit": {
       issues.push("coverageBybit");
-      const response = unwrap(await Bybit.fetchWallet(keys));
+      const response = unwrapAccount(await Bybit.fetchWallet(keys));
       const list = array(response.result?.list);
       if (!list.length) throw new Error("invalidResponse");
       const seen = new Set<string>();
@@ -239,7 +261,9 @@ export async function observeAccount(
       }
       // Funding is separate. Never add SPOT/CONTRACT/OPTION via the transfer endpoint on top of equity.
       await optional("FUND", "Funding", async () => {
-        const response = unwrap(await Bybit.fetchAllCoinsBalance(keys, "FUND"));
+        const response = unwrapAccount(
+          await Bybit.fetchAllCoinsBalance(keys, "FUND"),
+        );
         return fromAssets(
           "FUND",
           "Funding",
@@ -251,7 +275,7 @@ export async function observeAccount(
       });
       for (const category of ["FlexibleSaving", "OnChain"]) {
         await optional(category, `Earn · ${category}`, async () => {
-          const response = unwrap(
+          const response = unwrapAccount(
             await Bybit.fetchEarnPositions(keys, category),
           );
           if (
@@ -276,7 +300,7 @@ export async function observeAccount(
     }
     case "bingx": {
       await optional("spot", "Spot", async () => {
-        const response = unwrap(await BingX.fetchSpotWallet(keys));
+        const response = unwrapAccount(await BingX.fetchSpotWallet(keys));
         return fromAssets(
           "spot",
           "Spot",
@@ -287,7 +311,7 @@ export async function observeAccount(
         );
       });
       await optional("futures", "Futures · equity", async () => {
-        const response = unwrap(await BingX.fetchFuturesWallet(keys));
+        const response = unwrapAccount(await BingX.fetchFuturesWallet(keys));
         return fromAssets(
           "futures",
           "Futures · equity",
@@ -301,7 +325,7 @@ export async function observeAccount(
       break;
     }
     case "gateio": {
-      const response = unwrap(await Gate.fetchTotalBalance(keys));
+      const response = unwrapAccount(await Gate.fetchTotalBalance(keys));
       const currency = response.total?.currency;
       if (currency !== "USD" && currency !== "USDT")
         throw new Error("unsupportedQuote");
@@ -332,7 +356,7 @@ export async function observeAccount(
     }
     case "okx": {
       await optional("trading", "Trading · equity", async () => {
-        const response = unwrap(await OKX.fetchAccountBalance(keys));
+        const response = unwrapAccount(await OKX.fetchAccountBalance(keys));
         const data = array(response.data);
         if (!data.length) throw new Error("invalidResponse");
         return amountWallet(
@@ -353,7 +377,7 @@ export async function observeAccount(
         );
       });
       await optional("funding", "Funding", async () => {
-        const response = unwrap(await OKX.fetchFundingBalance(keys));
+        const response = unwrapAccount(await OKX.fetchFundingBalance(keys));
         return fromAssets(
           "funding",
           "Funding",

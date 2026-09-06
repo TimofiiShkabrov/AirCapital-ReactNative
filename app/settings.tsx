@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -8,9 +8,10 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import * as LocalAuthentication from "expo-local-authentication";
+import { privacySession } from "../src/services/privacySession";
 import {
   Action,
   Card,
@@ -64,6 +65,7 @@ export default function SettingsScreen() {
     router = useRouter();
   const accounts = useAccountsStore(),
     settings = useSettingsStore();
+  const { reconnect } = useLocalSearchParams<{ reconnect?: string }>();
   const loadAccounts = useAccountsStore((s) => s.loadAccounts);
   const [exchange, setExchange] = useState<Exchange>("binance"),
     [label, setLabel] = useState(""),
@@ -89,6 +91,34 @@ export default function SettingsScreen() {
   const [storageOpen, setStorageOpen] = useState(false);
   const [monitoringOpen, setMonitoringOpen] = useState(false);
   const scroll = useRef<ScrollView>(null);
+  const openReconnect = useCallback((account: ExchangeAccount) => {
+    setFormOpen(true);
+    setExpandedAccount(undefined);
+    setReconnecting(account.id);
+    setExchange(account.exchange);
+    setLabel(account.label ?? "");
+    setApiKey("");
+    setSecret("");
+    setPassphrase("");
+    setAcknowledged(false);
+    setMessage("");
+    setFailure(false);
+    scroll.current?.scrollTo({ y: 0, animated: true });
+  }, []);
+  const handledReconnect = useRef<string | undefined>(undefined);
+  useEffect(() => {
+    if (
+      !reconnect ||
+      load.isLoading ||
+      !load.data ||
+      handledReconnect.current === reconnect ||
+      Platform.OS === "web"
+    )
+      return;
+    const account = accounts.accounts.find((a) => a.id === reconnect);
+    handledReconnect.current = reconnect;
+    if (account && account.state !== "deletionPending") openReconnect(account);
+  }, [reconnect, load.isLoading, load.data, accounts.accounts, openReconnect]);
   const closeForm = () => {
     setFormOpen(false);
     setReconnecting(undefined);
@@ -207,12 +237,14 @@ export default function SettingsScreen() {
         LocalAuthentication.SecurityLevel.NONE
       )
         throw new Error("authUnavailable");
-      const result = await LocalAuthentication.authenticateAsync({
-        promptMessage: t("monitor.unlock"),
-        cancelLabel: t("monitor.cancel"),
-        disableDeviceFallback: false,
-      });
-      if (!result.success) throw new Error("authFailed");
+      const success = await privacySession.authenticate(() =>
+        LocalAuthentication.authenticateAsync({
+          promptMessage: t("monitor.unlock"),
+          cancelLabel: t("monitor.cancel"),
+          disableDeviceFallback: false,
+        }),
+      );
+      if (!success) throw new Error("authFailed");
       await settings.setLockEnabled(enabled);
     } catch (e) {
       report(e);
@@ -519,20 +551,7 @@ export default function SettingsScreen() {
                         <Action
                           label={t("monitor.reconnect")}
                           disabled={busy || account.state === "deletionPending"}
-                          onPress={() => {
-                            setFormOpen(true);
-                            setExpandedAccount(undefined);
-                            setReconnecting(account.id);
-                            setExchange(account.exchange);
-                            setLabel(account.label ?? "");
-                            setApiKey("");
-                            setSecret("");
-                            setPassphrase("");
-                            setAcknowledged(false);
-                            setMessage("");
-                            setFailure(false);
-                            scroll.current?.scrollTo({ y: 0, animated: true });
-                          }}
+                          onPress={() => openReconnect(account)}
                         />
                       )}
                       <Action
