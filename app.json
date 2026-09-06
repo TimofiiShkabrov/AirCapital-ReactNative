@@ -2,7 +2,7 @@
   "expo": {
     "name": "AirCapital",
     "slug": "AirCapital",
-    "version": "2.3.4",
+    "version": "2.4.5",
     "orientation": "portrait",
     "icon": "./assets/branding/icon.png",
     "scheme": "aircapital",
@@ -17,7 +17,8 @@
         "CFBundleDevelopmentRegion": "en"
       },
       "appleTeamId": "QJJFV9YPU3",
-      "buildNumber": "9"
+      "buildNumber": "9",
+      "googleServicesFile": "./config/firebase/GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,12 +28,16 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.tim_qiq.AirCapital",
+      "package": "tim.AirCapital",
       "icon": "./assets/branding/icon.png",
       "versionCode": 2,
       "permissions": [
         "android.permission.USE_BIOMETRIC",
         "android.permission.USE_FINGERPRINT"
+      ],
+      "googleServicesFile": "./config/firebase/google-services.json",
+      "blockedPermissions": [
+        "com.google.android.gms.permission.AD_ID"
       ]
     },
     "web": {
@@ -96,6 +101,34 @@
             "ar"
           ],
           "allowDynamicLocaleChangesAndroid": true
+        }
+      ],
+      [
+        "@react-native-firebase/app",
+        {
+          "ios": {
+            "disableSPM": true
+          }
+        }
+      ],
+      [
+        "@react-native-firebase/analytics",
+        {
+          "ios": {
+            "withoutAdIdSupport": true
+          }
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static",
+            "forceStaticLinking": [
+              "RNFBApp",
+              "RNFBAnalytics"
+            ]
+          }
         }
       ]
     ],

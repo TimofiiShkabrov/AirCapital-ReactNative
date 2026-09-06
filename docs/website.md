@@ -52,3 +52,11 @@ Allowlisted events: `demo_open` (header/hero/footer/download), `demo_tab_change`
 Analytics is disabled on local/private hosts, redirect/unknown routes and in development. Report titles stay in English so language hydration cannot split the same page across titles. In-page links scroll without changing history. Unit tests check consent, expiry, revocation, script/config deduplication, URL filtering and event allowlists. They do not confirm delivery to the real Google property.
 
 Before production launch, verify on the deployed HTTPS site with Google Tag Assistant / GA DebugView: decline and confirm no tag requests; accept and confirm one page view; follow Home → Demo → FAQ → Contact and confirm one view per document; switch demo periods/tabs and check each custom event once; revoke via Cookie settings and confirm subsequent actions are not measured. Use a fresh browser profile to test first-visit consent. Check the GA web-stream URL and enhanced-measurement settings in the property, and ensure no second tag is injected by the hosting provider or tag manager. Blockers and refused consent legitimately reduce counts.
+
+The GA4 configuration and iOS companion stream were audited on 6 September 2026. See [analytics.md](analytics.md) for the registered streams, configured reports, native consent behavior and delivery checks.
+
+### Railway: Dockerfile missing from code archive
+
+This error occurs before Docker runs. Verify the service source is `TimofiiShkabrov/AirCapital-ReactNative`, branch `main`, Root Directory `/` (repository root), Dockerfile Path `Dockerfile`. The file is tracked at the repository root since commit `1602f30`. Check whether an explicit `RAILWAY_DOCKERFILE_PATH` overrides the configured path. Deploy the latest commit after correcting the source; redeploying an old snapshot can reuse the same incomplete archive. Changing Nginx or the port cannot fix a missing source file.
+
+Deployment verified on 6 September 2026: correct repository/main selected, `PORT=80` added to match the public domain target. Home, demo, FAQ, contact and health check all return HTTP 200.

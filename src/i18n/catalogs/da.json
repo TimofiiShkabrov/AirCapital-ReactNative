@@ -230,5 +230,9 @@
   "valuationUSDT": "Børsens værdiansættelse i USDT",
   "valuationUSD": "Børsegenkapital i USD × Coinbases USD/USDT-kurs",
   "faceIDPermission": "Tillad AirCapital at bruge Face ID til at beskytte adgangen til dine saldi.",
-  "searchLanguages": "Søg efter sprog"
+  "searchLanguages": "Søg efter sprog",
+  "analyticsTitle": "Brugsstatistik",
+  "analyticsBody": "Tillad, at Google Firebase indsamler brug af skærmbilleder, enhedsoplysninger og et ID for appinstallationen for at forbedre AirCapital? Saldi og API-nøgler sendes aldrig. Det er valgfrit og kan ændres i Indstillinger.",
+  "analyticsAllow": "Tillad analyse",
+  "analyticsDecline": "Nej tak"
 }

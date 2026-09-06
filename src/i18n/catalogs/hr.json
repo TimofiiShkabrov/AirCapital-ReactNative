@@ -230,5 +230,9 @@
   "valuationUSDT": "Procjena burze u USDT-u",
   "valuationUSD": "Kapital burze u USD-u × tečaj USD/USDT Coinbasea",
   "faceIDPermission": "Dopustite AirCapitalu upotrebu Face ID-ja za zaštitu pristupa vašim saldima.",
-  "searchLanguages": "Pretraži jezike"
+  "searchLanguages": "Pretraži jezike",
+  "analyticsTitle": "Statistika upotrebe",
+  "analyticsBody": "Dopuštate li da Google Firebase prikuplja podatke o upotrebi zaslona, uređaju i identifikatoru instalacije radi poboljšanja AirCapitala? Stanja i API ključevi nikada se ne šalju. Neobavezno; odabir možete promijeniti u Postavkama.",
+  "analyticsAllow": "Dopusti analitiku",
+  "analyticsDecline": "Ne, hvala"
 }

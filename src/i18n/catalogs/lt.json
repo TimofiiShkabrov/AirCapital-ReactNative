@@ -230,5 +230,9 @@
   "valuationUSDT": "Biržos vertinimas USDT",
   "valuationUSD": "Biržos nuosavas kapitalas USD × „Coinbase“ USD/USDT kursas",
   "faceIDPermission": "Leiskite „AirCapital“ naudoti „Face ID“ prieigai prie jūsų likučių apsaugoti.",
-  "searchLanguages": "Ieškoti kalbų"
+  "searchLanguages": "Ieškoti kalbų",
+  "analyticsTitle": "Naudojimo statistika",
+  "analyticsBody": "Ar leisti „Google Firebase“ rinkti ekranų naudojimo duomenis, įrenginio informaciją ir programėlės egzemplioriaus identifikatorių „AirCapital“ tobulinti? Likučiai ir API raktai niekada nesiunčiami. Neprivaloma; pasirinkimą galite pakeisti nustatymuose.",
+  "analyticsAllow": "Leisti analitiką",
+  "analyticsDecline": "Ne, ačiū"
 }

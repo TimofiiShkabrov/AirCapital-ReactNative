@@ -230,5 +230,9 @@
   "valuationUSDT": "Exchange valuation in USDT",
   "valuationUSD": "Exchange equity in USD × Coinbase USD/USDT rate",
   "faceIDPermission": "Allow AirCapital to use Face ID to protect access to your balances.",
-  "searchLanguages": "Search languages"
+  "searchLanguages": "Search languages",
+  "analyticsTitle": "Usage analytics",
+  "analyticsBody": "Allow Google Firebase to collect screen usage, device information and an app-instance identifier to help improve AirCapital? Balances and API keys are never sent. Optional; you can change this in Settings.",
+  "analyticsAllow": "Allow analytics",
+  "analyticsDecline": "No thanks"
 }

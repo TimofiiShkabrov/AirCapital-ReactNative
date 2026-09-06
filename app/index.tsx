@@ -1,3 +1,5 @@
+import { useIsFocused } from "@react-navigation/native";
+import { analyticsAvailable, appAnalytics } from "../src/analytics/store";
 import React, { useEffect, useMemo, useState } from "react";
 import {
   View,
@@ -65,6 +67,10 @@ export default function HomeScreen() {
   const [page, setPage] = useState<MonitorPage>("overview"),
     [range, setRange] = useState<ChartRange>("month"),
     [filter, setFilter] = useState("all");
+  const focused = useIsFocused();
+  useEffect(() => {
+    if (analyticsAvailable && focused) void appAnalytics.screen(page).catch(() => {});
+  }, [focused, page]);
   const [expanded, setExpanded] = useState<string>(),
     [demoMode, setDemoMode] = useState(false);
   const [message, setMessage] = useState(""),

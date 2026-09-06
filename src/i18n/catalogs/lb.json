@@ -230,5 +230,9 @@
   "valuationUSDT": "Börsebewäertung an USDT",
   "valuationUSD": "Börsen-Eegekapital an USD × Coinbase-USD/USDT-Cours",
   "faceIDPermission": "Erlaab AirCapital, Face ID ze benotzen, fir den Zougrëff op deng Solden ze schützen.",
-  "searchLanguages": "Sprooche sichen"
+  "searchLanguages": "Sprooche sichen",
+  "analyticsTitle": "Notzungsstatistiken",
+  "analyticsBody": "Däerf Google Firebase d’Notzung vun den Usichten, Apparatinformatiounen an eng App-Instanz-ID sammelen, fir AirCapital ze verbesseren? Salden an API-Schlëssele ginn ni iwwerdroen. Fräiwëlleg; Dir kënnt de Choix an den Astellungen änneren.",
+  "analyticsAllow": "Analys erlaben",
+  "analyticsDecline": "Nee, merci"
 }

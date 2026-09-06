@@ -230,5 +230,9 @@
   "valuationUSDT": "Pörssin arvostus USDT:ssä",
   "valuationUSD": "Pörssin oma pääoma USD:ssä × Coinbasen USD/USDT-kurssi",
   "faceIDPermission": "Salli AirCapitalin käyttää Face ID:tä saldojesi käytön suojaamiseen.",
-  "searchLanguages": "Etsi kieliä"
+  "searchLanguages": "Etsi kieliä",
+  "analyticsTitle": "Käyttötilastot",
+  "analyticsBody": "Saako Google Firebase kerätä näkymien käyttötietoja, laitteen tietoja ja sovellusasennuksen tunnisteen AirCapitalin kehittämiseksi? Saldoja tai API-avaimia ei koskaan lähetetä. Tämä on vapaaehtoista, ja valintaa voi muuttaa asetuksissa.",
+  "analyticsAllow": "Salli analytiikka",
+  "analyticsDecline": "Ei kiitos"
 }

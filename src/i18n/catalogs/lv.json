@@ -230,5 +230,9 @@
   "valuationUSDT": "Biržas vērtējums USDT",
   "valuationUSD": "Biržas pašu kapitāls USD × Coinbase USD/USDT kurss",
   "faceIDPermission": "Atļaujiet AirCapital izmantot Face ID, lai aizsargātu piekļuvi jūsu atlikumiem.",
-  "searchLanguages": "Meklēt valodas"
+  "searchLanguages": "Meklēt valodas",
+  "analyticsTitle": "Lietošanas statistika",
+  "analyticsBody": "Vai atļaut Google Firebase vākt ekrānu lietošanas datus, ierīces informāciju un lietotnes instances identifikatoru, lai uzlabotu AirCapital? Atlikumi un API atslēgas nekad netiek nosūtīti. Tas ir brīvprātīgi; izvēli var mainīt iestatījumos.",
+  "analyticsAllow": "Atļaut analītiku",
+  "analyticsDecline": "Nē, paldies"
 }

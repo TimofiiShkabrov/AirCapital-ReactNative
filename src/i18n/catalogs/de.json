@@ -230,5 +230,9 @@
   "valuationUSDT": "Bewertung der Börse in USDT",
   "valuationUSD": "Börsen-Eigenkapital in USD × USD/USDT-Kurs von Coinbase",
   "faceIDPermission": "Erlaube AirCapital, Face ID zum Schutz des Zugriffs auf deine Guthaben zu verwenden.",
-  "searchLanguages": "Sprache suchen"
+  "searchLanguages": "Sprache suchen",
+  "analyticsTitle": "Nutzungsstatistik",
+  "analyticsBody": "Darf Google Firebase die Nutzung der Ansichten, Geräteinformationen und eine App-Instanz-ID erfassen, um AirCapital zu verbessern? Guthaben und API-Schlüssel werden nie übermittelt. Freiwillig; die Auswahl lässt sich in den Einstellungen ändern.",
+  "analyticsAllow": "Analyse erlauben",
+  "analyticsDecline": "Nein, danke"
 }

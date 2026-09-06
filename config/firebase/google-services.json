@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "718518593608",
+    "project_id": "aircapital-web",
+    "storage_bucket": "aircapital-web.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718518593608:android:ce87c94d57b223cc85107d",
+        "android_client_info": {
+          "package_name": "com.tim_qiq.AirCapital"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPorg2HM-eH3iP6gZWov9r_RIKez2bSr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718518593608:android:7d42baac0a17734c85107d",
+        "android_client_info": {
+          "package_name": "tim.AirCapital"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPorg2HM-eH3iP6gZWov9r_RIKez2bSr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

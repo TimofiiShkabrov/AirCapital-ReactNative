@@ -230,5 +230,9 @@
   "valuationUSDT": "Оценка на борсата в USDT",
   "valuationUSD": "Собствен капитал на борсата в USD × курс USD/USDT на Coinbase",
   "faceIDPermission": "Разрешете на AirCapital да използва Face ID за защита на достъпа до балансите ви.",
-  "searchLanguages": "Търсене на езици"
+  "searchLanguages": "Търсене на езици",
+  "analyticsTitle": "Статистика за използването",
+  "analyticsBody": "Разрешавате ли на Google Firebase да събира данни за използването на екраните, информация за устройството и идентификатор на инсталацията, за да подобрим AirCapital? Баланси и API ключове не се изпращат. По избор; можете да го промените в настройките.",
+  "analyticsAllow": "Разрешаване на анализа",
+  "analyticsDecline": "Не, благодаря"
 }

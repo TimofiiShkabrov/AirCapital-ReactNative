@@ -230,5 +230,9 @@
   "valuationUSDT": "Vrednotenje borze v USDT",
   "valuationUSD": "Kapital borze v USD × tečaj USD/USDT Coinbase",
   "faceIDPermission": "Dovolite AirCapital uporabo Face ID za zaščito dostopa do vaših stanj.",
-  "searchLanguages": "Išči jezike"
+  "searchLanguages": "Išči jezike",
+  "analyticsTitle": "Statistika uporabe",
+  "analyticsBody": "Dovolite, da Google Firebase zbira podatke o uporabi zaslonov, napravi in identifikatorju namestitve za izboljšanje aplikacije AirCapital? Stanja in ključi API se nikoli ne pošiljajo. Izbirno; odločitev lahko spremenite v nastavitvah.",
+  "analyticsAllow": "Dovoli analitiko",
+  "analyticsDecline": "Ne, hvala"
 }

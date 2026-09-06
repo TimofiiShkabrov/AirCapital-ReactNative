@@ -230,5 +230,9 @@
   "valuationUSDT": "Beurswaardering in USDT",
   "valuationUSD": "Beursvermogen in USD × Coinbase USD/USDT-koers",
   "faceIDPermission": "Sta AirCapital toe Face ID te gebruiken om toegang tot je saldi te beschermen.",
-  "searchLanguages": "Talen zoeken"
+  "searchLanguages": "Talen zoeken",
+  "analyticsTitle": "Gebruiksstatistieken",
+  "analyticsBody": "Mag Google Firebase schermgebruik, apparaatinformatie en een app-instantie-ID verzamelen om AirCapital te verbeteren? Saldi en API-sleutels worden nooit verstuurd. Dit is vrijwillig; je kunt je keuze wijzigen in Instellingen.",
+  "analyticsAllow": "Analyse toestaan",
+  "analyticsDecline": "Nee, bedankt"
 }

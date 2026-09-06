@@ -230,5 +230,9 @@
   "valuationUSDT": "Wycena giełdy w USDT",
   "valuationUSD": "Kapitał giełdowy w USD × kurs USD/USDT Coinbase",
   "faceIDPermission": "Zezwól AirCapital na używanie Face ID do ochrony dostępu do Twoich sald.",
-  "searchLanguages": "Szukaj języka"
+  "searchLanguages": "Szukaj języka",
+  "analyticsTitle": "Statystyki użytkowania",
+  "analyticsBody": "Czy zezwolić Google Firebase na zbieranie statystyk ekranów, informacji o urządzeniu i identyfikatora instancji aplikacji w celu ulepszania AirCapital? Salda i klucze API nigdy nie są wysyłane. To dobrowolne; wybór można zmienić w ustawieniach.",
+  "analyticsAllow": "Zezwól na analitykę",
+  "analyticsDecline": "Nie, dziękuję"
 }

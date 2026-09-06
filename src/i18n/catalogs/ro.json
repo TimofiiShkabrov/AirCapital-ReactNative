@@ -230,5 +230,9 @@
   "valuationUSDT": "Evaluarea platformei în USDT",
   "valuationUSD": "Capitalul platformei în USD × cursul USD/USDT Coinbase",
   "faceIDPermission": "Permite AirCapital să folosească Face ID pentru a proteja accesul la soldurile tale.",
-  "searchLanguages": "Caută limbi"
+  "searchLanguages": "Caută limbi",
+  "analyticsTitle": "Statistici de utilizare",
+  "analyticsBody": "Permiți Google Firebase să colecteze date despre utilizarea ecranelor, informații despre dispozitiv și un identificator al instanței aplicației pentru a îmbunătăți AirCapital? Soldurile și cheile API nu sunt trimise niciodată. Este opțional; poți modifica alegerea în Setări.",
+  "analyticsAllow": "Permite analiza",
+  "analyticsDecline": "Nu, mulțumesc"
 }

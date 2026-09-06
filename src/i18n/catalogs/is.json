@@ -230,5 +230,9 @@
   "valuationUSDT": "Verðmat kauphallar í USDT",
   "valuationUSD": "Eigið fé kauphallar í USD × USD/USDT-gengi Coinbase",
   "faceIDPermission": "Leyfðu AirCapital að nota Face ID til að vernda aðgang að stöðunni þinni.",
-  "searchLanguages": "Leita að tungumálum"
+  "searchLanguages": "Leita að tungumálum",
+  "analyticsTitle": "Notkunartölfræði",
+  "analyticsBody": "Má Google Firebase safna gögnum um notkun skjáa, upplýsingum um tækið og auðkenni uppsetningar til að bæta AirCapital? Staða reikninga og API-lyklar eru aldrei send. Þetta er valfrjálst og má breyta í stillingum.",
+  "analyticsAllow": "Leyfa greiningu",
+  "analyticsDecline": "Nei, takk"
 }

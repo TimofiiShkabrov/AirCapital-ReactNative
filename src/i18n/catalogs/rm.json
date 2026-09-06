@@ -230,5 +230,9 @@
   "valuationUSDT": "Valitaziun da la bursa en USDT",
   "valuationUSD": "Chapital agen da la bursa en USD × curs USD/USDT da Coinbase",
   "faceIDPermission": "Permettai ad AirCapital da duvrar Face ID per proteger l’access a Voss saldos.",
-  "searchLanguages": "Tschertgar linguas"
+  "searchLanguages": "Tschertgar linguas",
+  "analyticsTitle": "Statistica d’utilisaziun",
+  "analyticsBody": "Dastga Google Firebase rimnar datas davart l’utilisaziun dals maletgs dal visur, infurmaziuns davart l’apparat ed in identificatur da l’installaziun per meglierar AirCapital? Saldos e clavs API na vegnan mai tramess. Quai è facultativ; Vus pudais midar la tscherna en las configuraziuns.",
+  "analyticsAllow": "Permetter l’analisa",
+  "analyticsDecline": "Na, grazia"
 }

@@ -230,5 +230,9 @@
   "valuationUSDT": "Börsi hinnanguline väärtus USDT-s",
   "valuationUSD": "Börsi omakapital USD-s × Coinbase’i USD/USDT-kurss",
   "faceIDPermission": "Luba AirCapitalil kasutada Face ID-d sinu saldodele juurdepääsu kaitsmiseks.",
-  "searchLanguages": "Otsi keeli"
+  "searchLanguages": "Otsi keeli",
+  "analyticsTitle": "Kasutusstatistika",
+  "analyticsBody": "Kas lubada Google Firebase’il koguda ekraanide kasutusandmeid, seadme teavet ja rakenduse eksemplari identifikaatorit AirCapitali täiustamiseks? Saldosid ega API-võtmeid ei saadeta kunagi. See on vabatahtlik ja valikut saab seadetes muuta.",
+  "analyticsAllow": "Luba analüütika",
+  "analyticsDecline": "Ei, aitäh"
 }

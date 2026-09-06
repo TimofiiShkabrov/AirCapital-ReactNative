@@ -230,5 +230,9 @@
   "valuationUSDT": "تقييم المنصة بوحدة USDT",
   "valuationUSD": "حقوق الملكية على المنصة بالدولار × سعر USD/USDT من Coinbase",
   "faceIDPermission": "اسمح لـ AirCapital باستخدام Face ID لحماية الوصول إلى أرصدتك.",
-  "searchLanguages": "البحث عن لغة"
+  "searchLanguages": "البحث عن لغة",
+  "analyticsTitle": "إحصاءات الاستخدام",
+  "analyticsBody": "هل تسمح لـ Google Firebase بجمع بيانات استخدام الشاشات ومعلومات الجهاز ومعرّف نسخة التطبيق لتحسين AirCapital؟ لا تُرسَل الأرصدة أو مفاتيح API مطلقًا. المشاركة اختيارية ويمكن تغييرها من الإعدادات.",
+  "analyticsAllow": "السماح بالتحليلات",
+  "analyticsDecline": "لا، شكرًا"
 }

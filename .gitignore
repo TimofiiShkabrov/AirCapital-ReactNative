@@ -146,3 +146,9 @@ app-example/
 /assets/images/splash-icon.png
 /assets/images/aircapital-icon-ios.png
 /assets/images/aircapital-icon-minimal-ios.png
+
+# Public Firebase iOS client configuration (not an Admin SDK credential).
+!config/firebase/GoogleService-Info.plist
+
+# Public Firebase Android client configuration.
+!config/firebase/google-services.json

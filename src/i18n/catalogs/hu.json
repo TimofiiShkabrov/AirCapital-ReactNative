@@ -230,5 +230,9 @@
   "valuationUSDT": "Tőzsdei értékelés USDT-ben",
   "valuationUSD": "Tőzsdei saját tőke USD-ben × Coinbase USD/USDT-árfolyam",
   "faceIDPermission": "Engedélyezd az AirCapital számára a Face ID használatát az egyenlegeidhez való hozzáférés védelméhez.",
-  "searchLanguages": "Nyelvek keresése"
+  "searchLanguages": "Nyelvek keresése",
+  "analyticsTitle": "Használati statisztikák",
+  "analyticsBody": "Engedélyezi, hogy a Google Firebase képernyőhasználati adatokat, eszközinformációkat és egy alkalmazáspéldány-azonosítót gyűjtsön az AirCapital fejlesztéséhez? Egyenlegeket és API-kulcsokat soha nem küldünk. Önkéntes; a Beállításokban módosítható.",
+  "analyticsAllow": "Analitika engedélyezése",
+  "analyticsDecline": "Nem, köszönöm"
 }

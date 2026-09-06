@@ -230,5 +230,9 @@
   "valuationUSDT": "Valoración de la plataforma en USDT",
   "valuationUSD": "Patrimonio en USD de la plataforma × tipo USD/USDT de Coinbase",
   "faceIDPermission": "Permite que AirCapital use Face ID para proteger el acceso a tus saldos.",
-  "searchLanguages": "Buscar idioma"
+  "searchLanguages": "Buscar idioma",
+  "analyticsTitle": "Estadísticas de uso",
+  "analyticsBody": "¿Permitir que Google Firebase recopile el uso de las pantallas, información del dispositivo y un identificador de la instancia de la aplicación para mejorar AirCapital? Nunca se envían saldos ni claves API. Es opcional; puedes cambiarlo en Ajustes.",
+  "analyticsAllow": "Permitir analítica",
+  "analyticsDecline": "No, gracias"
 }

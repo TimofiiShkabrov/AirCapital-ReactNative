@@ -230,5 +230,9 @@
   "valuationUSDT": "Ocenenie burzy v USDT",
   "valuationUSD": "Vlastné imanie burzy v USD × kurz USD/USDT Coinbase",
   "faceIDPermission": "Povoľte AirCapital používať Face ID na ochranu prístupu k vašim zostatkom.",
-  "searchLanguages": "Hľadať jazyky"
+  "searchLanguages": "Hľadať jazyky",
+  "analyticsTitle": "Štatistiky používania",
+  "analyticsBody": "Povoliť službe Google Firebase zbierať údaje o používaní obrazoviek, zariadení a identifikátore inštancie aplikácie na zlepšovanie AirCapital? Zostatky ani API kľúče sa nikdy neodosielajú. Je to dobrovoľné; voľbu možno zmeniť v nastaveniach.",
+  "analyticsAllow": "Povoliť analytiku",
+  "analyticsDecline": "Nie, ďakujem"
 }

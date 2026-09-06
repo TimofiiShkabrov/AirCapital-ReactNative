@@ -61,6 +61,9 @@ import { COVERAGE_KEYS } from "../src/domain/exchangeCoverage";
 import { EXCHANGE_CONFIG } from "../src/constants/exchanges";
 import { LANGUAGES } from "../src/i18n/languages";
 
+import { AnalyticsConsentSetting } from "../src/analytics/AnalyticsControls";
+import { analyticsAvailable, revokeAnalyticsForDeletion } from "../src/analytics/store";
+
 export default function SettingsScreen() {
   const c = useMonitorTheme(),
     { t } = useTranslation(),
@@ -350,6 +353,9 @@ export default function SettingsScreen() {
     setBusy(true);
     try {
       await pauseMonitoring(async () => {
+        if (analyticsAvailable) {
+          await revokeAnalyticsForDeletion();
+        }
         await deleteAllData();
         clearPortfolioMemory();
         await loadAccounts();
@@ -684,6 +690,7 @@ export default function SettingsScreen() {
               </SettingsRow>
             </SettingsGroup>
             <SettingsGroup title={t("monitor.privacyData")}>
+              <AnalyticsConsentSetting />
               <SettingsRow title={t("monitor.hidden")} icon="eye-off-outline">
                 <Switch
                   accessibilityLabel={t("monitor.hidden")}
