@@ -6,6 +6,7 @@ import {
   Platform,
   Switch,
   KeyboardAvoidingView,
+  Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -58,6 +59,7 @@ import { loadSettingsData } from "../src/services/screenData";
 import { LoadBoundary, BusyOverlay } from "../src/components/monitor/LoadState";
 import { COVERAGE_KEYS } from "../src/domain/exchangeCoverage";
 import { EXCHANGE_CONFIG } from "../src/constants/exchanges";
+import { LANGUAGES } from "../src/i18n/languages";
 
 export default function SettingsScreen() {
   const c = useMonitorTheme(),
@@ -78,6 +80,12 @@ export default function SettingsScreen() {
     [failure, setFailure] = useState(false),
     [deleting, setDeleting] = useState<ExchangeAccount>(),
     [exporting, setExporting] = useState(false);
+  const [connectionError, setConnectionError] = useState<{
+    message: string;
+    attempt: number;
+  }>();
+  const connectionAttempt = useRef(0);
+  const connectionErrorView = useRef<View>(null);
   const load = useScreenLoad(loadSettingsData);
   const plans = load.data?.plans ?? [];
   const [restore, setRestore] = useState<{
@@ -91,6 +99,26 @@ export default function SettingsScreen() {
   const [storageOpen, setStorageOpen] = useState(false);
   const [monitoringOpen, setMonitoringOpen] = useState(false);
   const scroll = useRef<ScrollView>(null);
+  const revealConnectionError = useCallback(() => {
+    const content = scroll.current?.getInnerViewNode();
+    if (!content) return;
+    connectionErrorView.current?.measureLayout(
+      content,
+      (_x, y) => {
+        scroll.current?.scrollTo({ y: Math.max(0, y - 16), animated: true });
+      },
+      () => {},
+    );
+  }, []);
+  useEffect(() => {
+    if (!connectionError) return;
+    // Validation may finish before the keyboard's dismissal animation.
+    const subscription = Keyboard.addListener(
+      "keyboardDidHide",
+      revealConnectionError,
+    );
+    return () => subscription.remove();
+  }, [connectionError, revealConnectionError]);
   const openReconnect = useCallback((account: ExchangeAccount) => {
     setFormOpen(true);
     setExpandedAccount(undefined);
@@ -103,6 +131,7 @@ export default function SettingsScreen() {
     setAcknowledged(false);
     setMessage("");
     setFailure(false);
+    setConnectionError(undefined);
     scroll.current?.scrollTo({ y: 0, animated: true });
   }, []);
   const handledReconnect = useRef<string | undefined>(undefined);
@@ -120,6 +149,7 @@ export default function SettingsScreen() {
     if (account && account.state !== "deletionPending") openReconnect(account);
   }, [reconnect, load.isLoading, load.data, accounts.accounts, openReconnect]);
   const closeForm = () => {
+    setConnectionError(undefined);
     setFormOpen(false);
     setReconnecting(undefined);
     setApiKey("");
@@ -129,12 +159,19 @@ export default function SettingsScreen() {
     setAcknowledged(false);
   };
   const working = useRef(false);
-  const report = (e: unknown) => {
+  const errorMessage = (e: unknown) => {
     const code = e instanceof Error ? e.message : "";
+    return t(`monitor.${code}`, { defaultValue: t("monitor.genericError") });
+  };
+  const reportConnectionError = (e: unknown) => {
+    setConnectionError({
+      message: errorMessage(e),
+      attempt: ++connectionAttempt.current,
+    });
+  };
+  const report = (e: unknown) => {
     setFailure(true);
-    setMessage(
-      t(`monitor.${code}`, { defaultValue: t("monitor.genericError") }),
-    );
+    setMessage(errorMessage(e));
   };
   const savePreference = async (operation: () => Promise<void>) => {
     if (working.current) return;
@@ -151,8 +188,12 @@ export default function SettingsScreen() {
   };
   const connect = async () => {
     if (working.current) return;
+    Keyboard.dismiss();
+    setConnectionError(undefined);
+    setMessage("");
+    setFailure(false);
     if (Platform.OS === "web") {
-      report(new Error("unsupportedWeb"));
+      reportConnectionError(new Error("unsupportedWeb"));
       return;
     }
     if (
@@ -161,13 +202,11 @@ export default function SettingsScreen() {
       (exchange === "okx" && !passphrase.trim()) ||
       !acknowledged
     ) {
-      report(new Error("required"));
+      reportConnectionError(new Error("required"));
       return;
     }
     working.current = true;
     setBusy(true);
-    setMessage("");
-    setFailure(false);
     const keys = {
       apiKey: apiKey.trim(),
       secretKey: secret.trim(),
@@ -203,8 +242,9 @@ export default function SettingsScreen() {
       setMessage(
         t(result.complete ? "monitor.connected" : "monitor.partialConnection"),
       );
+      scroll.current?.scrollTo({ y: 0, animated: true });
     } catch (e) {
-      report(e);
+      reportConnectionError(e);
     } finally {
       working.current = false;
       setBusy(false);
@@ -434,6 +474,7 @@ export default function SettingsScreen() {
                         }),
                       )}
                       onChange={(v) => {
+                        setConnectionError(undefined);
                         setExchange(v as Exchange);
                         setApiKey("");
                         setSecret("");
@@ -456,7 +497,10 @@ export default function SettingsScreen() {
                     <Field
                       label={t("monitor.apiKey")}
                       value={apiKey}
-                      onChangeText={setApiKey}
+                      onChangeText={(value) => {
+                        setApiKey(value);
+                        setConnectionError(undefined);
+                      }}
                       autoCapitalize="none"
                       autoCorrect={false}
                       secureTextEntry
@@ -467,7 +511,10 @@ export default function SettingsScreen() {
                     <Field
                       label={t("monitor.secret")}
                       value={secret}
-                      onChangeText={setSecret}
+                      onChangeText={(value) => {
+                        setSecret(value);
+                        setConnectionError(undefined);
+                      }}
                       autoCapitalize="none"
                       autoCorrect={false}
                       secureTextEntry
@@ -479,7 +526,10 @@ export default function SettingsScreen() {
                       <Field
                         label={t("monitor.passphrase")}
                         value={passphrase}
-                        onChangeText={setPassphrase}
+                        onChangeText={(value) => {
+                          setPassphrase(value);
+                          setConnectionError(undefined);
+                        }}
                         autoCapitalize="none"
                         autoCorrect={false}
                         secureTextEntry
@@ -501,6 +551,32 @@ export default function SettingsScreen() {
                         onValueChange={setAcknowledged}
                       />
                     </View>
+                    {connectionError && (
+                      <View
+                        key={connectionError.attempt}
+                        ref={connectionErrorView}
+                        collapsable={false}
+                        onLayout={revealConnectionError}
+                        style={{
+                          padding: 14,
+                          borderRadius: 12,
+                          borderWidth: 1,
+                          borderColor: c.negative,
+                          gap: 6,
+                        }}
+                      >
+                        <Text style={{ color: c.negative, fontWeight: "600" }}>
+                          {t("monitor.connectionFailed")}
+                        </Text>
+                        <Text
+                          accessibilityRole="alert"
+                          accessibilityLiveRegion="assertive"
+                          style={{ color: c.negative, lineHeight: 21 }}
+                        >
+                          {connectionError.message}
+                        </Text>
+                      </View>
+                    )}
                     <Action
                       primary
                       loading={busy}
@@ -596,11 +672,11 @@ export default function SettingsScreen() {
                   label={t("monitor.language")}
                   disabled={busy}
                   value={settings.language}
-                  choices={[
-                    { value: "ru", label: "Русский" },
-                    { value: "en", label: "English" },
-                    { value: "ar", label: "العربية" },
-                  ]}
+                  choices={LANGUAGES.map(({ code, name }) => ({
+                    value: code,
+                    label: name,
+                  }))}
+                  searchLabel={t("monitor.searchLanguages")}
                   onChange={(v) =>
                     void savePreference(() => settings.setLanguage(v))
                   }

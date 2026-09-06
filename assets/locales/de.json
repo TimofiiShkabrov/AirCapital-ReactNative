@@ -1,0 +1,5 @@
+{
+  "ios": {
+    "NSFaceIDUsageDescription": "Erlaube AirCapital, Face ID zum Schutz des Zugriffs auf deine Guthaben zu verwenden."
+  }
+}

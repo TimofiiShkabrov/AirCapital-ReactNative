@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import type { AccountObservation, AccountSync } from "../../types/monitor";
 import { Card, Heading, Label, useMoney, useQuantity, s } from "./primitives";
 import { useMonitorTheme } from "./theme";
+import { isWalletVisible } from "../../domain/walletVisibility";
+import { walletNameKey, valuationKey } from "../../i18n/walletNames";
 export default function WalletDetails({
   observation,
   sync,
@@ -15,6 +17,7 @@ export default function WalletDetails({
     money = useMoney(),
     quantity = useQuantity(),
     { t, i18n } = useTranslation();
+  const wallets = observation?.wallets.filter(isWalletVisible) ?? [];
   return (
     <Card>
       <Heading>{t("monitor.wallets")}</Heading>
@@ -27,7 +30,7 @@ export default function WalletDetails({
           })}
         </Label>
       )}
-      {(observation?.wallets ?? []).map((w) => (
+      {wallets.map((w) => (
         <View
           key={w.id}
           style={{
@@ -38,7 +41,9 @@ export default function WalletDetails({
           }}
         >
           <View style={[s.row, c.rtl && { flexDirection: "row-reverse" }]}>
-            <Text style={{ color: c.text, flexShrink: 1 }}>{w.name}</Text>
+            <Text style={{ color: c.text, flexShrink: 1 }}>
+              {walletNameKey(w.name) ? t(walletNameKey(w.name)!) : w.name}
+            </Text>
             <Text style={{ color: c.text }}>{money(w.balanceUSDT)} USDT</Text>
           </View>
           {w.status !== "complete" && <Label>{t(`monitor.${w.status}`)}</Label>}
@@ -55,6 +60,9 @@ export default function WalletDetails({
           ))}
         </View>
       ))}
+      {observation && wallets.length === 0 && (
+        <Label>{t("monitor.noVisibleWallets")}</Label>
+      )}
       {!observation && <Label>{t("monitor.notObserved")}</Label>}
       {observation?.issues
         .filter((x) => !x.includes(":"))
@@ -73,7 +81,10 @@ export default function WalletDetails({
       )}
       {observation?.valuationSource && (
         <Label>
-          {t("monitor.sourceNote")}: {observation.valuationSource}
+          {t("monitor.sourceNote")}:{" "}
+          {valuationKey(observation.valuationSource)
+            ? t(valuationKey(observation.valuationSource)!)
+            : observation.valuationSource}
         </Label>
       )}
     </Card>

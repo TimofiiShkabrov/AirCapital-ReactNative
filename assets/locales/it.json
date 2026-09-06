@@ -1,0 +1,5 @@
+{
+  "ios": {
+    "NSFaceIDUsageDescription": "Consenti ad AirCapital di usare Face ID per proteggere l’accesso ai tuoi saldi."
+  }
+}

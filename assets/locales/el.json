@@ -1,0 +1,5 @@
+{
+  "ios": {
+    "NSFaceIDUsageDescription": "Επιτρέψτε στο AirCapital να χρησιμοποιεί το Face ID για να προστατεύει την πρόσβαση στα υπόλοιπά σας."
+  }
+}

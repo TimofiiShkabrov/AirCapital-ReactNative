@@ -12,7 +12,6 @@ export default function RootHtml({ children }: PropsWithChildren) {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         <meta name="theme-color" content="#10151F" />
-        <title>AirCapital</title>
         <link
           rel="icon"
           type="image/png"

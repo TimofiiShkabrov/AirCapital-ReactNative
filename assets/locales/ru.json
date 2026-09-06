@@ -1,0 +1,5 @@
+{
+  "ios": {
+    "NSFaceIDUsageDescription": "Разрешите AirCapital использовать Face ID для защиты доступа к вашим балансам."
+  }
+}

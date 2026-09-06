@@ -2,7 +2,7 @@
   "expo": {
     "name": "AirCapital",
     "slug": "AirCapital",
-    "version": "2.2.722",
+    "version": "2.3.4",
     "orientation": "portrait",
     "icon": "./assets/branding/icon.png",
     "scheme": "aircapital",
@@ -13,7 +13,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "tim.AirCapital",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "CFBundleDevelopmentRegion": "en"
       },
       "appleTeamId": "QJJFV9YPU3",
       "buildNumber": "9"
@@ -55,7 +56,46 @@
       [
         "expo-local-authentication",
         {
-          "faceIDPermission": "Allow AirCapital to protect access to your balances."
+          "faceIDPermission": "Allow AirCapital to use Face ID to protect access to your balances."
+        }
+      ],
+      [
+        "expo-localization",
+        {
+          "supportedLocales": [
+            "en",
+            "es",
+            "de",
+            "nb",
+            "ru",
+            "uk",
+            "fr",
+            "pl",
+            "bg",
+            "cs",
+            "da",
+            "el",
+            "et",
+            "fi",
+            "hr",
+            "hu",
+            "is",
+            "it",
+            "lb",
+            "lt",
+            "lv",
+            "mt",
+            "nl",
+            "nn",
+            "pt",
+            "rm",
+            "ro",
+            "sk",
+            "sl",
+            "sv",
+            "ar"
+          ],
+          "allowDynamicLocaleChangesAndroid": true
         }
       ]
     ],
@@ -68,6 +108,39 @@
       "eas": {
         "projectId": "a2821bcd-746c-4c69-a511-6abf03991367"
       }
+    },
+    "locales": {
+      "en": "./assets/locales/en.json",
+      "es": "./assets/locales/es.json",
+      "de": "./assets/locales/de.json",
+      "nb": "./assets/locales/nb.json",
+      "ru": "./assets/locales/ru.json",
+      "uk": "./assets/locales/uk.json",
+      "fr": "./assets/locales/fr.json",
+      "pl": "./assets/locales/pl.json",
+      "bg": "./assets/locales/bg.json",
+      "cs": "./assets/locales/cs.json",
+      "da": "./assets/locales/da.json",
+      "el": "./assets/locales/el.json",
+      "et": "./assets/locales/et.json",
+      "fi": "./assets/locales/fi.json",
+      "hr": "./assets/locales/hr.json",
+      "hu": "./assets/locales/hu.json",
+      "is": "./assets/locales/is.json",
+      "it": "./assets/locales/it.json",
+      "lb": "./assets/locales/lb.json",
+      "lt": "./assets/locales/lt.json",
+      "lv": "./assets/locales/lv.json",
+      "mt": "./assets/locales/mt.json",
+      "nl": "./assets/locales/nl.json",
+      "nn": "./assets/locales/nn.json",
+      "pt": "./assets/locales/pt.json",
+      "rm": "./assets/locales/rm.json",
+      "ro": "./assets/locales/ro.json",
+      "sk": "./assets/locales/sk.json",
+      "sl": "./assets/locales/sl.json",
+      "sv": "./assets/locales/sv.json",
+      "ar": "./assets/locales/ar.json"
     }
   }
 }

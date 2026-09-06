@@ -15,10 +15,11 @@ Inspect remaining npm advisories by reachability. Do not apply a forced Expo maj
 
 ## Native acceptance
 
-- Rebuild the native client after installing Crypto, Local Authentication, Screen Capture, File System and Sharing.
+- Regenerate native configuration and rebuild the client after installing native dependencies, including Localization. For EAS builds the ignored native directories are generated automatically.
 - Test cold start, authentication success/cancel/failure, app switcher, background/resume, device lock and network loss on iOS and Android.
 - Verify protected storage migration, interrupted setup/removal/import, missing encryption key, JSON v1/v2 restore, reconnection and complete local deletion. An OS backup is not a portable encrypted backup.
 - Test accessibility, larger system fonts, Arabic RTL and light/dark modes on devices.
+- On a fresh install, check supported and unsupported primary device languages, regional variants, saved language after relaunch and language selection with the keyboard open. Check the localized Face ID permission prompt in the installed iOS build.
 - Complete the App Store encryption questionnaire using [the technical inventory](release-hardening-2026-09-06/README.md). The unverified exemption flag has been removed.
 
 ## Exchange acceptance

@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { resumeDeletion } from "../services/backup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import i18n, { LANGUAGE_STORAGE_KEY } from "../i18n";
+import { deviceLanguage } from "../i18n/deviceLanguage";
+import { initialLanguage, supportedLanguage } from "../i18n/languages";
 type Theme = "system" | "light" | "dark";
 const SETTINGS_KEY = "aircapital.preferences.v2";
 interface SettingsState {
@@ -46,7 +48,9 @@ export const useSettingsStore = create<SettingsState>((set, get) => {
         const raw = await AsyncStorage.getItem(SETTINGS_KEY);
         const settings = raw ? JSON.parse(raw) : {};
         const lang = await AsyncStorage.getItem(LANGUAGE_STORAGE_KEY);
-        const language = ["en", "ru", "ar"].includes(lang ?? "") ? lang! : "en";
+        const language = initialLanguage(lang, deviceLanguage());
+        if (lang !== language)
+          await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, language);
         await i18n.changeLanguage(language);
         set({
           language,
@@ -63,10 +67,11 @@ export const useSettingsStore = create<SettingsState>((set, get) => {
       }
     },
     setLanguage: async (code) => {
-      if (!["en", "ru", "ar"].includes(code)) return;
-      await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, code);
-      await i18n.changeLanguage(code);
-      set({ language: code });
+      const language = supportedLanguage(code);
+      if (!language) return;
+      await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+      await i18n.changeLanguage(language);
+      set({ language });
     },
     setTheme: (theme) => save({ theme }),
     setHideAmounts: (hideAmounts) => save({ hideAmounts }),

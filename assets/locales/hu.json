@@ -1,0 +1,5 @@
+{
+  "ios": {
+    "NSFaceIDUsageDescription": "Engedélyezd az AirCapital számára a Face ID használatát az egyenlegeidhez való hozzáférés védelméhez."
+  }
+}

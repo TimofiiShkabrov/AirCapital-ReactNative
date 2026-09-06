@@ -1,0 +1,5 @@
+{
+  "ios": {
+    "NSFaceIDUsageDescription": "Atļaujiet AirCapital izmantot Face ID, lai aizsargātu piekļuvi jūsu atlikumiem."
+  }
+}

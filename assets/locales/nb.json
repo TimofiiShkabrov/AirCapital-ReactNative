@@ -1,0 +1,5 @@
+{
+  "ios": {
+    "NSFaceIDUsageDescription": "Tillat at AirCapital bruker Face ID for å beskytte tilgangen til saldoene dine."
+  }
+}

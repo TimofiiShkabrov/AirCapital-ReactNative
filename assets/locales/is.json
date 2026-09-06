@@ -1,0 +1,5 @@
+{
+  "ios": {
+    "NSFaceIDUsageDescription": "Leyfðu AirCapital að nota Face ID til að vernda aðgang að stöðunni þinni."
+  }
+}

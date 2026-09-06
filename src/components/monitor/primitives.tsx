@@ -5,6 +5,8 @@ import {
   Text,
   Pressable,
   Modal,
+  KeyboardAvoidingView,
+  Platform,
   ScrollView,
   StyleSheet,
   TextInput,
@@ -247,16 +249,29 @@ export function Picker({
   choices,
   onChange,
   disabled,
+  searchLabel,
 }: {
   label: string;
   value: string;
   choices: { value: string; label: string }[];
   onChange: (value: string) => void;
   disabled?: boolean;
+  searchLabel?: string;
 }) {
   const c = useMonitorTheme(),
     { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const normalize = (text: string) =>
+    text
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+  const filtered = searchLabel
+    ? choices.filter((choice) =>
+        normalize(`${choice.label} ${choice.value}`).includes(normalize(query)),
+      )
+    : choices;
   return (
     <>
       <Pressable
@@ -267,7 +282,10 @@ export function Picker({
         accessibilityValue={{
           text: choices.find((o) => o.value === value)?.label,
         }}
-        onPress={() => setOpen(true)}
+        onPress={() => {
+          setQuery("");
+          setOpen(true);
+        }}
         style={{
           backgroundColor: c.panel,
           borderColor: c.line,
@@ -276,6 +294,7 @@ export function Picker({
           paddingHorizontal: 11,
           minHeight: 44,
           maxWidth: 220,
+          flexShrink: 1,
           flexDirection: c.rtl ? "row-reverse" : "row",
           alignItems: "center",
           justifyContent: "space-between",
@@ -293,11 +312,28 @@ export function Picker({
         animationType="fade"
         onRequestClose={() => setOpen(false)}
       >
-        <View style={s.overlay}>
-          <View style={[s.dialog, { backgroundColor: c.panel }]}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={s.overlay}
+        >
+          <View
+            style={[s.dialog, { backgroundColor: c.panel, maxHeight: "100%" }]}
+          >
             <Heading>{label}</Heading>
-            <ScrollView style={{ maxHeight: 360 }}>
-              {choices.map((o) => (
+            {searchLabel && (
+              <Field
+                label={searchLabel}
+                value={query}
+                onChangeText={setQuery}
+                autoCorrect={false}
+                autoCapitalize="none"
+              />
+            )}
+            <ScrollView
+              style={{ maxHeight: 360 }}
+              keyboardShouldPersistTaps="handled"
+            >
+              {filtered.map((o) => (
                 <Pressable
                   key={o.value}
                   accessibilityRole="button"
@@ -331,7 +367,7 @@ export function Picker({
             </ScrollView>
             <Action label={t("monitor.close")} onPress={() => setOpen(false)} />
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
     </>
   );

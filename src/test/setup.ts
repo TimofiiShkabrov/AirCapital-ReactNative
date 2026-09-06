@@ -1,4 +1,7 @@
 import { beforeEach, afterEach, vi } from "vitest";
+vi.mock("expo-localization", () => ({
+  getLocales: vi.fn(() => [{ languageTag: "en-US" }]),
+}));
 const memory = vi.hoisted(() => ({
   data: new Map<string, string>(),
   secrets: new Map<string, string>(),
