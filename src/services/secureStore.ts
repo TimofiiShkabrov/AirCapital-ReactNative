@@ -4,10 +4,9 @@ import { bytesToHex } from "@noble/ciphers/utils.js";
 import type { ExchangeAccount, Exchange, APIKeys } from "../types/common";
 import { ALL_EXCHANGES } from "../types/common";
 import { readPrivate, writePrivate } from "./encryptedStorage";
-import { serialQueue } from "./serial";
+import { dataQueue as serial } from "./serial";
 
 const ACCOUNTS_KEY = "aircapital.exchangeAccounts.v1";
-const serial = serialQueue();
 const options = {
   keychainAccessible: SecureStore.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
 };
@@ -127,6 +126,36 @@ export function markAccountForDeletion(
       accounts.map((a) =>
         a.id === account.id ? { ...a, state: "deletionPending" } : a,
       ),
+    );
+  });
+}
+
+/** Reuse the account identity so restored history stays attached when credentials change. */
+export function replaceAccountKeys(id: string, keys: APIKeys): Promise<void> {
+  return serial(async () => {
+    const accounts = await getAllAccounts(),
+      account = accounts.find((a) => a.id === id);
+    if (!account || account.state === "deletionPending")
+      throw new Error("missingKeys");
+    if (
+      !keys.apiKey.trim() ||
+      !keys.secretKey.trim() ||
+      (account.exchange === "okx" && !keys.passphrase?.trim())
+    )
+      throw new Error("requiredKeys");
+    await writePrivate(
+      ACCOUNTS_KEY,
+      accounts.map((a) => (a.id === id ? { ...a, state: "setupPending" } : a)),
+    );
+    for (const part of ["apiKey", "secretKey", "passphrase"] as const) {
+      const value = keys[part]?.trim();
+      if (value)
+        await SecureStore.setItemAsync(secureKey(id, part), value, options);
+      else await SecureStore.deleteItemAsync(secureKey(id, part));
+    }
+    await writePrivate(
+      ACCOUNTS_KEY,
+      accounts.map((a) => (a.id === id ? { ...a, state: "active" } : a)),
     );
   });
 }

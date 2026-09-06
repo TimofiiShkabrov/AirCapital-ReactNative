@@ -9,7 +9,7 @@ export const ALL_EXCHANGES: Exchange[] = [
 ];
 
 export interface ExchangeAccount {
-  state?: "active" | "setupPending" | "deletionPending";
+  state?: "active" | "setupPending" | "deletionPending" | "needsKeys";
   id: string;
   exchange: Exchange;
   label?: string;

@@ -54,6 +54,9 @@ describe("deposit monitoring regression coverage", () => {
       api = healthyBybit();
     await usePortfolioStore.getState().loadData();
     await usePortfolioStore.getState().loadData();
+    expect(
+      usePortfolioStore.getState().observations[account.id].issues,
+    ).toContain("coverageBybit");
     expect(usePortfolioStore.getState().getAccountBalance(account)).toBe(110);
     api.earn.mockResolvedValue({ data: { retCode: 0, result: { list: [] } } });
     await usePortfolioStore.getState().loadData();

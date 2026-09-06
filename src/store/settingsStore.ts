@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { resumeDeletion } from "../services/backup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import i18n, { LANGUAGE_STORAGE_KEY } from "../i18n";
 type Theme = "system" | "light" | "dark";
@@ -39,7 +40,9 @@ export const useSettingsStore = create<SettingsState>((set, get) => {
     lockEnabled: false,
     hydrated: false,
     hydrateSettings: async () => {
+      set({ error: undefined });
       try {
+        await resumeDeletion();
         const raw = await AsyncStorage.getItem(SETTINGS_KEY);
         const settings = raw ? JSON.parse(raw) : {};
         const lang = await AsyncStorage.getItem(LANGUAGE_STORAGE_KEY);

@@ -6,3 +6,6 @@ export function serialQueue() {
     return result;
   };
 }
+
+// Shared by whole record mutations, imports and deletion. Do not nest this queue.
+export const dataQueue = serialQueue();

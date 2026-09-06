@@ -1,0 +1,1 @@
+Upstream decode-uri-component 0.5.0 (npm, MIT), GHSA-vcc3-ghjq-m6fr fix. Only change: `export default` → `module.exports` to retain query-string 7 CommonJS compatibility on Node and Metro. Remove this override when Expo Router upgrades its query-string dependency. No algorithm modifications.

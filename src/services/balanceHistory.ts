@@ -6,10 +6,9 @@ import type {
 } from "../types/common";
 import { scopeEquals } from "../types/common";
 import { readPrivate, writePrivate } from "./encryptedStorage";
-import { serialQueue } from "./serial";
+import { dataQueue as serial } from "./serial";
 
 const STORAGE_KEY = "aircapital.balanceSnapshots.v1";
-const serial = serialQueue();
 export async function loadAllSnapshots(): Promise<BalanceSnapshot[]> {
   const all = await readPrivate<BalanceSnapshot[]>(STORAGE_KEY, []);
   if (

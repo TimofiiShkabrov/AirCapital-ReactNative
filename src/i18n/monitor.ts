@@ -1,4 +1,104 @@
 export const monitorEn = {
+  loadingData: "Loading data…",
+  processing: "Processing…",
+  accountNotFound:
+    "This account was not found. Return to Settings to check your connections.",
+  interfaceSettings: "Interface",
+  privacyData: "Privacy and data",
+  helpSettings: "Help",
+  mobileConnection: "Connect in the mobile app",
+  mobileConnectionHint:
+    "API keys can be added on iOS and Android. The web version is a demo.",
+  connectionSummary: "Read-only access to exchange balances",
+  connectionHelpSummary: "API setup and supported wallets",
+  backupsSummary: "Export and restore your history",
+  monitoringDetails: "How monitoring works",
+  monitoringSummary:
+    "AirCapital combines exchange balances and tracks changes. It does not place orders or move your funds.",
+  connectionHelp: "How to connect an exchange",
+  guideFor: "Connection guide · {{exchange}}",
+  officialSource: "Official help · {{exchange}}",
+  guideIntro:
+    "Use the exchange’s official pages for current API information. Below are the settings required for AirCapital. The exchange may show its page in English.",
+  officialGuide: "Open official instructions",
+  apiManagement: "Open official API management",
+  apiDocumentation: "Official API documentation",
+  linkOpenError:
+    "Could not open the page. Check your connection and try again.",
+  createForAirCapital: "Create a key for AirCapital",
+  creation_binance:
+    "Profile → Account → API Management → Create API. Choose System-generated (HMAC), name it AirCapital and complete the exchange’s verification. AirCapital requires an API Key and Secret Key.",
+  creation_bybit:
+    "Use the Bybit website: Profile → API → Create New Key. Choose a system-generated HMAC key and complete 2FA. The Bybit mobile app does not create API keys; new accounts may face a 48-hour restriction.",
+  creation_okx:
+    "Profile → API and connections → Create API key. Name it AirCapital and create an API passphrase. Use a manually created key; keep API Key, Secret Key and this passphrase for the connection.",
+  creation_bingx:
+    "Open the official API Management page, sign in and select Create API. Name the key AirCapital and complete the requested security verification. Copy its API Key and Secret Key.",
+  creation_gateio:
+    "Profile → API Management → Create API Key. Select API v4 Key for your real account and name it AirCapital. Complete the exchange’s security verification and copy Key and Secret.",
+  guideIP:
+    "AirCapital connects directly from your device; it has no shared server IP. If you use an IP allowlist, it must include your stable outgoing IP. Changing Wi-Fi, mobile networks or VPN may then block access. Do not copy another service’s IP addresses.",
+  finishConnection: "Connect the key to AirCapital",
+  guideStep1:
+    "In AirCapital for iOS or Android, open Settings → Connect exchange and select {{exchange}}. You can give the account a name.",
+  guideStep2:
+    "Paste API Key into “API key” and Secret Key into “API secret”. Copy the full values while the exchange displays them.",
+  guideStepPassphrase:
+    "Enter the API passphrase you created on OKX. It is not your account login password.",
+  guideStep3:
+    "Confirm that trading, withdrawals and transfers are disabled, then tap “Verify and connect”.",
+  guideStep4:
+    "Wait for the result. A partial connection means some wallets or prices could not be read. Open Overview → Exchanges and inspect the wallet breakdown.",
+  guideSecrets:
+    "Passwords, 2FA codes and recovery phrases are never needed in AirCapital. Enter exchange verification codes only on the exchange’s own site.",
+  connectionTrouble: "If connection fails",
+  guideTrouble:
+    "Check the selected exchange, the complete key/secret and the OKX passphrase. Use real-account keys, not testnet/demo keys. Regional exchange domains are not supported yet.",
+
+  backups: "Backup and recovery",
+  backupExplanation:
+    "Export contains financial history, not API keys. Keep it privately. Import merges records; conflicting records stop the import. Reconnect restored accounts to resume updates.",
+  importData: "Import backup",
+  importPreview:
+    "Add accounts: {{accounts}}; observations: {{snapshots}}; cash flows: {{flows}}; archived plans: {{archive}}. Existing records and keys are preserved. No keys are imported. Confirm cash-flow completeness again after new data is added.",
+  restored: "Backup restored. Reconnect accounts marked as needing keys.",
+  invalidBackup: "Invalid or unsupported backup. No data was imported.",
+  backupConflict:
+    "The file conflicts with existing records. Import stopped; current data is preserved.",
+  backupTooLarge: "Maximum backup size: 20 MB.",
+  unfinishedAccount:
+    "Finish reconnecting or deleting incomplete accounts before importing or exporting.",
+  deleteAll: "Delete all local data",
+  deleteAllConfirm:
+    "Delete all saved API keys, accounts, history, cash flows, archived plans and preferences from this app? This cannot be undone without an exported backup. Exported files and exchange balances/orders are unaffected.",
+  needsKeys: "History restored · reconnect API keys",
+  reconnect: "Replace / reconnect keys",
+  reconnectHint:
+    "Enter new read-only keys in the connection form above. The account identity and its history will be preserved. Use keys for the same exchange account.",
+  coverageTitle: "Supported balances",
+  coverageBinance:
+    "Wallet balances returned by Binance wallet/balance in USDT. Products absent from that response are not included.",
+  coverageBybit:
+    "Wallet equity, Funding, Flexible Saving and OnChain Earn. Other Earn products are excluded; processing positions make the result incomplete.",
+  coverageGate:
+    "Gate.io total balance and the wallet breakdown returned by its API. Products absent from the response are not included.",
+  coverageNote:
+    "Coverage describes supported API data, not every exchange product. Regional domains are not yet supported. Missing prices and unavailable wallets are marked separately.",
+  manualFlowsNote:
+    "Deposits and withdrawals are entered manually. There is no automatic transaction import yet.",
+  keyHelp:
+    "If a key expires or is revoked, create a new read-only key and use Replace / reconnect keys for the same account. For access errors, check permissions, IP restrictions and regional domain. Never enable trading or withdrawals to resolve an error.",
+  guide_binance:
+    "Binance: create a separate API key with Reading only; disable trading, futures trading, withdrawals and transfers.",
+  guide_bybit:
+    "Bybit: create a read-only API key with access to the required wallets and supported Earn positions. Missing Earn access is shown as incomplete coverage.",
+  guide_okx:
+    "OKX: create a Read-only API key and enter its passphrase. Trading equity and Funding are included; Earn is excluded.",
+  guide_bingx:
+    "BingX: create a key for reading Spot and Futures balances. Disable trading and withdrawals. Permission verification is currently based on your confirmation.",
+  guide_gateio:
+    "Gate.io: create an API v4 key with read-only access to required accounts. Disable all write permissions. Permission verification is currently based on your confirmation.",
+
   filterExchange: "Filter by exchange",
   overview: "Overview",
   exchanges: "Exchanges",
@@ -156,6 +256,107 @@ export const monitorEn = {
     "System preview protection could not be enabled on this device.",
 };
 export const monitorRu: typeof monitorEn = {
+  loadingData: "Загружаем данные…",
+  processing: "Выполняем операцию…",
+  accountNotFound: "Аккаунт не найден. Проверьте подключения в настройках.",
+  interfaceSettings: "Интерфейс",
+  privacyData: "Приватность и данные",
+  helpSettings: "Справка",
+  mobileConnection: "Подключение в приложении",
+  mobileConnectionHint:
+    "API-ключи добавляются на iOS и Android. Веб-версия работает в деморежиме.",
+  connectionSummary: "Доступ к балансам только для чтения",
+  connectionHelpSummary: "Настройка API и поддерживаемые кошельки",
+  backupsSummary: "Экспорт и восстановление истории",
+  monitoringDetails: "Как работает мониторинг",
+  monitoringSummary:
+    "AirCapital объединяет балансы бирж и отслеживает их изменения. Приложение не выставляет ордера и не перемещает средства.",
+  connectionHelp: "Как подключить биржу",
+  guideFor: "Инструкция · {{exchange}}",
+  officialSource: "Официальная справка · {{exchange}}",
+  guideIntro:
+    "Актуальная информация об API — на официальных страницах биржи. Ниже указаны настройки для AirCapital. Страница биржи может открыться на английском.",
+  officialGuide: "Открыть официальную инструкцию",
+  apiManagement: "Открыть управление API на бирже",
+  apiDocumentation: "Официальная документация API",
+  linkOpenError:
+    "Не удалось открыть страницу. Проверьте соединение и попробуйте снова.",
+  createForAirCapital: "Создание ключа для AirCapital",
+  creation_binance:
+    "Профиль → Аккаунт → Управление API → Создать API. Выберите System-generated (HMAC), задайте имя AirCapital и пройдите проверку биржи. Для подключения нужны API Key и Secret Key.",
+  creation_bybit:
+    "Откройте сайт Bybit: Профиль → API → Создать новый ключ. Выберите системный HMAC-ключ и пройдите 2FA. В приложении Bybit создание недоступно; для нового аккаунта возможно ограничение на первые 48 часов.",
+  creation_okx:
+    "Профиль → API и подключения → Создать API-ключ. Задайте имя AirCapital и отдельную API-пассфразу. Создайте ключ вручную; сохраните API Key, Secret Key и эту пассфразу для подключения.",
+  creation_bingx:
+    "Откройте официальную страницу управления API, войдите и нажмите Create API. Назовите ключ AirCapital и пройдите проверку безопасности биржи. Скопируйте API Key и Secret Key.",
+  creation_gateio:
+    "Профиль → Управление API → Создать API-ключ. Выберите API v4 Key для реального аккаунта и имя AirCapital. Пройдите проверку безопасности биржи и скопируйте Key и Secret.",
+  guideIP:
+    "AirCapital обращается к бирже напрямую с устройства; общего серверного IP нет. Если используете белый список IP, в нём должен быть ваш стабильный внешний IP. Смена Wi-Fi, мобильной сети или VPN может заблокировать доступ. Не копируйте IP-адреса других сервисов.",
+  finishConnection: "Подключение ключа к AirCapital",
+  guideStep1:
+    "В AirCapital для iOS или Android откройте Настройки → Подключить биржу и выберите {{exchange}}. При желании задайте название аккаунта.",
+  guideStep2:
+    "Вставьте API Key в поле «API-ключ», а Secret Key — в «Секрет API». Скопируйте значения полностью, пока биржа их показывает.",
+  guideStepPassphrase:
+    "Укажите API-пассфразу, созданную на OKX. Это не пароль входа в аккаунт.",
+  guideStep3:
+    "Подтвердите, что торговля, выводы и переводы отключены, затем нажмите кнопку проверки и подключения.",
+  guideStep4:
+    "Дождитесь результата. Частичное подключение означает, что часть кошельков или цен не удалось прочитать. Откройте обзор бирж и проверьте состав депозита.",
+  guideSecrets:
+    "Пароли входа, коды 2FA и seed-фразы AirCapital не нужны. Коды подтверждения вводите только на сайте самой биржи.",
+  connectionTrouble: "Если подключение не удалось",
+  guideTrouble:
+    "Проверьте выбранную биржу, полноту ключа/секрета и пассфразу OKX. Нужны ключи реального аккаунта, а не testnet/demo. Региональные домены бирж пока не поддерживаются.",
+
+  backups: "Резервные копии",
+  backupExplanation:
+    "Экспорт содержит финансовую историю без API-ключей. Храните файл приватно. Импорт объединяет записи; при конфликте останавливается. Для обновления восстановленных аккаунтов подключите ключи заново.",
+  importData: "Восстановить из файла",
+  importPreview:
+    "Будет добавлено: аккаунтов — {{accounts}}, наблюдений — {{snapshots}}, операций — {{flows}}, архивных планов — {{archive}}. Текущие записи и ключи сохранятся. Ключи не импортируются. После добавления данных подтвердите полноту денежных потоков заново.",
+  restored:
+    "Данные восстановлены. Подключите ключи аккаунтов с соответствующей пометкой.",
+  invalidBackup:
+    "Некорректный или неподдерживаемый файл. Данные не импортированы.",
+  backupConflict:
+    "В файле есть конфликтующие записи. Импорт остановлен, текущие данные сохранены.",
+  backupTooLarge: "Максимальный размер файла — 20 МБ.",
+  unfinishedAccount:
+    "Перед импортом или экспортом завершите подключение или удаление незавершённых аккаунтов.",
+  deleteAll: "Удалить все локальные данные",
+  deleteAllConfirm:
+    "Удалить из приложения все ключи, аккаунты, историю, операции, архивные планы и настройки? Восстановление возможно только из ранее сохранённого файла. Файлы экспорта, средства и ордера на биржах останутся.",
+  needsKeys: "История восстановлена · подключите ключи",
+  reconnect: "Заменить / подключить ключи",
+  reconnectHint:
+    "Введите новые ключи только для чтения в форме подключения выше. Аккаунт и его история сохранятся. Используйте ключи того же биржевого аккаунта.",
+  coverageTitle: "Какие средства учитываются",
+  coverageBinance:
+    "Балансы кошельков из Binance wallet/balance в USDT. Продукты, отсутствующие в этом ответе биржи, не учитываются.",
+  coverageBybit:
+    "Equity кошелька, Funding, Flexible Saving и OnChain Earn. Другие Earn-продукты не включены; позиции в обработке дают неполный результат.",
+  coverageGate:
+    "Общий баланс Gate.io и разбивка кошельков из API. Продукты, отсутствующие в ответе, не учитываются.",
+  coverageNote:
+    "Покрытие описывает поддерживаемые данные API. Региональные домены пока не поддерживаются. Неизвестные цены и недоступные кошельки отмечаются отдельно.",
+  manualFlowsNote:
+    "Пополнения и выводы вносятся вручную. Автоматического импорта операций пока нет.",
+  keyHelp:
+    "Если ключ истёк или отозван, создайте новый ключ только для чтения и выберите «Заменить / подключить ключи» у того же аккаунта. При ошибке доступа проверьте права, ограничения IP и региональный домен. Не включайте торговлю или вывод средств для устранения ошибки.",
+  guide_binance:
+    "Binance: создайте отдельный API-ключ только с чтением. Отключите торговлю, фьючерсную торговлю, выводы и переводы.",
+  guide_bybit:
+    "Bybit: создайте read-only ключ с доступом к нужным кошелькам и поддерживаемым Earn-позициям. Без доступа к Earn результат будет помечен неполным.",
+  guide_okx:
+    "OKX: создайте ключ с правом Read и укажите его passphrase. Учитываются Trading equity и Funding; Earn не включён.",
+  guide_bingx:
+    "BingX: создайте ключ для чтения Spot и Futures. Отключите торговлю и выводы. Проверка прав пока основана на вашем подтверждении.",
+  guide_gateio:
+    "Gate.io: создайте ключ API v4 с чтением нужных счетов. Отключите все права записи. Проверка прав пока основана на вашем подтверждении.",
+
   filterExchange: "Фильтр биржи",
   overview: "Обзор",
   exchanges: "Биржи",
@@ -314,6 +515,103 @@ export const monitorRu: typeof monitorEn = {
 };
 export const monitorAr: typeof monitorEn = {
   ...monitorEn,
+  loadingData: "جارٍ تحميل البيانات…",
+  processing: "جارٍ تنفيذ العملية…",
+  accountNotFound: "لم يتم العثور على الحساب. تحقّق من الاتصالات في الإعدادات.",
+  interfaceSettings: "الواجهة",
+  privacyData: "الخصوصية والبيانات",
+  helpSettings: "المساعدة",
+  mobileConnection: "الربط في تطبيق الهاتف",
+  mobileConnectionHint:
+    "تُضاف مفاتيح API على iOS وAndroid. نسخة الويب للتجربة.",
+  connectionSummary: "الوصول للقراءة فقط إلى أرصدة المنصات",
+  connectionHelpSummary: "إعداد API والمحافظ المدعومة",
+  backupsSummary: "تصدير السجل واستعادته",
+  monitoringDetails: "كيف تعمل المراقبة",
+  monitoringSummary:
+    "يجمع AirCapital أرصدة المنصات ويتابع تغيّرها. لا يضع التطبيق أوامر ولا ينقل أموالك.",
+  connectionHelp: "كيفية ربط منصة",
+  guideFor: "دليل الربط · {{exchange}}",
+  officialSource: "المساعدة الرسمية · {{exchange}}",
+  guideIntro:
+    "راجع الصفحات الرسمية للمنصة لمعرفة معلومات API الحالية. إعدادات AirCapital موضحة أدناه. قد تُعرض صفحة المنصة بالإنجليزية.",
+  officialGuide: "فتح التعليمات الرسمية",
+  apiManagement: "فتح إدارة API الرسمية",
+  apiDocumentation: "توثيق API الرسمي",
+  linkOpenError: "تعذّر فتح الصفحة. تحقّق من الاتصال وحاول مجددًا.",
+  createForAirCapital: "إنشاء مفتاح لـ AirCapital",
+  creation_binance:
+    "الملف الشخصي ← الحساب ← إدارة API ← إنشاء API. اختر System-generated (HMAC)، وسمّه AirCapital وأكمل التحقق. يلزم API Key وSecret Key.",
+  creation_bybit:
+    "استخدم موقع Bybit: الملف الشخصي ← API ← إنشاء مفتاح جديد. اختر مفتاح HMAC مولّدًا من النظام وأكمل 2FA. لا يتيح تطبيق Bybit إنشاء المفاتيح؛ قد تنتظر الحسابات الجديدة ٤٨ ساعة.",
+  creation_okx:
+    "الملف الشخصي ← API والاتصالات ← إنشاء مفتاح API. سمّه AirCapital وأنشئ عبارة مرور خاصة بـ API. أنشئ المفتاح يدويًا واحتفظ بـ API Key وSecret Key وعبارة المرور للربط.",
+  creation_bingx:
+    "افتح صفحة إدارة API الرسمية وسجّل الدخول واختر Create API. سمّ المفتاح AirCapital وأكمل التحقق الأمني. انسخ API Key وSecret Key.",
+  creation_gateio:
+    "الملف الشخصي ← إدارة API ← إنشاء مفتاح API. اختر API v4 Key لحسابك الحقيقي وسمّه AirCapital. أكمل التحقق الأمني وانسخ Key وSecret.",
+  guideIP:
+    "يتصل AirCapital مباشرة من جهازك ولا يملك عنوان IP خادم مشتركًا. إذا استخدمت قائمة IP مسموحة فيجب أن تتضمن عنوان اتصالك الخارجي الثابت. قد يمنع تغيير الشبكة أو VPN الوصول. لا تنسخ عناوين خدمة أخرى.",
+  finishConnection: "ربط المفتاح بـ AirCapital",
+  guideStep1:
+    "في AirCapital على iOS أو Android افتح الإعدادات ← ربط منصة واختر {{exchange}}. يمكنك تسمية الحساب.",
+  guideStep2:
+    "ألصق API Key في حقل مفتاح API وSecret Key في حقل سر API. انسخ القيم كاملة أثناء عرضها على المنصة.",
+  guideStepPassphrase:
+    "أدخل عبارة مرور API التي أنشأتها على OKX، وليست كلمة مرور تسجيل الدخول.",
+  guideStep3: "أكّد تعطيل التداول والسحب والتحويلات، ثم اضغط زر التحقق والربط.",
+  guideStep4:
+    "انتظر النتيجة. الربط الجزئي يعني تعذّر قراءة بعض المحافظ أو الأسعار. افتح عرض المنصات وراجع تفاصيل الرصيد.",
+  guideSecrets:
+    "لا يحتاج AirCapital إلى كلمات مرور الدخول أو رموز 2FA أو عبارات الاسترداد. أدخل رموز التحقق على موقع المنصة نفسها فقط.",
+  connectionTrouble: "إذا فشل الاتصال",
+  guideTrouble:
+    "تحقّق من المنصة والمفتاح والسر وعبارة مرور OKX. استخدم مفاتيح الحساب الحقيقي وليس testnet/demo. النطاقات الإقليمية غير مدعومة بعد.",
+
+  backups: "النسخ الاحتياطي والاستعادة",
+  backupExplanation:
+    "يتضمن التصدير السجل المالي دون مفاتيح API. احفظه بسرية. يدمج الاستيراد السجلات ويتوقف عند التعارض. أعد ربط الحسابات المستعادة لتحديثها.",
+  importData: "استيراد نسخة احتياطية",
+  importPreview:
+    "ستُضاف حسابات: {{accounts}}، أرصدة: {{snapshots}}، تدفقات: {{flows}}، خطط مؤرشفة: {{archive}}. تُحفظ السجلات والمفاتيح الحالية ولا تُستورد مفاتيح. أكّد اكتمال التدفقات مجددًا بعد إضافة البيانات.",
+  restored: "تمت الاستعادة. أعد ربط الحسابات التي تحتاج مفاتيح.",
+  invalidBackup: "نسخة غير صالحة أو غير مدعومة. لم تُستورد بيانات.",
+  backupConflict:
+    "يتعارض الملف مع سجلات موجودة. توقف الاستيراد وحُفظت البيانات الحالية.",
+  backupTooLarge: "الحد الأقصى للملف ٢٠ ميغابايت.",
+  unfinishedAccount:
+    "أكمل ربط الحسابات غير المكتملة أو حذفها قبل الاستيراد أو التصدير.",
+  deleteAll: "حذف جميع البيانات المحلية",
+  deleteAllConfirm:
+    "هل تريد حذف المفاتيح والحسابات والسجل والتدفقات والأرشيف والإعدادات من التطبيق؟ لا يمكن التراجع دون نسخة مصدّرة. لن تتأثر ملفات التصدير أو أرصدة وأوامر المنصات.",
+  needsKeys: "تمت استعادة السجل · أعد ربط المفاتيح",
+  reconnect: "استبدال / إعادة ربط المفاتيح",
+  reconnectHint:
+    "أدخل مفاتيح جديدة للقراءة فقط في النموذج أعلاه. ستُحفظ هوية الحساب وسجله. استخدم مفاتيح الحساب نفسه على المنصة.",
+  coverageTitle: "الأرصدة المدعومة",
+  coverageBinance:
+    "أرصدة المحافظ التي يعيدها Binance wallet/balance بوحدة USDT. المنتجات غير الموجودة في الاستجابة غير مشمولة.",
+  coverageBybit:
+    "قيمة المحفظة وFunding وFlexible Saving وOnChain Earn. منتجات Earn الأخرى غير مشمولة، والمراكز قيد المعالجة تجعل النتيجة غير مكتملة.",
+  coverageGate:
+    "الرصيد الإجمالي وتفاصيل المحافظ التي تعيدها Gate.io. المنتجات غير الموجودة في الاستجابة غير مشمولة.",
+  coverageNote:
+    "التغطية تخص بيانات API المدعومة. النطاقات الإقليمية غير مدعومة حاليًا. تُميّز الأسعار المفقودة والمحافظ غير المتاحة.",
+  manualFlowsNote:
+    "تُدخل الإيداعات والسحوبات يدويًا. لا يوجد استيراد تلقائي للمعاملات حاليًا.",
+  keyHelp:
+    "إذا انتهى المفتاح أو أُلغي، أنشئ مفتاحًا جديدًا للقراءة فقط وأعد ربط الحساب نفسه. عند خطأ الوصول راجع الأذونات وقيود IP والنطاق الإقليمي. لا تفعّل التداول أو السحب لحل الخطأ.",
+  guide_binance:
+    "Binance: أنشئ مفتاح API للقراءة فقط، وعطّل التداول والعقود الآجلة والسحب والتحويل.",
+  guide_bybit:
+    "Bybit: أنشئ مفتاحًا للقراءة فقط مع الوصول للمحافظ ومراكز Earn المدعومة. يظهر غياب إذن Earn كتغطية غير مكتملة.",
+  guide_okx:
+    "OKX: أنشئ مفتاح Read-only وأدخل عبارة مروره. يشمل Trading equity وFunding دون Earn.",
+  guide_bingx:
+    "BingX: أنشئ مفتاحًا لقراءة Spot وFutures وعطّل التداول والسحب. يعتمد التحقق من الأذونات حاليًا على تأكيدك.",
+  guide_gateio:
+    "Gate.io: أنشئ مفتاح API v4 لقراءة الحسابات المطلوبة وعطّل كل أذونات الكتابة. يعتمد التحقق حاليًا على تأكيدك.",
+
   filterExchange: "تصفية حسب المنصة",
   overview: "نظرة عامة",
   exchanges: "المنصات",

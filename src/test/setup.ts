@@ -8,6 +8,7 @@ const memory = vi.hoisted(() => ({
 }));
 vi.mock("@react-native-async-storage/async-storage", () => ({
   default: {
+    getAllKeys: vi.fn(async () => [...memory.data.keys()]),
     getItem: vi.fn(async (key: string) => memory.data.get(key) ?? null),
     setItem: vi.fn(async (key: string, value: string) => {
       memory.data.set(key, value);

@@ -207,6 +207,7 @@ export async function observeAccount(
       break;
     }
     case "bybit": {
+      issues.push("coverageBybit");
       const response = unwrap(await Bybit.fetchWallet(keys));
       const list = array(response.result?.list);
       if (!list.length) throw new Error("invalidResponse");

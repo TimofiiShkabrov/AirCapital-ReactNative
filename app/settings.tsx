@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
   Text,
@@ -22,6 +22,11 @@ import {
   Picker,
   s,
 } from "../src/components/monitor/primitives";
+import {
+  SettingsGroup,
+  SettingsRow,
+  SettingsDetail,
+} from "../src/components/monitor/SettingsGroup";
 import { useMonitorTheme } from "../src/components/monitor/theme";
 import { useAccountsStore } from "../src/store/accountsStore";
 import { useSettingsStore } from "../src/store/settingsStore";
@@ -30,14 +35,27 @@ import {
   usdToUSDT,
   verifyReadOnly,
 } from "../src/services/observations";
+import { pickBackup } from "../src/services/importFile";
+import {
+  inspectBackup,
+  importBackup,
+  deleteAllData,
+} from "../src/services/backup";
+import { replaceAccountKeys } from "../src/services/secureStore";
+import {
+  pauseMonitoring,
+  clearPortfolioMemory,
+} from "../src/store/portfolioStore";
 import { exportData } from "../src/services/exportData";
-import { loadArchivedPlans } from "../src/services/legacyPlans";
 import {
   ALL_EXCHANGES,
   type Exchange,
   type ExchangeAccount,
 } from "../src/types/common";
-import type { ArchivedPlan } from "../src/types/monitor";
+import { useScreenLoad } from "../src/hooks/useScreenLoad";
+import { loadSettingsData } from "../src/services/screenData";
+import { LoadBoundary, BusyOverlay } from "../src/components/monitor/LoadState";
+import { COVERAGE_KEYS } from "../src/domain/exchangeCoverage";
 import { EXCHANGE_CONFIG } from "../src/constants/exchanges";
 
 export default function SettingsScreen() {
@@ -57,24 +75,49 @@ export default function SettingsScreen() {
     [message, setMessage] = useState(""),
     [failure, setFailure] = useState(false),
     [deleting, setDeleting] = useState<ExchangeAccount>(),
-    [exporting, setExporting] = useState(false),
-    [plans, setPlans] = useState<ArchivedPlan[]>([]);
+    [exporting, setExporting] = useState(false);
+  const load = useScreenLoad(loadSettingsData);
+  const plans = load.data?.plans ?? [];
+  const [restore, setRestore] = useState<{
+      text: string;
+      counts: Awaited<ReturnType<typeof inspectBackup>>;
+    }>(),
+    [wiping, setWiping] = useState(false),
+    [reconnecting, setReconnecting] = useState<string>();
+  const [formOpen, setFormOpen] = useState(false);
+  const [expandedAccount, setExpandedAccount] = useState<string>();
+  const [storageOpen, setStorageOpen] = useState(false);
+  const [monitoringOpen, setMonitoringOpen] = useState(false);
+  const scroll = useRef<ScrollView>(null);
+  const closeForm = () => {
+    setFormOpen(false);
+    setReconnecting(undefined);
+    setApiKey("");
+    setSecret("");
+    setPassphrase("");
+    setLabel("");
+    setAcknowledged(false);
+  };
   const working = useRef(false);
-  useEffect(() => {
-    void loadAccounts();
-    void loadArchivedPlans()
-      .then(setPlans)
-      .catch(() => {
-        setFailure(true);
-        setMessage(t("monitor.storageError"));
-      });
-  }, [loadAccounts, t]);
   const report = (e: unknown) => {
     const code = e instanceof Error ? e.message : "";
     setFailure(true);
     setMessage(
       t(`monitor.${code}`, { defaultValue: t("monitor.genericError") }),
     );
+  };
+  const savePreference = async (operation: () => Promise<void>) => {
+    if (working.current) return;
+    working.current = true;
+    setBusy(true);
+    try {
+      await operation();
+    } catch (e) {
+      report(e);
+    } finally {
+      working.current = false;
+      setBusy(false);
+    }
   };
   const connect = async () => {
     if (working.current) return;
@@ -116,7 +159,12 @@ export default function SettingsScreen() {
         rate,
       );
       if (result.balanceUSDT === undefined) throw new Error("invalidResponse");
-      await accounts.addAccount(keys, exchange, label);
+      if (reconnecting) {
+        await replaceAccountKeys(reconnecting, keys);
+        await loadAccounts();
+      } else await accounts.addAccount(keys, exchange, label);
+      setFormOpen(false);
+      setReconnecting(undefined);
       setApiKey("");
       setSecret("");
       setPassphrase("");
@@ -188,6 +236,68 @@ export default function SettingsScreen() {
       setBusy(false);
     }
   };
+  const chooseBackup = async () => {
+    if (working.current) return;
+    working.current = true;
+    setBusy(true);
+    try {
+      const text = await pickBackup();
+      if (text) setRestore({ text, counts: await inspectBackup(text) });
+    } catch (e) {
+      report(e);
+    } finally {
+      working.current = false;
+      setBusy(false);
+    }
+  };
+  const restoreBackup = async () => {
+    if (working.current || !restore) return;
+    working.current = true;
+    setBusy(true);
+    try {
+      await pauseMonitoring(async () => {
+        await importBackup(restore.text);
+        clearPortfolioMemory();
+        await loadAccounts();
+      });
+      setRestore(undefined);
+      setMessage(t("monitor.restored"));
+      setFailure(false);
+      await load.reload();
+    } catch (e) {
+      report(e);
+      setRestore(undefined);
+    } finally {
+      working.current = false;
+      setBusy(false);
+    }
+  };
+  const wipe = async () => {
+    if (working.current) return;
+    working.current = true;
+    setBusy(true);
+    try {
+      await pauseMonitoring(async () => {
+        await deleteAllData();
+        clearPortfolioMemory();
+        await loadAccounts();
+      });
+      setWiping(false);
+      setRestore(undefined);
+      setReconnecting(undefined);
+      setApiKey("");
+      setSecret("");
+      setPassphrase("");
+      await settings.hydrateSettings();
+      router.replace("/");
+    } catch (e) {
+      report(e);
+      setWiping(false);
+    } finally {
+      working.current = false;
+      setBusy(false);
+    }
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.bg }}>
       <KeyboardAvoidingView
@@ -197,7 +307,14 @@ export default function SettingsScreen() {
         <View
           style={[
             s.row,
-            { paddingHorizontal: 20, paddingVertical: 8 },
+            {
+              width: "100%",
+              maxWidth: 720,
+              alignSelf: "center",
+              paddingHorizontal: 20,
+              paddingTop: 18,
+              paddingBottom: 8,
+            },
             c.rtl && { flexDirection: "row-reverse" },
           ]}
         >
@@ -205,239 +322,400 @@ export default function SettingsScreen() {
           <IconButton
             label={t("monitor.close")}
             icon="close-outline"
+            disabled={busy}
             onPress={() =>
               router.canGoBack() ? router.back() : router.replace("/")
             }
           />
         </View>
         <ScrollView
+          ref={scroll}
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={s.page}
+          contentContainerStyle={[s.page, { gap: 24 }]}
         >
-          {!!message && (
-            <Card>
-              <Text
-                accessibilityRole={failure ? "alert" : undefined}
-                accessibilityLiveRegion="polite"
-                style={{ color: failure ? c.negative : c.positive }}
-              >
-                {message}
-              </Text>
-            </Card>
-          )}
-          <Card>
-            <Heading>{t("monitor.theme")}</Heading>
-            <Picker
-              label={t("monitor.theme")}
-              value={settings.theme}
-              choices={(["system", "light", "dark"] as const).map((value) => ({
-                value,
-                label: t(`monitor.${value}`),
-              }))}
-              onChange={(v) =>
-                void settings
-                  .setTheme(v as "system" | "light" | "dark")
-                  .catch(report)
-              }
-            />
-            <Heading>{t("monitor.language")}</Heading>
-            <Picker
-              label={t("monitor.language")}
-              value={settings.language}
-              choices={[
-                { value: "ru", label: "Русский" },
-                { value: "en", label: "English" },
-                { value: "ar", label: "العربية" },
-              ]}
-              onChange={(v) => void settings.setLanguage(v).catch(report)}
-            />
-          </Card>
-          <Card>
-            <Heading>{t("monitor.connect")}</Heading>
-            <Label>{t("monitor.instruction")}</Label>
-            {Platform.OS === "web" ? (
-              <Label>{t("monitor.unsupportedWeb")}</Label>
-            ) : (
-              <>
-                <Picker
-                  label={t("monitor.exchanges")}
-                  value={exchange}
-                  choices={ALL_EXCHANGES.map((e) => ({
-                    value: e,
-                    label: EXCHANGE_CONFIG[e].label,
-                  }))}
-                  onChange={(v) => {
-                    setExchange(v as Exchange);
-                    setApiKey("");
-                    setSecret("");
-                    setPassphrase("");
-                    setAcknowledged(false);
-                  }}
-                />
-                {(exchange === "bingx" || exchange === "gateio") && (
-                  <Label>{t("monitor.permissionDeclared")}</Label>
-                )}
-                <Field
-                  label={t("monitor.name")}
-                  placeholder={t("monitor.optional")}
-                  value={label}
-                  onChangeText={setLabel}
-                  maxLength={60}
-                  editable={!busy}
-                />
-                <Field
-                  label={t("monitor.apiKey")}
-                  value={apiKey}
-                  onChangeText={setApiKey}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  secureTextEntry
-                  textContentType="none"
-                  autoComplete="off"
-                  editable={!busy}
-                />
-                <Field
-                  label={t("monitor.secret")}
-                  value={secret}
-                  onChangeText={setSecret}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  secureTextEntry
-                  textContentType="none"
-                  autoComplete="off"
-                  editable={!busy}
-                />
-                {exchange === "okx" && (
-                  <Field
-                    label={t("monitor.passphrase")}
-                    value={passphrase}
-                    onChangeText={setPassphrase}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    secureTextEntry
-                    textContentType="none"
-                    autoComplete="off"
-                    editable={!busy}
-                  />
-                )}
-                <View
-                  style={[s.row, c.rtl && { flexDirection: "row-reverse" }]}
+          <LoadBoundary
+            loading={load.isLoading}
+            error={load.error}
+            onRetry={() => void load.reload()}
+          >
+            {!!message && (
+              <Card>
+                <Text
+                  accessibilityRole={failure ? "alert" : undefined}
+                  accessibilityLiveRegion="polite"
+                  style={{ color: failure ? c.negative : c.positive }}
                 >
-                  <View style={{ flex: 1 }}>
-                    <Label>{t("monitor.acknowledge")}</Label>
-                  </View>
-                  <Switch
-                    accessibilityLabel={t("monitor.acknowledge")}
-                    value={acknowledged}
-                    disabled={busy}
-                    onValueChange={setAcknowledged}
-                  />
-                </View>
-                <Action
-                  primary
-                  icon="shield-checkmark-outline"
-                  label={t(
-                    busy ? "monitor.checking" : "monitor.checkConnection",
-                  )}
-                  disabled={busy || !acknowledged}
-                  onPress={() => void connect()}
-                />
-              </>
+                  {message}
+                </Text>
+              </Card>
             )}
-          </Card>
-          {accounts.accounts.length > 0 && (
-            <Card>
-              <Heading>{t("monitor.accounts")}</Heading>
-              {accounts.accounts.map((account) => (
-                <View
-                  key={account.id}
-                  style={{
-                    paddingVertical: 10,
-                    gap: 9,
-                    borderBottomWidth: 1,
-                    borderBottomColor: c.line,
-                  }}
-                >
-                  <Text style={{ color: c.text, fontWeight: "500" }}>
-                    {EXCHANGE_CONFIG[account.exchange].label}
-                    {account.label ? ` · ${account.label}` : ""}
-                  </Text>
-                  {account.state === "setupPending" && (
-                    <Label>{t("monitor.incompleteSetup")}</Label>
-                  )}
-                  {account.state === "deletionPending" && (
-                    <Label>{t("monitor.deletePending")}</Label>
-                  )}
-                  <Action
-                    label={t(
-                      account.state === "deletionPending"
-                        ? "monitor.retryDelete"
-                        : "monitor.remove",
-                    )}
-                    danger
-                    disabled={busy}
-                    onPress={() => setDeleting(account)}
+            <SettingsGroup title={t("monitor.exchanges")}>
+              <View>
+                {Platform.OS === "web" ? (
+                  <SettingsRow
+                    title={t("monitor.mobileConnection")}
+                    subtitle={t("monitor.mobileConnectionHint")}
+                    icon="phone-portrait-outline"
                   />
+                ) : (
+                  <SettingsRow
+                    title={t(
+                      reconnecting ? "monitor.reconnect" : "monitor.connect",
+                    )}
+                    subtitle={t("monitor.connectionSummary")}
+                    icon="add-circle-outline"
+                    expanded={formOpen}
+                    disabled={busy}
+                    onPress={() => (formOpen ? closeForm() : setFormOpen(true))}
+                  />
+                )}
+                <SettingsRow
+                  title={t("monitor.connectionHelp")}
+                  subtitle={
+                    formOpen
+                      ? EXCHANGE_CONFIG[exchange].label
+                      : t("monitor.connectionHelpSummary")
+                  }
+                  icon="book-outline"
+                  disabled={busy}
+                  onPress={() =>
+                    router.push({
+                      pathname: "/connect-guide",
+                      params: { exchange },
+                    })
+                  }
+                />
+                {Platform.OS !== "web" && formOpen && (
+                  <SettingsDetail>
+                    <Label>{t("monitor.instruction")}</Label>
+                    {reconnecting && (
+                      <Label>{t("monitor.reconnectHint")}</Label>
+                    )}
+                    <Picker
+                      label={t("monitor.exchanges")}
+                      disabled={busy}
+                      value={exchange}
+                      choices={(reconnecting ? [exchange] : ALL_EXCHANGES).map(
+                        (e) => ({
+                          value: e,
+                          label: EXCHANGE_CONFIG[e].label,
+                        }),
+                      )}
+                      onChange={(v) => {
+                        setExchange(v as Exchange);
+                        setApiKey("");
+                        setSecret("");
+                        setPassphrase("");
+                        setAcknowledged(false);
+                      }}
+                    />
+                    <Label>{t(`monitor.${COVERAGE_KEYS[exchange]}`)}</Label>
+                    {(exchange === "bingx" || exchange === "gateio") && (
+                      <Label>{t("monitor.permissionDeclared")}</Label>
+                    )}
+                    <Field
+                      label={t("monitor.name")}
+                      placeholder={t("monitor.optional")}
+                      value={label}
+                      onChangeText={setLabel}
+                      maxLength={60}
+                      editable={!busy}
+                    />
+                    <Field
+                      label={t("monitor.apiKey")}
+                      value={apiKey}
+                      onChangeText={setApiKey}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      secureTextEntry
+                      textContentType="none"
+                      autoComplete="off"
+                      editable={!busy}
+                    />
+                    <Field
+                      label={t("monitor.secret")}
+                      value={secret}
+                      onChangeText={setSecret}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      secureTextEntry
+                      textContentType="none"
+                      autoComplete="off"
+                      editable={!busy}
+                    />
+                    {exchange === "okx" && (
+                      <Field
+                        label={t("monitor.passphrase")}
+                        value={passphrase}
+                        onChangeText={setPassphrase}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        secureTextEntry
+                        textContentType="none"
+                        autoComplete="off"
+                        editable={!busy}
+                      />
+                    )}
+                    <View
+                      style={[s.row, c.rtl && { flexDirection: "row-reverse" }]}
+                    >
+                      <View style={{ flex: 1 }}>
+                        <Label>{t("monitor.acknowledge")}</Label>
+                      </View>
+                      <Switch
+                        accessibilityLabel={t("monitor.acknowledge")}
+                        value={acknowledged}
+                        disabled={busy}
+                        onValueChange={setAcknowledged}
+                      />
+                    </View>
+                    <Action
+                      primary
+                      loading={busy}
+                      icon="shield-checkmark-outline"
+                      label={t(
+                        busy ? "monitor.checking" : "monitor.checkConnection",
+                      )}
+                      disabled={busy || !acknowledged}
+                      onPress={() => void connect()}
+                    />
+                    <Action
+                      label={t("monitor.cancel")}
+                      disabled={busy}
+                      onPress={closeForm}
+                    />
+                  </SettingsDetail>
+                )}
+              </View>
+              {accounts.accounts.map((account) => (
+                <View key={account.id}>
+                  <SettingsRow
+                    title={
+                      account.label || EXCHANGE_CONFIG[account.exchange].label
+                    }
+                    subtitle={
+                      account.state === "needsKeys"
+                        ? t("monitor.needsKeys")
+                        : account.state === "setupPending"
+                          ? t("monitor.incompleteSetup")
+                          : account.state === "deletionPending"
+                            ? t("monitor.deletePending")
+                            : account.label
+                              ? EXCHANGE_CONFIG[account.exchange].label
+                              : undefined
+                    }
+                    icon="wallet-outline"
+                    expanded={expandedAccount === account.id}
+                    disabled={busy}
+                    onPress={() =>
+                      setExpandedAccount(
+                        expandedAccount === account.id ? undefined : account.id,
+                      )
+                    }
+                  />
+                  {expandedAccount === account.id && (
+                    <SettingsDetail>
+                      {Platform.OS !== "web" && (
+                        <Action
+                          label={t("monitor.reconnect")}
+                          disabled={busy || account.state === "deletionPending"}
+                          onPress={() => {
+                            setFormOpen(true);
+                            setExpandedAccount(undefined);
+                            setReconnecting(account.id);
+                            setExchange(account.exchange);
+                            setLabel(account.label ?? "");
+                            setApiKey("");
+                            setSecret("");
+                            setPassphrase("");
+                            setAcknowledged(false);
+                            setMessage("");
+                            setFailure(false);
+                            scroll.current?.scrollTo({ y: 0, animated: true });
+                          }}
+                        />
+                      )}
+                      <Action
+                        label={t(
+                          account.state === "deletionPending"
+                            ? "monitor.retryDelete"
+                            : "monitor.remove",
+                        )}
+                        danger
+                        disabled={busy}
+                        onPress={() => setDeleting(account)}
+                      />
+                    </SettingsDetail>
+                  )}
                 </View>
               ))}
-            </Card>
-          )}
-          <Card>
-            <Heading>{t("monitor.privacy")}</Heading>
-            <View style={[s.row, c.rtl && { flexDirection: "row-reverse" }]}>
-              <View style={{ flex: 1 }}>
-                <Label>{t("monitor.hidden")}</Label>
-              </View>
-              <Switch
-                accessibilityLabel={t("monitor.hidden")}
-                value={settings.hideAmounts}
-                onValueChange={(v) =>
-                  void settings.setHideAmounts(v).catch(report)
-                }
-              />
-            </View>
-            {Platform.OS !== "web" && (
-              <View style={[s.row, c.rtl && { flexDirection: "row-reverse" }]}>
-                <View style={{ flex: 1 }}>
-                  <Label>{t("monitor.appLock")}</Label>
-                </View>
-                <Switch
-                  accessibilityLabel={t("monitor.appLock")}
-                  value={settings.lockEnabled}
+            </SettingsGroup>
+            <SettingsGroup title={t("monitor.interfaceSettings")}>
+              <SettingsRow
+                title={t("monitor.theme")}
+                icon="color-palette-outline"
+              >
+                <Picker
+                  label={t("monitor.theme")}
                   disabled={busy}
-                  onValueChange={(v) => void toggleLock(v)}
+                  value={settings.theme}
+                  choices={(["system", "light", "dark"] as const).map(
+                    (value) => ({ value, label: t(`monitor.${value}`) }),
+                  )}
+                  onChange={(v) =>
+                    void savePreference(() =>
+                      settings.setTheme(v as "system" | "light" | "dark"),
+                    )
+                  }
                 />
+              </SettingsRow>
+              <SettingsRow
+                title={t("monitor.language")}
+                icon="language-outline"
+              >
+                <Picker
+                  label={t("monitor.language")}
+                  disabled={busy}
+                  value={settings.language}
+                  choices={[
+                    { value: "ru", label: "Русский" },
+                    { value: "en", label: "English" },
+                    { value: "ar", label: "العربية" },
+                  ]}
+                  onChange={(v) =>
+                    void savePreference(() => settings.setLanguage(v))
+                  }
+                />
+              </SettingsRow>
+            </SettingsGroup>
+            <SettingsGroup title={t("monitor.privacyData")}>
+              <SettingsRow title={t("monitor.hidden")} icon="eye-off-outline">
+                <Switch
+                  accessibilityLabel={t("monitor.hidden")}
+                  value={settings.hideAmounts}
+                  disabled={busy}
+                  onValueChange={(v) =>
+                    void savePreference(() => settings.setHideAmounts(v))
+                  }
+                />
+              </SettingsRow>
+              {Platform.OS !== "web" && (
+                <SettingsRow
+                  title={t("monitor.appLock")}
+                  icon="lock-closed-outline"
+                >
+                  <Switch
+                    accessibilityLabel={t("monitor.appLock")}
+                    value={settings.lockEnabled}
+                    disabled={busy}
+                    onValueChange={(v) => void toggleLock(v)}
+                  />
+                </SettingsRow>
+              )}
+              {Platform.OS !== "web" && (
+                <View>
+                  <SettingsRow
+                    title={t("monitor.backups")}
+                    subtitle={t("monitor.backupsSummary")}
+                    icon="cloud-outline"
+                    expanded={storageOpen}
+                    onPress={() => setStorageOpen(!storageOpen)}
+                  />
+                  {storageOpen && (
+                    <SettingsDetail>
+                      <Label>{t("monitor.securityNote")}</Label>
+                      <Label>{t("monitor.backupExplanation")}</Label>
+                      <Action
+                        label={t("monitor.export")}
+                        icon="download-outline"
+                        disabled={busy}
+                        onPress={() => setExporting(true)}
+                      />
+                      <Action
+                        label={t("monitor.importData")}
+                        icon="cloud-upload-outline"
+                        disabled={busy}
+                        onPress={() => void chooseBackup()}
+                      />
+                    </SettingsDetail>
+                  )}
+                </View>
+              )}
+              {Platform.OS !== "web" && (
+                <SettingsRow
+                  title={t("monitor.deleteAll")}
+                  icon="trash-outline"
+                  danger
+                  disabled={busy}
+                  onPress={() => setWiping(true)}
+                />
+              )}
+            </SettingsGroup>
+            <SettingsGroup title={t("monitor.helpSettings")}>
+              <View>
+                <SettingsRow
+                  title={t("monitor.monitoringDetails")}
+                  subtitle={t("monitor.readOnly")}
+                  icon="information-circle-outline"
+                  expanded={monitoringOpen}
+                  onPress={() => setMonitoringOpen(!monitoringOpen)}
+                />
+                {monitoringOpen && (
+                  <SettingsDetail>
+                    <Label>{t("monitor.monitoringSummary")}</Label>
+                    <Label>{t("monitor.background")}</Label>
+                    <Label>{t("monitor.manualFlowsNote")}</Label>
+                    <Label>{t("monitor.coverageNote")}</Label>
+                    {plans.length > 0 && (
+                      <>
+                        <Heading>{t("monitor.archive")}</Heading>
+                        <Label>{t("monitor.migration")}</Label>
+                        {plans.map((plan) => (
+                          <View
+                            key={plan.id}
+                            style={{ gap: 5, paddingVertical: 8 }}
+                          >
+                            <Text
+                              style={{
+                                color: c.text,
+                                textAlign: c.rtl ? "right" : "left",
+                              }}
+                            >
+                              {plan.exchange} · {plan.instrument}
+                            </Text>
+                            <Label>
+                              {t("monitor.orderIds")}:{" "}
+                              {plan.orderIds.join(", ") || "—"}
+                            </Label>
+                          </View>
+                        ))}
+                      </>
+                    )}
+                  </SettingsDetail>
+                )}
               </View>
-            )}
-            <Label>{t("monitor.securityNote")}</Label>
-            <Action
-              label={t("monitor.export")}
-              icon="download-outline"
-              disabled={busy || Platform.OS === "web"}
-              onPress={() => setExporting(true)}
-            />
-          </Card>
-          <Card>
-            <Heading>{t("monitor.readOnly")}</Heading>
-            <Label>{t("monitor.migration")}</Label>
-            {plans.length > 0 && (
-              <>
-                <Heading>{t("monitor.archive")}</Heading>
-                {plans.map((plan) => (
-                  <View key={plan.id} style={{ gap: 5, paddingVertical: 8 }}>
-                    <Text style={{ color: c.text }}>
-                      {plan.exchange} · {plan.instrument}
-                    </Text>
-                    <Label>
-                      {t("monitor.orderIds")}: {plan.orderIds.join(", ") || "—"}
-                    </Label>
-                  </View>
-                ))}
-              </>
-            )}
-          </Card>
-          <Label>{t("monitor.background")}</Label>
+            </SettingsGroup>
+          </LoadBoundary>
         </ScrollView>
+        <BusyOverlay
+          visible={busy && !restore && !wiping && !deleting && !exporting}
+        />
+        <Confirm
+          visible={!!restore}
+          title={t("monitor.importData")}
+          body={t("monitor.importPreview", restore?.counts ?? {})}
+          onConfirm={() => void restoreBackup()}
+          onCancel={() => setRestore(undefined)}
+          busy={busy}
+        />
+        <Confirm
+          visible={wiping}
+          title={t("monitor.deleteAll")}
+          body={t("monitor.deleteAllConfirm")}
+          onConfirm={() => void wipe()}
+          onCancel={() => setWiping(false)}
+          busy={busy}
+        />
         <Confirm
           visible={!!deleting}
           title={t("monitor.remove")}

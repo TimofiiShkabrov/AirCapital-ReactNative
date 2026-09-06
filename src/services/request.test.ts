@@ -16,6 +16,9 @@ describe("read-only transport", () => {
     expect(
       (await readJson("https://untrusted.example/?apiKey=secret")).error?.code,
     ).toBe("incorrectURL");
+    expect(
+      (await readJson("https://api.bybit.com:8443/v5/market/time")).error?.code,
+    ).toBe("incorrectURL");
     expect(mock).toHaveBeenCalledTimes(1);
   });
   it("bounds even a stalled response body", async () => {

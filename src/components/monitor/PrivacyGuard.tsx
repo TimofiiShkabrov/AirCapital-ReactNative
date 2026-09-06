@@ -6,6 +6,7 @@ import * as ScreenCapture from "expo-screen-capture";
 import { useSettingsStore } from "../../store/settingsStore";
 import { Action, Heading, Label } from "./primitives";
 import { useMonitorTheme } from "./theme";
+import BrandIcon from "./BrandIcon";
 export default function PrivacyGuard({
   children,
 }: {
@@ -19,6 +20,11 @@ export default function PrivacyGuard({
     [busy, setBusy] = useState(false),
     [error, setError] = useState("");
   const authenticating = useRef(false);
+  // Preserve an in-progress native file picker behind the opaque lock screen.
+  // On a cold locked start, the application content is still never mounted.
+  const contentMounted = useRef(false);
+  if (settings.hydrated && (!settings.lockEnabled || unlocked))
+    contentMounted.current = true;
   useEffect(() => {
     if (Platform.OS === "ios")
       void ScreenCapture.enableAppSwitcherProtectionAsync(1).catch(() =>
@@ -60,7 +66,7 @@ export default function PrivacyGuard({
     !settings.hydrated || background || (settings.lockEnabled && !unlocked);
   return (
     <View style={{ flex: 1, backgroundColor: c.bg }}>
-      {settings.hydrated && (!settings.lockEnabled || unlocked) && (
+      {settings.hydrated && contentMounted.current && (
         <View
           style={{ flex: 1 }}
           pointerEvents={covered ? "none" : "auto"}
@@ -84,6 +90,7 @@ export default function PrivacyGuard({
             gap: 20,
           }}
         >
+          <BrandIcon size={72} />
           <Heading>AirCapital</Heading>
           {!settings.hydrated ? (
             <>
@@ -96,7 +103,10 @@ export default function PrivacyGuard({
                   />
                 </>
               ) : (
-                <ActivityIndicator color={c.accent} />
+                <ActivityIndicator
+                  accessibilityLabel={t("monitor.loadingData")}
+                  color={c.accent}
+                />
               )}
             </>
           ) : (
@@ -108,6 +118,7 @@ export default function PrivacyGuard({
                   icon="lock-open-outline"
                   primary
                   disabled={busy}
+                  loading={busy}
                   onPress={() => void unlock()}
                 />
               )}

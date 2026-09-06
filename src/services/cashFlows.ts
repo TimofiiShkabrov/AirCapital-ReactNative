@@ -2,9 +2,8 @@ import { getRandomBytesAsync } from "expo-crypto";
 import { bytesToHex } from "@noble/ciphers/utils.js";
 import type { CashFlow, FlowCoverage } from "../types/monitor";
 import { readPrivate, writePrivate } from "./encryptedStorage";
-import { serialQueue } from "./serial";
+import { dataQueue as serial } from "./serial";
 const KEY = "aircapital.cashFlows.v1";
-const serial = serialQueue();
 export interface FlowLedger {
   flows: CashFlow[];
   coverage: FlowCoverage[];

@@ -23,18 +23,23 @@ interface AccountsState {
   removeAccount: (account: ExchangeAccount) => Promise<void>;
   getKeys: (account: ExchangeAccount) => Promise<APIKeys | null>;
 }
+let accountRead: Promise<void> | undefined;
 export const useAccountsStore = create<AccountsState>((set, get) => ({
   accounts: [],
   isLoading: false,
-  loadAccounts: async () => {
+  loadAccounts: () => {
+    if (accountRead) return accountRead;
     set({ isLoading: true, error: undefined });
-    try {
-      set({ accounts: await getAllAccounts() });
-    } catch {
-      set({ error: "storageError" });
-    } finally {
-      set({ isLoading: false });
-    }
+    accountRead = getAllAccounts()
+      .then(
+        (accounts) => set({ accounts }),
+        () => set({ error: "storageError" }),
+      )
+      .finally(() => {
+        accountRead = undefined;
+        set({ isLoading: false });
+      });
+    return accountRead;
   },
   addAccount: async (keys, exchange, label) => {
     try {

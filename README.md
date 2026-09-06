@@ -10,7 +10,7 @@ AirCapital is a read-only monitor of deposits across crypto exchanges. The app c
 - Explicit partial/stale/unpriced states. Confirmed zero and negative equity are preserved.
 - Cash-flow journal and user-confirmed coverage before calculating a result excluding deposits/withdrawals. This is currently manual; it is not automatic transaction import or tax reporting.
 - RU/EN/AR, RTL layouts, system/light/dark appearance and amount hiding.
-- Device authentication, protected app-switcher preview, encrypted local records, recoverable key deletion and JSON export without keys.
+- Device authentication, protected app-switcher preview, encrypted local records, JSON backup/import without keys, reconnection preserving history and recoverable full local deletion.
 - Separate fictional demo. Demo observations never enter the real history.
 
 ## Start
@@ -45,12 +45,12 @@ The tests use mocked storage and exchange responses; unexpected network requests
 
 ## Data and coverage
 
-[Implementation notes](docs/implementation-2026-09-06/README.md) document actual exchange coverage, verification and remaining work. [Release checks](docs/release-checklist.md) cover native testing and migration. The [original audit](docs/audit-2026-09-06/README.md) is historical and contains pre-change findings.
+[Release checks](docs/release-checklist.md) cover native testing and migration. [Exchange connection planning](docs/integrations/quick-connect.md) documents official guides and partner connection options. Historical audits, generated reports and design notes are kept locally and excluded from Git.
 
 Use dedicated read-only API keys. The app checks exposed permissions for Binance, Bybit and OKX; for BingX and Gate.io the current adapter requires the user's explicit declaration. Old trading keys should be revoked and replaced on the exchange.
 
 Old terminal bookmarks redirect to Settings. Existing grid plans are preserved as encrypted archives. Existing exchange orders are **not cancelled** during migration.
 
-Snapshots from the previous calculation method are preserved in storage/export and excluded from new performance comparisons. Local ciphertext is tied to the device key; an OS backup alone is not a reliable portable backup. JSON export is readable and must be handled accordingly; automatic import/restore is not yet implemented.
+Snapshots from the previous calculation method are preserved in storage/export and excluded from new performance comparisons. Local ciphertext is tied to the device key; an OS backup alone is not a reliable portable backup. JSON export is readable and must be handled accordingly; JSON v1/v2 import merges records and reconnects restored accounts after keys are entered again.
 
 Balances refresh on opening/resuming the app, manual refresh and every five minutes while active. Continuous cloud monitoring, push alerts, subscription billing, automatic flow import and additional locales are subsequent development stages.

@@ -30,6 +30,7 @@ export default function RootLayout() {
           />
           <Stack.Screen name="details/[accountId]" />
           <Stack.Screen name="flows" />
+          <Stack.Screen name="connect-guide" />
         </Stack>
       </PrivacyGuard>
     </GestureHandlerRootView>

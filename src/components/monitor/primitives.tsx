@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   View,
+  ActivityIndicator,
   Text,
   Pressable,
   Modal,
@@ -114,6 +115,7 @@ export function Action({
   primary,
   disabled,
   danger,
+  loading,
 }: {
   label: string;
   onPress: () => void;
@@ -121,14 +123,18 @@ export function Action({
   primary?: boolean;
   disabled?: boolean;
   danger?: boolean;
+  loading?: boolean;
 }) {
   const c = useMonitorTheme();
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
-      accessibilityState={{ disabled: !!disabled }}
-      disabled={disabled}
+      accessibilityState={{
+        disabled: !!(disabled || loading),
+        busy: !!loading,
+      }}
+      disabled={disabled || loading}
       onPress={onPress}
       style={({ pressed }) => ({
         minHeight: 44,
@@ -140,15 +146,19 @@ export function Action({
         justifyContent: "center",
         alignItems: "center",
         gap: 7,
-        opacity: disabled ? 0.45 : pressed ? 0.7 : 1,
+        opacity: loading ? 1 : disabled ? 0.45 : pressed ? 0.7 : 1,
       })}
     >
-      {icon && (
-        <Ionicons
-          name={icon}
-          size={18}
-          color={primary ? c.bg : danger ? c.negative : c.accent}
-        />
+      {loading ? (
+        <ActivityIndicator color={primary ? c.bg : c.accent} />
+      ) : (
+        icon && (
+          <Ionicons
+            name={icon}
+            size={18}
+            color={primary ? c.bg : danger ? c.negative : c.accent}
+          />
+        )
       )}
       <Text
         style={{
@@ -169,28 +179,38 @@ export function IconButton({
   icon,
   onPress,
   disabled,
+  loading,
 }: {
   label: string;
   icon: keyof typeof Ionicons.glyphMap;
   onPress: () => void;
   disabled?: boolean;
+  loading?: boolean;
 }) {
   const c = useMonitorTheme();
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
-      disabled={disabled}
+      disabled={disabled || loading}
+      accessibilityState={{
+        disabled: !!(disabled || loading),
+        busy: !!loading,
+      }}
       onPress={onPress}
       style={({ pressed }) => ({
         width: 44,
         height: 44,
         alignItems: "center",
         justifyContent: "center",
-        opacity: disabled ? 0.4 : pressed ? 0.6 : 1,
+        opacity: loading ? 1 : disabled ? 0.4 : pressed ? 0.6 : 1,
       })}
     >
-      <Ionicons name={icon} size={21} color={c.muted} />
+      {loading ? (
+        <ActivityIndicator color={c.accent} />
+      ) : (
+        <Ionicons name={icon} size={21} color={c.muted} />
+      )}
     </Pressable>
   );
 }
@@ -226,11 +246,13 @@ export function Picker({
   value,
   choices,
   onChange,
+  disabled,
 }: {
   label: string;
   value: string;
   choices: { value: string; label: string }[];
   onChange: (value: string) => void;
+  disabled?: boolean;
 }) {
   const c = useMonitorTheme(),
     { t } = useTranslation();
@@ -240,6 +262,8 @@ export function Picker({
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={label}
+        disabled={disabled}
+        accessibilityState={{ disabled: !!disabled }}
         accessibilityValue={{
           text: choices.find((o) => o.value === value)?.label,
         }}
@@ -277,7 +301,11 @@ export function Picker({
                 <Pressable
                   key={o.value}
                   accessibilityRole="button"
-                  accessibilityState={{ selected: value === o.value }}
+                  disabled={disabled}
+                  accessibilityState={{
+                    selected: value === o.value,
+                    disabled: !!disabled,
+                  }}
                   onPress={() => {
                     onChange(o.value);
                     setOpen(false);
@@ -336,7 +364,13 @@ export function Confirm({
         <View style={[s.dialog, { backgroundColor: c.panel }]}>
           <Heading>{title}</Heading>
           <Label>{body}</Label>
-          <Action label={title} primary disabled={busy} onPress={onConfirm} />
+          <Action
+            label={title}
+            primary
+            loading={busy}
+            disabled={busy}
+            onPress={onConfirm}
+          />
           <Action
             label={t("monitor.cancel")}
             disabled={busy}

@@ -24,6 +24,7 @@ export async function readJson<T>(
     if (
       parsed.protocol !== "https:" ||
       !HOSTS.has(parsed.hostname) ||
+      (parsed.port !== "" && parsed.port !== "443") ||
       parsed.username ||
       parsed.password
     ) {

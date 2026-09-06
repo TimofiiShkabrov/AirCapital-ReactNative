@@ -27,6 +27,29 @@ interface PortfolioState {
   forgetAccount: (id: string) => Promise<void>;
 }
 let refresh: Promise<void> | undefined;
+let pauses = 0;
+export async function pauseMonitoring<T>(
+  operation: () => Promise<T>,
+): Promise<T> {
+  pauses++;
+  try {
+    if (refresh) await refresh;
+    return await operation();
+  } finally {
+    pauses--;
+  }
+}
+export function clearPortfolioMemory() {
+  usePortfolioStore.setState({
+    accounts: [],
+    observations: {},
+    sync: {},
+    accountFailures: {},
+    lastRefresh: undefined,
+    errorMessage: "",
+    isLoading: false,
+  });
+}
 const errorCode = (e: unknown) =>
   e instanceof Error && /^[a-zA-Z]+$/.test(e.message)
     ? e.message
@@ -65,6 +88,7 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => ({
     });
   },
   loadData: () => {
+    if (pauses) return Promise.resolve();
     if (refresh) return refresh;
     const work = async () => {
       set({ isLoading: true, errorMessage: "" });

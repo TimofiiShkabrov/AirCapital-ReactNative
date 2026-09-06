@@ -17,9 +17,9 @@ Inspect remaining npm advisories by reachability. Do not apply a forced Expo maj
 
 - Rebuild the native client after installing Crypto, Local Authentication, Screen Capture, File System and Sharing.
 - Test cold start, authentication success/cancel/failure, app switcher, background/resume, device lock and network loss on iOS and Android.
-- Verify protected storage migration, interrupted setup/removal, missing encryption key and readable JSON export. An OS backup is not a portable encrypted backup.
+- Verify protected storage migration, interrupted setup/removal/import, missing encryption key, JSON v1/v2 restore, reconnection and complete local deletion. An OS backup is not a portable encrypted backup.
 - Test accessibility, larger system fonts, Arabic RTL and light/dark modes on devices.
-- Review the App Store encryption declaration against the newly introduced application encryption before submission.
+- Complete the App Store encryption questionnaire using [the technical inventory](release-hardening-2026-09-06/README.md). The unverified exemption flag has been removed.
 
 ## Exchange acceptance
 
