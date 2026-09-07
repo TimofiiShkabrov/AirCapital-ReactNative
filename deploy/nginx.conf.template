@@ -27,7 +27,7 @@ server {
         if ($request_uri ~ "^/index[.]html") { return 308 /$is_args$args; }
         expires -1;
     }
-    location ~ ^/(demo|faq|contact)(/|\.html)$ {
+    location ~ ^/(demo|faq|contact|privacy|terms|cookies|data-deletion|legal)(/|\.html)$ {
         return 308 /$1$is_args$args;
     }
 

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { ScrollView, Switch, View } from 'react-native';
+import { Alert, Linking, ScrollView, Switch, View } from 'react-native';
+import { publicLegalReady, PRIVACY_URL } from '../privacy/publicDocuments';
 import { usePathname } from 'expo-router';
 import { useStore } from 'zustand';
 import { useTranslation } from 'react-i18next';
@@ -43,6 +44,7 @@ export function AnalyticsBoundary({ children }: { children: React.ReactNode }) {
         <View style={{ width: '100%', maxWidth: 480, padding: 24, borderRadius: 24, backgroundColor: c.panel, gap: 18 }}>
           <Heading>{t('monitor.analyticsTitle')}</Heading>
           <Label>{t('monitor.analyticsBody')}</Label>
+          {publicLegalReady && <Action label={t('monitor.privacy')} icon="document-text-outline" onPress={() => { void Linking.openURL(PRIVACY_URL).catch(() => Alert.alert(t('monitor.genericError'))); }} />}
           <Action label={t('monitor.analyticsAllow')} disabled={state.busy} onPress={() => void state.choose(true)} />
           <Action label={t('monitor.analyticsDecline')} disabled={state.busy} onPress={() => void state.choose(false)} />
           {state.busy && <Label>{t('monitor.processing')}</Label>}

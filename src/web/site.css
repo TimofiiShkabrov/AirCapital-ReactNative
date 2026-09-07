@@ -1697,3 +1697,21 @@ body {
     transform: none;
   }
 }
+
+/* Legal documents keep readable line lengths on phones and wide screens. */
+.legal-layout{display:grid;grid-template-columns:230px minmax(0,760px);gap:64px;align-items:start;padding-block:64px 100px}
+.legal-navigation{display:grid;gap:8px;position:sticky;top:105px}
+.legal-navigation a{padding:12px 14px;border:1px solid transparent;border-radius:12px;line-height:1.45}
+.legal-navigation a[aria-current=page]{border-color:var(--line);background:var(--panel)}
+.legal-navigation small{display:block;opacity:.6;font-size:11px;margin-top:4px}
+.legal-document{min-width:0}.legal-document h1{font-size:clamp(32px,5vw,54px);line-height:1.12;letter-spacing:-.04em;margin:16px 0 24px}
+.legal-intro{font-size:19px;line-height:1.7}.legal-date{font-size:13px;opacity:.65;margin:20px 0}
+.legal-contents{display:grid;gap:10px;padding:24px 0;border-block:1px solid var(--line);margin:32px 0}
+.legal-document section{scroll-margin-top:110px;margin-top:38px;outline:none}
+.legal-document h2{font-size:22px;line-height:1.4;margin:0 0 16px}
+.legal-document section p,.legal-document section li{line-height:1.85;font-size:16px;overflow-wrap:anywhere}
+.legal-document section p{margin:0 0 18px}.legal-document a{text-decoration:underline;text-underline-offset:4px}
+.legal-draft{padding:18px;border:1px solid #927531;border-radius:12px;background:#92753118;line-height:1.6}
+.footer-legal{display:flex;flex-wrap:wrap;gap:12px 20px;font-size:13px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+@media(max-width:760px){.legal-layout{grid-template-columns:minmax(0,1fr);gap:30px;padding-block:32px 64px}.legal-navigation{position:static;display:flex;overflow-x:auto;max-width:100%;padding-bottom:8px}.legal-navigation a{flex:0 0 auto;max-width:200px}.legal-document section{scroll-margin-top:90px}}
+@media print{.site-header,.site-footer,.cookie-panel,.legal-navigation,.legal-contents{display:none!important}.legal-layout{display:block;padding:0}.legal-document{color:#000;background:#fff}.legal-document section{break-inside:avoid}}

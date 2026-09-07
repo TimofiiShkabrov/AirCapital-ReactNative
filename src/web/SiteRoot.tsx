@@ -5,6 +5,7 @@ import { SiteProvider, useSite } from "./context";
 import { browserAnalytics } from "./analyticsBrowser";
 import { Arrow } from "./icons";
 import "./site.css";
+import legalLabels from "../i18n/legalLabels.json";
 
 export function DemoLink({
   place,
@@ -175,10 +176,12 @@ function Shell() {
             ))}
           </nav>
         </div>
+        <nav className="footer-legal" aria-label={legalLabels[language][4]}>
+          {["privacy", "terms", "cookies", "data-deletion", "legal"].map((slug, index) => <a key={slug} href={`/${slug}`}>{legalLabels[language][index]}</a>)}
+        </nav>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} AirCapital</span>
           <div>
-            <a href="/#privacy">{m.privacy}</a>
             <button onClick={() => setConsentOpen(true)}>{w.cookies}</button>
           </div>
           <span>iOS · Android</span>
@@ -193,7 +196,7 @@ function Shell() {
           <div>
             <h2>{w.cookieTitle}</h2>
             <p>
-              {w.cookieBody} <a href="/#privacy">{m.privacy}</a>
+              {w.cookieBody} <a href="/privacy">{m.privacy}</a>
             </p>
           </div>
           <div className="cookie-actions">

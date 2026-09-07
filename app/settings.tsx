@@ -7,6 +7,7 @@ import {
   Switch,
   KeyboardAvoidingView,
   Keyboard,
+  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -59,7 +60,9 @@ import { loadSettingsData } from "../src/services/screenData";
 import { LoadBoundary, BusyOverlay } from "../src/components/monitor/LoadState";
 import { COVERAGE_KEYS } from "../src/domain/exchangeCoverage";
 import { EXCHANGE_CONFIG } from "../src/constants/exchanges";
-import { LANGUAGES } from "../src/i18n/languages";
+import { LANGUAGES, supportedLanguage } from "../src/i18n/languages";
+import legalLabels from "../src/i18n/legalLabels.json";
+import { publicLegalReady, PRIVACY_URL, TERMS_URL, DELETION_URL } from "../src/privacy/publicDocuments";
 
 import { AnalyticsConsentSetting } from "../src/analytics/AnalyticsControls";
 import { analyticsAvailable, revokeAnalyticsForDeletion } from "../src/analytics/store";
@@ -754,6 +757,18 @@ export default function SettingsScreen() {
               )}
             </SettingsGroup>
             <SettingsGroup title={t("monitor.helpSettings")}>
+              {publicLegalReady && [
+                { url: PRIVACY_URL, label: legalLabels[supportedLanguage(settings.language) ?? "en"][0] },
+                { url: TERMS_URL, label: legalLabels[supportedLanguage(settings.language) ?? "en"][1] },
+                { url: DELETION_URL, label: legalLabels[supportedLanguage(settings.language) ?? "en"][3] },
+              ].map(({ url, label }) => (
+                <SettingsRow key={url} title={label} subtitle="English · aircapital.app" icon="document-text-outline" onPress={() => {
+                  void Linking.openURL(url).catch(() => {
+                    setFailure(true);
+                    setMessage(t("monitor.genericError"));
+                  });
+                }} />
+              ))}
               <View>
                 <SettingsRow
                   title={t("monitor.monitoringDetails")}
