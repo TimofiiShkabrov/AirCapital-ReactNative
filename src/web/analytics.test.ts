@@ -100,10 +100,17 @@ describe("website consent and GA4", () => {
     client.track("demo_period_change", "48620");
     client.track("contact_click", "name@example.com");
     client.track("download_click", "ios");
+    client.track("store_open", "android");
+    client.track("store_open", "tim.AirCapital");
     const events = vi
       .mocked(env.command)
       .mock.calls.filter((c) => c[0] === "event");
-    expect(events).toHaveLength(2);
+    expect(events).toHaveLength(3);
+    expect(events[2]).toEqual([
+      "event",
+      "store_open",
+      { action: "android", transport_type: "beacon", send_to: "G-BLV9ZEBKW9" },
+    ]);
     expect(events[0]).toEqual([
       "event",
       "demo_period_change",

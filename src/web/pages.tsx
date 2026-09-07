@@ -3,9 +3,17 @@ import Head from "expo-router/head";
 import { useSite } from "./context";
 import { Arrow, FeatureIcon, StoreIcon } from "./icons";
 import { DemoLink } from "./SiteRoot";
-import { storeLinks, contactEmail, telegramLink, siteOrigin } from "./config";
+import {
+  storeLinks,
+  storeAvailability,
+  contactEmail,
+  telegramLink,
+  siteOrigin,
+} from "./config";
 import { browserAnalytics } from "./analyticsBrowser";
 import { DemoBoard } from "./DemoBoard";
+import operator from "./legal/operator.json";
+import legalLabels from "../i18n/legalLabels.json";
 
 const exchanges = [
   { id: "binance", name: "Binance" },
@@ -44,44 +52,54 @@ export function Meta({
 function Stores() {
   const { w } = useSite();
   return (
-    <div className="stores">
-      {(["ios", "android"] as const).map((platform) => {
-        const content = (
-          <>
-            <StoreIcon platform={platform} />
-            <span>
-              <small>{storeLinks[platform] ? w.getApp : w.soon}</small>
-              <strong>
-                {platform === "ios" ? "App Store" : "Google Play"}
-              </strong>
-            </span>
-            {storeLinks[platform] && <Arrow diagonal />}
-          </>
-        );
-        return storeLinks[platform] ? (
-          <a
-            key={platform}
-            className="store-badge"
-            href={storeLinks[platform]}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() =>
-              browserAnalytics()?.track("download_click", platform)
-            }
-          >
-            {content}
-          </a>
-        ) : (
-          <div
-            key={platform}
-            className="store-badge coming-soon"
-            aria-label={`${platform === "ios" ? "App Store" : "Google Play"}: ${w.soon}`}
-          >
-            {content}
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <div className="stores">
+        {(["ios", "android"] as const).map((platform) => {
+          const available =
+            !!storeLinks[platform] && storeAvailability[platform];
+          const content = (
+            <>
+              <StoreIcon platform={platform} />
+              <span>
+                <small>{available ? w.getApp : w.soon}</small>
+                <strong>
+                  {platform === "ios" ? "App Store" : "Google Play"}
+                </strong>
+              </span>
+              {storeLinks[platform] && <Arrow diagonal />}
+            </>
+          );
+          return storeLinks[platform] ? (
+            <a
+              key={platform}
+              className={available ? "store-badge" : "store-badge coming-soon"}
+              href={storeLinks[platform]}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() =>
+                browserAnalytics()?.track(
+                  available ? "download_click" : "store_open",
+                  platform,
+                )
+              }
+            >
+              {content}
+            </a>
+          ) : (
+            <div
+              key={platform}
+              className="store-badge coming-soon"
+              aria-label={`${platform === "ios" ? "App Store" : "Google Play"}: ${w.soon}`}
+            >
+              {content}
+            </div>
+          );
+        })}
+      </div>
+      {(!storeAvailability.ios || !storeAvailability.android) && (
+        <p className="store-notice">{w.storePending}</p>
+      )}
+    </>
   );
 }
 export function HomePage() {
@@ -117,7 +135,9 @@ export function HomePage() {
           <div className="hero-platforms">
             <span>iOS</span>
             <span>Android</span>
-            <span>{w.soon}</span>
+            {!storeAvailability.ios && !storeAvailability.android && (
+              <span>{w.soon}</span>
+            )}
           </div>
         </div>
         <div className="hero-visual">
@@ -244,6 +264,7 @@ export function HomePage() {
           <h2>{w.downloadTitle}</h2>
           <p>{w.downloadBody}</p>
           <Stores />
+          <p className="price-note">{w.priceAnswer}</p>
           <DemoLink place="download" className="button text-button">
             {w.demoCta}
           </DemoLink>
@@ -311,6 +332,7 @@ export function FaqPage() {
     { q: w.faqWeb, a: [m.unsupportedWeb] },
     { q: w.faqStats, a: [m.flowsUnknown, m.manualFlowsNote] },
     { q: w.faqRefresh, a: [m.background] },
+    { q: w.faqPrice, a: [w.priceAnswer] },
     { q: w.faqRelease, a: [w.releaseAnswer] },
   ];
   return (
@@ -342,6 +364,7 @@ export function FaqPage() {
                 {q.a.map((a) => (
                   <p key={a}>{a}</p>
                 ))}
+                {q.q === w.faqRelease && <Stores />}
               </div>
             </details>
           ))}
@@ -351,7 +374,7 @@ export function FaqPage() {
   );
 }
 export function ContactPage() {
-  const { w } = useSite();
+  const { w, language } = useSite();
   return (
     <>
       <Meta title={w.contact} description={w.contactBody} path="/contact" />
@@ -402,6 +425,27 @@ export function ContactPage() {
           </article>
         ))}
       </section>
+      {operator.verified && (
+        <section className="container publisher-section">
+          <div>
+            <h2>{legalLabels[language][4]}</h2>
+            <address>
+              <strong>{operator.name}</strong>
+              <span>
+                {operator.address}, {operator.country}
+              </span>
+            </address>
+          </div>
+          <nav aria-label={legalLabels[language][4]}>
+            {["privacy", "data-deletion", "legal"].map((slug, i) => (
+              <a className="inline-link" key={slug} href={`/${slug}`}>
+                {legalLabels[language][[0, 3, 4][i]]}
+                <Arrow />
+              </a>
+            ))}
+          </nav>
+        </section>
+      )}
       <div className="container contact-note">
         <p>{w.faqTitle}</p>
         <a className="button outline" href="/faq">

@@ -16,7 +16,7 @@
   "screensCaption": "Riktiga appskärmar på engelska. Alla belopp är demonstrationsdata.",
   "howTitle": "Från utspridda saldon till en daglig vana.",
   "downloadTitle": "Ditt kapital. Alltid i blickfånget.",
-  "downloadBody": "AirCapital för iOS och Android. Butikslänkar visas här när apparna lanseras.",
+  "downloadBody": "iOS och Android. Engångsköp, utan abonnemang. Prova webbdemon gratis.",
   "faqTitle": "Allt du bör veta innan du ansluter.",
   "faqWhat": "Vad gör AirCapital?",
   "faqWhich": "Vilka börser och plånböcker stöds?",
@@ -25,9 +25,9 @@
   "faqStats": "Är saldotillväxt samma sak som avkastning?",
   "faqRefresh": "När uppdateras saldona?",
   "faqRelease": "Var kan jag hämta appen?",
-  "releaseAnswer": "Appen kommer snart till App Store och Google Play. Du kan redan prova den interaktiva demon.",
+  "releaseAnswer": "Öppna App Store eller Google Play via länkarna nedan. Tillgängligheten beror på publiceringen och din region.",
   "contactTitle": "Låt oss göra bilden tydligare.",
-  "contactBody": "Frågor, synpunkter eller en idé om samarbete? Våra offentliga kontaktkanaler öppnar när appen lanseras.",
+  "contactBody": "Mejla oss för support, feedback eller förslag på samarbete.",
   "support": "Hjälp med appen",
   "feedback": "Synpunkter och idéer",
   "partnerships": "Samarbeten",
@@ -44,5 +44,8 @@
   "footer": "En tydligare bild av din krypto.",
   "readFaq": "Läs vanliga frågor",
   "privacyTitle": "Din integritet på webbplatsen",
-  "privacyBody": "Demon använder fiktiva uppgifter och ber aldrig om börsnycklar. Vi sparar ditt språk och ditt val om kakor i den här webbläsaren. Om du samtycker mäter Google Analytics sidvisningar och klick på utvalda knappar; annonsfunktioner är avstängda."
+  "privacyBody": "Demon använder fiktiva uppgifter och ber aldrig om börsnycklar. Vi sparar ditt språk och ditt val om kakor i den här webbläsaren. Om du samtycker mäter Google Analytics sidvisningar och klick på utvalda knappar; annonsfunktioner är avstängda.",
+  "faqPrice": "Vad kostar AirCapital?",
+  "priceAnswer": "Grundpris för engångsköp: 4,99 USD. Butiken visar lokalt pris och skatter före köpet. Inga abonnemang eller köp i appen. Webbdemon är gratis.",
+  "storePending": "Butikssidorna blir tillgängliga efter publicering. Fram till dess fungerar länkarna kanske inte."
 }

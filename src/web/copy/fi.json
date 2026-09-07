@@ -16,7 +16,7 @@
   "screensCaption": "Aitoja sovellusnäkymiä englanniksi. Kaikki luvut ovat esimerkkitietoja.",
   "howTitle": "Hajallaan olevista saldoista päivittäiseksi rutiiniksi.",
   "downloadTitle": "Pääomasi. Aina näkyvissä.",
-  "downloadBody": "AirCapital iOS:lle ja Androidille. Kauppalinkit tulevat tähän sovellusten julkaisun jälkeen.",
+  "downloadBody": "iOS ja Android. Kertaostos, ei tilausta. Kokeile verkkodemota ilmaiseksi.",
   "faqTitle": "Kaikki olennainen ennen yhdistämistä.",
   "faqWhat": "Mitä AirCapital tekee?",
   "faqWhich": "Mitä pörssejä ja lompakoita tuetaan?",
@@ -25,9 +25,9 @@
   "faqStats": "Onko saldon kasvu sama asia kuin sijoitustuotto?",
   "faqRefresh": "Milloin saldot päivitetään?",
   "faqRelease": "Mistä voin ladata sovelluksen?",
-  "releaseAnswer": "Sovellus tulee pian App Storeen ja Google Playhin. Voit jo kokeilla vuorovaikutteista demoa.",
+  "releaseAnswer": "Avaa App Store tai Google Play alla olevista linkeistä. Saatavuus riippuu julkaisusta ja alueestasi.",
   "contactTitle": "Selkeytetään kokonaiskuvaa.",
-  "contactBody": "Kysyttävää, palautetta tai yhteistyöidea? Julkiset yhteyskanavamme avautuvat sovelluksen julkaisun yhteydessä.",
+  "contactBody": "Lähetä meille sähköpostia, jos tarvitset tukea, haluat antaa palautetta tai ehdottaa yhteistyötä.",
   "support": "Sovelluksen tuki",
   "feedback": "Palaute ja ideat",
   "partnerships": "Yhteistyö",
@@ -44,5 +44,8 @@
   "footer": "Selkeämpi kuva kryptovaroistasi.",
   "readFaq": "Lue usein kysytyt kysymykset",
   "privacyTitle": "Yksityisyytesi tällä sivustolla",
-  "privacyBody": "Demo käyttää kuvitteellisia tietoja eikä koskaan pyydä pörssien avaimia. Tallennamme kielesi ja evästevalintasi tähän selaimeen. Suostumuksellasi Google Analytics mittaa sivukatseluja ja tiettyjen painikkeiden napsautuksia; mainostoiminnot ovat pois käytöstä."
+  "privacyBody": "Demo käyttää kuvitteellisia tietoja eikä koskaan pyydä pörssien avaimia. Tallennamme kielesi ja evästevalintasi tähän selaimeen. Suostumuksellasi Google Analytics mittaa sivukatseluja ja tiettyjen painikkeiden napsautuksia; mainostoiminnot ovat pois käytöstä.",
+  "faqPrice": "Mitä AirCapital maksaa?",
+  "priceAnswer": "Kertaostoksen perushinta: 4,99 USD. Kauppa näyttää paikallisen hinnan ja verot ennen ostoa. Ei tilauksia tai sovelluksen sisäisiä ostoja. Verkkodemo on ilmainen.",
+  "storePending": "Kauppasivut tulevat saataville julkaisun jälkeen. Siihen asti linkit eivät välttämättä toimi."
 }

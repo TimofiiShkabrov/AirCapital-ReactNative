@@ -16,7 +16,7 @@
   "screensCaption": "Skutečné obrazovky aplikace v angličtině. Všechny částky jsou ukázkové.",
   "howTitle": "Od rozptýlených zůstatků ke každodennímu návyku.",
   "downloadTitle": "Váš kapitál. Vždy na očích.",
-  "downloadBody": "AirCapital pro iOS a Android. Odkazy do obchodů se zde objeví po vydání aplikací.",
+  "downloadBody": "iOS a Android. Jednorázový nákup, bez předplatného. Vyzkoušejte webové demo zdarma.",
   "faqTitle": "Vše důležité před připojením.",
   "faqWhat": "Co AirCapital dělá?",
   "faqWhich": "Které burzy a peněženky jsou podporovány?",
@@ -25,9 +25,9 @@
   "faqStats": "Je růst zůstatku totéž co investiční výnos?",
   "faqRefresh": "Kdy se zůstatky aktualizují?",
   "faqRelease": "Kde si mohu aplikaci stáhnout?",
-  "releaseAnswer": "Aplikace bude brzy v App Store a Google Play. Interaktivní demo si můžete vyzkoušet už teď.",
+  "releaseAnswer": "Otevřete App Store nebo Google Play pomocí odkazů níže. Dostupnost závisí na zveřejnění aplikace a vašem regionu.",
   "contactTitle": "Pojďme si v tom udělat jasno.",
-  "contactBody": "Dotazy, připomínky nebo nápad na spolupráci? Naše veřejné kontaktní kanály otevřeme při spuštění aplikace.",
+  "contactBody": "Napište nám e-mail, pokud potřebujete pomoc, chcete poslat zpětnou vazbu nebo navrhnout spolupráci.",
   "support": "Podpora aplikace",
   "feedback": "Zpětná vazba a nápady",
   "partnerships": "Spolupráce",
@@ -44,5 +44,8 @@
   "footer": "Jasnější přehled o vašich kryptoaktivech.",
   "readFaq": "Přečíst časté dotazy",
   "privacyTitle": "Vaše soukromí na tomto webu",
-  "privacyBody": "Demo používá fiktivní data a nikdy nepožaduje klíče k burzám. V tomto prohlížeči ukládáme váš jazyk a volbu cookies. S vaším souhlasem Google Analytics měří zobrazení stránek a kliknutí na vybraná tlačítka; reklamní funkce jsou vypnuté."
+  "privacyBody": "Demo používá fiktivní data a nikdy nepožaduje klíče k burzám. V tomto prohlížeči ukládáme váš jazyk a volbu cookies. S vaším souhlasem Google Analytics měří zobrazení stránek a kliknutí na vybraná tlačítka; reklamní funkce jsou vypnuté.",
+  "faqPrice": "Kolik stojí AirCapital?",
+  "priceAnswer": "Základní cena jednorázového nákupu: 4,99 USD. Obchod před nákupem zobrazí místní cenu a daně. Bez předplatného a nákupů v aplikaci. Webové demo je zdarma.",
+  "storePending": "Stránky v obchodech budou dostupné po zveřejnění aplikace. Do té doby odkazy nemusí fungovat."
 }

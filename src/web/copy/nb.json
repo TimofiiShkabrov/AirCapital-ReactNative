@@ -16,7 +16,7 @@
   "screensCaption": "Ekte appskjermer på engelsk. Alle tall er demonstrasjonsdata.",
   "howTitle": "Fra spredte saldoer til en daglig vane.",
   "downloadTitle": "Kapitalen din. Alltid i sikte.",
-  "downloadBody": "AirCapital for iOS og Android. Lenker til butikkene kommer her når appene lanseres.",
+  "downloadBody": "iOS og Android. Engangskjøp, uten abonnement. Prøv nettdemoen gratis.",
   "faqTitle": "Alt du bør vite før du kobler til.",
   "faqWhat": "Hva gjør AirCapital?",
   "faqWhich": "Hvilke børser og lommebøker støttes?",
@@ -25,9 +25,9 @@
   "faqStats": "Er saldovekst det samme som avkastning?",
   "faqRefresh": "Når oppdateres saldoene?",
   "faqRelease": "Hvor kan jeg laste ned appen?",
-  "releaseAnswer": "Appen kommer snart i App Store og Google Play. Du kan allerede prøve den interaktive demoen.",
+  "releaseAnswer": "Åpne App Store eller Google Play via lenkene nedenfor. Tilgjengeligheten avhenger av lanseringen og regionen din.",
   "contactTitle": "La oss gjøre bildet tydeligere.",
-  "contactBody": "Spørsmål, tilbakemeldinger eller en idé til samarbeid? De offentlige kontaktkanalene våre åpner når appen lanseres.",
+  "contactBody": "Send oss en e-post for brukerstøtte, tilbakemeldinger eller samarbeid.",
   "support": "Hjelp med appen",
   "feedback": "Tilbakemeldinger og ideer",
   "partnerships": "Samarbeid",
@@ -44,5 +44,8 @@
   "footer": "Bedre oversikt over kryptoen din.",
   "readFaq": "Les spørsmål og svar",
   "privacyTitle": "Personvernet ditt på nettstedet",
-  "privacyBody": "Demoen bruker fiktive data og ber aldri om børsnøkler. Vi lagrer språket ditt og valget om informasjonskapsler i denne nettleseren. Hvis du samtykker, måler Google Analytics sidevisninger og klikk på utvalgte knapper. Annonsefunksjoner er deaktivert."
+  "privacyBody": "Demoen bruker fiktive data og ber aldri om børsnøkler. Vi lagrer språket ditt og valget om informasjonskapsler i denne nettleseren. Hvis du samtykker, måler Google Analytics sidevisninger og klikk på utvalgte knapper. Annonsefunksjoner er deaktivert.",
+  "faqPrice": "Hva koster AirCapital?",
+  "priceAnswer": "Grunnpris for engangskjøp: 4,99 USD. Butikken viser lokal pris og avgifter før kjøpet. Ingen abonnementer eller kjøp i appen. Nettdemoen er gratis.",
+  "storePending": "Butikksidene blir tilgjengelige etter publisering. Frem til da er det ikke sikkert at lenkene fungerer."
 }

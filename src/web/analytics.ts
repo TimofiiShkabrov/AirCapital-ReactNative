@@ -4,6 +4,7 @@ export type SiteEvent =
   | "demo_tab_change"
   | "demo_period_change"
   | "download_click"
+  | "store_open"
   | "contact_click";
 export const CONSENT_KEY = "aircapital.web.analytics.v1";
 const TTL = 180 * 24 * 60 * 60 * 1000;
@@ -139,6 +140,7 @@ export function createAnalytics(env: AnalyticsEnvironment, id: string) {
         demo_tab_change: ["overview", "exchanges", "statistics"],
         demo_period_change: ["day", "week", "month", "all"],
         download_click: ["ios", "android"],
+        store_open: ["ios", "android"],
         contact_click: ["email", "telegram"],
       };
       if (!permitted[event] || (value && !permitted[event].includes(value)))

@@ -16,7 +16,7 @@
   "screensCaption": "Īsti lietotnes ekrāni angļu valodā. Visas summas ir demonstrācijas dati.",
   "howTitle": "No izkaisītiem atlikumiem līdz ikdienas ieradumam.",
   "downloadTitle": "Tavs kapitāls. Vienmēr acu priekšā.",
-  "downloadBody": "AirCapital iOS un Android ierīcēm. Saites uz veikaliem parādīsies šeit pēc lietotņu izlaišanas.",
+  "downloadBody": "iOS un Android. Vienreizējs pirkums, bez abonementa. Izmēģiniet tīmekļa demonstrāciju bez maksas.",
   "faqTitle": "Viss svarīgais pirms savienošanas.",
   "faqWhat": "Ko dara AirCapital?",
   "faqWhich": "Kuras biržas un maki tiek atbalstīti?",
@@ -25,9 +25,9 @@
   "faqStats": "Vai atlikuma pieaugums ir tas pats, kas ieguldījumu atdeve?",
   "faqRefresh": "Kad tiek atjaunināti atlikumi?",
   "faqRelease": "Kur varu lejupielādēt lietotni?",
-  "releaseAnswer": "Lietotne drīzumā būs pieejama App Store un Google Play. Interaktīvo demo vari izmēģināt jau tagad.",
+  "releaseAnswer": "Atveriet App Store vai Google Play, izmantojot tālāk norādītās saites. Pieejamība ir atkarīga no lietotnes publicēšanas un jūsu reģiona.",
   "contactTitle": "Radīsim skaidrāku priekšstatu.",
-  "contactBody": "Jautājumi, atsauksmes vai sadarbības ideja? Mūsu publiskie saziņas kanāli tiks atvērti līdz ar lietotnes izlaišanu.",
+  "contactBody": "Rakstiet mums e-pastā, ja nepieciešama palīdzība, vēlaties sniegt atsauksmes vai piedāvāt sadarbību.",
   "support": "Palīdzība ar lietotni",
   "feedback": "Atsauksmes un idejas",
   "partnerships": "Sadarbība",
@@ -44,5 +44,8 @@
   "footer": "Skaidrāks pārskats par taviem kriptoaktīviem.",
   "readFaq": "Lasīt biežākos jautājumus",
   "privacyTitle": "Tavs privātums šajā vietnē",
-  "privacyBody": "Demo izmanto izdomātus datus un nekad neprasa biržu atslēgas. Šajā pārlūkā saglabājam tavu valodu un sīkdatņu izvēli. Ar tavu piekrišanu Google Analytics mēra lapu skatījumus un izvēlētu pogu klikšķus; reklāmas funkcijas ir izslēgtas."
+  "privacyBody": "Demo izmanto izdomātus datus un nekad neprasa biržu atslēgas. Šajā pārlūkā saglabājam tavu valodu un sīkdatņu izvēli. Ar tavu piekrišanu Google Analytics mēra lapu skatījumus un izvēlētu pogu klikšķus; reklāmas funkcijas ir izslēgtas.",
+  "faqPrice": "Cik maksā AirCapital?",
+  "priceAnswer": "Vienreizēja pirkuma bāzes cena: 4,99 USD. Veikals pirms pirkuma parāda vietējo cenu un nodokļus. Nav abonementu vai pirkumu lietotnē. Tīmekļa demonstrācija ir bez maksas.",
+  "storePending": "Veikalu lapas būs pieejamas pēc publicēšanas. Līdz tam saites var nedarboties."
 }

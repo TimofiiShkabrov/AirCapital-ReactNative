@@ -16,7 +16,7 @@
   "screensCaption": "Actual app screens in English. All figures are demonstration data.",
   "howTitle": "From scattered balances to a daily habit.",
   "downloadTitle": "Your capital. Always in view.",
-  "downloadBody": "AirCapital for iOS and Android. Store links will appear here when the apps launch.",
+  "downloadBody": "iOS and Android. One purchase, no subscription. Try the web demo for free.",
   "faqTitle": "A little clarity before you connect.",
   "faqWhat": "What does AirCapital do?",
   "faqWhich": "Which exchanges and wallets are supported?",
@@ -25,9 +25,9 @@
   "faqStats": "Is balance growth the same as investment return?",
   "faqRefresh": "When are balances updated?",
   "faqRelease": "Where can I download the app?",
-  "releaseAnswer": "App Store and Google Play releases are coming soon. You can explore the interactive demo now.",
+  "releaseAnswer": "Open the App Store or Google Play using the links below. Availability depends on the release status and your region.",
   "contactTitle": "Let’s make the picture clearer.",
-  "contactBody": "Questions, feedback or a partnership idea? Our public contact channels will open with the app launch.",
+  "contactBody": "Email us for support, feedback or partnership enquiries.",
   "support": "Product support",
   "feedback": "Feedback & ideas",
   "partnerships": "Partnerships",
@@ -44,5 +44,8 @@
   "footer": "A clearer view of your crypto.",
   "readFaq": "Read the FAQ",
   "privacyTitle": "Your privacy on this website",
-  "privacyBody": "The demo uses fictional data and never asks for exchange keys. We save your language and cookie choice in this browser. If you agree, Google Analytics measures page visits and selected button clicks; advertising features are disabled."
+  "privacyBody": "The demo uses fictional data and never asks for exchange keys. We save your language and cookie choice in this browser. If you agree, Google Analytics measures page visits and selected button clicks; advertising features are disabled.",
+  "faqPrice": "How much does AirCapital cost?",
+  "priceAnswer": "One-time base price: US$4.99. Your store shows the local price and taxes before purchase. No subscription or in-app purchases. The web demo is free.",
+  "storePending": "Store pages become available after publication. Until then, these links may not open."
 }

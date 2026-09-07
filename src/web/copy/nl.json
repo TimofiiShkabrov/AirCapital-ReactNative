@@ -16,7 +16,7 @@
   "screensCaption": "Echte appschermen in het Engels. Alle bedragen zijn demonstratiegegevens.",
   "howTitle": "Van verspreide saldi naar een dagelijkse gewoonte.",
   "downloadTitle": "Je vermogen. Altijd in beeld.",
-  "downloadBody": "AirCapital voor iOS en Android. Links naar de stores verschijnen hier zodra de apps beschikbaar zijn.",
+  "downloadBody": "iOS en Android. Eenmalig kopen, zonder abonnement. Probeer de webdemo gratis.",
   "faqTitle": "Alles helder voordat je verbinding maakt.",
   "faqWhat": "Wat doet AirCapital?",
   "faqWhich": "Welke beurzen en wallets worden ondersteund?",
@@ -25,9 +25,9 @@
   "faqStats": "Is saldogroei hetzelfde als beleggingsrendement?",
   "faqRefresh": "Wanneer worden de saldi bijgewerkt?",
   "faqRelease": "Waar kan ik de app downloaden?",
-  "releaseAnswer": "De app verschijnt binnenkort in de App Store en op Google Play. Je kunt nu al de interactieve demo proberen.",
+  "releaseAnswer": "Open de App Store of Google Play via de links hieronder. De beschikbaarheid hangt af van de publicatie en je regio.",
   "contactTitle": "Laten we het helder maken.",
-  "contactBody": "Vragen, feedback of een idee voor samenwerking? Onze openbare contactkanalen openen bij de lancering van de app.",
+  "contactBody": "Mail ons voor ondersteuning, feedback of een voorstel voor samenwerking.",
   "support": "Hulp bij de app",
   "feedback": "Feedback en ideeën",
   "partnerships": "Samenwerkingen",
@@ -44,5 +44,8 @@
   "footer": "Een helderder beeld van je crypto.",
   "readFaq": "Lees veelgestelde vragen",
   "privacyTitle": "Je privacy op deze website",
-  "privacyBody": "De demo gebruikt fictieve gegevens en vraagt nooit om beurssleutels. We bewaren je taal en cookiekeuze in deze browser. Met je toestemming meet Google Analytics paginaweergaven en klikken op bepaalde knoppen; advertentiefuncties zijn uitgeschakeld."
+  "privacyBody": "De demo gebruikt fictieve gegevens en vraagt nooit om beurssleutels. We bewaren je taal en cookiekeuze in deze browser. Met je toestemming meet Google Analytics paginaweergaven en klikken op bepaalde knoppen; advertentiefuncties zijn uitgeschakeld.",
+  "faqPrice": "Wat kost AirCapital?",
+  "priceAnswer": "Eenmalige basisprijs: 4,99 USD. Je store toont de lokale prijs en belastingen vóór aankoop. Geen abonnementen of in-app aankopen. De webdemo is gratis.",
+  "storePending": "De storepagina’s worden beschikbaar na publicatie. Tot die tijd werken de links mogelijk nog niet."
 }

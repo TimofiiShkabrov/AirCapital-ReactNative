@@ -16,7 +16,7 @@
   "screensCaption": "Rzeczywiste ekrany aplikacji w języku angielskim. Wszystkie liczby to dane demonstracyjne.",
   "howTitle": "Od rozproszonych sald do codziennego nawyku.",
   "downloadTitle": "Twój kapitał. Zawsze na widoku.",
-  "downloadBody": "AirCapital na iOS i Androida. Linki do sklepów pojawią się tutaj po premierze aplikacji.",
+  "downloadBody": "iOS i Android. Jednorazowy zakup, bez subskrypcji. Wypróbuj bezpłatne demo w przeglądarce.",
   "faqTitle": "Wszystko, co warto wiedzieć przed połączeniem.",
   "faqWhat": "Do czego służy AirCapital?",
   "faqWhich": "Jakie giełdy i portfele są obsługiwane?",
@@ -25,9 +25,9 @@
   "faqStats": "Czy wzrost salda oznacza zwrot z inwestycji?",
   "faqRefresh": "Kiedy salda są aktualizowane?",
   "faqRelease": "Gdzie mogę pobrać aplikację?",
-  "releaseAnswer": "Aplikacja wkrótce pojawi się w App Store i Google Play. Już teraz możesz wypróbować interaktywne demo.",
+  "releaseAnswer": "Otwórz App Store lub Google Play za pomocą poniższych linków. Dostępność zależy od publikacji aplikacji i regionu.",
   "contactTitle": "Wyjaśnijmy to razem.",
-  "contactBody": "Pytania, uwagi lub pomysł na współpracę? Nasze publiczne kanały kontaktu zostaną otwarte wraz z premierą aplikacji.",
+  "contactBody": "Napisz do nas e-mail, jeśli potrzebujesz pomocy, chcesz podzielić się opinią lub zaproponować współpracę.",
   "support": "Pomoc z aplikacją",
   "feedback": "Opinie i pomysły",
   "partnerships": "Współpraca",
@@ -44,5 +44,8 @@
   "footer": "Przejrzysty obraz Twoich kryptoaktywów.",
   "readFaq": "Przeczytaj pytania i odpowiedzi",
   "privacyTitle": "Twoja prywatność na tej stronie",
-  "privacyBody": "Demo korzysta z fikcyjnych danych i nigdy nie prosi o klucze giełd. W tej przeglądarce zapisujemy język i wybór dotyczący plików cookie. Za Twoją zgodą Google Analytics mierzy odsłony i kliknięcia wybranych przycisków; funkcje reklamowe są wyłączone."
+  "privacyBody": "Demo korzysta z fikcyjnych danych i nigdy nie prosi o klucze giełd. W tej przeglądarce zapisujemy język i wybór dotyczący plików cookie. Za Twoją zgodą Google Analytics mierzy odsłony i kliknięcia wybranych przycisków; funkcje reklamowe są wyłączone.",
+  "faqPrice": "Ile kosztuje AirCapital?",
+  "priceAnswer": "Cena bazowa jednorazowego zakupu: 4,99 USD. Sklep pokaże lokalną cenę i podatki przed zakupem. Bez subskrypcji i zakupów w aplikacji. Demo w przeglądarce jest bezpłatne.",
+  "storePending": "Strony sklepów będą dostępne po publikacji aplikacji. Do tego czasu linki mogą nie działać."
 }

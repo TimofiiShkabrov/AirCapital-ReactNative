@@ -16,7 +16,7 @@
   "screensCaption": "Richteg App-Ecranen op Englesch. All Zuele sinn Demonstratiounsdaten.",
   "howTitle": "Vu verdeelte Saldoen zu enger deeglecher Gewunnecht.",
   "downloadTitle": "Däi Kapital. Ëmmer am Bléck.",
-  "downloadBody": "AirCapital fir iOS an Android. D’Linken an d’Geschäfter erschéngen hei, wann d’Apps erauskommen.",
+  "downloadBody": "iOS an Android. Ee Kaf, keen Abonnement. Probéier d’Webdemo gratis aus.",
   "faqTitle": "Alles Wichtegt virum Verbannen.",
   "faqWhat": "Wat mécht AirCapital?",
   "faqWhich": "Wéi eng Boursen a Wallets ginn ënnerstëtzt?",
@@ -25,9 +25,9 @@
   "faqStats": "Ass e wuessende Saldo dat selwecht wéi e Rendement?",
   "faqRefresh": "Wéini ginn d’Saldoen aktualiséiert?",
   "faqRelease": "Wou kann ech d’App eroflueden?",
-  "releaseAnswer": "D’App kënnt geschwënn an den App Store an op Google Play. Déi interaktiv Demo kanns du schonn ausprobéieren.",
+  "releaseAnswer": "Maach den App Store oder Google Play iwwer d’Linken hei ënnen op. D’Disponibilitéit hänkt vun der Verëffentlechung an denger Regioun of.",
   "contactTitle": "Loosse mer Kloerheet schafen.",
-  "contactBody": "Froen, Feedback oder eng Iddi fir eng Zesummenaarbecht? Eis ëffentlech Kontaktkanäl ginn op, wann d’App erauskënnt.",
+  "contactBody": "Schreif eis eng E-Mail fir Hëllef, Feedback oder eng Zesummenaarbecht.",
   "support": "Hëllef mat der App",
   "feedback": "Feedback an Iddien",
   "partnerships": "Partnerschaften",
@@ -44,5 +44,8 @@
   "footer": "E méi klore Bléck op deng Kryptoassets.",
   "readFaq": "Heefeg Froen liesen",
   "privacyTitle": "Deng Privatsphär op dëser Websäit",
-  "privacyBody": "D’Demo benotzt fiktiv Daten a freet ni no Bourseschlësselen. Mir späicheren deng Sprooch an däi Cookie-Choix an dësem Browser. Wann du zoustëmms, moosst Google Analytics Säitenopriff a Klicks op ausgewielte Knäppercher; Reklammfunktioune sinn ausgeschalt."
+  "privacyBody": "D’Demo benotzt fiktiv Daten a freet ni no Bourseschlësselen. Mir späicheren deng Sprooch an däi Cookie-Choix an dësem Browser. Wann du zoustëmms, moosst Google Analytics Säitenopriff a Klicks op ausgewielte Knäppercher; Reklammfunktioune sinn ausgeschalt.",
+  "faqPrice": "Wat kascht AirCapital?",
+  "priceAnswer": "Basispräis fir een eemolege Kaf: 4,99 USD. De Store weist de lokale Präis an d’Steiere virum Kaf. Keng Abonnementer oder In-App-Keef. D’Webdemo ass gratis.",
+  "storePending": "D’Store-Säite sinn no der Verëffentlechung disponibel. Bis dohinner funktionéieren d’Linke méiglecherweis nach net."
 }

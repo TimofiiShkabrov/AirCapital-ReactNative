@@ -16,7 +16,7 @@
   "screensCaption": "Echte App-Ansichten auf Englisch. Alle Zahlen sind Demodaten.",
   "howTitle": "Verteilte Guthaben. Ein täglicher Überblick.",
   "downloadTitle": "Dein Kapital. Immer im Blick.",
-  "downloadBody": "AirCapital für iOS und Android. Die Store-Links erscheinen hier, sobald die Apps veröffentlicht sind.",
+  "downloadBody": "iOS und Android. Einmal kaufen, ohne Abo. Die Web-Demo ist kostenlos.",
   "faqTitle": "Alles Wichtige vor dem Verbinden.",
   "faqWhat": "Was macht AirCapital?",
   "faqWhich": "Welche Börsen und Wallets werden unterstützt?",
@@ -25,9 +25,9 @@
   "faqStats": "Entspricht ein steigender Kontostand der Anlagerendite?",
   "faqRefresh": "Wann werden die Guthaben aktualisiert?",
   "faqRelease": "Wo kann ich die App herunterladen?",
-  "releaseAnswer": "Die Veröffentlichung im App Store und bei Google Play folgt in Kürze. Die interaktive Demo kannst du bereits ausprobieren.",
+  "releaseAnswer": "Öffne den App Store oder Google Play über die Links unten. Die Verfügbarkeit hängt von der Veröffentlichung und deiner Region ab.",
   "contactTitle": "Schaffen wir Klarheit.",
-  "contactBody": "Fragen, Feedback oder eine Idee zur Zusammenarbeit? Unsere öffentlichen Kontaktkanäle öffnen zum App-Start.",
+  "contactBody": "Schreib uns per E-Mail, wenn du Hilfe brauchst, Feedback hast oder eine Zusammenarbeit vorschlagen möchtest.",
   "support": "Hilfe zur App",
   "feedback": "Feedback und Ideen",
   "partnerships": "Partnerschaften",
@@ -44,5 +44,8 @@
   "footer": "Ein klarer Blick auf deine Kryptoassets.",
   "readFaq": "Häufige Fragen lesen",
   "privacyTitle": "Deine Privatsphäre auf dieser Website",
-  "privacyBody": "Die Demo nutzt fiktive Daten und fragt nie nach Börsenschlüsseln. Wir speichern deine Sprache und Cookie-Auswahl in diesem Browser. Wenn du zustimmst, misst Google Analytics Seitenaufrufe und Klicks auf bestimmte Schaltflächen; Werbefunktionen sind deaktiviert."
+  "privacyBody": "Die Demo nutzt fiktive Daten und fragt nie nach Börsenschlüsseln. Wir speichern deine Sprache und Cookie-Auswahl in diesem Browser. Wenn du zustimmst, misst Google Analytics Seitenaufrufe und Klicks auf bestimmte Schaltflächen; Werbefunktionen sind deaktiviert.",
+  "faqPrice": "Was kostet AirCapital?",
+  "priceAnswer": "Einmaliger Basispreis: 4,99 USD. Den lokalen Preis und die Steuern zeigt dein Store vor dem Kauf an. Keine Abos oder In-App-Käufe. Die Web-Demo ist kostenlos.",
+  "storePending": "Die Store-Seiten werden nach der Veröffentlichung verfügbar. Bis dahin funktionieren diese Links möglicherweise noch nicht."
 }

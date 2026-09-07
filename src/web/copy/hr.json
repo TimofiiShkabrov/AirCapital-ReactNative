@@ -16,7 +16,7 @@
   "screensCaption": "Stvarni zasloni aplikacije na engleskom. Svi iznosi služe za demonstraciju.",
   "howTitle": "Od raspršenih stanja do svakodnevne navike.",
   "downloadTitle": "Tvoj kapital. Uvijek na oku.",
-  "downloadBody": "AirCapital za iOS i Android. Poveznice na trgovine pojavit će se ovdje nakon objave aplikacija.",
+  "downloadBody": "iOS i Android. Jednokratna kupnja, bez pretplate. Besplatno isprobajte web-demo.",
   "faqTitle": "Sve važno prije povezivanja.",
   "faqWhat": "Što radi AirCapital?",
   "faqWhich": "Koje su burze i novčanici podržani?",
@@ -25,9 +25,9 @@
   "faqStats": "Je li rast stanja isto što i povrat ulaganja?",
   "faqRefresh": "Kada se stanja ažuriraju?",
   "faqRelease": "Gdje mogu preuzeti aplikaciju?",
-  "releaseAnswer": "Aplikacija uskoro dolazi u App Store i Google Play. Već sada možeš isprobati interaktivni demo.",
+  "releaseAnswer": "Otvorite App Store ili Google Play putem poveznica u nastavku. Dostupnost ovisi o objavi aplikacije i vašoj regiji.",
   "contactTitle": "Razjasnimo sliku zajedno.",
-  "contactBody": "Pitanja, povratne informacije ili ideja za suradnju? Naši javni kontaktni kanali otvaraju se pri objavi aplikacije.",
+  "contactBody": "Pošaljite nam e-poštu za podršku, povratne informacije ili suradnju.",
   "support": "Pomoć s aplikacijom",
   "feedback": "Povratne informacije i ideje",
   "partnerships": "Suradnja",
@@ -44,5 +44,8 @@
   "footer": "Jasniji pogled na tvoju kriptoimovinu.",
   "readFaq": "Pročitaj česta pitanja",
   "privacyTitle": "Tvoja privatnost na ovoj stranici",
-  "privacyBody": "Demo koristi izmišljene podatke i nikad ne traži ključeve burzi. U ovom pregledniku spremamo tvoj jezik i izbor kolačića. Uz tvoj pristanak Google Analytics mjeri prikaze stranica i klikove na odabrane gumbe; oglasne funkcije su isključene."
+  "privacyBody": "Demo koristi izmišljene podatke i nikad ne traži ključeve burzi. U ovom pregledniku spremamo tvoj jezik i izbor kolačića. Uz tvoj pristanak Google Analytics mjeri prikaze stranica i klikove na odabrane gumbe; oglasne funkcije su isključene.",
+  "faqPrice": "Koliko košta AirCapital?",
+  "priceAnswer": "Osnovna cijena jednokratne kupnje: 4,99 USD. Trgovina prikazuje lokalnu cijenu i poreze prije kupnje. Nema pretplata ni kupnji unutar aplikacije. Web-demo je besplatan.",
+  "storePending": "Stranice u trgovinama bit će dostupne nakon objave. Do tada poveznice možda neće raditi."
 }

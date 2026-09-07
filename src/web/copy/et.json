@@ -16,7 +16,7 @@
   "screensCaption": "Rakenduse tegelikud ekraanid inglise keeles. Kõik summad on näidisandmed.",
   "howTitle": "Hajutatud saldodest igapäevase harjumuseni.",
   "downloadTitle": "Sinu kapital. Alati silme ees.",
-  "downloadBody": "AirCapital iOS-ile ja Androidile. Poe lingid ilmuvad siia rakenduste avaldamisel.",
+  "downloadBody": "iOS ja Android. Ühekordne ost, ilma tellimuseta. Proovi veebidemot tasuta.",
   "faqTitle": "Kõik oluline enne ühendamist.",
   "faqWhat": "Mida AirCapital teeb?",
   "faqWhich": "Milliseid börse ja rahakotte toetatakse?",
@@ -25,9 +25,9 @@
   "faqStats": "Kas saldo kasv võrdub investeeringu tootlusega?",
   "faqRefresh": "Millal saldosid uuendatakse?",
   "faqRelease": "Kust saan rakenduse alla laadida?",
-  "releaseAnswer": "Rakendus jõuab peagi App Store’i ja Google Playsse. Interaktiivset demot saad juba proovida.",
+  "releaseAnswer": "Ava App Store või Google Play allolevate linkide kaudu. Saadavus sõltub rakenduse avaldamisest ja sinu piirkonnast.",
   "contactTitle": "Loome koos selgema pildi.",
-  "contactBody": "Küsimusi, tagasisidet või koostööidee? Meie avalikud kontaktikanalid avanevad rakenduse käivitamisel.",
+  "contactBody": "Kirjuta meile e-posti teel, kui vajad abi, soovid anda tagasisidet või pakkuda koostööd.",
   "support": "Rakenduse tugi",
   "feedback": "Tagasiside ja ideed",
   "partnerships": "Koostöö",
@@ -44,5 +44,8 @@
   "footer": "Selgem ülevaade sinu krüptovaradest.",
   "readFaq": "Loe korduma kippuvaid küsimusi",
   "privacyTitle": "Sinu privaatsus sellel veebisaidil",
-  "privacyBody": "Demo kasutab väljamõeldud andmeid ega küsi kunagi börside võtmeid. Salvestame sellesse brauserisse sinu keele ja küpsiste valiku. Sinu nõusolekul mõõdab Google Analytics lehevaatamisi ja valitud nuppude klikke; reklaamifunktsioonid on välja lülitatud."
+  "privacyBody": "Demo kasutab väljamõeldud andmeid ega küsi kunagi börside võtmeid. Salvestame sellesse brauserisse sinu keele ja küpsiste valiku. Sinu nõusolekul mõõdab Google Analytics lehevaatamisi ja valitud nuppude klikke; reklaamifunktsioonid on välja lülitatud.",
+  "faqPrice": "Kui palju AirCapital maksab?",
+  "priceAnswer": "Ühekordse ostu baashind: 4,99 USD. Pood näitab enne ostu kohalikku hinda ja makse. Tellimusi ega rakendusesiseseid oste pole. Veebidemo on tasuta.",
+  "storePending": "Poelehed muutuvad kättesaadavaks pärast avaldamist. Seni ei pruugi lingid toimida."
 }

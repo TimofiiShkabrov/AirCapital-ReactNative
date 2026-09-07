@@ -16,7 +16,7 @@
   "screensCaption": "Az alkalmazás valódi képernyői angolul. Minden összeg bemutatóadat.",
   "howTitle": "Szétszórt egyenlegekből napi rutin.",
   "downloadTitle": "A tőkéd. Mindig szem előtt.",
-  "downloadBody": "AirCapital iOS-re és Androidra. Az áruházak hivatkozásai az alkalmazások megjelenésekor kerülnek ide.",
+  "downloadBody": "iOS és Android. Egyszeri vásárlás, előfizetés nélkül. Próbáld ki ingyen a webes demót.",
   "faqTitle": "Minden fontos tudnivaló a csatlakoztatás előtt.",
   "faqWhat": "Mit csinál az AirCapital?",
   "faqWhich": "Mely tőzsdék és tárcák támogatottak?",
@@ -25,9 +25,9 @@
   "faqStats": "Az egyenleg növekedése azonos a befektetési hozammal?",
   "faqRefresh": "Mikor frissülnek az egyenlegek?",
   "faqRelease": "Hol tölthetem le az alkalmazást?",
-  "releaseAnswer": "Az alkalmazás hamarosan megjelenik az App Store-ban és a Google Playen. Az interaktív demót már most kipróbálhatod.",
+  "releaseAnswer": "Nyisd meg az App Store-t vagy a Google Playt az alábbi hivatkozásokkal. Az elérhetőség a megjelenéstől és a régiódtól függ.",
   "contactTitle": "Tisztázzuk együtt.",
-  "contactBody": "Kérdésed, visszajelzésed vagy együttműködési ötleted van? Nyilvános kapcsolatfelvételi csatornáink az alkalmazás indulásakor nyílnak meg.",
+  "contactBody": "Írj nekünk e-mailt, ha segítségre van szükséged, visszajelzést küldenél vagy együttműködést javasolnál.",
   "support": "Alkalmazástámogatás",
   "feedback": "Visszajelzések és ötletek",
   "partnerships": "Együttműködés",
@@ -44,5 +44,8 @@
   "footer": "Tisztább kép a kriptoeszközeidről.",
   "readFaq": "Gyakori kérdések elolvasása",
   "privacyTitle": "Adatvédelem ezen a webhelyen",
-  "privacyBody": "A demó fiktív adatokat használ, és soha nem kér tőzsdei kulcsokat. A nyelvet és a sütikkel kapcsolatos döntésedet ebben a böngészőben tároljuk. Hozzájárulásoddal a Google Analytics méri az oldalmegtekintéseket és egyes gombok kattintásait; a hirdetési funkciók ki vannak kapcsolva."
+  "privacyBody": "A demó fiktív adatokat használ, és soha nem kér tőzsdei kulcsokat. A nyelvet és a sütikkel kapcsolatos döntésedet ebben a böngészőben tároljuk. Hozzájárulásoddal a Google Analytics méri az oldalmegtekintéseket és egyes gombok kattintásait; a hirdetési funkciók ki vannak kapcsolva.",
+  "faqPrice": "Mennyibe kerül az AirCapital?",
+  "priceAnswer": "Az egyszeri vásárlás alapára 4,99 USD. Az áruház vásárlás előtt megjeleníti a helyi árat és az adókat. Nincs előfizetés vagy alkalmazáson belüli vásárlás. A webes demó ingyenes.",
+  "storePending": "Az áruházi oldalak a megjelenés után válnak elérhetővé. Addig a hivatkozások esetleg nem működnek."
 }

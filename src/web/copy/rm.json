@@ -16,7 +16,7 @@
   "screensCaption": "Maletgs reals da l’app per englais. Tut las cifras èn datas da demonstraziun.",
   "howTitle": "Da saldos sparpagliads ad ina disa quotidiana.",
   "downloadTitle": "Tes chapital. Adina en vista.",
-  "downloadBody": "AirCapital per iOS ed Android. Ils links a las butias cumparan qua cura che las apps vegnan publitgadas.",
+  "downloadBody": "iOS ed Android. Ina cumpra unica, senza abunament. Emprova gratuitamain la demo sin il web.",
   "faqTitle": "Tut l’impurtant avant da colliar.",
   "faqWhat": "Tge fa AirCapital?",
   "faqWhich": "Tge bursas e portafegls vegnan sustegnids?",
@@ -25,9 +25,9 @@
   "faqStats": "È l’augment dal saldo il medem sco la rendita?",
   "faqRefresh": "Cura vegnan actualisads ils saldos?",
   "faqRelease": "Nua poss jau telechargiar l’app?",
-  "releaseAnswer": "L’app vegn prest en l’App Store e sin Google Play. Ti pos gia empruvar la demo interactiva.",
+  "releaseAnswer": "Avra l’App Store u Google Play cun las colliaziuns sutvart. La disponibladad dependa da la publicaziun e da tia regiun.",
   "contactTitle": "Faschain il maletg pli cler.",
-  "contactBody": "Dumondas, resuns u in’idea per ina collavuraziun? Noss chanals da contact publics avran cun la publicaziun da l’app.",
+  "contactBody": "Scriva a nus per e-mail per agid, reacziuns u propostas da collavuraziun.",
   "support": "Agid cun l’app",
   "feedback": "Resuns ed ideas",
   "partnerships": "Partenadis",
@@ -44,5 +44,8 @@
   "footer": "Ina vista pli clera da tias criptoactivas.",
   "readFaq": "Leger las dumondas frequentas",
   "privacyTitle": "Tia sfera privata sin questa pagina web",
-  "privacyBody": "La demo utilisescha datas fictivas e na dumonda mai clavs da bursas. Nus memorisain tia lingua e tia tscherna da cookies en quest navigatur. Cun tes consentiment mesira Google Analytics visitas da paginas e clics sin tscherts buttuns; las funcziuns da reclama èn deactivadas."
+  "privacyBody": "La demo utilisescha datas fictivas e na dumonda mai clavs da bursas. Nus memorisain tia lingua e tia tscherna da cookies en quest navigatur. Cun tes consentiment mesira Google Analytics visitas da paginas e clics sin tscherts buttuns; las funcziuns da reclama èn deactivadas.",
+  "faqPrice": "Quant custa AirCapital?",
+  "priceAnswer": "Pretsch da basa per ina cumpra unica: 4,99 USD. La butia mussa il pretsch local e las taglias avant la cumpra. Nagins abunaments u cumpras en l’app. La demo sin il web è gratuita.",
+  "storePending": "Las paginas da las butias èn disponiblas suenter la publicaziun. Fin lura na funcziunan las colliaziuns eventualmain betg."
 }

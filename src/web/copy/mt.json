@@ -16,7 +16,7 @@
   "screensCaption": "Skrins reali tal-app bl-Ingliż. L-ammonti kollha huma dejta ta’ dimostrazzjoni.",
   "howTitle": "Minn bilanċi mxerrda għal drawwa ta’ kuljum.",
   "downloadTitle": "Il-kapital tiegħek. Dejjem quddiem għajnejk.",
-  "downloadBody": "AirCapital għal iOS u Android. Il-links għall-ħwienet jidhru hawn meta jitnedew l-apps.",
+  "downloadBody": "iOS u Android. Xiri ta’ darba, mingħajr abbonament. Ipprova d-demo fuq il-web b’xejn.",
   "faqTitle": "Dak kollu li għandek tkun taf qabel tqabbad.",
   "faqWhat": "X’tagħmel AirCapital?",
   "faqWhich": "Liema skambji u kartieri huma appoġġjati?",
@@ -25,9 +25,9 @@
   "faqStats": "Iż-żieda fil-bilanċ hija l-istess bħar-redditu fuq l-investiment?",
   "faqRefresh": "Meta jiġu aġġornati l-bilanċi?",
   "faqRelease": "Minn fejn nista’ nniżżel l-app?",
-  "releaseAnswer": "L-app se tkun dalwaqt fl-App Store u Google Play. Diġà tista’ tipprova d-demo interattiva.",
+  "releaseAnswer": "Iftaħ l-App Store jew Google Play permezz tal-links hawn taħt. Id-disponibbiltà tiddependi mill-pubblikazzjoni u mir-reġjun tiegħek.",
   "contactTitle": "Ejja nagħmlu l-istampa aktar ċara.",
-  "contactBody": "Mistoqsijiet, kummenti jew idea ta’ kollaborazzjoni? Il-kanali pubbliċi ta’ kuntatt tagħna jinfetħu mat-tnedija tal-app.",
+  "contactBody": "Ibgħatilna email għal appoġġ, kummenti jew proposti ta’ sħubija.",
   "support": "Għajnuna bl-app",
   "feedback": "Kummenti u ideat",
   "partnerships": "Sħubijiet",
@@ -44,5 +44,8 @@
   "footer": "Ħarsa aktar ċara lejn il-kripto tiegħek.",
   "readFaq": "Aqra l-mistoqsijiet frekwenti",
   "privacyTitle": "Il-privatezza tiegħek fuq dan is-sit",
-  "privacyBody": "Id-demo tuża dejta fittizja u qatt ma titlob ċwievet tal-iskambji. Nissejvjaw il-lingwa u l-għażla tal-cookies tiegħek f’dan il-browser. Bil-kunsens tiegħek, Google Analytics ikejjel il-viżwalizzazzjonijiet tal-paġni u l-klikks fuq ċerti buttuni; il-funzjonijiet tar-reklamar huma mitfija."
+  "privacyBody": "Id-demo tuża dejta fittizja u qatt ma titlob ċwievet tal-iskambji. Nissejvjaw il-lingwa u l-għażla tal-cookies tiegħek f’dan il-browser. Bil-kunsens tiegħek, Google Analytics ikejjel il-viżwalizzazzjonijiet tal-paġni u l-klikks fuq ċerti buttuni; il-funzjonijiet tar-reklamar huma mitfija.",
+  "faqPrice": "Kemm jiswa AirCapital?",
+  "priceAnswer": "Prezz bażi għal xiri ta’ darba: 4.99 USD. Il-ħanut juri l-prezz lokali u t-taxxi qabel ix-xiri. Mingħajr abbonamenti jew xiri fl-app. Id-demo fuq il-web hija b’xejn.",
+  "storePending": "Il-paġni tal-ħwienet ikunu disponibbli wara l-pubblikazzjoni. Sa dak iż-żmien, il-links jistgħu ma jaħdmux."
 }

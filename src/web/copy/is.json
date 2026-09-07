@@ -16,7 +16,7 @@
   "screensCaption": "Raunverulegar skjámyndir úr appinu á ensku. Allar fjárhæðir eru sýnigögn.",
   "howTitle": "Frá dreifðum inneignum að daglegri venju.",
   "downloadTitle": "Fjármagnið þitt. Alltaf í augsýn.",
-  "downloadBody": "AirCapital fyrir iOS og Android. Tenglar í verslanir birtast hér þegar öppin koma út.",
+  "downloadBody": "iOS og Android. Eingreiðsla, engin áskrift. Prófaðu vefsýnishornið ókeypis.",
   "faqTitle": "Allt sem þarf að vita áður en þú tengist.",
   "faqWhat": "Hvað gerir AirCapital?",
   "faqWhich": "Hvaða kauphallir og veski eru studd?",
@@ -25,9 +25,9 @@
   "faqStats": "Er vöxtur inneignar það sama og ávöxtun?",
   "faqRefresh": "Hvenær eru inneignir uppfærðar?",
   "faqRelease": "Hvar get ég sótt appið?",
-  "releaseAnswer": "Appið kemur bráðum í App Store og Google Play. Þú getur þegar prófað gagnvirka sýnishornið.",
+  "releaseAnswer": "Opnaðu App Store eða Google Play með tenglunum hér að neðan. Framboð fer eftir útgáfu appsins og svæðinu þínu.",
   "contactTitle": "Gerum myndina skýrari.",
-  "contactBody": "Spurningar, ábendingar eða hugmynd um samstarf? Opinberar samskiptaleiðir okkar opna þegar appið kemur út.",
+  "contactBody": "Sendu okkur tölvupóst vegna aðstoðar, ábendinga eða samstarfs.",
   "support": "Aðstoð við appið",
   "feedback": "Ábendingar og hugmyndir",
   "partnerships": "Samstarf",
@@ -44,5 +44,8 @@
   "footer": "Skýrari sýn á kryptoeignirnar þínar.",
   "readFaq": "Lesa algengar spurningar",
   "privacyTitle": "Persónuvernd þín á þessari vefsíðu",
-  "privacyBody": "Sýnishornið notar tilbúin gögn og biður aldrei um kauphallarlykla. Við vistum tungumálið þitt og val á vafrakökum í þessum vafra. Með samþykki þínu mælir Google Analytics síðuflettingar og smelli á valda hnappa; auglýsingaeiginleikar eru óvirkir."
+  "privacyBody": "Sýnishornið notar tilbúin gögn og biður aldrei um kauphallarlykla. Við vistum tungumálið þitt og val á vafrakökum í þessum vafra. Með samþykki þínu mælir Google Analytics síðuflettingar og smelli á valda hnappa; auglýsingaeiginleikar eru óvirkir.",
+  "faqPrice": "Hvað kostar AirCapital?",
+  "priceAnswer": "Grunnverð fyrir ein kaup: 4,99 USD. Verslunin sýnir staðbundið verð og skatta fyrir kaup. Engin áskrift eða kaup í appinu. Vefsýnishornið er ókeypis.",
+  "storePending": "Síður verslananna verða aðgengilegar eftir útgáfu. Þangað til er ekki víst að tenglarnir virki."
 }

@@ -16,7 +16,7 @@
   "screensCaption": "Pravi zasloni aplikacije v angleščini. Vsi zneski so predstavitveni podatki.",
   "howTitle": "Od razpršenih stanj do vsakodnevne navade.",
   "downloadTitle": "Tvoj kapital. Vedno na očeh.",
-  "downloadBody": "AirCapital za iOS in Android. Povezave do trgovin bodo tu ob izidu aplikacij.",
+  "downloadBody": "iOS in Android. Enkraten nakup, brez naročnine. Brezplačno preizkusite spletno predstavitev.",
   "faqTitle": "Vse pomembno pred povezavo.",
   "faqWhat": "Kaj počne AirCapital?",
   "faqWhich": "Katere borze in denarnice so podprte?",
@@ -25,9 +25,9 @@
   "faqStats": "Ali je rast stanja enaka donosu naložbe?",
   "faqRefresh": "Kdaj se stanja posodabljajo?",
   "faqRelease": "Kje lahko prenesem aplikacijo?",
-  "releaseAnswer": "Aplikacija kmalu prihaja v App Store in Google Play. Interaktivni demo lahko preizkusiš že zdaj.",
+  "releaseAnswer": "Odprite App Store ali Google Play prek spodnjih povezav. Razpoložljivost je odvisna od objave aplikacije in vaše regije.",
   "contactTitle": "Razjasnimo sliko skupaj.",
-  "contactBody": "Vprašanja, povratne informacije ali zamisel za sodelovanje? Naši javni kontaktni kanali se odprejo ob izidu aplikacije.",
+  "contactBody": "Pišite nam po e-pošti za podporo, povratne informacije ali predloge za sodelovanje.",
   "support": "Pomoč pri aplikaciji",
   "feedback": "Odzivi in zamisli",
   "partnerships": "Sodelovanje",
@@ -44,5 +44,8 @@
   "footer": "Jasnejši pogled na tvoja kriptosredstva.",
   "readFaq": "Preberi pogosta vprašanja",
   "privacyTitle": "Tvoja zasebnost na tej strani",
-  "privacyBody": "Demo uporablja izmišljene podatke in nikoli ne zahteva ključev borz. V tem brskalniku shranimo tvoj jezik in izbiro piškotkov. S tvojo privolitvijo Google Analytics meri oglede strani in klike izbranih gumbov; oglaševalske funkcije so izklopljene."
+  "privacyBody": "Demo uporablja izmišljene podatke in nikoli ne zahteva ključev borz. V tem brskalniku shranimo tvoj jezik in izbiro piškotkov. S tvojo privolitvijo Google Analytics meri oglede strani in klike izbranih gumbov; oglaševalske funkcije so izklopljene.",
+  "faqPrice": "Koliko stane AirCapital?",
+  "priceAnswer": "Osnovna cena enkratnega nakupa: 4,99 USD. Trgovina pred nakupom prikaže lokalno ceno in davke. Brez naročnin ali nakupov v aplikaciji. Spletna predstavitev je brezplačna.",
+  "storePending": "Strani trgovin bodo na voljo po objavi. Do takrat povezave morda ne bodo delovale."
 }

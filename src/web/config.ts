@@ -1,9 +1,13 @@
-// Public launch details. Leave unavailable channels empty; never link to guessed listings.
+// Store URLs come from the registered app IDs. A URL does not imply a public release.
 export const SITE = {
   analyticsId: "G-BLV9ZEBKW9",
-  origin: process.env.EXPO_PUBLIC_SITE_URL || "",
-  appStore: process.env.EXPO_PUBLIC_APP_STORE_URL || "",
-  googlePlay: process.env.EXPO_PUBLIC_GOOGLE_PLAY_URL || "",
+  origin: process.env.EXPO_PUBLIC_SITE_URL || "https://aircapital.app",
+  appStore:
+    process.env.EXPO_PUBLIC_APP_STORE_URL ||
+    "https://apps.apple.com/app/id6792837154",
+  googlePlay:
+    process.env.EXPO_PUBLIC_GOOGLE_PLAY_URL ||
+    "https://play.google.com/store/apps/details?id=tim.AirCapital",
   email: process.env.EXPO_PUBLIC_CONTACT_EMAIL || "timofii.shkabrov@gmail.com",
   telegram: process.env.EXPO_PUBLIC_TELEGRAM_URL || "",
 };
@@ -23,6 +27,10 @@ export function publicLink(
 export const storeLinks = {
   ios: publicLink(SITE.appStore, ["apps.apple.com"]),
   android: publicLink(SITE.googlePlay, ["play.google.com"]),
+};
+export const storeAvailability = {
+  ios: process.env.EXPO_PUBLIC_IOS_RELEASED === "true",
+  android: process.env.EXPO_PUBLIC_ANDROID_RELEASED === "true",
 };
 export const contactEmail = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(SITE.email)
   ? SITE.email
