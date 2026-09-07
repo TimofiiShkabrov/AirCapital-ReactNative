@@ -1,47 +1,44 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect } from "react";
+import { usePathname } from "expo-router";
 import { catalogs } from "../i18n/catalogs";
-import { deviceLanguage } from "../i18n/deviceLanguage";
-import { supportedLanguage, type LanguageCode } from "../i18n/languages";
+import { type LanguageCode } from "../i18n/languages";
 import { siteCopy } from "./copy";
-const KEY = "aircapital.website.language";
+import {
+  isSiteLanguage,
+  localizedPath,
+  siteRoute,
+  type SitePage,
+} from "./routes";
+
 const SiteContext = createContext({
   language: "en" as LanguageCode,
   setLanguage: (_code: string) => {},
+  href: (page: SitePage) => localizedPath("en", page),
   m: catalogs.en,
   w: siteCopy.en,
 });
 export function SiteProvider({ children }: { children: React.ReactNode }) {
-  const [language, setCode] = useState<LanguageCode>("en");
-  useEffect(() => {
-    let saved: string | null = null;
-    try {
-      saved =
-        localStorage.getItem(KEY) ??
-        localStorage.getItem("aircapital.language.code");
-    } catch {
-      /* Browser storage is optional for the public website. */
-    }
-    setCode(supportedLanguage(saved) ?? deviceLanguage());
-  }, []);
+  const route = siteRoute(usePathname());
+  const language = route?.language ?? "en";
   useEffect(() => {
     document.documentElement.lang = language;
     document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
   }, [language]);
-  const setLanguage = (value: string) => {
-    const code = supportedLanguage(value);
-    if (!code) return;
-    setCode(code);
+  const setLanguage = (code: string) => {
+    if (!isSiteLanguage(code)) return;
     try {
-      localStorage.setItem(KEY, code);
+      localStorage.setItem("aircapital.website.language", code);
     } catch {
-      /* The current selection still works without persistence. */
+      // Language navigation also works when browser storage is disabled.
     }
+    window.location.assign(localizedPath(code, route?.page ?? "/"));
   };
   return (
     <SiteContext.Provider
       value={{
         language,
         setLanguage,
+        href: (page) => localizedPath(language, page),
         m: catalogs[language],
         w: siteCopy[language],
       }}

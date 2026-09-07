@@ -1,5 +1,5 @@
 import React from "react";
-import Head from "expo-router/head";
+import { Seo, seoCopy } from "./Seo";
 import { useSite } from "./context";
 import { Arrow, FeatureIcon, StoreIcon } from "./icons";
 import { DemoLink } from "./SiteRoot";
@@ -8,7 +8,6 @@ import {
   storeAvailability,
   contactEmail,
   telegramLink,
-  siteOrigin,
 } from "./config";
 import { browserAnalytics } from "./analyticsBrowser";
 import { DemoBoard } from "./DemoBoard";
@@ -22,33 +21,6 @@ const exchanges = [
   { id: "bingx", name: "BingX" },
   { id: "gateio", name: "Gate.io" },
 ];
-export function Meta({
-  title,
-  description,
-  path,
-}: {
-  title: string;
-  description: string;
-  path: string;
-}) {
-  return (
-    <Head>
-      <title>{title} · AirCapital</title>
-      <meta name="description" content={description} />
-      <meta property="og:title" content={`${title} · AirCapital`} />
-      <meta property="og:description" content={description} />
-      <meta property="og:type" content="website" />
-      {siteOrigin && <link rel="canonical" href={siteOrigin + path} />}
-      <meta name="twitter:card" content="summary" />
-      {siteOrigin && (
-        <meta
-          property="og:image"
-          content={`${siteOrigin}/branding/icon-512.png`}
-        />
-      )}
-    </Head>
-  );
-}
 function Stores() {
   const { w } = useSite();
   return (
@@ -103,7 +75,7 @@ function Stores() {
   );
 }
 export function HomePage() {
-  const { w, m } = useSite();
+  const { w, m, language, href } = useSite();
   const features = [
     { kind: "layers" as const, title: m.emptyTitle, text: m.emptyBody },
     { kind: "chart" as const, title: m.statistics, text: m.monitoringSummary },
@@ -111,7 +83,7 @@ export function HomePage() {
   ];
   return (
     <>
-      <Meta title={w.footer} description={m.emptyBody} path="/" />
+      <Seo page="/" />
       <section className="hero container">
         <div className="hero-copy">
           <p className="eyebrow">
@@ -123,7 +95,7 @@ export function HomePage() {
             <br />
             <em>{w.heroAccent}</em>
           </h1>
-          <p className="lead">{m.emptyBody}</p>
+          <p className="lead">{seoCopy[language].description}</p>
           <div className="hero-actions">
             <DemoLink place="hero">{w.demoCta}</DemoLink>
             <a href="#download" className="button text-button">
@@ -278,7 +250,7 @@ export function HomePage() {
         <div>
           <h2>{w.privacyTitle}</h2>
           <p>{w.privacyBody}</p>
-          <a href="/faq" className="inline-link">
+          <a href={href("/faq")} className="inline-link">
             {w.readFaq}
             <Arrow />
           </a>
@@ -288,10 +260,10 @@ export function HomePage() {
   );
 }
 export function DemoPage() {
-  const { w, m } = useSite();
+  const { w, m, href } = useSite();
   return (
     <>
-      <Meta title={w.demo} description={w.demoBody} path="/demo" />
+      <Seo page="/demo" />
       <section className="page-intro container">
         <p className="eyebrow">
           <span className="status-dot" />
@@ -304,7 +276,7 @@ export function DemoPage() {
         <DemoBoard />
         <p className="demo-disclaimer">
           {m.unsupportedWeb}{" "}
-          <a href="/#download">
+          <a href={href("/") + "#download"}>
             {w.getApp}
             <Arrow diagonal />
           </a>
@@ -337,7 +309,7 @@ export function FaqPage() {
   ];
   return (
     <>
-      <Meta title={w.faq} description={w.faqTitle} path="/faq" />
+      <Seo page="/faq" />
       <section className="page-intro container">
         <p className="eyebrow">AirCapital / {w.faq}</p>
         <h1>{w.faqTitle}</h1>
@@ -374,10 +346,10 @@ export function FaqPage() {
   );
 }
 export function ContactPage() {
-  const { w, language } = useSite();
+  const { w, language, href } = useSite();
   return (
     <>
-      <Meta title={w.contact} description={w.contactBody} path="/contact" />
+      <Seo page="/contact" />
       <section className="page-intro container">
         <p className="eyebrow">AirCapital / {w.contact}</p>
         <h1>{w.contactTitle}</h1>
@@ -448,7 +420,7 @@ export function ContactPage() {
       )}
       <div className="container contact-note">
         <p>{w.faqTitle}</p>
-        <a className="button outline" href="/faq">
+        <a className="button outline" href={href("/faq")}>
           {w.readFaq}
           <Arrow />
         </a>

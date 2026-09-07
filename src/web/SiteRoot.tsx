@@ -5,6 +5,7 @@ import { SiteProvider, useSite } from "./context";
 import { browserAnalytics } from "./analyticsBrowser";
 import { Arrow } from "./icons";
 import "./site.css";
+import { localizedPath, siteRoute } from "./routes";
 import legalLabels from "../i18n/legalLabels.json";
 
 export function DemoLink({
@@ -16,10 +17,11 @@ export function DemoLink({
   children: React.ReactNode;
   className?: string;
 }) {
+  const { href } = useSite();
   return (
     <a
       className={className}
-      href="/demo"
+      href={href("/demo")}
       onClick={() => browserAnalytics()?.track("demo_open", place)}
     >
       {children}
@@ -28,8 +30,9 @@ export function DemoLink({
   );
 }
 function Shell() {
-  const { w, m, language, setLanguage } = useSite();
+  const { w, m, language, setLanguage, href: siteHref } = useSite();
   const path = usePathname();
+  const currentPage = siteRoute(path)?.page ?? "/";
   const [menu, setMenu] = useState(false);
   const [consentOpen, setConsentOpen] = useState(false);
   useEffect(() => {
@@ -40,10 +43,10 @@ function Shell() {
     setConsentOpen(false);
   };
   const links = [
-    ["/", w.home],
-    ["/demo", w.demo],
-    ["/faq", w.faq],
-    ["/contact", w.contact],
+    [siteHref("/"), w.home],
+    [siteHref("/demo"), w.demo],
+    [siteHref("/faq"), w.faq],
+    [siteHref("/contact"), w.contact],
   ];
   return (
     <div
@@ -91,7 +94,7 @@ function Shell() {
       </a>
       <header className="site-header">
         <div className="header-inner container">
-          <a className="brand" href="/" aria-label="AirCapital">
+          <a className="brand" href={siteHref("/")} aria-label="AirCapital">
             <img src="/branding/icon-192.png" width="36" height="36" alt="" />
             AirCapital<span className="brand-dot">.</span>
           </a>
@@ -115,7 +118,7 @@ function Shell() {
                 href={href}
                 aria-current={path === href ? "page" : undefined}
                 onClick={() => {
-                  if (href === "/demo")
+                  if (href === siteHref("/demo"))
                     browserAnalytics()?.track("demo_open", "header");
                 }}
               >
@@ -141,7 +144,7 @@ function Shell() {
             </label>
             <a
               className="button small outline header-download"
-              href="/#download"
+              href={siteHref("/") + "#download"}
             >
               {w.getApp}
               <Arrow diagonal />
@@ -155,7 +158,7 @@ function Shell() {
       <footer className="site-footer container">
         <div className="footer-top">
           <div>
-            <a className="brand" href="/">
+            <a className="brand" href={siteHref("/")}>
               <img src="/branding/icon-192.png" width="30" height="30" alt="" />
               AirCapital<span className="brand-dot">.</span>
             </a>
@@ -167,7 +170,7 @@ function Shell() {
                 key={href}
                 href={href}
                 onClick={() => {
-                  if (href === "/demo")
+                  if (href === siteHref("/demo"))
                     browserAnalytics()?.track("demo_open", "footer");
                 }}
               >
@@ -177,8 +180,30 @@ function Shell() {
           </nav>
         </div>
         <nav className="footer-legal" aria-label={legalLabels[language][4]}>
-          {["privacy", "terms", "cookies", "data-deletion", "legal"].map((slug, index) => <a key={slug} href={`/${slug}`}>{legalLabels[language][index]}</a>)}
+          {["privacy", "terms", "cookies", "data-deletion", "legal"].map(
+            (slug, index) => (
+              <a key={slug} href={`/${slug}`}>
+                {legalLabels[language][index]}
+              </a>
+            ),
+          )}
         </nav>
+        <details className="footer-languages">
+          <summary>{m.language}</summary>
+          <nav aria-label={m.language}>
+            {LANGUAGES.map(({ code, name }) => (
+              <a
+                key={code}
+                lang={code}
+                hrefLang={code}
+                href={localizedPath(code, currentPage)}
+                aria-current={code === language ? "true" : undefined}
+              >
+                {name}
+              </a>
+            ))}
+          </nav>
+        </details>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} AirCapital</span>
           <div>

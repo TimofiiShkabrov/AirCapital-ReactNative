@@ -12,6 +12,10 @@ export default function RootHtml({ children }: PropsWithChildren) {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         <meta name="theme-color" content="#10151F" />
+        <meta
+          name="google-site-verification"
+          content="hLIytGR4mPnPtP2djAVDIy9Cd6v4CGQ5NiMqytG0kZI"
+        />
         <link
           rel="icon"
           type="image/png"

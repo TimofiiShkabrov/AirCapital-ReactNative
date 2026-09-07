@@ -1,0 +1,188 @@
+{
+  "en": {
+    "title": "Crypto portfolio tracker",
+    "description": "Track crypto balances across Binance, Bybit, OKX, BingX and Gate.io in one place. See how your portfolio changes and explore the free AirCapital demo.",
+    "faqDescription": "Answers about supported exchanges, read-only API keys, data privacy, balance statistics and AirCapital pricing.",
+    "contactDescription": "Contact AirCapital for help with exchange connections, app questions, feedback or partnership enquiries."
+  },
+  "es": {
+    "title": "Seguimiento de tu cartera cripto",
+    "description": "Consulta tus saldos de Binance, Bybit, OKX, BingX y Gate.io en un solo lugar. Sigue la evolución de tu cartera y prueba la demo gratuita de AirCapital.",
+    "faqDescription": "Resuelve tus dudas sobre exchanges compatibles, claves API de solo lectura, privacidad, estadísticas de saldo y precio de AirCapital.",
+    "contactDescription": "Contacta con AirCapital para recibir ayuda con las conexiones a exchanges, resolver dudas o enviar sugerencias y propuestas de colaboración."
+  },
+  "de": {
+    "title": "Krypto-Portfolio im Überblick",
+    "description": "Behalte deine Guthaben bei Binance, Bybit, OKX, BingX und Gate.io im Blick. Verfolge Veränderungen im Portfolio und teste die kostenlose AirCapital-Demo.",
+    "faqDescription": "Antworten zu unterstützten Börsen, API-Schlüsseln mit Lesezugriff, Datenschutz, Guthabenstatistiken und dem Preis von AirCapital.",
+    "contactDescription": "Kontaktiere AirCapital bei Fragen zur App oder zur Verbindung mit Börsen. Wir freuen uns auch über Feedback und Kooperationsanfragen."
+  },
+  "nb": {
+    "title": "Oversikt over kryptoporteføljen",
+    "description": "Samle saldoene fra Binance, Bybit, OKX, BingX og Gate.io i én oversikt. Følg endringer i porteføljen og prøv den gratis demoen av AirCapital.",
+    "faqDescription": "Svar om støttede børser, API-nøkler med kun lesetilgang, personvern, saldostatistikk og prisen på AirCapital.",
+    "contactDescription": "Kontakt AirCapital for hjelp med børstilkoblinger og spørsmål om appen, eller send tilbakemeldinger og forslag til samarbeid."
+  },
+  "ru": {
+    "title": "Учёт криптоактивов на биржах",
+    "description": "Балансы Binance, Bybit, OKX, BingX и Gate.io в одном приложении. Следите за изменениями портфеля и попробуйте бесплатную демоверсию AirCapital.",
+    "faqDescription": "Ответы о поддерживаемых биржах, API-ключах только для чтения, конфиденциальности, статистике баланса и стоимости AirCapital.",
+    "contactDescription": "Свяжитесь с AirCapital: помощь с подключением бирж, вопросы о приложении, обратная связь и предложения о сотрудничестве."
+  },
+  "uk": {
+    "title": "Облік криптоактивів на біржах",
+    "description": "Баланси Binance, Bybit, OKX, BingX і Gate.io в одному застосунку. Стежте за змінами портфеля та спробуйте безкоштовну демоверсію AirCapital.",
+    "faqDescription": "Відповіді про підтримувані біржі, API-ключі лише для читання, конфіденційність, статистику балансу та вартість AirCapital.",
+    "contactDescription": "Зверніться до AirCapital по допомогу з підключенням бірж і запитаннями про застосунок. Надсилайте відгуки та пропозиції співпраці."
+  },
+  "fr": {
+    "title": "Suivi de portefeuille crypto",
+    "description": "Retrouvez vos soldes Binance, Bybit, OKX, BingX et Gate.io au même endroit. Suivez votre portefeuille et essayez la démo gratuite d’AirCapital.",
+    "faqDescription": "Les réponses à vos questions sur les plateformes compatibles, les clés API en lecture seule, la confidentialité, les statistiques et le prix d’AirCapital.",
+    "contactDescription": "Contactez AirCapital pour obtenir de l’aide, poser une question sur l’application, partager un avis ou proposer un partenariat."
+  },
+  "pl": {
+    "title": "Monitorowanie portfela krypto",
+    "description": "Salda z Binance, Bybit, OKX, BingX i Gate.io w jednym miejscu. Śledź zmiany wartości portfela i wypróbuj bezpłatną wersję demonstracyjną AirCapital.",
+    "faqDescription": "Odpowiedzi na pytania o obsługiwane giełdy, klucze API tylko do odczytu, prywatność, statystyki salda i cenę AirCapital.",
+    "contactDescription": "Skontaktuj się z AirCapital, aby uzyskać pomoc z połączeniem z giełdą, zadać pytanie o aplikację, przekazać opinię lub zaproponować współpracę."
+  },
+  "bg": {
+    "title": "Проследяване на криптопортфейл",
+    "description": "Вижте балансите си в Binance, Bybit, OKX, BingX и Gate.io на едно място. Следете промените в портфейла и изпробвайте безплатната демонстрация на AirCapital.",
+    "faqDescription": "Отговори за поддържаните борси, API ключовете само за четене, поверителността, статистиката за баланса и цената на AirCapital.",
+    "contactDescription": "Свържете се с AirCapital за помощ с връзките към борси, въпроси за приложението, обратна връзка или предложения за партньорство."
+  },
+  "cs": {
+    "title": "Přehled kryptoměnového portfolia",
+    "description": "Zůstatky z Binance, Bybit, OKX, BingX a Gate.io na jednom místě. Sledujte změny svého portfolia a vyzkoušejte bezplatnou ukázku AirCapital.",
+    "faqDescription": "Odpovědi na otázky o podporovaných burzách, API klíčích pouze pro čtení, soukromí, statistikách zůstatků a ceně AirCapital.",
+    "contactDescription": "Kontaktujte AirCapital, pokud potřebujete pomoc s připojením burzy, máte otázku k aplikaci nebo chcete poslat zpětnou vazbu či nabídku spolupráce."
+  },
+  "da": {
+    "title": "Overblik over din kryptoportefølje",
+    "description": "Saml dine saldi fra Binance, Bybit, OKX, BingX og Gate.io ét sted. Følg ændringer i porteføljen, og prøv den gratis demo af AirCapital.",
+    "faqDescription": "Svar om understøttede børser, API-nøgler med læseadgang, privatliv, saldostatistik og prisen på AirCapital.",
+    "contactDescription": "Kontakt AirCapital for hjælp til børsforbindelser, spørgsmål om appen, feedback eller forslag til samarbejde."
+  },
+  "el": {
+    "title": "Παρακολούθηση χαρτοφυλακίου crypto",
+    "description": "Δείτε τα υπόλοιπά σας σε Binance, Bybit, OKX, BingX και Gate.io συγκεντρωμένα. Παρακολουθήστε τις μεταβολές και δοκιμάστε δωρεάν το demo του AirCapital.",
+    "faqDescription": "Απαντήσεις για υποστηριζόμενα ανταλλακτήρια, κλειδιά API μόνο για ανάγνωση, απόρρητο, στατιστικά υπολοίπου και την τιμή του AirCapital.",
+    "contactDescription": "Επικοινωνήστε με το AirCapital για βοήθεια με τις συνδέσεις ανταλλακτηρίων, ερωτήσεις για την εφαρμογή, σχόλια ή προτάσεις συνεργασίας."
+  },
+  "et": {
+    "title": "Krüptoportfelli ülevaade",
+    "description": "Binance’i, Bybiti, OKX-i, BingX-i ja Gate.io saldod ühes kohas. Jälgi oma portfelli muutusi ja proovi AirCapitali tasuta demot.",
+    "faqDescription": "Vastused toetatud börside, ainult lugemisõigusega API-võtmete, privaatsuse, saldostatistika ja AirCapitali hinna kohta.",
+    "contactDescription": "Võta AirCapitaliga ühendust, et saada abi börsiühendustega, küsida rakenduse kohta, anda tagasisidet või pakkuda koostööd."
+  },
+  "fi": {
+    "title": "Kryptosalkun seuranta",
+    "description": "Binancen, Bybitin, OKX:n, BingX:n ja Gate.io:n saldot yhdessä näkymässä. Seuraa salkkusi muutoksia ja kokeile AirCapitalin maksutonta demoa.",
+    "faqDescription": "Vastauksia tuetuista pörsseistä, vain lukuoikeuden antavista API-avaimista, tietosuojasta, saldotilastoista ja AirCapitalin hinnasta.",
+    "contactDescription": "Ota yhteyttä AirCapitaliin, jos tarvitset apua pörssiyhteyksissä, haluat kysyä sovelluksesta, antaa palautetta tai ehdottaa yhteistyötä."
+  },
+  "hr": {
+    "title": "Praćenje kriptoportfelja",
+    "description": "Salda s burzi Binance, Bybit, OKX, BingX i Gate.io na jednom mjestu. Pratite promjene portfelja i isprobajte besplatnu demonstraciju AirCapitala.",
+    "faqDescription": "Odgovori o podržanim burzama, API ključevima samo za čitanje, privatnosti, statistici salda i cijeni AirCapitala.",
+    "contactDescription": "Obratite se AirCapitalu za pomoć s povezivanjem burzi, pitanja o aplikaciji, povratne informacije ili prijedloge suradnje."
+  },
+  "hu": {
+    "title": "Kriptoportfólió követése",
+    "description": "A Binance, Bybit, OKX, BingX és Gate.io egyenlegei egy helyen. Kövesd portfóliód változásait, és próbáld ki az AirCapital ingyenes demóját.",
+    "faqDescription": "Válaszok a támogatott tőzsdékről, a csak olvasási jogosultságú API-kulcsokról, az adatvédelemről, az egyenlegstatisztikákról és az AirCapital áráról.",
+    "contactDescription": "Lépj kapcsolatba az AirCapitallal, ha segítségre van szükséged a tőzsdék csatlakoztatásához, kérdésed van az alkalmazásról vagy együttműködést javasolnál."
+  },
+  "is": {
+    "title": "Yfirlit yfir rafmyntasafnið",
+    "description": "Sjáðu stöðu þína hjá Binance, Bybit, OKX, BingX og Gate.io á einum stað. Fylgstu með breytingum á safninu og prófaðu ókeypis sýniútgáfu AirCapital.",
+    "faqDescription": "Svör um studda rafmyntamarkaði, API-lykla með lesaðgangi, persónuvernd, tölfræði um stöðu og verð AirCapital.",
+    "contactDescription": "Hafðu samband við AirCapital til að fá aðstoð við tengingar, spyrja um appið, senda ábendingar eða leggja til samstarf."
+  },
+  "it": {
+    "title": "Monitoraggio del portafoglio crypto",
+    "description": "I tuoi saldi su Binance, Bybit, OKX, BingX e Gate.io in un unico posto. Segui le variazioni del portafoglio e prova la demo gratuita di AirCapital.",
+    "faqDescription": "Risposte su exchange supportati, chiavi API di sola lettura, privacy, statistiche del saldo e prezzo di AirCapital.",
+    "contactDescription": "Contatta AirCapital per ricevere assistenza con gli exchange, fare domande sull’app, inviare suggerimenti o proporre una collaborazione."
+  },
+  "lb": {
+    "title": "Iwwerbléck iwwer de Kryptoportfolio",
+    "description": "Deng Salde vu Binance, Bybit, OKX, BingX a Gate.io op enger Plaz. Verfolleg d’Ännerungen an dengem Portfolio a probéier déi gratis Demo vun AirCapital.",
+    "faqDescription": "Äntwerten iwwer ënnerstëtzte Boursen, API-Schlëssele mat Lieszougrëff, Dateschutz, Saldostatistiken an de Präis vun AirCapital.",
+    "contactDescription": "Kontaktéier AirCapital fir Hëllef beim Verbannen vu Boursen, Froe bei der App, Feedback oder Virschléi fir eng Zesummenaarbecht."
+  },
+  "lt": {
+    "title": "Kriptovaliutų portfelio stebėjimas",
+    "description": "Binance, Bybit, OKX, BingX ir Gate.io likučiai vienoje vietoje. Stebėkite portfelio pokyčius ir išbandykite nemokamą AirCapital demonstracinę versiją.",
+    "faqDescription": "Atsakymai apie palaikomas biržas, tik skaitymo teises turinčius API raktus, privatumą, likučių statistiką ir AirCapital kainą.",
+    "contactDescription": "Kreipkitės į AirCapital dėl pagalbos jungiant biržas ar klausimų apie programėlę. Taip pat laukiame atsiliepimų ir bendradarbiavimo pasiūlymų."
+  },
+  "lv": {
+    "title": "Kriptovalūtu portfeļa pārraudzība",
+    "description": "Binance, Bybit, OKX, BingX un Gate.io atlikumi vienuviet. Sekojiet portfeļa izmaiņām un izmēģiniet AirCapital bezmaksas demonstrācijas versiju.",
+    "faqDescription": "Atbildes par atbalstītajām biržām, API atslēgām tikai lasīšanai, privātumu, atlikumu statistiku un AirCapital cenu.",
+    "contactDescription": "Sazinieties ar AirCapital, lai saņemtu palīdzību biržu savienošanā, uzdotu jautājumus par lietotni, sniegtu atsauksmes vai piedāvātu sadarbību."
+  },
+  "mt": {
+    "title": "Monitoraġġ tal-portafoll kripto",
+    "description": "Il-bilanċi tiegħek minn Binance, Bybit, OKX, BingX u Gate.io f’post wieħed. Segwi l-bidliet fil-portafoll u pprova d-demo bla ħlas ta’ AirCapital.",
+    "faqDescription": "Tweġibiet dwar l-iskambji appoġġjati, iċ-ċwievet API għall-qari biss, il-privatezza, l-istatistika tal-bilanċ u l-prezz ta’ AirCapital.",
+    "contactDescription": "Ikkuntattja lil AirCapital għal għajnuna bil-konnessjonijiet mal-iskambji, mistoqsijiet dwar l-app, kummenti jew proposti ta’ sħubija."
+  },
+  "nl": {
+    "title": "Overzicht van je cryptoportfolio",
+    "description": "Je tegoeden bij Binance, Bybit, OKX, BingX en Gate.io op één plek. Volg veranderingen in je portfolio en probeer de gratis demo van AirCapital.",
+    "faqDescription": "Antwoorden over ondersteunde beurzen, API-sleutels met alleen leesrechten, privacy, saldostatistieken en de prijs van AirCapital.",
+    "contactDescription": "Neem contact op met AirCapital voor hulp bij beursverbindingen, vragen over de app, feedback of samenwerkingsvoorstellen."
+  },
+  "nn": {
+    "title": "Oversikt over kryptoporteføljen",
+    "description": "Samle saldoane frå Binance, Bybit, OKX, BingX og Gate.io i éi oversikt. Følg endringar i porteføljen og prøv den gratis demoen av AirCapital.",
+    "faqDescription": "Svar om støtta børsar, API-nøklar med berre lesetilgang, personvern, saldostatistikk og prisen på AirCapital.",
+    "contactDescription": "Kontakt AirCapital for hjelp med børstilkoplingar og spørsmål om appen, eller send tilbakemeldingar og forslag til samarbeid."
+  },
+  "pt": {
+    "title": "Acompanhe a sua carteira cripto",
+    "description": "Os seus saldos da Binance, Bybit, OKX, BingX e Gate.io num só lugar. Acompanhe a evolução da carteira e experimente a demonstração gratuita do AirCapital.",
+    "faqDescription": "Respostas sobre plataformas compatíveis, chaves API apenas de leitura, privacidade, estatísticas de saldo e preço do AirCapital.",
+    "contactDescription": "Contacte o AirCapital para obter ajuda com ligações a plataformas, esclarecer dúvidas sobre a aplicação, dar sugestões ou propor parcerias."
+  },
+  "rm": {
+    "title": "Survista da tes portfolio da cripto",
+    "description": "Tes saldos da Binance, Bybit, OKX, BingX e Gate.io en in sulet lieu. Suonda las midadas da tes portfolio ed emprova la demo gratuita dad AirCapital.",
+    "faqDescription": "Respostas davart las bursas sustegnidas, las clavs API cun access mo per leger, la protecziun da datas, las statisticas dals saldos ed il pretsch dad AirCapital.",
+    "contactDescription": "Contactescha AirCapital per agid cun las connexiuns a bursas, dumondas davart l’app, resuns u propostas da collavuraziun."
+  },
+  "ro": {
+    "title": "Monitorizarea portofoliului cripto",
+    "description": "Soldurile de pe Binance, Bybit, OKX, BingX și Gate.io într-un singur loc. Urmărește evoluția portofoliului și încearcă gratuit demonstrația AirCapital.",
+    "faqDescription": "Răspunsuri despre bursele acceptate, cheile API doar pentru citire, confidențialitate, statisticile soldurilor și prețul AirCapital.",
+    "contactDescription": "Contactează AirCapital pentru ajutor cu conectarea burselor, întrebări despre aplicație, feedback sau propuneri de colaborare."
+  },
+  "sk": {
+    "title": "Prehľad kryptomenového portfólia",
+    "description": "Zostatky z Binance, Bybit, OKX, BingX a Gate.io na jednom mieste. Sledujte zmeny svojho portfólia a vyskúšajte bezplatnú ukážku AirCapital.",
+    "faqDescription": "Odpovede na otázky o podporovaných burzách, API kľúčoch iba na čítanie, súkromí, štatistikách zostatkov a cene AirCapital.",
+    "contactDescription": "Kontaktujte AirCapital, ak potrebujete pomoc s pripojením burzy, máte otázku k aplikácii alebo chcete poslať spätnú väzbu či ponuku spolupráce."
+  },
+  "sl": {
+    "title": "Spremljanje kriptoportfelja",
+    "description": "Stanja z borz Binance, Bybit, OKX, BingX in Gate.io na enem mestu. Spremljajte spremembe portfelja in preizkusite brezplačno predstavitev AirCapital.",
+    "faqDescription": "Odgovori o podprtih borzah, ključih API samo za branje, zasebnosti, statistiki stanja in ceni AirCapital.",
+    "contactDescription": "Obrnite se na AirCapital za pomoč pri povezovanju borz, vprašanja o aplikaciji, povratne informacije ali predloge za sodelovanje."
+  },
+  "sv": {
+    "title": "Överblick över din kryptoportfölj",
+    "description": "Samla dina saldon från Binance, Bybit, OKX, BingX och Gate.io på ett ställe. Följ förändringar i portföljen och prova AirCapitals kostnadsfria demo.",
+    "faqDescription": "Svar om börser som stöds, API-nycklar med enbart läsbehörighet, integritet, saldostatistik och priset på AirCapital.",
+    "contactDescription": "Kontakta AirCapital för hjälp med börsanslutningar, frågor om appen, synpunkter eller förslag på samarbeten."
+  },
+  "ar": {
+    "title": "متابعة محفظة العملات المشفرة",
+    "description": "أرصدة Binance وBybit وOKX وBingX وGate.io في مكان واحد. تابع تغيّرات محفظتك وجرّب العرض التوضيحي المجاني من AirCapital.",
+    "faqDescription": "إجابات عن المنصات المدعومة ومفاتيح API للقراءة فقط والخصوصية وإحصاءات الرصيد وسعر AirCapital.",
+    "contactDescription": "تواصل مع AirCapital للمساعدة في ربط المنصات أو للاستفسار عن التطبيق أو لإرسال الملاحظات ومقترحات التعاون."
+  }
+}

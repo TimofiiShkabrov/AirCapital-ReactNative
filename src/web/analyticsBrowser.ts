@@ -1,4 +1,5 @@
 import { createAnalytics, CONSENT_KEY } from "./analytics";
+import { siteRoute } from "./routes";
 import { SITE } from "./config";
 
 type TagWindow = Window & {
@@ -17,7 +18,7 @@ export function browserAnalytics() {
     "/faq": "FAQ · AirCapital",
     "/contact": "Contact · AirCapital",
   };
-  const path = window.location.pathname.replace(/\/$/, "") || "/";
+  const path = siteRoute(window.location.pathname)?.page ?? "";
   const send = (...args: unknown[]) => {
     win.dataLayer ||= [];
     win.gtag ||= function () {

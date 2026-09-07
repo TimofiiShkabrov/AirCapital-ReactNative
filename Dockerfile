@@ -20,7 +20,7 @@ ARG EXPO_PUBLIC_ANDROID_RELEASED=false
 ARG EXPO_PUBLIC_CONTACT_EMAIL
 ARG EXPO_PUBLIC_TELEGRAM_URL
 ENV NODE_ENV=production
-RUN npx expo export --platform web --output-dir dist --max-workers 2
+RUN npm run build:web
 
 FROM nginx:stable-alpine AS runtime
 # Railway can override PORT. For the domain's current target port, set PORT=80.

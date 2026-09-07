@@ -31,6 +31,13 @@ server {
         return 308 /$1$is_args$args;
     }
 
+    # English has one canonical URL. Localized pages use extensionless URLs.
+    location ~ ^/en(?:/|\.html)?$ { return 308 /$is_args$args; }
+    location ~ ^/en/(demo|faq|contact)(?:/|\.html)?$ { return 308 /$1$is_args$args; }
+    location ~ ^/(es|de|nb|ru|uk|fr|pl|bg|cs|da|el|et|fi|hr|hu|is|it|lb|lt|lv|mt|nl|nn|pt|rm|ro|sk|sl|sv|ar)(/(demo|faq|contact))?(/|\.html)$ {
+        return 308 /$1$2$is_args$args;
+    }
+
     # Old mobile-app URLs must not expose connection/settings screens on web.
     location ~ ^/(settings|flows|connect-guide|terminal|wallet)(\.html)?/?$ {
         return 302 /demo;
@@ -48,7 +55,8 @@ server {
     }
     location / {
         expires -1;
-        try_files $uri $uri.html $uri/ =404;
+        # /ru.html must win over the /ru/ directory containing its subpages.
+        try_files $uri.html $uri $uri/ =404;
     }
     error_page 404 /+not-found.html;
     location = /+not-found.html {
