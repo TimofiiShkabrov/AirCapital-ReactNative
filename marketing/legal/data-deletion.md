@@ -1,8 +1,6 @@
 # Delete your data
 
-DRAFT — operator details awaiting confirmation. Do not register this draft in stores.
-
-Updated: 2026-09-06
+Updated: 2026-09-07
 
 AirCapital has no developer-hosted user account. You can remove local data yourself and request deletion of information we hold.
 

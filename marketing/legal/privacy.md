@@ -1,14 +1,12 @@
 # Privacy policy
 
-DRAFT — operator details awaiting confirmation. Do not register this draft in stores.
-
-Updated: 2026-09-06
+Updated: 2026-09-07
 
 How AirCapital handles information on the website and in the iOS and Android apps, and how you can exercise your rights.
 
 ## 1. Who is responsible
 
-Operator identity and postal address are awaiting confirmation. This document is a draft and must not be submitted as a final store policy.
+Tymofii Shkabrov, Stasjonsgata 31j, 3300 Hokksund, Norway.
 
 AirCapital is the product name. The operator above is responsible for the processing described here. Contact: timofii.shkabrov@gmail.com. This policy covers aircapital.app and the AirCapital apps (package tim.AirCapital). Exchanges and app stores have their own responsibilities and privacy policies.
 

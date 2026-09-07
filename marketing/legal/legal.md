@@ -1,14 +1,12 @@
 # Legal notice
 
-DRAFT — operator details awaiting confirmation. Do not register this draft in stores.
-
-Updated: 2026-09-06
+Updated: 2026-09-07
 
 The operator of AirCapital and official contact information.
 
 ## Operator
 
-Operator identity and postal address are awaiting confirmation. This document is a draft and must not be submitted as a final store policy.
+Tymofii Shkabrov, Stasjonsgata 31j, 3300 Hokksund, Norway.
 
 Product: AirCapital. Website: https://aircapital.app. Email: timofii.shkabrov@gmail.com.
 

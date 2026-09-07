@@ -1,14 +1,12 @@
 # Terms of use
 
-DRAFT — operator details awaiting confirmation. Do not register this draft in stores.
-
-Updated: 2026-09-06
+Updated: 2026-09-07
 
 What AirCapital provides and the conditions for using the website and monitoring apps.
 
 ## 1. The service and its operator
 
-Operator identity and postal address are awaiting confirmation. This document is a draft and must not be submitted as a final store policy.
+Tymofii Shkabrov, Stasjonsgata 31j, 3300 Hokksund, Norway.
 
 Questions or complaints: timofii.shkabrov@gmail.com. AirCapital provides a website, a fictional web demo and iOS/Android tools for viewing exchange balances. No AirCapital user account is required.
 
@@ -33,9 +31,9 @@ The privacy policy explains local storage, direct exchange connections, optional
 
 ## 5. Distribution and charges
 
-The current app does not include an AirCapital subscription or in-app purchase. Any future paid feature will be described with its price and applicable conditions before purchase. Your exchange, internet provider or app store may apply its own terms or charges.
+AirCapital is offered as a paid download with a base price of USD 4.99. The applicable local price, currency and taxes are shown by your app store before purchase. The current app has no AirCapital subscription or in-app purchase. The website demo is free. Any future paid feature will be described with its price and applicable conditions before purchase. Your exchange and internet provider may apply their own charges.
 
-Apps downloaded from Apple are also subject to Apple’s applicable standard licence and store terms. Google Play distribution is subject to its applicable store terms. These terms do not replace mandatory rights under those arrangements.
+App-store payments, receipts and refund requests are handled through the store where you purchased the app. Follow its refund process. Nothing here excludes statutory withdrawal rights, remedies for non-conforming digital content or other mandatory consumer rights. Apps downloaded from Apple are also subject to Apple’s applicable standard licence and store terms. Google Play distribution is subject to its applicable store terms.
 
 - [Apple standard licence](https://www.apple.com/legal/internet-services/itunes/dev/stdeula/)
 

@@ -1,8 +1,6 @@
 # Cookies and analytics
 
-DRAFT — operator details awaiting confirmation. Do not register this draft in stores.
-
-Updated: 2026-09-06
+Updated: 2026-09-07
 
 Essential preferences, optional measurement and how to change your choice.
 
