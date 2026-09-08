@@ -1,0 +1,158 @@
+# Keep base exclusions aligned with .gitignore.
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Expo / React Native
+.expo/
+.expo-shared/
+expo-env.d.ts
+.metro-health-check*
+.react-native/
+
+# Build output
+dist/
+web-build/
+build/
+coverage/
+.nyc_output/
+*.tsbuildinfo
+
+# Generated native folders
+/ios/
+/android/
+
+# Native caches
+.gradle/
+.kotlin/
+DerivedData/
+Pods/
+
+# Android local/private files
+local.properties
+*.keystore
+*.jks
+*.hprof
+
+# iOS local/private files
+*.p8
+*.p12
+*.pem
+*.cer
+*.certSigningRequest
+*.mobileprovision
+*.provisionprofile
+*.xcuserstate
+*.xcscmblueprint
+xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+*.key
+*.crt
+*.csr
+*.enc
+*.secret
+secrets/
+credentials/
+google-services.json
+GoogleService-Info.plist
+firebase-adminsdk*.json
+service-account*.json
+
+# Logs and diagnostics
+*.log
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+pnpm-debug.*
+*.orig.*
+crashlytics-build.properties
+
+# Package manager caches
+.npm/
+.yarn/
+.pnpm-store/
+
+# OS / editor noise
+.DS_Store
+._*
+Thumbs.db
+.idea/
+/.vscode/
+/.claude/
+
+# Local reference/source dump
+/oldAirCapital/
+
+# Expo template backup
+app-example/
+
+# Temporary files and tool caches
+/tmp/
+/temp/
+/output/
+/artifacts/
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+.stylelintcache
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+*.swp
+*.swo
+*~
+
+# Packaged native builds and local test reports
+*.apk
+*.aab
+*.ipa
+*.app/
+*.xcarchive/
+*.dSYM/
+*.dSYM.zip
+/test-results/
+/playwright-report/
+/blob-report/
+
+# Local historical reports, generated notes and audit dumps
+# Keep README, release-checklist and integration docs versioned.
+/docs/audit-*/
+/docs/implementation-*/
+/docs/release-hardening-*/
+/docs/design/
+/docs/local/
+/docs/live-trading-qa.md
+/docs/**/npm-audit*.json
+/npm-audit*.json
+
+# Unused Expo template images and previous icon drafts
+# Active app assets live in assets/branding and public/branding.
+/assets/images/*react-logo*.png
+/assets/images/android-icon-*.png
+/assets/images/icon.png
+/assets/images/favicon.png
+/assets/images/splash-icon.png
+/assets/images/aircapital-icon-ios.png
+/assets/images/aircapital-icon-minimal-ios.png
+
+# Public Firebase iOS client configuration (not an Admin SDK credential).
+!config/firebase/GoogleService-Info.plist
+
+# Public Firebase Android client configuration.
+!config/firebase/google-services.json
+
+# Store artwork is versioned for marketing, but is not part of native builds.
+/marketing/screenshots/

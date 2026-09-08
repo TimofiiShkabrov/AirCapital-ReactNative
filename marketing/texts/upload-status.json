@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-06T19:48:30.642Z",
+  "checkedAt": "2026-09-07T19:58:38.554Z",
   "googlePlayDescriptions": [
     "en",
     "es",
@@ -132,6 +132,258 @@
     "sv",
     "ar"
   ],
-  "legalUrlsRegistered": false,
-  "legalUrlsBlockedBy": "Operator legal identity and postal address not supplied; draft documents not deployed."
+  "legalUrlsRegistered": true,
+  "legalDocuments": {
+    "published": true,
+    "commit": "fc9273f",
+    "operatorVerified": true,
+    "paths": [
+      "/privacy",
+      "/terms",
+      "/cookies",
+      "/data-deletion",
+      "/legal"
+    ],
+    "httpStatus": 200,
+    "draft": false,
+    "noindex": false,
+    "language": "en"
+  },
+  "applePrivacyUrlsReadBack": [
+    "en",
+    "ar",
+    "hu",
+    "el",
+    "da",
+    "es",
+    "it",
+    "de",
+    "nl",
+    "nb",
+    "pl",
+    "pt",
+    "ro",
+    "ru",
+    "sk",
+    "sl",
+    "uk",
+    "fi",
+    "fr",
+    "hr",
+    "cs",
+    "sv"
+  ],
+  "appleStoreSetup": {
+    "version": "2.4.7",
+    "appPrivacy": "published",
+    "privacyPolicyUrl": "https://aircapital.app/privacy",
+    "privacyChoicesUrl": "https://aircapital.app/data-deletion",
+    "basePrice": {
+      "currency": "USD",
+      "amount": "4.99",
+      "country": "USA"
+    },
+    "priceSaved": true,
+    "localPrices": {
+      "NO": {
+        "currency": "NOK",
+        "amount": "59"
+      },
+      "DE": {
+        "currency": "EUR",
+        "amount": "5.99"
+      },
+      "GB": {
+        "currency": "GBP",
+        "amount": "4.99"
+      }
+    },
+    "selectedTerritories": 175,
+    "futureTerritories": true,
+    "territoryComplianceReviewPending": true,
+    "releaseMode": "manual",
+    "paidAgreement": "new_not_active",
+    "dsa": "in_review_observed_in_console_2026-09-07",
+    "contentRights": "not_completed",
+    "encryptionCompliance": "classification_and_documentation_review_pending",
+    "binaryUploaded": true,
+    "appSubmittedForReview": false,
+    "sellerNameCorrection": {
+      "current": "Timofii Shkabrov",
+      "requested": "Tymofii Shkabrov",
+      "status": "submitted_awaiting_apple_review",
+      "draft": "marketing/legal/apple-seller-name-correction.md",
+      "teamId": "QJJFV9YPU3",
+      "formUrl": "https://developer.apple.com/contact/request/update-company-information/",
+      "submissionCompleted": true,
+      "submittedAt": "2026-09-07T18:44:51.002319+00:00",
+      "submissionConfirmation": "Thanks for contacting us. We’ll review your request and get back to you as soon as possible.",
+      "caseNumberDisplayed": false,
+      "contactPhoneApproved": true,
+      "accountWideChangeApproved": true,
+      "changeApplied": false
+    },
+    "currentSignedInRole": "account_holder",
+    "accountHolderAppleId": "timofii.shkabrov@gmail.com",
+    "accountHolderRoleVerifiedInUsersList": true,
+    "buildNumber": "11",
+    "buildSelected": true,
+    "binaryProcessed": true,
+    "testFlight": {
+      "betaDescriptionsSaved": [
+        "ro",
+        "ru",
+        "sk",
+        "sl",
+        "uk",
+        "fi",
+        "fr",
+        "hr",
+        "cs",
+        "sv",
+        "ar",
+        "hu",
+        "el",
+        "da",
+        "es",
+        "it",
+        "de",
+        "nl",
+        "nb",
+        "pl",
+        "pt",
+        "en"
+      ],
+      "whatToTestSaved": [
+        "ar",
+        "hu",
+        "el",
+        "da",
+        "es",
+        "it",
+        "de",
+        "nl",
+        "nb",
+        "pl",
+        "pt",
+        "ro",
+        "ru",
+        "sk",
+        "sl",
+        "uk",
+        "fi",
+        "fr",
+        "hr",
+        "cs",
+        "sv",
+        "en"
+      ],
+      "contactName": "Tymofii Shkabrov",
+      "feedbackEmail": "timofii.shkabrov@gmail.com",
+      "privacyPolicyUrl": "https://aircapital.app/privacy",
+      "reviewNotesFile": "marketing/texts/apple-review-notes.md",
+      "reviewSubmitted": false,
+      "checkedAt": "2026-09-07T20:00:55.450Z"
+    },
+    "appReviewNotesSaved": true
+  },
+  "googleStoreSetup": {
+    "dashboardCompleted": 8,
+    "dashboardTotal": 11,
+    "listingStatus": "ready_to_send_for_review",
+    "privacyPolicyUrl": "https://aircapital.app/privacy",
+    "contentRating": "saved",
+    "appAccess": "blocked_full_review_access_needed",
+    "targetAudience": "blocked_by_app_access_rechecked",
+    "dataSafety": "saved_as_draft_all_four_types_completed_blocked_by_target_audience_rechecked",
+    "merchantProfile": "registered_existing_norwegian_individual_profile",
+    "bankAccount": "not_added_rechecked",
+    "paidDownload": true,
+    "basePrice": {
+      "currency": "USD",
+      "amount": "4.99"
+    },
+    "priceSaved": true,
+    "pricedCountryAndRegionRows": 176,
+    "taxCategory": "digital_app_sales",
+    "localPrices": {
+      "NO": {
+        "currency": "NOK",
+        "amount": "59"
+      },
+      "DE": {
+        "currency": "EUR",
+        "amount": "4.99"
+      },
+      "GB": {
+        "currency": "GBP",
+        "amount": "4.39"
+      }
+    },
+    "productionCountries": "not_configurable_before_production_access",
+    "productionAccess": "closed_test_required_12_testers_14_continuous_days",
+    "reducedServiceFeeProgram": "not_enrolled_related_accounts_unknown",
+    "binaryUploaded": true,
+    "appSubmittedForReview": false,
+    "verificationReadBackAt": "2026-09-07T18:51:46.142654+00:00",
+    "legalIdentityReadBack": {
+      "name": "Tymofii SHKABROV",
+      "type": "individual",
+      "country": "NO",
+      "address": "Stasjonsgata 31J, 3300 Hokksund",
+      "nameAndAddressVerifiedOn": "2026-06-07"
+    },
+    "contactEmailVerified": true,
+    "contactPhoneVerified": true,
+    "developerPublicEmailVerified": true,
+    "androidPackageVerification": {
+      "package": "tim.AirCapital",
+      "status": "registered",
+      "signingKeyCount": 3
+    },
+    "taxInformation": {
+      "US": "not_provided",
+      "TW": "not_provided",
+      "applicableFilingRequirements": "not_determined_from_empty_status_alone"
+    },
+    "versionCode": 2,
+    "releaseName": "2.4.7 (2)",
+    "releaseTrack": "internal",
+    "releaseStatus": "draft",
+    "releaseNotesLocales": 28
+  },
+  "readinessDetails": "marketing/store-readiness.md",
+  "pricingReadBack": {
+    "checkedAt": "2026-09-07T18:16:04.542796+00:00",
+    "apple": {
+      "currentPriceRegions": 171,
+      "regionsWithScheduledPriceChange": 4,
+      "totalPricedRegions": 175,
+      "missingPrices": 0
+    },
+    "google": {
+      "pricedTopLevelCountryRows": 173,
+      "displayedCurrencies": 61,
+      "missingCountryPrices": 0,
+      "futureRegionsGroupExcludedFromMissingCheck": true
+    },
+    "conversion": "Store-calculated comparable prices; local taxes and price rounding apply. Some storefronts use USD instead of the national currency."
+  },
+  "draftPreparation": {
+    "date": "2026-09-07T19:58:38.554Z",
+    "publicRelease": false,
+    "reviewSubmitted": false,
+    "bankingChanged": false,
+    "task1Completed": true,
+    "task2Completed": false,
+    "pending": [
+      "Full app review access",
+      "Google target audience and Data safety final save",
+      "Apple third-party content rights",
+      "Encryption classification and applicable documentation",
+      "Account legal identity/DSA and paid agreement",
+      "Applicable tax details",
+      "Google closed testing and production access"
+    ]
+  }
 }

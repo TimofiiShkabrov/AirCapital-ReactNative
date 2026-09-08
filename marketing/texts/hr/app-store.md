@@ -44,14 +44,14 @@ https://aircapital.app/contact
 
 https://aircapital.app
 
-## Privacy policy URL (publish and verify before registering)
+## Privacy policy URL
 
 https://aircapital.app/privacy
 
-## Privacy choices URL (publish and verify before registering)
+## Privacy choices URL
 
 https://aircapital.app/data-deletion
 
 ## Copyright
 
-2026 Timofii Shkabrov
+2026 Tymofii Shkabrov

@@ -9,6 +9,7 @@ import {
   RefreshControl,
   StyleSheet,
   AppState,
+  useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
@@ -59,6 +60,8 @@ export default function HomeScreen() {
     { t, i18n } = useTranslation(),
     money = useMoney(),
     router = useRouter();
+  const { width, fontScale } = useWindowDimensions();
+  const wide = width >= 768 && width / fontScale >= 700;
   const settings = useSettingsStore();
   const load = useScreenLoad(loadOverviewData);
   const { reload } = load;
@@ -69,7 +72,8 @@ export default function HomeScreen() {
     [filter, setFilter] = useState("all");
   const focused = useIsFocused();
   useEffect(() => {
-    if (analyticsAvailable && focused) void appAnalytics.screen(page).catch(() => {});
+    if (analyticsAvailable && focused)
+      void appAnalytics.screen(page).catch(() => {});
   }, [focused, page]);
   const [expanded, setExpanded] = useState<string>(),
     [demoMode, setDemoMode] = useState(false);
@@ -206,7 +210,10 @@ export default function HomeScreen() {
     );
     const change = periodMetrics(accountHistory, [account.id]);
     return (
-      <View key={account.id}>
+      <View
+        key={account.id}
+        style={wide && page === "exchanges" ? styles.exchangeTile : undefined}
+      >
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={`${EXCHANGE_CONFIG[account.exchange].label}${account.label ? ` · ${account.label}` : ""} · ${t("monitor.details")}`}
@@ -374,7 +381,7 @@ export default function HomeScreen() {
           </View>
           <ScrollView
             contentContainerStyle={{
-              paddingHorizontal: 20,
+              paddingHorizontal: wide ? 28 : 20,
               paddingBottom: 28,
               gap: 14,
             }}
@@ -482,146 +489,198 @@ export default function HomeScreen() {
                 </Card>
               ) : (
                 <>
-                  {page === "overview" && (
-                    <Card>
-                      {balance === undefined ? (
-                        <>
-                          <Heading>{t("monitor.balanceUnavailable")}</Heading>
-                          <Label>
-                            {t(
-                              reconnectCount
-                                ? "monitor.restoreToContinue"
-                                : "monitor.retryBalance",
-                            )}
-                          </Label>
-                          {snapshots.length > 0 && (
-                            <>
-                              {periods}
-                              <HistoryChart snapshots={snapshots} />
-                            </>
-                          )}
-                        </>
-                      ) : (
-                        <>
-                          <Label>
-                            {t(
-                              fullyCovered
-                                ? filter === "all"
-                                  ? "monitor.total"
-                                  : "monitor.balance"
-                                : "monitor.partialTotal",
-                            )}
-                          </Label>
-                          <Text
-                            style={{
-                              color: c.text,
-                              fontSize: 36,
-                              fontWeight: "600",
-                              letterSpacing: -1,
-                              textAlign: c.rtl ? "right" : "left",
-                            }}
-                          >
-                            {fullyCovered ? "" : "≈ "}
-                            {money(balance)}{" "}
-                            <Text
-                              style={{
-                                color: c.muted,
-                                fontSize: 14,
-                                fontWeight: "400",
-                                letterSpacing: 0,
-                              }}
-                            >
-                              USDT
-                            </Text>
-                          </Text>
-                          {metrics && complete ? (
-                            <Text
-                              accessibilityLiveRegion="polite"
-                              style={{
-                                color: color(metrics.delta),
-                                fontSize: 14,
-                                textAlign: c.rtl ? "right" : "left",
-                              }}
-                            >
-                              {money(metrics.delta, true)} USDT (
-                              {money(metrics.percent, true, true)})
-                            </Text>
-                          ) : (
-                            <Label>{t("monitor.historyNeeded")}</Label>
-                          )}
-                          {periods}
-                          <HistoryChart snapshots={snapshots} demo={demoMode} />
-                          <View
-                            style={{
-                              borderTopWidth: 1,
-                              borderTopColor: c.line,
-                              paddingTop: 10,
-                            }}
-                          >
-                            <Label>
-                              {load.isLoading && !demoMode
-                                ? t("monitor.refreshing")
-                                : complete
-                                  ? t("monitor.fresh")
-                                  : `${t("monitor.partial")} · ${unavailableCount}`}
-                              {complete &&
-                              selected[0] &&
-                              sync[selected[0].id]?.lastSuccessAt
-                                ? ` · ${labelDate(sync[selected[0].id].lastSuccessAt!)}`
-                                : ""}
-                            </Label>
-                          </View>
-                        </>
-                      )}
-                    </Card>
-                  )}
                   {coverageWarnings.map((issue) => (
                     <Label key={issue}>{t(`monitor.${issue}`)}</Label>
                   ))}
-                  {page === "exchanges" && (
-                    <>
-                      {periods}
-                      <Action
-                        label={t("monitor.addAccount")}
-                        icon="add-outline"
-                        onPress={() => router.push("/settings")}
-                      />
-                    </>
-                  )}
                   {page !== "statistics" && (
-                    <View style={{ gap: 2 }}>
+                    <View
+                      style={[
+                        styles.sections,
+                        wide &&
+                          page === "overview" && {
+                            flexDirection: c.rtl ? "row-reverse" : "row",
+                            gap: 24,
+                          },
+                      ]}
+                    >
+                      {page === "overview" && (
+                        <Card
+                          style={wide ? { flex: 1.25, minWidth: 0 } : undefined}
+                        >
+                          {balance === undefined ? (
+                            <>
+                              <Heading>
+                                {t("monitor.balanceUnavailable")}
+                              </Heading>
+                              <Label>
+                                {t(
+                                  reconnectCount
+                                    ? "monitor.restoreToContinue"
+                                    : "monitor.retryBalance",
+                                )}
+                              </Label>
+                              {snapshots.length > 0 && (
+                                <>
+                                  {periods}
+                                  <HistoryChart
+                                    snapshots={snapshots}
+                                    height={wide ? 300 : undefined}
+                                  />
+                                </>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              <Label>
+                                {t(
+                                  fullyCovered
+                                    ? filter === "all"
+                                      ? "monitor.total"
+                                      : "monitor.balance"
+                                    : "monitor.partialTotal",
+                                )}
+                              </Label>
+                              <Text
+                                style={{
+                                  color: c.text,
+                                  fontSize: 36,
+                                  fontWeight: "600",
+                                  letterSpacing: -1,
+                                  textAlign: c.rtl ? "right" : "left",
+                                }}
+                              >
+                                {fullyCovered ? "" : "≈ "}
+                                {money(balance)}{" "}
+                                <Text
+                                  style={{
+                                    color: c.muted,
+                                    fontSize: 14,
+                                    fontWeight: "400",
+                                    letterSpacing: 0,
+                                  }}
+                                >
+                                  USDT
+                                </Text>
+                              </Text>
+                              {metrics && complete ? (
+                                <Text
+                                  accessibilityLiveRegion="polite"
+                                  style={{
+                                    color: color(metrics.delta),
+                                    fontSize: 14,
+                                    textAlign: c.rtl ? "right" : "left",
+                                  }}
+                                >
+                                  {money(metrics.delta, true)} USDT (
+                                  {money(metrics.percent, true, true)})
+                                </Text>
+                              ) : (
+                                <Label>{t("monitor.historyNeeded")}</Label>
+                              )}
+                              {periods}
+                              <HistoryChart
+                                snapshots={snapshots}
+                                demo={demoMode}
+                                height={wide ? 300 : undefined}
+                              />
+                              <View
+                                style={{
+                                  borderTopWidth: 1,
+                                  borderTopColor: c.line,
+                                  paddingTop: 10,
+                                }}
+                              >
+                                <Label>
+                                  {load.isLoading && !demoMode
+                                    ? t("monitor.refreshing")
+                                    : complete
+                                      ? t("monitor.fresh")
+                                      : `${t("monitor.partial")} · ${unavailableCount}`}
+                                  {complete &&
+                                  selected[0] &&
+                                  sync[selected[0].id]?.lastSuccessAt
+                                    ? ` · ${labelDate(sync[selected[0].id].lastSuccessAt!)}`
+                                    : ""}
+                                </Label>
+                              </View>
+                            </>
+                          )}
+                        </Card>
+                      )}
+                      {page === "exchanges" && (
+                        <>
+                          {periods}
+                          <Action
+                            label={t("monitor.addAccount")}
+                            icon="add-outline"
+                            onPress={() => router.push("/settings")}
+                          />
+                        </>
+                      )}
                       <View
                         style={[
-                          s.row,
-                          { marginTop: 7 },
-                          c.rtl && { flexDirection: "row-reverse" },
+                          { gap: 2 },
+                          wide &&
+                            page === "overview" && { flex: 1, minWidth: 0 },
                         ]}
                       >
-                        <Heading>{t("monitor.sources")}</Heading>
-                        {page === "overview" && (
-                          <Pressable
-                            accessibilityRole="button"
-                            onPress={() => setPage("statistics")}
-                            style={{ minHeight: 44, justifyContent: "center" }}
-                          >
-                            <Text style={{ color: c.accent, fontSize: 13 }}>
-                              {t("monitor.details")}
-                            </Text>
-                          </Pressable>
-                        )}
+                        <View
+                          style={[
+                            s.row,
+                            { marginTop: 7 },
+                            c.rtl && { flexDirection: "row-reverse" },
+                          ]}
+                        >
+                          <Heading>{t("monitor.sources")}</Heading>
+                          {page === "overview" && (
+                            <Pressable
+                              accessibilityRole="button"
+                              onPress={() => setPage("statistics")}
+                              style={{
+                                minHeight: 44,
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Text style={{ color: c.accent, fontSize: 13 }}>
+                                {t("monitor.details")}
+                              </Text>
+                            </Pressable>
+                          )}
+                        </View>
+                        <View
+                          style={
+                            wide && page === "exchanges"
+                              ? [
+                                  styles.exchangeGrid,
+                                  c.rtl && { flexDirection: "row-reverse" },
+                                ]
+                              : undefined
+                          }
+                        >
+                          {exchangeRows}
+                        </View>
+                        <Label style={{ marginTop: 12 }}>
+                          {t("monitor.allValues")}
+                        </Label>
                       </View>
-                      {exchangeRows}
-                      <Label style={{ marginTop: 12 }}>
-                        {t("monitor.allValues")}
-                      </Label>
                     </View>
                   )}
                   {page === "statistics" && (
                     <>
                       {periods}
                       {metrics ? (
-                        <>
-                          <Card>
+                        <View
+                          style={[
+                            styles.sections,
+                            wide && {
+                              flexDirection: c.rtl ? "row-reverse" : "row",
+                              gap: 24,
+                            },
+                          ]}
+                        >
+                          <Card
+                            style={wide ? { flex: 1, minWidth: 0 } : undefined}
+                          >
                             <Label>{t("monitor.change")}</Label>
                             <Text
                               style={{
@@ -726,39 +785,55 @@ export default function HomeScreen() {
                               </>
                             )}
                           </Card>
-                          <Heading>{t("monitor.contribution")}</Heading>
-                          {selected.map((account) => {
-                            // Use the same exact endpoints as the aggregate; never mix differently covered periods.
-                            const history = sourceHistory.filter(
-                              (s) =>
-                                s.scope.type === "account" &&
-                                s.scope.accountId === account.id &&
-                                (s.timestamp === metrics.first.timestamp ||
-                                  s.timestamp === metrics.last.timestamp),
-                            );
-                            const result =
-                              history.length === 2
-                                ? periodMetrics(history, [account.id])
-                                : undefined;
-                            return (
-                              <View
-                                key={account.id}
-                                style={[
-                                  s.row,
-                                  c.rtl && { flexDirection: "row-reverse" },
-                                ]}
-                              >
-                                <Text style={{ color: c.text, flexShrink: 1 }}>
-                                  {EXCHANGE_CONFIG[account.exchange].label}
-                                  {account.label ? ` · ${account.label}` : ""}
-                                </Text>
-                                <Text style={{ color: color(result?.delta) }}>
-                                  {money(result?.delta, true)} USDT
-                                </Text>
-                              </View>
-                            );
-                          })}
-                        </>
+                          <View
+                            style={[
+                              { gap: 16 },
+                              wide && { flex: 1, minWidth: 0 },
+                            ]}
+                          >
+                            {wide && (
+                              <HistoryChart
+                                snapshots={snapshots}
+                                demo={demoMode}
+                                height={260}
+                              />
+                            )}
+                            <Heading>{t("monitor.contribution")}</Heading>
+                            {selected.map((account) => {
+                              // Use the same exact endpoints as the aggregate; never mix differently covered periods.
+                              const history = sourceHistory.filter(
+                                (s) =>
+                                  s.scope.type === "account" &&
+                                  s.scope.accountId === account.id &&
+                                  (s.timestamp === metrics.first.timestamp ||
+                                    s.timestamp === metrics.last.timestamp),
+                              );
+                              const result =
+                                history.length === 2
+                                  ? periodMetrics(history, [account.id])
+                                  : undefined;
+                              return (
+                                <View
+                                  key={account.id}
+                                  style={[
+                                    s.row,
+                                    c.rtl && { flexDirection: "row-reverse" },
+                                  ]}
+                                >
+                                  <Text
+                                    style={{ color: c.text, flexShrink: 1 }}
+                                  >
+                                    {EXCHANGE_CONFIG[account.exchange].label}
+                                    {account.label ? ` · ${account.label}` : ""}
+                                  </Text>
+                                  <Text style={{ color: color(result?.delta) }}>
+                                    {money(result?.delta, true)} USDT
+                                  </Text>
+                                </View>
+                              );
+                            })}
+                          </View>
+                        </View>
                       ) : (
                         <Card>
                           <Label>{t("monitor.historyNeeded")}</Label>
@@ -810,7 +885,10 @@ export default function HomeScreen() {
   );
 }
 const styles = StyleSheet.create({
-  shell: { flex: 1, width: "100%", maxWidth: 620, alignSelf: "center" },
+  shell: { flex: 1, width: "100%", maxWidth: 1440, alignSelf: "center" },
+  sections: { gap: 14 },
+  exchangeGrid: { flexDirection: "row", flexWrap: "wrap", gap: 24 },
+  exchangeTile: { width: "48%", flexGrow: 1, minWidth: 0 },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",

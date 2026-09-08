@@ -36,10 +36,10 @@ https://aircapital.app
 
 timofii.shkabrov@gmail.com
 
-## Privacy policy URL (publish and verify before registering)
+## Privacy policy URL
 
 https://aircapital.app/privacy
 
-## Data deletion URL (no AirCapital account; publish and verify first)
+## Data deletion URL (no AirCapital account)
 
 https://aircapital.app/data-deletion

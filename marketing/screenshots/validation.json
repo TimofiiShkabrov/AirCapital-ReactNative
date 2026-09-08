@@ -1,0 +1,2796 @@
+{
+  "images": 310,
+  "errors": [],
+  "files": [
+    {
+      "file": "exports/ar/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 720167,
+      "opaque": true
+    },
+    {
+      "file": "exports/ar/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 717885,
+      "opaque": true
+    },
+    {
+      "file": "exports/ar/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 709640,
+      "opaque": true
+    },
+    {
+      "file": "exports/ar/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 279119,
+      "opaque": true
+    },
+    {
+      "file": "exports/ar/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 736601,
+      "opaque": true
+    },
+    {
+      "file": "exports/ar/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 728814,
+      "opaque": true
+    },
+    {
+      "file": "exports/ar/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 726435,
+      "opaque": true
+    },
+    {
+      "file": "exports/ar/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1296974,
+      "opaque": true
+    },
+    {
+      "file": "exports/ar/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1208353,
+      "opaque": true
+    },
+    {
+      "file": "exports/ar/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1263679,
+      "opaque": true
+    },
+    {
+      "file": "exports/bg/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 733880,
+      "opaque": true
+    },
+    {
+      "file": "exports/bg/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 756780,
+      "opaque": true
+    },
+    {
+      "file": "exports/bg/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 747444,
+      "opaque": true
+    },
+    {
+      "file": "exports/bg/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 286974,
+      "opaque": true
+    },
+    {
+      "file": "exports/bg/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 747344,
+      "opaque": true
+    },
+    {
+      "file": "exports/bg/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 754887,
+      "opaque": true
+    },
+    {
+      "file": "exports/bg/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 760012,
+      "opaque": true
+    },
+    {
+      "file": "exports/bg/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1325275,
+      "opaque": true
+    },
+    {
+      "file": "exports/bg/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1245037,
+      "opaque": true
+    },
+    {
+      "file": "exports/bg/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1305512,
+      "opaque": true
+    },
+    {
+      "file": "exports/cs/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 747338,
+      "opaque": true
+    },
+    {
+      "file": "exports/cs/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 764863,
+      "opaque": true
+    },
+    {
+      "file": "exports/cs/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 745917,
+      "opaque": true
+    },
+    {
+      "file": "exports/cs/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 289151,
+      "opaque": true
+    },
+    {
+      "file": "exports/cs/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 754785,
+      "opaque": true
+    },
+    {
+      "file": "exports/cs/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 763372,
+      "opaque": true
+    },
+    {
+      "file": "exports/cs/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 755506,
+      "opaque": true
+    },
+    {
+      "file": "exports/cs/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1335156,
+      "opaque": true
+    },
+    {
+      "file": "exports/cs/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1251112,
+      "opaque": true
+    },
+    {
+      "file": "exports/cs/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1301943,
+      "opaque": true
+    },
+    {
+      "file": "exports/da/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 723836,
+      "opaque": true
+    },
+    {
+      "file": "exports/da/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 735246,
+      "opaque": true
+    },
+    {
+      "file": "exports/da/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 746130,
+      "opaque": true
+    },
+    {
+      "file": "exports/da/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 283096,
+      "opaque": true
+    },
+    {
+      "file": "exports/da/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 734853,
+      "opaque": true
+    },
+    {
+      "file": "exports/da/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 744141,
+      "opaque": true
+    },
+    {
+      "file": "exports/da/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 751763,
+      "opaque": true
+    },
+    {
+      "file": "exports/da/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1306819,
+      "opaque": true
+    },
+    {
+      "file": "exports/da/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1226523,
+      "opaque": true
+    },
+    {
+      "file": "exports/da/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1302100,
+      "opaque": true
+    },
+    {
+      "file": "exports/de/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 742553,
+      "opaque": true
+    },
+    {
+      "file": "exports/de/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 756261,
+      "opaque": true
+    },
+    {
+      "file": "exports/de/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 750651,
+      "opaque": true
+    },
+    {
+      "file": "exports/de/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 287609,
+      "opaque": true
+    },
+    {
+      "file": "exports/de/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 744596,
+      "opaque": true
+    },
+    {
+      "file": "exports/de/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 759711,
+      "opaque": true
+    },
+    {
+      "file": "exports/de/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 759688,
+      "opaque": true
+    },
+    {
+      "file": "exports/de/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1329558,
+      "opaque": true
+    },
+    {
+      "file": "exports/de/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1246207,
+      "opaque": true
+    },
+    {
+      "file": "exports/de/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1315949,
+      "opaque": true
+    },
+    {
+      "file": "exports/el/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 765459,
+      "opaque": true
+    },
+    {
+      "file": "exports/el/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 806207,
+      "opaque": true
+    },
+    {
+      "file": "exports/el/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 789754,
+      "opaque": true
+    },
+    {
+      "file": "exports/el/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 295388,
+      "opaque": true
+    },
+    {
+      "file": "exports/el/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 774124,
+      "opaque": true
+    },
+    {
+      "file": "exports/el/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 794789,
+      "opaque": true
+    },
+    {
+      "file": "exports/el/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 787283,
+      "opaque": true
+    },
+    {
+      "file": "exports/el/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1376213,
+      "opaque": true
+    },
+    {
+      "file": "exports/el/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1302539,
+      "opaque": true
+    },
+    {
+      "file": "exports/el/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1365894,
+      "opaque": true
+    },
+    {
+      "file": "exports/en/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 741994,
+      "opaque": true
+    },
+    {
+      "file": "exports/en/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 758887,
+      "opaque": true
+    },
+    {
+      "file": "exports/en/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 760840,
+      "opaque": true
+    },
+    {
+      "file": "exports/en/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 287641,
+      "opaque": true
+    },
+    {
+      "file": "exports/en/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 745423,
+      "opaque": true
+    },
+    {
+      "file": "exports/en/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 762681,
+      "opaque": true
+    },
+    {
+      "file": "exports/en/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 765016,
+      "opaque": true
+    },
+    {
+      "file": "exports/en/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1324705,
+      "opaque": true
+    },
+    {
+      "file": "exports/en/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1251264,
+      "opaque": true
+    },
+    {
+      "file": "exports/en/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1316653,
+      "opaque": true
+    },
+    {
+      "file": "exports/es/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 750197,
+      "opaque": true
+    },
+    {
+      "file": "exports/es/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 783957,
+      "opaque": true
+    },
+    {
+      "file": "exports/es/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 768219,
+      "opaque": true
+    },
+    {
+      "file": "exports/es/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 288218,
+      "opaque": true
+    },
+    {
+      "file": "exports/es/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 759775,
+      "opaque": true
+    },
+    {
+      "file": "exports/es/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 777335,
+      "opaque": true
+    },
+    {
+      "file": "exports/es/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 776160,
+      "opaque": true
+    },
+    {
+      "file": "exports/es/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1339220,
+      "opaque": true
+    },
+    {
+      "file": "exports/es/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1271717,
+      "opaque": true
+    },
+    {
+      "file": "exports/es/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1327581,
+      "opaque": true
+    },
+    {
+      "file": "exports/et/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 750618,
+      "opaque": true
+    },
+    {
+      "file": "exports/et/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 753274,
+      "opaque": true
+    },
+    {
+      "file": "exports/et/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 747836,
+      "opaque": true
+    },
+    {
+      "file": "exports/et/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 288079,
+      "opaque": true
+    },
+    {
+      "file": "exports/et/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 755992,
+      "opaque": true
+    },
+    {
+      "file": "exports/et/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 752337,
+      "opaque": true
+    },
+    {
+      "file": "exports/et/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 756421,
+      "opaque": true
+    },
+    {
+      "file": "exports/et/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1329822,
+      "opaque": true
+    },
+    {
+      "file": "exports/et/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1240895,
+      "opaque": true
+    },
+    {
+      "file": "exports/et/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1300382,
+      "opaque": true
+    },
+    {
+      "file": "exports/fi/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 741056,
+      "opaque": true
+    },
+    {
+      "file": "exports/fi/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 761867,
+      "opaque": true
+    },
+    {
+      "file": "exports/fi/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 736273,
+      "opaque": true
+    },
+    {
+      "file": "exports/fi/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 289621,
+      "opaque": true
+    },
+    {
+      "file": "exports/fi/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 755431,
+      "opaque": true
+    },
+    {
+      "file": "exports/fi/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 768091,
+      "opaque": true
+    },
+    {
+      "file": "exports/fi/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 748424,
+      "opaque": true
+    },
+    {
+      "file": "exports/fi/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1329265,
+      "opaque": true
+    },
+    {
+      "file": "exports/fi/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1257108,
+      "opaque": true
+    },
+    {
+      "file": "exports/fi/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1293698,
+      "opaque": true
+    },
+    {
+      "file": "exports/fr/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 733829,
+      "opaque": true
+    },
+    {
+      "file": "exports/fr/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 764418,
+      "opaque": true
+    },
+    {
+      "file": "exports/fr/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 757769,
+      "opaque": true
+    },
+    {
+      "file": "exports/fr/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 290314,
+      "opaque": true
+    },
+    {
+      "file": "exports/fr/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 746937,
+      "opaque": true
+    },
+    {
+      "file": "exports/fr/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 767687,
+      "opaque": true
+    },
+    {
+      "file": "exports/fr/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 766835,
+      "opaque": true
+    },
+    {
+      "file": "exports/fr/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1325123,
+      "opaque": true
+    },
+    {
+      "file": "exports/fr/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1260248,
+      "opaque": true
+    },
+    {
+      "file": "exports/fr/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1329206,
+      "opaque": true
+    },
+    {
+      "file": "exports/hr/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 732425,
+      "opaque": true
+    },
+    {
+      "file": "exports/hr/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 744110,
+      "opaque": true
+    },
+    {
+      "file": "exports/hr/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 741084,
+      "opaque": true
+    },
+    {
+      "file": "exports/hr/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 288247,
+      "opaque": true
+    },
+    {
+      "file": "exports/hr/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 740140,
+      "opaque": true
+    },
+    {
+      "file": "exports/hr/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 753633,
+      "opaque": true
+    },
+    {
+      "file": "exports/hr/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 748801,
+      "opaque": true
+    },
+    {
+      "file": "exports/hr/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1319477,
+      "opaque": true
+    },
+    {
+      "file": "exports/hr/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1234388,
+      "opaque": true
+    },
+    {
+      "file": "exports/hr/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1292217,
+      "opaque": true
+    },
+    {
+      "file": "exports/hu/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 746730,
+      "opaque": true
+    },
+    {
+      "file": "exports/hu/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 768173,
+      "opaque": true
+    },
+    {
+      "file": "exports/hu/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 779565,
+      "opaque": true
+    },
+    {
+      "file": "exports/hu/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 288028,
+      "opaque": true
+    },
+    {
+      "file": "exports/hu/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 756162,
+      "opaque": true
+    },
+    {
+      "file": "exports/hu/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 763443,
+      "opaque": true
+    },
+    {
+      "file": "exports/hu/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 782016,
+      "opaque": true
+    },
+    {
+      "file": "exports/hu/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1337443,
+      "opaque": true
+    },
+    {
+      "file": "exports/hu/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1257777,
+      "opaque": true
+    },
+    {
+      "file": "exports/hu/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1339715,
+      "opaque": true
+    },
+    {
+      "file": "exports/is/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 722804,
+      "opaque": true
+    },
+    {
+      "file": "exports/is/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 750439,
+      "opaque": true
+    },
+    {
+      "file": "exports/is/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 748925,
+      "opaque": true
+    },
+    {
+      "file": "exports/is/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 286601,
+      "opaque": true
+    },
+    {
+      "file": "exports/is/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 735255,
+      "opaque": true
+    },
+    {
+      "file": "exports/is/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 754921,
+      "opaque": true
+    },
+    {
+      "file": "exports/is/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 761304,
+      "opaque": true
+    },
+    {
+      "file": "exports/is/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1310309,
+      "opaque": true
+    },
+    {
+      "file": "exports/is/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1238696,
+      "opaque": true
+    },
+    {
+      "file": "exports/is/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1312357,
+      "opaque": true
+    },
+    {
+      "file": "exports/it/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 734850,
+      "opaque": true
+    },
+    {
+      "file": "exports/it/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 761185,
+      "opaque": true
+    },
+    {
+      "file": "exports/it/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 744743,
+      "opaque": true
+    },
+    {
+      "file": "exports/it/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 287010,
+      "opaque": true
+    },
+    {
+      "file": "exports/it/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 746683,
+      "opaque": true
+    },
+    {
+      "file": "exports/it/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 763386,
+      "opaque": true
+    },
+    {
+      "file": "exports/it/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 757546,
+      "opaque": true
+    },
+    {
+      "file": "exports/it/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1317764,
+      "opaque": true
+    },
+    {
+      "file": "exports/it/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1244179,
+      "opaque": true
+    },
+    {
+      "file": "exports/it/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1301938,
+      "opaque": true
+    },
+    {
+      "file": "exports/lb/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 748573,
+      "opaque": true
+    },
+    {
+      "file": "exports/lb/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 763541,
+      "opaque": true
+    },
+    {
+      "file": "exports/lb/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 757796,
+      "opaque": true
+    },
+    {
+      "file": "exports/lb/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 289619,
+      "opaque": true
+    },
+    {
+      "file": "exports/lb/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 751793,
+      "opaque": true
+    },
+    {
+      "file": "exports/lb/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 761907,
+      "opaque": true
+    },
+    {
+      "file": "exports/lb/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 759065,
+      "opaque": true
+    },
+    {
+      "file": "exports/lb/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1339696,
+      "opaque": true
+    },
+    {
+      "file": "exports/lb/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1251145,
+      "opaque": true
+    },
+    {
+      "file": "exports/lb/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1326256,
+      "opaque": true
+    },
+    {
+      "file": "exports/lt/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 754312,
+      "opaque": true
+    },
+    {
+      "file": "exports/lt/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 764299,
+      "opaque": true
+    },
+    {
+      "file": "exports/lt/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 770356,
+      "opaque": true
+    },
+    {
+      "file": "exports/lt/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 291330,
+      "opaque": true
+    },
+    {
+      "file": "exports/lt/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 762240,
+      "opaque": true
+    },
+    {
+      "file": "exports/lt/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 766567,
+      "opaque": true
+    },
+    {
+      "file": "exports/lt/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 774238,
+      "opaque": true
+    },
+    {
+      "file": "exports/lt/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1340958,
+      "opaque": true
+    },
+    {
+      "file": "exports/lt/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1258748,
+      "opaque": true
+    },
+    {
+      "file": "exports/lt/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1327949,
+      "opaque": true
+    },
+    {
+      "file": "exports/lv/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 751734,
+      "opaque": true
+    },
+    {
+      "file": "exports/lv/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 750627,
+      "opaque": true
+    },
+    {
+      "file": "exports/lv/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 766136,
+      "opaque": true
+    },
+    {
+      "file": "exports/lv/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 289981,
+      "opaque": true
+    },
+    {
+      "file": "exports/lv/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 758446,
+      "opaque": true
+    },
+    {
+      "file": "exports/lv/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 755263,
+      "opaque": true
+    },
+    {
+      "file": "exports/lv/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 771631,
+      "opaque": true
+    },
+    {
+      "file": "exports/lv/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1335939,
+      "opaque": true
+    },
+    {
+      "file": "exports/lv/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1243856,
+      "opaque": true
+    },
+    {
+      "file": "exports/lv/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1325425,
+      "opaque": true
+    },
+    {
+      "file": "exports/mt/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 742410,
+      "opaque": true
+    },
+    {
+      "file": "exports/mt/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 769054,
+      "opaque": true
+    },
+    {
+      "file": "exports/mt/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 732413,
+      "opaque": true
+    },
+    {
+      "file": "exports/mt/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 289047,
+      "opaque": true
+    },
+    {
+      "file": "exports/mt/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 748795,
+      "opaque": true
+    },
+    {
+      "file": "exports/mt/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 765669,
+      "opaque": true
+    },
+    {
+      "file": "exports/mt/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 744226,
+      "opaque": true
+    },
+    {
+      "file": "exports/mt/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1334885,
+      "opaque": true
+    },
+    {
+      "file": "exports/mt/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1256603,
+      "opaque": true
+    },
+    {
+      "file": "exports/mt/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1287347,
+      "opaque": true
+    },
+    {
+      "file": "exports/nb/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 717460,
+      "opaque": true
+    },
+    {
+      "file": "exports/nb/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 744133,
+      "opaque": true
+    },
+    {
+      "file": "exports/nb/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 730556,
+      "opaque": true
+    },
+    {
+      "file": "exports/nb/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 280973,
+      "opaque": true
+    },
+    {
+      "file": "exports/nb/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 730182,
+      "opaque": true
+    },
+    {
+      "file": "exports/nb/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 751984,
+      "opaque": true
+    },
+    {
+      "file": "exports/nb/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 738272,
+      "opaque": true
+    },
+    {
+      "file": "exports/nb/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1301682,
+      "opaque": true
+    },
+    {
+      "file": "exports/nb/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1239308,
+      "opaque": true
+    },
+    {
+      "file": "exports/nb/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1282319,
+      "opaque": true
+    },
+    {
+      "file": "exports/nl/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 723068,
+      "opaque": true
+    },
+    {
+      "file": "exports/nl/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 754236,
+      "opaque": true
+    },
+    {
+      "file": "exports/nl/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 758715,
+      "opaque": true
+    },
+    {
+      "file": "exports/nl/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 283404,
+      "opaque": true
+    },
+    {
+      "file": "exports/nl/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 739917,
+      "opaque": true
+    },
+    {
+      "file": "exports/nl/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 756129,
+      "opaque": true
+    },
+    {
+      "file": "exports/nl/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 763950,
+      "opaque": true
+    },
+    {
+      "file": "exports/nl/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1315804,
+      "opaque": true
+    },
+    {
+      "file": "exports/nl/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1243760,
+      "opaque": true
+    },
+    {
+      "file": "exports/nl/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1312565,
+      "opaque": true
+    },
+    {
+      "file": "exports/nn/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 720743,
+      "opaque": true
+    },
+    {
+      "file": "exports/nn/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 749502,
+      "opaque": true
+    },
+    {
+      "file": "exports/nn/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 731310,
+      "opaque": true
+    },
+    {
+      "file": "exports/nn/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 282079,
+      "opaque": true
+    },
+    {
+      "file": "exports/nn/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 734095,
+      "opaque": true
+    },
+    {
+      "file": "exports/nn/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 754596,
+      "opaque": true
+    },
+    {
+      "file": "exports/nn/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 737617,
+      "opaque": true
+    },
+    {
+      "file": "exports/nn/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1303465,
+      "opaque": true
+    },
+    {
+      "file": "exports/nn/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1238198,
+      "opaque": true
+    },
+    {
+      "file": "exports/nn/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1287117,
+      "opaque": true
+    },
+    {
+      "file": "exports/pl/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 740688,
+      "opaque": true
+    },
+    {
+      "file": "exports/pl/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 777434,
+      "opaque": true
+    },
+    {
+      "file": "exports/pl/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 738947,
+      "opaque": true
+    },
+    {
+      "file": "exports/pl/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 287828,
+      "opaque": true
+    },
+    {
+      "file": "exports/pl/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 750007,
+      "opaque": true
+    },
+    {
+      "file": "exports/pl/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 773859,
+      "opaque": true
+    },
+    {
+      "file": "exports/pl/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 745328,
+      "opaque": true
+    },
+    {
+      "file": "exports/pl/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1333955,
+      "opaque": true
+    },
+    {
+      "file": "exports/pl/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1263125,
+      "opaque": true
+    },
+    {
+      "file": "exports/pl/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1289770,
+      "opaque": true
+    },
+    {
+      "file": "exports/pt/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 757760,
+      "opaque": true
+    },
+    {
+      "file": "exports/pt/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 785237,
+      "opaque": true
+    },
+    {
+      "file": "exports/pt/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 781108,
+      "opaque": true
+    },
+    {
+      "file": "exports/pt/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 293110,
+      "opaque": true
+    },
+    {
+      "file": "exports/pt/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 760298,
+      "opaque": true
+    },
+    {
+      "file": "exports/pt/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 780603,
+      "opaque": true
+    },
+    {
+      "file": "exports/pt/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 783794,
+      "opaque": true
+    },
+    {
+      "file": "exports/pt/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1354674,
+      "opaque": true
+    },
+    {
+      "file": "exports/pt/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1280777,
+      "opaque": true
+    },
+    {
+      "file": "exports/pt/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1353459,
+      "opaque": true
+    },
+    {
+      "file": "exports/rm/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 732209,
+      "opaque": true
+    },
+    {
+      "file": "exports/rm/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 745213,
+      "opaque": true
+    },
+    {
+      "file": "exports/rm/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 762351,
+      "opaque": true
+    },
+    {
+      "file": "exports/rm/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 285740,
+      "opaque": true
+    },
+    {
+      "file": "exports/rm/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 743209,
+      "opaque": true
+    },
+    {
+      "file": "exports/rm/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 748338,
+      "opaque": true
+    },
+    {
+      "file": "exports/rm/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 773032,
+      "opaque": true
+    },
+    {
+      "file": "exports/rm/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1317873,
+      "opaque": true
+    },
+    {
+      "file": "exports/rm/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1228507,
+      "opaque": true
+    },
+    {
+      "file": "exports/rm/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1327804,
+      "opaque": true
+    },
+    {
+      "file": "exports/ro/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 737652,
+      "opaque": true
+    },
+    {
+      "file": "exports/ro/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 755411,
+      "opaque": true
+    },
+    {
+      "file": "exports/ro/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 749373,
+      "opaque": true
+    },
+    {
+      "file": "exports/ro/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 287754,
+      "opaque": true
+    },
+    {
+      "file": "exports/ro/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 743821,
+      "opaque": true
+    },
+    {
+      "file": "exports/ro/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 757540,
+      "opaque": true
+    },
+    {
+      "file": "exports/ro/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 759643,
+      "opaque": true
+    },
+    {
+      "file": "exports/ro/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1321609,
+      "opaque": true
+    },
+    {
+      "file": "exports/ro/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1239256,
+      "opaque": true
+    },
+    {
+      "file": "exports/ro/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1314526,
+      "opaque": true
+    },
+    {
+      "file": "exports/ru/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 734684,
+      "opaque": true
+    },
+    {
+      "file": "exports/ru/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 750314,
+      "opaque": true
+    },
+    {
+      "file": "exports/ru/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 733505,
+      "opaque": true
+    },
+    {
+      "file": "exports/ru/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 286605,
+      "opaque": true
+    },
+    {
+      "file": "exports/ru/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 744467,
+      "opaque": true
+    },
+    {
+      "file": "exports/ru/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 754787,
+      "opaque": true
+    },
+    {
+      "file": "exports/ru/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 746704,
+      "opaque": true
+    },
+    {
+      "file": "exports/ru/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1322556,
+      "opaque": true
+    },
+    {
+      "file": "exports/ru/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1242789,
+      "opaque": true
+    },
+    {
+      "file": "exports/ru/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1287106,
+      "opaque": true
+    },
+    {
+      "file": "exports/sk/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 745829,
+      "opaque": true
+    },
+    {
+      "file": "exports/sk/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 761676,
+      "opaque": true
+    },
+    {
+      "file": "exports/sk/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 748712,
+      "opaque": true
+    },
+    {
+      "file": "exports/sk/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 287965,
+      "opaque": true
+    },
+    {
+      "file": "exports/sk/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 757221,
+      "opaque": true
+    },
+    {
+      "file": "exports/sk/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 764115,
+      "opaque": true
+    },
+    {
+      "file": "exports/sk/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 757734,
+      "opaque": true
+    },
+    {
+      "file": "exports/sk/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1332412,
+      "opaque": true
+    },
+    {
+      "file": "exports/sk/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1251830,
+      "opaque": true
+    },
+    {
+      "file": "exports/sk/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1304658,
+      "opaque": true
+    },
+    {
+      "file": "exports/sl/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 751269,
+      "opaque": true
+    },
+    {
+      "file": "exports/sl/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 757497,
+      "opaque": true
+    },
+    {
+      "file": "exports/sl/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 752664,
+      "opaque": true
+    },
+    {
+      "file": "exports/sl/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 291929,
+      "opaque": true
+    },
+    {
+      "file": "exports/sl/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 754288,
+      "opaque": true
+    },
+    {
+      "file": "exports/sl/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 758764,
+      "opaque": true
+    },
+    {
+      "file": "exports/sl/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 765525,
+      "opaque": true
+    },
+    {
+      "file": "exports/sl/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1345317,
+      "opaque": true
+    },
+    {
+      "file": "exports/sl/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1243678,
+      "opaque": true
+    },
+    {
+      "file": "exports/sl/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1313134,
+      "opaque": true
+    },
+    {
+      "file": "exports/sv/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 723845,
+      "opaque": true
+    },
+    {
+      "file": "exports/sv/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 749195,
+      "opaque": true
+    },
+    {
+      "file": "exports/sv/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 752754,
+      "opaque": true
+    },
+    {
+      "file": "exports/sv/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 282438,
+      "opaque": true
+    },
+    {
+      "file": "exports/sv/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 735202,
+      "opaque": true
+    },
+    {
+      "file": "exports/sv/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 752622,
+      "opaque": true
+    },
+    {
+      "file": "exports/sv/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 759542,
+      "opaque": true
+    },
+    {
+      "file": "exports/sv/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1311463,
+      "opaque": true
+    },
+    {
+      "file": "exports/sv/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1237944,
+      "opaque": true
+    },
+    {
+      "file": "exports/sv/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1304092,
+      "opaque": true
+    },
+    {
+      "file": "exports/uk/apple/01-overview.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 723229,
+      "opaque": true
+    },
+    {
+      "file": "exports/uk/apple/02-exchanges.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 737553,
+      "opaque": true
+    },
+    {
+      "file": "exports/uk/apple/03-statistics.png",
+      "size": [
+        1242,
+        2688
+      ],
+      "bytes": 720927,
+      "opaque": true
+    },
+    {
+      "file": "exports/uk/feature/feature.png",
+      "size": [
+        1024,
+        500
+      ],
+      "bytes": 284316,
+      "opaque": true
+    },
+    {
+      "file": "exports/uk/play/01-overview.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 738830,
+      "opaque": true
+    },
+    {
+      "file": "exports/uk/play/02-exchanges.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 743316,
+      "opaque": true
+    },
+    {
+      "file": "exports/uk/play/03-statistics.png",
+      "size": [
+        1080,
+        1920
+      ],
+      "bytes": 737556,
+      "opaque": true
+    },
+    {
+      "file": "exports/uk/tablet/01-overview.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1304233,
+      "opaque": true
+    },
+    {
+      "file": "exports/uk/tablet/02-exchanges.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1228990,
+      "opaque": true
+    },
+    {
+      "file": "exports/uk/tablet/03-statistics.png",
+      "size": [
+        2064,
+        2752
+      ],
+      "bytes": 1272596,
+      "opaque": true
+    }
+  ]
+}

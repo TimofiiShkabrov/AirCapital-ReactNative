@@ -1,0 +1,841 @@
+{
+  "verifiedSets": 44,
+  "sets": [
+    {
+      "lang": "en",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a3/e2/fa/a3e2faa8-051a-4f5e-c2d9-d2497835e66b/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/50/81/03/50810384-3b89-ca2f-ee5e-654c073e3286/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/37/1a/cb/371acb7a-dae5-4462-84e6-57c1e3f7fee1/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "en",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/1c/3f/38/1c3f3862-fce5-cd6b-2589-fa1c5755893a/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/9e/f0/e3/9ef0e32e-061b-eccb-1708-c434fe02c95a/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/7f/1e/1a/7f1e1ae4-0222-2745-d932-0efae7e4ab7f/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:01:59.548Z"
+    },
+    {
+      "lang": "es",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/21/98/d5/2198d510-d202-0508-3084-e546711a98a0/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/45/84/36/458436d4-cd22-4050-3528-ef39be9b3b62/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b9/bd/e6/b9bde67a-086d-d29e-ec44-401215bd3772/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "es",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/fa/41/2c/fa412c2f-ec71-229b-7171-810284c2bebd/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/1f/1d/0a/1f1d0a63-63d1-8969-0e9c-b9013f8de1e0/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2f/6a/35/2f6a35b6-2098-16fe-e952-b46a5765f9dd/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:02:02.006Z"
+    },
+    {
+      "lang": "de",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/8a/da/58/8ada5862-6b8f-79ad-eb9a-99eb98c115b6/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6b/ec/6f/6bec6f1f-ec17-818f-b59f-e4850fe647b2/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/36/50/81/365081fe-9040-bcfb-a6c5-4be1cb017ae3/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "de",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/93/85/5c/93855c60-08c2-387e-6478-95fd83d74cca/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/78/44/1f/78441f63-a9d7-985a-2202-0a4663e403b6/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/1e/56/65/1e5665a8-d82b-b0cf-8a1e-5b43eeb77064/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:02:04.371Z"
+    },
+    {
+      "lang": "nb",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/88/16/9d/88169dd7-50a0-f995-f6a7-96382708672f/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/00/fd/26/00fd26a5-3d77-5839-a048-74224e17a539/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d7/15/0e/d7150edb-837d-85a3-7ee7-8afb61dd3f45/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "nb",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ce/e6/4d/cee64d18-0e6c-d32c-65c0-c3d788a3a6e0/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/db/8c/12/db8c12c8-7a9e-a080-d38e-7940341a1ae3/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/e5/91/aa/e591aa35-1976-cee6-f2ec-793d4401ff0f/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:02:08.169Z"
+    },
+    {
+      "lang": "ru",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/49/59/18/4959181b-033a-dbd9-2cc9-6e8b04aee5ad/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/90/11/77/9011773f-8b28-bf1a-a53d-63b94d55b97c/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/dc/b9/c1/dcb9c1b3-a71c-ad2a-7d69-9aef45f597cd/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "ru",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/1a/95/c2/1a95c230-8bb9-5a4c-e32e-a6cc90350117/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/de/c2/4f/dec24f47-de5a-70bf-7e5b-012d87031376/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/10/ad/cf/10adcf2e-e915-4491-0d5b-11343896991d/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:02:11.030Z"
+    },
+    {
+      "lang": "uk",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d6/a5/74/d6a574f1-6abf-7475-a440-7e60435bac8d/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/03/70/8e/03708ea5-65f1-a4b2-0eb3-652fde394607/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/04/04/f8/0404f853-cd92-2a48-6e7d-cd2ffcf39f1b/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "uk",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/cf/42/ef/cf42efec-28c3-4dd8-0531-6d6df030c033/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ee/74/8a/ee748a6c-c054-d746-ce11-01e8b8305c27/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/0b/43/a8/0b43a82a-773f-195b-d667-477f9c9d60ad/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:02:13.273Z"
+    },
+    {
+      "lang": "fr",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/8c/e4/fd/8ce4fd7a-65e9-49e6-780a-d44eb8292447/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/da/d4/a7/dad4a7c6-7b69-3658-4a71-17054e58752d/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c2/e2/91/c2e2910e-ffec-ccd4-69b8-9a37af1b3a21/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "fr",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/df/39/46/df3946a3-3a69-7bef-eb6c-5c379499631f/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a3/8a/e8/a38ae850-943d-7318-f884-55c6f77620a3/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/12/fa/17/12fa175a-9de7-554e-ad5b-f465e3041009/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:02:44.658Z"
+    },
+    {
+      "lang": "pl",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/cf/97/e5/cf97e538-f33d-a23f-1cfc-c9cc817c8ad4/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/51/9a/50/519a5060-5be4-4a26-eda5-fd15899d9648/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/90/2d/27/902d27dd-bf82-3967-8746-19ea7bb34473/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "pl",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/51/c1/5b/51c15bcc-b0f7-1d2c-e270-421a8060d3bf/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/19/13/8d/19138d71-064f-01af-948b-202ecce4b57b/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/80/fd/e2/80fde2d6-00bc-2771-9458-390cd3ae22a1/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:02:47.178Z"
+    },
+    {
+      "lang": "cs",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/25/ee/ab/25eeab9b-ce6a-e379-3cf8-08c934cf5256/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a4/b4/f4/a4b4f46c-2dc0-385b-f3a9-51a172ef3cf9/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/cd/11/01/cd1101a9-238e-ff51-fc07-93e25887eaea/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "cs",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/1f/af/ef/1fafeff8-d1df-3676-dd8f-5512d720e666/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/15/98/0a/15980a4a-c459-2839-9e61-abaf91e01e13/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/86/60/c2/8660c2da-b1d3-353f-445f-d657e974c64a/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:02:49.629Z"
+    },
+    {
+      "lang": "da",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b5/21/34/b52134ed-3efa-d840-e653-2fc6c7e906ee/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/5d/0f/0c/5d0f0c33-d535-fa04-aba4-fcffd26c0c94/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b3/47/20/b34720f8-2ca4-306a-d8f6-935a13a1ae42/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "da",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/71/fd/86/71fd8682-b95f-ce8b-4e6c-d54bab114f26/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/13/1c/05/131c05c5-e798-678c-3ec2-c2967bb55dff/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/94/56/6a/94566a22-b5e8-e42d-9cc0-2ce3fece035e/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:02:52.075Z"
+    },
+    {
+      "lang": "el",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/fd/7f/db/fd7fdbd0-c3c4-2746-89fa-2df9293b383e/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/7f/00/9e/7f009e89-96d1-3441-5ff7-53c7552203bb/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/68/82/e3/6882e31d-236f-f342-adb3-222f9b75ded0/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "el",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/94/8d/23/948d23c3-7ae9-bdb6-9fc0-53e6d24aec15/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/f7/8d/52/f78d525e-c422-a920-0695-5967889f2b0b/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ea/42/35/ea423509-73c2-d01c-dabf-53ded784660e/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:02:54.941Z"
+    },
+    {
+      "lang": "fi",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/95/1c/ec/951cecd0-006f-099b-4f59-b744a0d6f62f/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/bb/16/7a/bb167aea-ba7a-5c61-3b0c-b44a7a13c89d/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e2/7c/53/e27c5344-926d-655c-1696-1cd72d300d63/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "fi",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/be/07/85/be07852f-52b8-36fd-02b4-c7ed11d471ca/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/5f/93/09/5f9309c0-3d04-1e29-3aa1-52589289c814/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/bf/4e/1c/bf4e1cf5-4df8-2a3d-d91d-1c7ec3cdec04/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:02:57.197Z"
+    },
+    {
+      "lang": "hr",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/9c/52/f1/9c52f169-b09c-0933-f9b5-fc0105fbb22d/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/53/d7/d4/53d7d482-95de-73ab-08ea-92d272e627f8/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/69/50/bd/6950bd11-aa65-47ee-f07f-74c29432d556/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "hr",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/07/f5/bb/07f5bb5c-85dd-1e72-18c1-8433c380cd4e/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/f4/9b/90/f49b903c-a35c-2312-52c6-11924f1de4b7/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/f5/da/13/f5da138e-6513-33d2-72c5-8636ee806861/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:03:38.127Z"
+    },
+    {
+      "lang": "hu",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/dd/00/52/dd0052a3-08c6-17b6-819d-c6040ba3d19d/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/f5/9c/81/f59c81ec-c334-d009-fb5f-67561623a0cb/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/47/6e/16/476e16d6-849f-87a3-63e5-695b463aca99/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "hu",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/50/c0/ef/50c0efa5-2983-5320-6dbe-d05ded9c8f79/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/b2/de/8d/b2de8da2-0f32-4ba3-ed1f-55f9bd385ded/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/e1/9f/c7/e19fc780-cfec-eb7e-7b05-48a2da06d6ed/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:03:40.456Z"
+    },
+    {
+      "lang": "it",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/2f/96/84/2f9684d1-e85c-cdac-2eb6-ed2bba23c81a/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/11/3a/ae/113aae69-658e-5e2b-6409-5e1cbdb96296/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/67/16/97/67169757-63da-7c20-c12f-52648060c5c2/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "it",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/7e/d2/01/7ed201fc-d495-b482-ace9-b5785e2e986b/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a6/38/14/a6381454-e1aa-d766-788d-8953ff6f6071/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/5b/a2/d7/5ba2d706-7a34-8a88-16b5-f26472a468c8/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:03:41.690Z"
+    },
+    {
+      "lang": "nl",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e4/6d/6f/e46d6f92-a142-f285-1349-44f0991d1c21/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/2f/2c/31/2f2c3117-f55c-f687-25d2-f9460d0752f5/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/7d/4d/70/7d4d708c-5d39-eb93-0527-afa01dcea74c/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "nl",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/de/73/c1/de73c15e-4835-f25e-6ed5-766b3fff49bd/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a8/61/29/a8612952-d6b0-c4cd-784d-bbf6a996bc99/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/6b/5f/78/6b5f78f7-b60b-4f8a-8c4a-85ab85dce402/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:03:43.528Z"
+    },
+    {
+      "lang": "pt",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/4d/79/e9/4d79e9f6-afa8-ab0c-a68e-715111d98652/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/4f/84/67/4f846787-4b91-8cc4-ca76-cf5cf672cc48/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/73/f5/65/73f56576-d80a-7c8f-744b-3957e642b9e3/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "pt",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d1/3a/b5/d13ab55d-033d-9828-59fc-622d5beee0f6/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/ea/71/9c/ea719c26-1744-3ef7-9bd9-4f3cf307915b/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/08/11/8f/08118f2e-2881-d7f5-fb44-8f1ea839fccb/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:03:45.971Z"
+    },
+    {
+      "lang": "ro",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/94/59/2f/94592fb4-954e-b278-db1b-9cb48e5eecc5/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/1d/22/fc/1d22fc6d-29b7-5106-fea0-98255a566cc5/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/7f/50/d9/7f50d9a7-9e30-43ed-a699-22f5505824f5/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "ro",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ba/fe/7c/bafe7c27-9c46-fb97-b791-a80c43ca0fc6/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/48/36/e2/4836e247-a35b-7392-d5bd-d0b7a404bae0/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ee/b5/22/eeb52271-f553-1246-29b6-d3ea2eaa0fa2/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:03:47.223Z"
+    },
+    {
+      "lang": "sk",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/79/11/55/7911555d-d642-ad77-38e3-df000aef5fa5/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/98/c1/04/98c104f3-1192-369d-797c-445289d2fadc/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/36/a5/16/36a51629-3585-068c-c455-1e6c91199718/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "sk",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a3/28/ad/a328ad18-48df-3b0b-6c0b-4c97cf8bc1c9/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/01/a8/c5/01a8c5f7-e663-f68e-43c1-36796d12af5f/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d7/a5/a1/d7a5a1ac-ca5c-ef20-5e27-6575de637144/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:04:33.824Z"
+    },
+    {
+      "lang": "sl",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/9e/86/45/9e8645fa-9a3d-20b2-deb1-d41b4c2e6944/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f2/84/25/f2842528-207c-9800-7aa6-7e6ca0cce452/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d7/9b/83/d79b834a-f656-5b66-57af-857a977caa86/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "sl",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/00/c7/e8/00c7e8de-36c8-cad6-f34e-9a79d5ecc10a/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ae/db/85/aedb852d-858b-eeaa-56b4-df17f62887ec/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/37/b6/a3/37b6a390-8319-5603-e09f-b359a4e028b8/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:04:36.628Z"
+    },
+    {
+      "lang": "sv",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/23/09/18/230918d9-2f15-0bbc-920c-56dc8db19b09/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/7d/53/8a/7d538a92-39ed-6e1f-1d8a-4549332aa9e2/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2b/fd/66/2bfd66a8-08f8-d97f-794e-b4eb60c91e4b/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "sv",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/8b/4d/43/8b4d43cc-e7c7-37ff-7a99-0804f1ff2830/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/15/fc/55/15fc55a7-ef67-be6a-66c8-e04a142a2946/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/96/29/a9/9629a963-1892-f612-9b14-5078e09eedb8/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:04:40.161Z"
+    },
+    {
+      "lang": "ar",
+      "kind": "iPhone",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/85/50/4d/85504d49-a39b-262f-2449-e05d3fe1c0b5/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f4/68/0e/f4680efa-ee59-f147-415a-43943eace065/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/62/ec/4e/62ec4e34-86b1-2a65-c618-d074ba416221/03-statistics.png/400x800bb.png"
+        }
+      ]
+    },
+    {
+      "lang": "ar",
+      "kind": "iPad",
+      "images": [
+        {
+          "name": "Снимок экрана приложения «01-overview.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/b8/07/c6/b807c692-792e-d595-8c64-0164d815be88/01-overview.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «02-exchanges.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/45/b1/15/45b11559-15a7-bd0d-6d19-71a8580066b3/02-exchanges.png/400x800bb.png"
+        },
+        {
+          "name": "Снимок экрана приложения «03-statistics.png»",
+          "src": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f1/d7/89/f1d7895a-56b8-7e02-0584-2c71448af10f/03-statistics.png/400x800bb.png"
+        }
+      ],
+      "revision": "responsive-tablet",
+      "time": "2026-09-07T17:04:42.397Z"
+    }
+  ]
+}

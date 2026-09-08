@@ -17,7 +17,7 @@
         "CFBundleDevelopmentRegion": "en"
       },
       "appleTeamId": "QJJFV9YPU3",
-      "buildNumber": "9",
+      "buildNumber": "11",
       "googleServicesFile": "./config/firebase/GoogleService-Info.plist"
     },
     "android": {

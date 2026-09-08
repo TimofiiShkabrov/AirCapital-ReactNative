@@ -24,7 +24,7 @@ export default function BottomNavigation({
     { t } = useTranslation();
   const { width, height } = useWindowDimensions();
   const compact = height < 500;
-  const inline = compact && width >= 480;
+  const inline = (compact && width >= 480) || width >= 768;
   return (
     <SafeAreaView
       edges={["left", "right", "bottom"]}
@@ -39,9 +39,9 @@ export default function BottomNavigation({
         style={{
           flexDirection: c.rtl ? "row-reverse" : "row",
           width: "100%",
-          maxWidth: 620,
+          maxWidth: 1440,
           alignSelf: "center",
-          paddingHorizontal: 8,
+          paddingHorizontal: width >= 768 ? 28 : 8,
           paddingVertical: 6,
           gap: 4,
         }}

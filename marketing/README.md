@@ -21,8 +21,8 @@
 - Website: https://aircapital.app
 - Support: https://aircapital.app/contact
 - Публичный email: timofii.shkabrov@gmail.com
-- Privacy policy после публикации: https://aircapital.app/privacy
-- Privacy choices / инструкции по удалению после публикации: https://aircapital.app/data-deletion
+- Privacy policy: https://aircapital.app/privacy
+- Privacy choices / инструкции по удалению: https://aircapital.app/data-deletion
 - Terms: https://aircapital.app/terms
 - Apple standard EULA оставлена без замены.
 - Частный телефон App Review хранится только в консоли и здесь не дублируется.
@@ -33,8 +33,14 @@
 
 Канонический источник — `src/web/legal/documents.ts`. Markdown-копии: `legal/*.md`, генерация: `node marketing/legal/render.mjs`. Операционный регламент и оставшиеся проверки — `legal/operations.md`.
 
-**Перед публикацией нужны точные реквизиты владельца.** В `src/web/legal/operator.json` имя, страна и адрес пока пустые, `verified: false`. Публичные страницы помечены черновиками и `noindex`; ссылки внутри native-приложения активируются после подтверждения реквизитов. Политики с незаполненным владельцем не регистрируем в магазинах.
+**Опубликовано 7 сентября 2026 года.** Владелец подтвердил: Tymofii Shkabrov, физическое лицо в Норвегии, Stasjonsgata 31j, 3300 Hokksund; регистрационного номера нет. `operator.json` заполнен, `verified: true`. Все пять публичных страниц отвечают HTTP 200, не помечены черновиками и не содержат `noindex`. Юридические изменения опубликованы коммитом `fc9273f`.
 
-Порядок завершения: подтвердить реквизиты → проверить договоры/международные передачи и применимые сроки логов → `node marketing/legal/render.mjs --check-ready` → сборка/деплой WEB → проверить HTTP 200 и содержание страниц без авторизации → зарегистрировать Privacy policy и Privacy choices в магазинах → проверить native-ссылки в очередной сборке.
+Privacy policy сохранена в Google Play. Privacy policy и Privacy choices сохранены и проверены во всех 22 локализациях App Store. Декларация Apple App Privacy опубликована; Google Data safety сохранена как проект и ожидает завершения App access и Target audience.
+
+В обоих магазинах сохранено платное скачивание с базовой ценой USD 4.99. Магазины рассчитывают местные цены самостоятельно. Платёжный профиль Google подключён к подтверждённому норвежскому профилю физлица; банковский счёт пока не добавлен. В Apple договор о платных приложениях ещё не активен. Подробный статус и необходимые действия владельца: [store-readiness.md](store-readiness.md).
 
 Публикация страниц не заменяет выполнение GDPR-процессов, проверку DSA-статуса и достоверные декларации App Privacy / Data safety.
+
+## TestFlight 2.4.7
+
+`texts/<язык>/testflight.md` содержит описание бета-версии и ссылки; `texts/testflight-2.4.7.json` — инструкции «Что тестировать» для 22 локализаций. Оба набора полей сохранены в Apple и прочитаны обратно. Общие примечания для ревью: `texts/apple-review-notes.md`. Проверка и генерация: `node marketing/texts/render-testflight.mjs`. Публикация и отправка на ревью не выполнялись.

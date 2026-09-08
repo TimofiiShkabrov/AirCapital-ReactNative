@@ -10,9 +10,11 @@ import { Label, useMoney } from "./primitives";
 export default function HistoryChart({
   snapshots,
   demo = false,
+  height = 188,
 }: {
   snapshots: BalanceSnapshot[];
   demo?: boolean;
+  height?: number;
 }) {
   const c = useMonitorTheme(),
     { t, i18n } = useTranslation(),
@@ -38,9 +40,7 @@ export default function HistoryChart({
   }, [snapshots]);
   if (hidden)
     return (
-      <View
-        style={{ height: 190, alignItems: "center", justifyContent: "center" }}
-      >
+      <View style={{ height, alignItems: "center", justifyContent: "center" }}>
         <Label>••••</Label>
       </View>
     );
@@ -50,7 +50,7 @@ export default function HistoryChart({
         <Label>{t("monitor.noHistory")}</Label>
       </View>
     );
-  const h = 188,
+  const h = height,
     left = 76,
     right = 12,
     top = 20,
