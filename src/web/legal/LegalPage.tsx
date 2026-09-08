@@ -14,7 +14,7 @@ export function LegalPage({ document }: { document: typeof legalPaths[number] })
         <title>{doc.title} · AirCapital</title>
         <meta name="description" content={doc.summary} />
         <link rel="canonical" href={`https://aircapital.app/${document}`} />
-        {!legalReady && <meta name="robots" content="noindex, nofollow" />}
+        <meta name="robots" content="noindex, follow, nosnippet" />
       </Head>
       <div className="legal-layout container">
         <nav className="legal-navigation" aria-label={labels[language][4]}>
@@ -36,7 +36,7 @@ export function LegalPage({ document }: { document: typeof legalPaths[number] })
             {doc.sections.map(section => <a key={section.id} href={`#${section.id}`}>{section.title}</a>)}
           </nav>
           {doc.sections.map(section => (
-            <section key={section.id} id={section.id} tabIndex={-1}>
+            <section key={section.id} id={section.id} tabIndex={-1} data-nosnippet="">
               <h2>{section.title}</h2>
               {section.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
               {section.links && <ul>{section.links.map(link => <li key={link.href}><a href={link.href}>{link.label}</a></li>)}</ul>}

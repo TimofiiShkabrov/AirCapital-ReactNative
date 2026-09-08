@@ -1,14 +1,16 @@
 # Privacy policy
 
-Updated: 2026-09-07
+Updated: 2026-09-08
 
 How AirCapital handles information on the website and in the iOS and Android apps, and how you can exercise your rights.
 
 ## 1. Who is responsible
 
-Tymofii Shkabrov, Stasjonsgata 31j, 3300 Hokksund, Norway.
+Tymofii Shkabrov, Norway.
 
 AirCapital is the product name. The operator above is responsible for the processing described here. Contact: timofii.shkabrov@gmail.com. This policy covers aircapital.app and the AirCapital apps (package tim.AirCapital). Exchanges and app stores have their own responsibilities and privacy policies.
+
+- [Postal address and legal details](https://aircapital.app/legal#identity)
 
 ## 2. Your exchange data stays under your control
 

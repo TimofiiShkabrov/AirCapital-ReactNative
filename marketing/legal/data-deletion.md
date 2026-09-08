@@ -1,6 +1,6 @@
 # Delete your data
 
-Updated: 2026-09-07
+Updated: 2026-09-08
 
 AirCapital has no developer-hosted user account. You can remove local data yourself and request deletion of information we hold.
 

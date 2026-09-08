@@ -1,6 +1,6 @@
 # Legal notice
 
-Updated: 2026-09-07
+Updated: 2026-09-08
 
 The operator of AirCapital and official contact information.
 

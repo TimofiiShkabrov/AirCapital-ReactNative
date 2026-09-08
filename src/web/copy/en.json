@@ -47,5 +47,6 @@
   "privacyBody": "The demo uses fictional data and never asks for exchange keys. We save your language and cookie choice in this browser. If you agree, Google Analytics measures page visits and selected button clicks; advertising features are disabled.",
   "faqPrice": "How much does AirCapital cost?",
   "priceAnswer": "One-time base price: US$4.99. Your store shows the local price and taxes before purchase. No subscription or in-app purchases. The web demo is free.",
-  "storePending": "Store pages become available after publication. Until then, these links may not open."
+  "storePending": "Store pages become available after publication. Until then, these links may not open.",
+  "emailUs": "Email us"
 }

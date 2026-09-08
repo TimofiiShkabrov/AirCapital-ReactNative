@@ -47,5 +47,6 @@
   "privacyBody": "Demo käyttää kuvitteellisia tietoja eikä koskaan pyydä pörssien avaimia. Tallennamme kielesi ja evästevalintasi tähän selaimeen. Suostumuksellasi Google Analytics mittaa sivukatseluja ja tiettyjen painikkeiden napsautuksia; mainostoiminnot ovat pois käytöstä.",
   "faqPrice": "Mitä AirCapital maksaa?",
   "priceAnswer": "Kertaostoksen perushinta: 4,99 USD. Kauppa näyttää paikallisen hinnan ja verot ennen ostoa. Ei tilauksia tai sovelluksen sisäisiä ostoja. Verkkodemo on ilmainen.",
-  "storePending": "Kauppasivut tulevat saataville julkaisun jälkeen. Siihen asti linkit eivät välttämättä toimi."
+  "storePending": "Kauppasivut tulevat saataville julkaisun jälkeen. Siihen asti linkit eivät välttämättä toimi.",
+  "emailUs": "Lähetä meille sähköpostia"
 }

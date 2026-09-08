@@ -1,6 +1,6 @@
 # Cookies and analytics
 
-Updated: 2026-09-07
+Updated: 2026-09-08
 
 Essential preferences, optional measurement and how to change your choice.
 

@@ -11,8 +11,6 @@ import {
 } from "./config";
 import { browserAnalytics } from "./analyticsBrowser";
 import { DemoBoard } from "./DemoBoard";
-import operator from "./legal/operator.json";
-import legalLabels from "../i18n/legalLabels.json";
 
 const exchanges = [
   { id: "binance", name: "Binance" },
@@ -346,7 +344,7 @@ export function FaqPage() {
   );
 }
 export function ContactPage() {
-  const { w, language, href } = useSite();
+  const { w, href } = useSite();
   return (
     <>
       <Seo page="/contact" />
@@ -371,7 +369,7 @@ export function ContactPage() {
                   browserAnalytics()?.track("contact_click", "email")
                 }
               >
-                {contactEmail}
+                {w.emailUs}
                 <Arrow />
               </a>
             ) : (
@@ -397,27 +395,6 @@ export function ContactPage() {
           </article>
         ))}
       </section>
-      {operator.verified && (
-        <section className="container publisher-section">
-          <div>
-            <h2>{legalLabels[language][4]}</h2>
-            <address>
-              <strong>{operator.name}</strong>
-              <span>
-                {operator.address}, {operator.country}
-              </span>
-            </address>
-          </div>
-          <nav aria-label={legalLabels[language][4]}>
-            {["privacy", "data-deletion", "legal"].map((slug, i) => (
-              <a className="inline-link" key={slug} href={`/${slug}`}>
-                {legalLabels[language][[0, 3, 4][i]]}
-                <Arrow />
-              </a>
-            ))}
-          </nav>
-        </section>
-      )}
       <div className="container contact-note">
         <p>{w.faqTitle}</p>
         <a className="button outline" href={href("/faq")}>

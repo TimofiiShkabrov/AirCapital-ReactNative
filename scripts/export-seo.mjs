@@ -9,6 +9,9 @@ const copy = JSON.parse(
   await readFile(resolve(root, "src/web/seo-copy.json"), "utf8"),
 );
 const languages = Object.keys(copy);
+const operator = JSON.parse(
+  await readFile(resolve(root, "src/web/legal/operator.json"), "utf8"),
+);
 const origin = new URL(
   process.env.EXPO_PUBLIC_SITE_URL || "https://aircapital.app",
 ).origin;
@@ -81,6 +84,9 @@ for (const language of languages) {
       `Title count: ${path}`,
     );
     assert.ok(!head.includes("noindex"), `Unexpected noindex: ${path}`);
+    for (const personalDetail of [operator.name, operator.address].filter(Boolean)) {
+      assert.ok(!html.includes(escape(personalDetail)), `Personal details on marketing page: ${path}`);
+    }
     assert.equal(
       (html.match(/<h1(?:\s|>)/g) || []).length,
       1,
@@ -139,10 +145,22 @@ for (const language of languages) {
     urls.push(origin + path);
   }
 }
-// These documents currently have full English text only, so have no hreflang.
+// Legal documents stay publicly accessible, but are not promoted in search.
+// Do not disallow crawling: crawlers need to read their noindex directive.
 for (const page of ["privacy", "terms", "cookies", "data-deletion", "legal"]) {
   const html = await readFile(htmlFile(`/${page}`), "utf8");
-  if (!html.includes('content="noindex')) urls.push(`${origin}/${page}`);
+  const head = html.match(/<head>([\s\S]*?)<\/head>/)?.[1] || "";
+  const meta = [...head.matchAll(/<meta\b[^>]*>/gi)].map((m) => attrs(m[0]));
+  assert.ok(
+    meta.some((m) => m.name === "robots" && m.content?.includes("noindex") && m.content.includes("nosnippet")),
+    `Legal search privacy: /${page}`,
+  );
+  if (operator.address) {
+    assert.equal(html.includes(escape(operator.address)), page === "legal", `Postal address scope: /${page}`);
+  }
+  if (page === "privacy" || page === "terms") {
+    assert.ok(html.includes('href="/legal#identity"'), `Missing operator details link: /${page}`);
+  }
 }
 await writeFile(
   resolve(output, "sitemap.xml"),

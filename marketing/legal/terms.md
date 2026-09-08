@@ -1,14 +1,16 @@
 # Terms of use
 
-Updated: 2026-09-07
+Updated: 2026-09-08
 
 What AirCapital provides and the conditions for using the website and monitoring apps.
 
 ## 1. The service and its operator
 
-Tymofii Shkabrov, Stasjonsgata 31j, 3300 Hokksund, Norway.
+Tymofii Shkabrov, Norway.
 
 Questions or complaints: timofii.shkabrov@gmail.com. AirCapital provides a website, a fictional web demo and iOS/Android tools for viewing exchange balances. No AirCapital user account is required.
+
+- [Postal address and legal details](https://aircapital.app/legal#identity)
 
 ## 2. Monitoring your own accounts
 

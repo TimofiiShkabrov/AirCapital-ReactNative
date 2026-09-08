@@ -612,35 +612,6 @@ body {
 a.store-badge:hover {
   border-color: var(--mint);
 }
-.publisher-section {
-  margin-top: 36px;
-  padding-block: 30px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-.publisher-section h2 {
-  font-size: 20px;
-  margin-bottom: 16px;
-}
-.publisher-section address {
-  display: grid;
-  gap: 8px;
-  font-size: 14px;
-  font-style: normal;
-  overflow-wrap: anywhere;
-}
-.publisher-section nav {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.publisher-section .inline-link {
-  margin-top: 8px;
-}
 .download-symbol {
   display: flex;
   justify-content: center;
