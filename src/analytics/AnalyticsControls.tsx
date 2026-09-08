@@ -1,12 +1,12 @@
 import React, { useEffect, useReducer, useRef } from 'react';
-import { ActivityIndicator, Alert, AppState, Linking, Switch, View } from 'react-native';
+import { ActivityIndicator, Alert, AppState, Linking, View } from 'react-native';
 import { publicLegalReady, PRIVACY_URL } from '../privacy/publicDocuments';
 import { usePathname } from 'expo-router';
 import { useStore } from 'zustand';
 import { useTranslation } from 'react-i18next';
 import { privacySession } from '../services/privacySession';
 import { useMonitorTheme } from '../components/monitor/theme';
-import { Label } from '../components/monitor/primitives';
+import { Label, Toggle } from '../components/monitor/primitives';
 import { SettingsRow } from '../components/monitor/SettingsGroup';
 import { analyticsAvailable, appAnalytics, useAnalyticsConsent } from './store';
 import { screenForPath } from './policy';
@@ -16,7 +16,7 @@ export function AnalyticsConsentSetting() {
   if (!analyticsAvailable) return null;
   return <View>
     <SettingsRow title={t('monitor.analyticsTitle')} subtitle={t('monitor.analyticsBody')} icon="stats-chart-outline">
-      <Switch accessibilityLabel={t('monitor.analyticsTitle')} value={state.consent === 'accepted'} disabled={!state.ready || state.busy} onValueChange={v => void state.choose(v)} />
+      <Toggle accessibilityLabel={t('monitor.analyticsTitle')} value={state.consent === 'accepted'} disabled={!state.ready || state.busy} onValueChange={v => void state.choose(v)} />
     </SettingsRow>
     {state.error && <Label>{t('monitor.storageError')}</Label>}
   </View>;

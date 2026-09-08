@@ -1,11 +1,13 @@
 import React, { type PropsWithChildren } from "react";
 import { ScrollViewStyleReset } from "expo-router/html";
+import { websiteLanguageScript } from "../src/web/languagePreference";
 
 export default function RootHtml({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
+        <script dangerouslySetInnerHTML={{ __html: websiteLanguageScript }} />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"

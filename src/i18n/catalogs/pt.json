@@ -234,5 +234,6 @@
   "analyticsTitle": "Estatísticas de utilização",
   "analyticsBody": "Permitir que o Google Firebase recolha dados de utilização dos ecrãs, informações do dispositivo e um identificador da instância da aplicação para melhorar o AirCapital? Os saldos e as chaves API nunca são enviados. É opcional; pode alterar a escolha nas Definições.",
   "analyticsAllow": "Permitir análise",
-  "analyticsDecline": "Não, obrigado"
+  "analyticsDecline": "Não, obrigado",
+  "historyGaps": "As linhas tracejadas ligam medições entre períodos sem registos."
 }

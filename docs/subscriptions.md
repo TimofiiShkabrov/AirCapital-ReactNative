@@ -75,6 +75,20 @@ The launch flag defaults to false: current builds retain existing access, and ne
 
 Install native dependencies and create a new native build to test. EAS Update or Expo Go cannot add the billing/notifications native modules. No cloud build, Git commit, Git push, review submission or public release is performed by this implementation step.
 
+### iOS TestFlight build with purchases enabled
+
+iOS 2.4.7 build **13** (`68822f82-6785-4e31-8254-f8c184b8c980`) used the `production` profile. Its actual EAS build log says `Subscription configuration: disabled.` The production EAS environment still has `EXPO_PUBLIC_SUBSCRIPTIONS_ENABLED=false`; a successful build therefore did not mean purchases were available. Build 13 is not a subscription test build.
+
+For the next iOS purchase test, use:
+
+```sh
+npm run build:ios:billing-test
+```
+
+The `billing-test-ios` profile inherits production signing, store distribution and remote build-number auto-increment. It reads the existing real public keys from the production EAS environment and explicitly overrides the subscriptions flag to `true` in the build profile. The build guard rejects Android or a disabled flag for this profile. The ordinary production profile and the website rollout remain disabled until release readiness is confirmed.
+
+This command creates a cloud build, not a store submission. After it finishes, upload that exact iOS build to TestFlight using the existing production submit profile. Do not use `--latest` if other builds have run in the meantime. Test purchases, restoration and entitlement changes before selecting the binary for release. Preparing this profile does not resolve the outstanding Apple production notification check or the Google Play setup.
+
 ## Privacy declarations to update for the subscription binary
 
 Apple: add **Purchase History**, used for App Functionality and Analytics (RevenueCat dashboard reporting). With the current anonymous identifiers and no contact attributes or identifying integration, RevenueCat documents that purchase history may be marked not linked to identity and not used for tracking. Preserve the existing accurate Firebase disclosures. Reassess if IDs are later joined to email/login records.

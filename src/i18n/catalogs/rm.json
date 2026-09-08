@@ -234,5 +234,6 @@
   "analyticsTitle": "Statistica d’utilisaziun",
   "analyticsBody": "Dastga Google Firebase rimnar datas davart l’utilisaziun dals maletgs dal visur, infurmaziuns davart l’apparat ed in identificatur da l’installaziun per meglierar AirCapital? Saldos e clavs API na vegnan mai tramess. Quai è facultativ; Vus pudais midar la tscherna en las configuraziuns.",
   "analyticsAllow": "Permetter l’analisa",
-  "analyticsDecline": "Na, grazia"
+  "analyticsDecline": "Na, grazia",
+  "historyGaps": "Las lingias interruttas collian las mesiraziuns sur periodas senza registraziuns."
 }

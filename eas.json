@@ -33,6 +33,14 @@
       "ios": {
         "image": "macos-tahoe-26.5-xcode-26.6"
       }
+    },
+    "billing-test-ios": {
+      "extends": "production",
+      "environment": "production",
+      "env": {
+        "AIRCAPITAL_BILLING_TEST_PLATFORM": "ios",
+        "EXPO_PUBLIC_SUBSCRIPTIONS_ENABLED": "true"
+      }
     }
   },
   "submit": {

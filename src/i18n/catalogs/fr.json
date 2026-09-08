@@ -234,5 +234,6 @@
   "analyticsTitle": "Statistiques d’utilisation",
   "analyticsBody": "Autoriser Google Firebase à recueillir l’utilisation des écrans, des informations sur l’appareil et un identifiant d’instance de l’application pour améliorer AirCapital ? Les soldes et les clés API ne sont jamais transmis. Facultatif ; vous pouvez modifier ce choix dans les réglages.",
   "analyticsAllow": "Autoriser les statistiques",
-  "analyticsDecline": "Non merci"
+  "analyticsDecline": "Non merci",
+  "historyGaps": "Les pointillés relient les relevés entre les périodes sans enregistrement."
 }

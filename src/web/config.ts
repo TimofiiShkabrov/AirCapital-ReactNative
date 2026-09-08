@@ -29,8 +29,10 @@ export const storeLinks = {
   android: publicLink(SITE.googlePlay, ["play.google.com"]),
 };
 export const storeAvailability = {
-  ios: process.env.EXPO_PUBLIC_IOS_RELEASED === "true",
-  android: process.env.EXPO_PUBLIC_ANDROID_RELEASED === "true",
+  // Public storefront buttons: App Store is open; Google Play is coming soon.
+  // Keep this consistent even on deployments with older release env values.
+  ios: true,
+  android: false,
 };
 export const contactEmail = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(SITE.email)
   ? SITE.email

@@ -234,5 +234,6 @@
   "analyticsTitle": "Brugsstatistik",
   "analyticsBody": "Tillad, at Google Firebase indsamler brug af skærmbilleder, enhedsoplysninger og et ID for appinstallationen for at forbedre AirCapital? Saldi og API-nøgler sendes aldrig. Det er valgfrit og kan ændres i Indstillinger.",
   "analyticsAllow": "Tillad analyse",
-  "analyticsDecline": "Nej tak"
+  "analyticsDecline": "Nej tak",
+  "historyGaps": "Stiplede linjer forbinder målinger hen over perioder uden registreringer."
 }

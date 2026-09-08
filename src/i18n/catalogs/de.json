@@ -234,5 +234,6 @@
   "analyticsTitle": "Nutzungsstatistik",
   "analyticsBody": "Darf Google Firebase die Nutzung der Ansichten, Geräteinformationen und eine App-Instanz-ID erfassen, um AirCapital zu verbessern? Guthaben und API-Schlüssel werden nie übermittelt. Freiwillig; die Auswahl lässt sich in den Einstellungen ändern.",
   "analyticsAllow": "Analyse erlauben",
-  "analyticsDecline": "Nein, danke"
+  "analyticsDecline": "Nein, danke",
+  "historyGaps": "Gestrichelte Linien verbinden Messwerte über Aufzeichnungslücken hinweg."
 }

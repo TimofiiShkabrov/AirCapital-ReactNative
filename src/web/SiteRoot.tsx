@@ -7,6 +7,7 @@ import { Arrow } from "./icons";
 import "./site.css";
 import { localizedPath, siteRoute } from "./routes";
 import legalLabels from "../i18n/legalLabels.json";
+import { rememberWebsiteLanguage } from "./languagePreference";
 
 export function DemoLink({
   place,
@@ -197,6 +198,11 @@ function Shell() {
                 lang={code}
                 hrefLang={code}
                 href={localizedPath(code, currentPage)}
+                onClick={(event) => {
+                  if (!rememberWebsiteLanguage(code) && code === "en") {
+                    event.currentTarget.search = "?lang=en";
+                  }
+                }}
                 aria-current={code === language ? "true" : undefined}
               >
                 {name}

@@ -234,5 +234,6 @@
   "analyticsTitle": "Usage analytics",
   "analyticsBody": "Allow Google Firebase to collect screen usage, device information and an app-instance identifier to help improve AirCapital? Balances and API keys are never sent. Optional; you can change this in Settings.",
   "analyticsAllow": "Allow analytics",
-  "analyticsDecline": "No thanks"
+  "analyticsDecline": "No thanks",
+  "historyGaps": "Dashed lines connect observations across gaps in recording."
 }

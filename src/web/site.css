@@ -378,31 +378,69 @@ body {
   padding: 30px 0 34px;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  gap: 55px;
 }
 .exchange-strip > p {
-  font-size: 11px;
-  max-width: 125px;
+  font-size: 12px;
+  text-align: center;
+  margin: 0 0 22px;
 }
 .exchange-strip > div {
   display: flex;
-  flex: 1;
-  justify-content: space-between;
-  gap: 24px;
+  justify-content: center;
+  gap: 12px;
   flex-wrap: wrap;
 }
 .exchange-strip > div > span {
   display: flex;
+  flex: 0 0 calc((100% - 48px) / 5);
+  min-width: 0;
+  height: 72px;
+  padding: 10px;
+  justify-content: center;
   align-items: center;
-  gap: 11px;
-  font-size: 21px;
+  gap: 9px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #131b26;
+  font-size: 17px;
   font-weight: 620;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.35px;
+  white-space: nowrap;
 }
-.exchange-strip b {
-  font-size: 27px;
+.exchange-icon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
+  padding: 6px;
+  border-radius: 8px;
+  background: #f4f7fb;
+}
+.exchange-icon-binance {
+  background: #252b38;
+}
+.exchange-wordmark {
+  width: 87px;
+  height: 34px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+@media (max-width: 1000px) {
+  .exchange-strip > div > span {
+    flex-basis: calc((100% - 24px) / 3);
+  }
+}
+@media (max-width: 600px) {
+  .exchange-strip > div > span {
+    flex-basis: calc((100% - 12px) / 2);
+    height: 64px;
+    font-size: 16px;
+    gap: 8px;
+  }
+  .exchange-icon {
+    width: 32px;
+    height: 32px;
+  }
 }
 .section {
   padding-top: 105px;
@@ -597,10 +635,17 @@ body {
   line-height: 1.5;
 }
 .store-badge.coming-soon {
-  border-color: #354153;
+  background: #171b23;
+  border-color: #303640;
+  color: #969eab;
+  filter: grayscale(1);
+  cursor: default;
+}
+.store-badge.coming-soon small {
+  color: #969eab;
 }
 .store-badge.coming-soon > svg {
-  opacity: 0.7;
+  opacity: 0.55;
 }
 .site .store-notice,
 .site .price-note {
@@ -1170,6 +1215,7 @@ a.store-badge:hover {
   }
   .hero-visual {
     min-height: 620px;
+    overflow: clip;
   }
   .hero-phone {
     width: 250px;
@@ -1353,23 +1399,7 @@ a.store-badge:hover {
     height: 440px;
   }
   .exchange-strip {
-    display: block;
     padding-block: 24px;
-  }
-  .exchange-strip > p {
-    max-width: none;
-    margin-bottom: 18px;
-  }
-  .exchange-strip > div {
-    gap: 14px 23px;
-    justify-content: flex-start;
-  }
-  .exchange-strip > div > span {
-    font-size: 18px;
-    gap: 7px;
-  }
-  .exchange-strip b {
-    font-size: 22px;
   }
   .section {
     padding-block: 65px;

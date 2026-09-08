@@ -234,5 +234,6 @@
   "analyticsTitle": "Användningsstatistik",
   "analyticsBody": "Tillåta att Google Firebase samlar in skärmanvändning, enhetsinformation och ett ID för appinstallationen för att förbättra AirCapital? Saldon och API-nycklar skickas aldrig. Det är frivilligt och kan ändras i Inställningar.",
   "analyticsAllow": "Tillåt analys",
-  "analyticsDecline": "Nej tack"
+  "analyticsDecline": "Nej tack",
+  "historyGaps": "Streckade linjer förbinder mätningar över perioder utan registreringar."
 }

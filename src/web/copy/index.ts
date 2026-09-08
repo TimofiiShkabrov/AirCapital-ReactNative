@@ -71,6 +71,7 @@ export const siteCopy = {
 if (billingEnabled) {
   for (const code of Object.keys(siteCopy) as LanguageCode[]) {
     const b = billingCopy[code];
+    siteCopy[code].downloadBody = b.billingIncluded;
     siteCopy[code].priceAnswer = [b.billingIncluded,
       b.billingMonthlyPrice.replace("{{price}}", "US$4.99") + "; " + b.billingAnnualPrice.replace("{{price}}", "US$39.99") + ".",
       b.billingTerms].join(" ");

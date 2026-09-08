@@ -234,5 +234,6 @@
   "analyticsTitle": "Gebruiksstatistieken",
   "analyticsBody": "Mag Google Firebase schermgebruik, apparaatinformatie en een app-instantie-ID verzamelen om AirCapital te verbeteren? Saldi en API-sleutels worden nooit verstuurd. Dit is vrijwillig; je kunt je keuze wijzigen in Instellingen.",
   "analyticsAllow": "Analyse toestaan",
-  "analyticsDecline": "Nee, bedankt"
+  "analyticsDecline": "Nee, bedankt",
+  "historyGaps": "Stippellijnen verbinden metingen over perioden zonder registraties."
 }

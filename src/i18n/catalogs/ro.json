@@ -234,5 +234,6 @@
   "analyticsTitle": "Statistici de utilizare",
   "analyticsBody": "Permiți Google Firebase să colecteze date despre utilizarea ecranelor, informații despre dispozitiv și un identificator al instanței aplicației pentru a îmbunătăți AirCapital? Soldurile și cheile API nu sunt trimise niciodată. Este opțional; poți modifica alegerea în Setări.",
   "analyticsAllow": "Permite analiza",
-  "analyticsDecline": "Nu, mulțumesc"
+  "analyticsDecline": "Nu, mulțumesc",
+  "historyGaps": "Liniile întrerupte leagă măsurătorile peste perioadele fără înregistrări."
 }

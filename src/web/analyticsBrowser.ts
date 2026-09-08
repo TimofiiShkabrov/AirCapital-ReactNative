@@ -3,6 +3,7 @@ import { siteRoute } from "./routes";
 import { SITE } from "./config";
 
 type TagWindow = Window & {
+  __aircapitalLanguageRedirecting?: boolean;
   dataLayer?: unknown[];
   gtag?: (...args: unknown[]) => void;
 };
@@ -29,7 +30,7 @@ export function browserAnalytics() {
   client = createAnalytics(
     {
       hostname: window.location.hostname,
-      production: !__DEV__ && !!titles[path],
+      production: !__DEV__ && !!titles[path] && !win.__aircapitalLanguageRedirecting,
       location: window.location.href,
       referrer: document.referrer,
       title: titles[path] || document.title,

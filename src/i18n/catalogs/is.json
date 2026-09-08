@@ -234,5 +234,6 @@
   "analyticsTitle": "Notkunartölfræði",
   "analyticsBody": "Má Google Firebase safna gögnum um notkun skjáa, upplýsingum um tækið og auðkenni uppsetningar til að bæta AirCapital? Staða reikninga og API-lyklar eru aldrei send. Þetta er valfrjálst og má breyta í stillingum.",
   "analyticsAllow": "Leyfa greiningu",
-  "analyticsDecline": "Nei, takk"
+  "analyticsDecline": "Nei, takk",
+  "historyGaps": "Brotnar línur tengja mælingar yfir tímabil án skráninga."
 }

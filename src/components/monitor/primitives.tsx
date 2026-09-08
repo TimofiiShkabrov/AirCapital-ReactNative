@@ -10,6 +10,8 @@ import {
   ScrollView,
   StyleSheet,
   TextInput,
+  Switch,
+  type SwitchProps,
   type TextInputProps,
   type ViewStyle,
   type TextStyle,
@@ -242,6 +244,16 @@ export function Field({ label, ...props }: TextInputProps & { label: string }) {
       />
     </View>
   );
+}
+export function Toggle(props: SwitchProps) {
+  const c = useMonitorTheme();
+  const off = c.mode === "light" ? "#7b8798" : "#66758b";
+  return <Switch
+    {...props}
+    trackColor={{ false: off, true: c.accent }}
+    thumbColor={c.mode === "light" ? "#ffffff" : "#10151f"}
+    ios_backgroundColor={off}
+  />;
 }
 export function Picker({
   label,

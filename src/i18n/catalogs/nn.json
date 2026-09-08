@@ -234,5 +234,6 @@
   "analyticsTitle": "Bruksstatistikk",
   "analyticsBody": "Tillate at Google Firebase samlar inn skjermbruk, einingsinformasjon og ein ID for appinstallasjonen for å forbetre AirCapital? Saldoar og API-nøklar blir aldri sende. Dette er valfritt og kan endrast i Innstillingar.",
   "analyticsAllow": "Tillat analyse",
-  "analyticsDecline": "Nei takk"
+  "analyticsDecline": "Nei takk",
+  "historyGaps": "Stipla linjer bind saman målingar over periodar utan registreringar."
 }

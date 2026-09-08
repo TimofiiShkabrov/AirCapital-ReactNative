@@ -4,7 +4,6 @@ import {
   Text,
   ScrollView,
   Platform,
-  Switch,
   KeyboardAvoidingView,
   Keyboard,
   Linking,
@@ -23,8 +22,10 @@ import {
   IconButton,
   Label,
   Picker,
+  Toggle,
   s,
 } from "../src/components/monitor/primitives";
+import { CredentialField } from "../src/components/monitor/CredentialField";
 import {
   SettingsGroup,
   SettingsRow,
@@ -512,47 +513,32 @@ export default function SettingsScreen() {
                       maxLength={60}
                       editable={!busy}
                     />
-                    <Field
+                    <CredentialField
                       label={t("monitor.apiKey")}
                       value={apiKey}
                       onChangeText={(value) => {
                         setApiKey(value);
                         setConnectionError(undefined);
                       }}
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      secureTextEntry
-                      textContentType="none"
-                      autoComplete="off"
                       editable={!busy}
                     />
-                    <Field
+                    <CredentialField
                       label={t("monitor.secret")}
                       value={secret}
                       onChangeText={(value) => {
                         setSecret(value);
                         setConnectionError(undefined);
                       }}
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      secureTextEntry
-                      textContentType="none"
-                      autoComplete="off"
                       editable={!busy}
                     />
                     {exchange === "okx" && (
-                      <Field
+                      <CredentialField
                         label={t("monitor.passphrase")}
                         value={passphrase}
                         onChangeText={(value) => {
                           setPassphrase(value);
                           setConnectionError(undefined);
                         }}
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        secureTextEntry
-                        textContentType="none"
-                        autoComplete="off"
                         editable={!busy}
                       />
                     )}
@@ -562,7 +548,7 @@ export default function SettingsScreen() {
                       <View style={{ flex: 1 }}>
                         <Label>{t("monitor.acknowledge")}</Label>
                       </View>
-                      <Switch
+                      <Toggle
                         accessibilityLabel={t("monitor.acknowledge")}
                         value={acknowledged}
                         disabled={busy}
@@ -721,7 +707,7 @@ export default function SettingsScreen() {
             <SettingsGroup title={t("monitor.privacyData")}>
               <AnalyticsConsentSetting />
               <SettingsRow title={t("monitor.hidden")} icon="eye-off-outline">
-                <Switch
+                <Toggle
                   accessibilityLabel={t("monitor.hidden")}
                   value={settings.hideAmounts}
                   disabled={busy}
@@ -735,7 +721,7 @@ export default function SettingsScreen() {
                   title={t("monitor.appLock")}
                   icon="lock-closed-outline"
                 >
-                  <Switch
+                  <Toggle
                     accessibilityLabel={t("monitor.appLock")}
                     value={settings.lockEnabled}
                     disabled={busy}

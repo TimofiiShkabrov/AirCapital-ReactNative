@@ -234,5 +234,6 @@
   "analyticsTitle": "Statistika tal-użu",
   "analyticsBody": "Tippermetti lil Google Firebase jiġbor dejta dwar l-użu tal-iskrins, informazzjoni dwar l-apparat u identifikatur tal-istanza tal-app biex intejbu AirCapital? Il-bilanċi u ċ-ċwievet API qatt ma jintbagħtu. Dan huwa fakultattiv; tista’ tibdel l-għażla fis-Settings.",
   "analyticsAllow": "Ippermetti l-analiżi",
-  "analyticsDecline": "Le, grazzi"
+  "analyticsDecline": "Le, grazzi",
+  "historyGaps": "Il-linji mqattgħin jgħaqqdu l-kejl bejn perjodi mingħajr rekords."
 }

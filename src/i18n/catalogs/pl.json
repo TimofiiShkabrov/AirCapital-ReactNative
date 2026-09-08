@@ -234,5 +234,6 @@
   "analyticsTitle": "Statystyki użytkowania",
   "analyticsBody": "Czy zezwolić Google Firebase na zbieranie statystyk ekranów, informacji o urządzeniu i identyfikatora instancji aplikacji w celu ulepszania AirCapital? Salda i klucze API nigdy nie są wysyłane. To dobrowolne; wybór można zmienić w ustawieniach.",
   "analyticsAllow": "Zezwól na analitykę",
-  "analyticsDecline": "Nie, dziękuję"
+  "analyticsDecline": "Nie, dziękuję",
+  "historyGaps": "Linie przerywane łączą pomiary pomiędzy przerwami w zapisie."
 }

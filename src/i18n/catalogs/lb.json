@@ -234,5 +234,6 @@
   "analyticsTitle": "Notzungsstatistiken",
   "analyticsBody": "Däerf Google Firebase d’Notzung vun den Usichten, Apparatinformatiounen an eng App-Instanz-ID sammelen, fir AirCapital ze verbesseren? Salden an API-Schlëssele ginn ni iwwerdroen. Fräiwëlleg; Dir kënnt de Choix an den Astellungen änneren.",
   "analyticsAllow": "Analys erlaben",
-  "analyticsDecline": "Nee, merci"
+  "analyticsDecline": "Nee, merci",
+  "historyGaps": "Gestréchelt Linne verbannen d’Miesswäerter iwwer Lücken an den Opzeechnungen."
 }

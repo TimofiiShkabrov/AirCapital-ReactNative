@@ -234,5 +234,6 @@
   "analyticsTitle": "Kasutusstatistika",
   "analyticsBody": "Kas lubada Google Firebase’il koguda ekraanide kasutusandmeid, seadme teavet ja rakenduse eksemplari identifikaatorit AirCapitali täiustamiseks? Saldosid ega API-võtmeid ei saadeta kunagi. See on vabatahtlik ja valikut saab seadetes muuta.",
   "analyticsAllow": "Luba analüütika",
-  "analyticsDecline": "Ei, aitäh"
+  "analyticsDecline": "Ei, aitäh",
+  "historyGaps": "Katkendjooned ühendavad mõõtmisi üle salvestuspauside."
 }

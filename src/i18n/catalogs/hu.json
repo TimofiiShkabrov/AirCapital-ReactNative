@@ -234,5 +234,6 @@
   "analyticsTitle": "Használati statisztikák",
   "analyticsBody": "Engedélyezi, hogy a Google Firebase képernyőhasználati adatokat, eszközinformációkat és egy alkalmazáspéldány-azonosítót gyűjtsön az AirCapital fejlesztéséhez? Egyenlegeket és API-kulcsokat soha nem küldünk. Önkéntes; a Beállításokban módosítható.",
   "analyticsAllow": "Analitika engedélyezése",
-  "analyticsDecline": "Nem, köszönöm"
+  "analyticsDecline": "Nem, köszönöm",
+  "historyGaps": "A szaggatott vonalak az adatrögzítés szünetei között kötik össze a méréseket."
 }

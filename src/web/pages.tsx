@@ -27,6 +27,7 @@ function Stores() {
         {(["ios", "android"] as const).map((platform) => {
           const available =
             !!storeLinks[platform] && storeAvailability[platform];
+          const canOpen = !!storeLinks[platform] && (platform === "ios" || available);
           const content = (
             <>
               <StoreIcon platform={platform} />
@@ -36,10 +37,10 @@ function Stores() {
                   {platform === "ios" ? "App Store" : "Google Play"}
                 </strong>
               </span>
-              {storeLinks[platform] && <Arrow diagonal />}
+              {canOpen && <Arrow diagonal />}
             </>
           );
-          return storeLinks[platform] ? (
+          return canOpen ? (
             <a
               key={platform}
               className={available ? "store-badge" : "store-badge coming-soon"}
@@ -59,6 +60,7 @@ function Stores() {
             <div
               key={platform}
               className="store-badge coming-soon"
+              aria-disabled="true"
               aria-label={`${platform === "ios" ? "App Store" : "Google Play"}: ${w.soon}`}
             >
               {content}
@@ -66,9 +68,6 @@ function Stores() {
           );
         })}
       </div>
-      {(!storeAvailability.ios || !storeAvailability.android) && (
-        <p className="store-notice">{w.storePending}</p>
-      )}
     </>
   );
 }
@@ -103,11 +102,8 @@ export function HomePage() {
           </div>
           <p className="fineprint">{w.heroNote}</p>
           <div className="hero-platforms">
-            <span>iOS</span>
-            <span>Android</span>
-            {!storeAvailability.ios && !storeAvailability.android && (
-              <span>{w.soon}</span>
-            )}
+            <span>iOS{!storeAvailability.ios && ` · ${w.soon}`}</span>
+            <span>Android{!storeAvailability.android && ` · ${w.soon}`}</span>
           </div>
         </div>
         <div className="hero-visual">
@@ -142,13 +138,26 @@ export function HomePage() {
         <div>
           {exchanges.map((e) => (
             <span key={e.id}>
-              <img
-                src={`/branding/exchanges/${e.id}.png`}
-                width="26"
-                height="26"
-                alt=""
-              />
-              {e.name}
+              {e.id === "bybit" ? (
+                <img
+                  className="exchange-wordmark"
+                  src="/branding/exchanges/bybit.svg"
+                  width="87"
+                  height="34"
+                  alt="Bybit"
+                />
+              ) : (
+                <>
+                  <img
+                    className={`exchange-icon exchange-icon-${e.id}`}
+                    src={`/branding/exchanges/${e.id}.png`}
+                    width="36"
+                    height="36"
+                    alt=""
+                  />
+                  {e.name}
+                </>
+              )}
             </span>
           ))}
         </div>

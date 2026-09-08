@@ -234,5 +234,6 @@
   "analyticsTitle": "Statistika upotrebe",
   "analyticsBody": "Dopuštate li da Google Firebase prikuplja podatke o upotrebi zaslona, uređaju i identifikatoru instalacije radi poboljšanja AirCapitala? Stanja i API ključevi nikada se ne šalju. Neobavezno; odabir možete promijeniti u Postavkama.",
   "analyticsAllow": "Dopusti analitiku",
-  "analyticsDecline": "Ne, hvala"
+  "analyticsDecline": "Ne, hvala",
+  "historyGaps": "Isprekidane linije povezuju mjerenja preko razdoblja bez zapisa."
 }

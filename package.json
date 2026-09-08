@@ -1,7 +1,7 @@
 {
   "name": "aircapital",
   "main": "expo-router/entry",
-  "version": "2.4.7",
+  "version": "2.5.0",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -11,6 +11,7 @@
     "build:web": "expo export --platform web --output-dir dist --max-workers 2 && node scripts/export-seo.mjs dist",
     "lint": "expo lint",
     "test": "vitest run",
+    "build:ios:billing-test": "eas build --platform ios --profile billing-test-ios",
     "eas-build-post-install": "node scripts/check-billing-config.mjs"
   },
   "dependencies": {

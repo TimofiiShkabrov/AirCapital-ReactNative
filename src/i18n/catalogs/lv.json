@@ -234,5 +234,6 @@
   "analyticsTitle": "Lietošanas statistika",
   "analyticsBody": "Vai atļaut Google Firebase vākt ekrānu lietošanas datus, ierīces informāciju un lietotnes instances identifikatoru, lai uzlabotu AirCapital? Atlikumi un API atslēgas nekad netiek nosūtīti. Tas ir brīvprātīgi; izvēli var mainīt iestatījumos.",
   "analyticsAllow": "Atļaut analītiku",
-  "analyticsDecline": "Nē, paldies"
+  "analyticsDecline": "Nē, paldies",
+  "historyGaps": "Pārtrauktās līnijas savieno mērījumus pāri periodiem bez ierakstiem."
 }

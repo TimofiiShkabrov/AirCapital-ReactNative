@@ -234,5 +234,6 @@
   "analyticsTitle": "Naudojimo statistika",
   "analyticsBody": "Ar leisti „Google Firebase“ rinkti ekranų naudojimo duomenis, įrenginio informaciją ir programėlės egzemplioriaus identifikatorių „AirCapital“ tobulinti? Likučiai ir API raktai niekada nesiunčiami. Neprivaloma; pasirinkimą galite pakeisti nustatymuose.",
   "analyticsAllow": "Leisti analitiką",
-  "analyticsDecline": "Ne, ačiū"
+  "analyticsDecline": "Ne, ačiū",
+  "historyGaps": "Brūkšninės linijos jungia matavimus per laikotarpius be įrašų."
 }

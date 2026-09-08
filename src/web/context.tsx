@@ -3,6 +3,7 @@ import { usePathname } from "expo-router";
 import { catalogs } from "../i18n/catalogs";
 import { type LanguageCode } from "../i18n/languages";
 import { siteCopy } from "./copy";
+import { rememberWebsiteLanguage } from "./languagePreference";
 import {
   isSiteLanguage,
   localizedPath,
@@ -26,12 +27,12 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
   }, [language]);
   const setLanguage = (code: string) => {
     if (!isSiteLanguage(code)) return;
-    try {
-      localStorage.setItem("aircapital.website.language", code);
-    } catch {
-      // Language navigation also works when browser storage is disabled.
-    }
-    window.location.assign(localizedPath(code, route?.page ?? "/"));
+    const saved = rememberWebsiteLanguage(code);
+    const url = new URL(window.location.href);
+    url.pathname = localizedPath(code, route?.page ?? "/");
+    url.searchParams.delete("lang");
+    if (!saved && code === "en") url.searchParams.set("lang", "en");
+    window.location.assign(url.pathname + url.search + url.hash);
   };
   return (
     <SiteContext.Provider

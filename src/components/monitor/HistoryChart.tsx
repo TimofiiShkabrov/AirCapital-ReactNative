@@ -3,194 +3,64 @@ import { View, Pressable, Text as NativeText } from "react-native";
 import Svg, { Path, Line, Circle, Text } from "react-native-svg";
 import { useTranslation } from "react-i18next";
 import type { BalanceSnapshot } from "../../types/common";
+import { historyChartModel } from "../../domain/historyChart";
 import { useMonitorTheme } from "./theme";
 import { useSettingsStore } from "../../store/settingsStore";
 import { Label, useMoney } from "./primitives";
 
-export default function HistoryChart({
-  snapshots,
-  demo = false,
-  height = 188,
-}: {
+export default function HistoryChart({ snapshots, demo = false, height = 188 }: {
   snapshots: BalanceSnapshot[];
   demo?: boolean;
   height?: number;
 }) {
-  const c = useMonitorTheme(),
-    { t, i18n } = useTranslation(),
-    money = useMoney();
+  const c = useMonitorTheme(), { t, i18n } = useTranslation(), money = useMoney();
   const hidden = useSettingsStore((s) => s.hideAmounts);
-  const [width, setWidth] = useState(300),
-    [selected, setSelected] = useState<number>();
-  const values = useMemo(() => {
-    if (snapshots.length <= 300) return snapshots;
-    const result: BalanceSnapshot[] = [];
-    const step = Math.ceil(snapshots.length / 140);
-    for (let i = 0; i < snapshots.length; i += step) {
-      const group = snapshots.slice(i, i + step);
-      const min = group.reduce((a, b) =>
-          a.balanceUSDT < b.balanceUSDT ? a : b,
-        ),
-        max = group.reduce((a, b) => (a.balanceUSDT > b.balanceUSDT ? a : b));
-      result.push(min, max);
-    }
-    return [
-      ...new Set([snapshots[0], ...result, snapshots[snapshots.length - 1]]),
-    ].sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
-  }, [snapshots]);
-  if (hidden)
-    return (
-      <View style={{ height, alignItems: "center", justifyContent: "center" }}>
-        <Label>••••</Label>
-      </View>
-    );
-  if (!values.length)
-    return (
-      <View style={{ paddingVertical: 30 }}>
-        <Label>{t("monitor.noHistory")}</Label>
-      </View>
-    );
-  const h = height,
-    left = 76,
-    right = 12,
-    top = 20,
-    bottom = 42;
-  const low = Math.min(...values.map((v) => v.balanceUSDT)),
-    high = Math.max(...values.map((v) => v.balanceUSDT));
-  const padding = Math.max((high - low) * 0.22, Math.abs(high) * 0.002, 0.01);
-  const min = low - padding,
-    max = high + padding;
-  const start = Date.parse(values[0].timestamp),
-    end = Date.parse(values[values.length - 1].timestamp);
-  const x = (date: string) =>
-    left +
-    (end === start ? 0.5 : (Date.parse(date) - start) / (end - start)) *
-      Math.max(1, width - left - right);
-  const y = (value: number) =>
-    top + ((max - value) / (max - min)) * (h - top - bottom);
-  const path = values
-    .map(
-      (v, i) =>
-        `${!i || (!demo && Date.parse(v.timestamp) - Date.parse(values[i - 1].timestamp) > 30 * 60000) ? "M" : "L"}${x(v.timestamp)},${y(v.balanceUSDT)}`,
-    )
-    .join(" ");
-  const date = (value: string) =>
-    new Date(value).toLocaleDateString(i18n.language, {
-      month: "short",
-      day: "numeric",
-    });
-  const active =
-    selected === undefined
-      ? undefined
-      : values[Math.min(selected, values.length - 1)];
-  return (
-    <View onLayout={(e) => setWidth(e.nativeEvent.layout.width)}>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`${t("monitor.change")}: ${date(values[0].timestamp)} ${money(values[0].balanceUSDT)} USDT; ${date(values[values.length - 1].timestamp)} ${money(values[values.length - 1].balanceUSDT)} USDT`}
-        onPress={(e) => {
-          const px = e.nativeEvent.locationX;
-          setSelected(
-            values.reduce(
-              (best, p, i) =>
-                Math.abs(x(p.timestamp) - px) <
-                Math.abs(x(values[best].timestamp) - px)
-                  ? i
-                  : best,
-              0,
-            ),
-          );
-        }}
-      >
-        <Svg width="100%" height={h} viewBox={`0 0 ${width} ${h}`}>
-          <Text x={0} y={12} fill={c.muted} fontSize={11}>
-            USDT
-          </Text>
-          {[low, (low + high) / 2, high]
-            .filter((v, i, a) => a.indexOf(v) === i)
-            .map((v, i) => (
-              <React.Fragment key={i}>
-                <Line
-                  x1={left}
-                  x2={width - right}
-                  y1={y(v)}
-                  y2={y(v)}
-                  stroke={c.line}
-                />
-                <Text
-                  x={left - 8}
-                  y={y(v) + 4}
-                  textAnchor="end"
-                  fill={c.muted}
-                  fontSize={11}
-                >
-                  {new Intl.NumberFormat(i18n.language, {
-                    notation:
-                      v !== 0 && Math.abs(v) < 0.01 ? "scientific" : "compact",
-                    maximumFractionDigits: 1,
-                  }).format(v)}
-                </Text>
-              </React.Fragment>
-            ))}
-          <Path
-            d={path}
-            fill="none"
-            stroke={c.accent}
-            strokeWidth={2.5}
-            strokeLinejoin="round"
-          />
-          {values.length < 20 &&
-            values.map((v) => (
-              <Circle
-                key={v.id}
-                cx={x(v.timestamp)}
-                cy={y(v.balanceUSDT)}
-                r={3}
-                fill={c.accent}
-              />
-            ))}
-          <Text x={left} y={h - 22} fill={c.muted} fontSize={11}>
-            {date(values[0].timestamp)}
-          </Text>
-          <Text
-            x={width - right}
-            y={h - 22}
-            textAnchor="end"
-            fill={c.muted}
-            fontSize={11}
-          >
-            {date(values[values.length - 1].timestamp)}
-          </Text>
-          <Text
-            x={(left + width - right) / 2}
-            y={h - 4}
-            textAnchor="middle"
-            fill={c.muted}
-            fontSize={11}
-          >
-            {t("monitor.date")}
-          </Text>
-          {active && (
-            <Circle
-              cx={x(active.timestamp)}
-              cy={y(active.balanceUSDT)}
-              r={5}
-              fill={c.accent}
-              stroke={c.panel}
-              strokeWidth={2}
-            />
-          )}
-        </Svg>
-      </Pressable>
-      {active && (
-        <NativeText
-          accessibilityLiveRegion="polite"
-          style={{ color: c.text, fontSize: 12, textAlign: "center" }}
-        >
-          {new Date(active.timestamp).toLocaleString(i18n.language)} ·{" "}
-          {money(active.balanceUSDT)} USDT
-        </NativeText>
-      )}
-    </View>
-  );
+  const [width, setWidth] = useState(300), [selectedTime, setSelectedTime] = useState<number>();
+  const chart = useMemo(() => historyChartModel(snapshots, width, height, i18n.language, demo),
+    [snapshots, width, height, i18n.language, demo]);
+  if (hidden) return <View style={{ height, alignItems: "center", justifyContent: "center" }}><Label>••••</Label></View>;
+  if (!chart) return <View style={{ paddingVertical: 30 }}><Label>{t("monitor.noHistory")}</Label></View>;
+  const { points } = chart;
+  const first = points[0], last = points[points.length - 1];
+  const active = points.find((point) => point.time === selectedTime);
+  const dots = points.length < 20 ? points : [first, last];
+  const fullDate = (time: number) => new Date(time).toLocaleString(i18n.language);
+  return <View onLayout={(event) => {
+    const next = event.nativeEvent.layout.width;
+    if (next > 0) setWidth(next);
+  }}>
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`${t("monitor.change")}: ${fullDate(first.time)} ${money(first.snapshot.balanceUSDT)} USDT; ${fullDate(last.time)} ${money(last.snapshot.balanceUSDT)} USDT`}
+      onPress={(event) => {
+        const px = event.nativeEvent.locationX * chart.width / width;
+        const closest = points.reduce((best, point) => Math.abs(point.x - px) < Math.abs(best.x - px) ? point : best);
+        setSelectedTime(closest.time);
+      }}
+    >
+      <Svg width="100%" height={chart.height} viewBox={`0 0 ${chart.width} ${chart.height}`}>
+        <Text x={0} y={12} fill={c.muted} fontSize={11}>USDT</Text>
+        {chart.ticks.map((tick, i) => <React.Fragment key={i}>
+          <Line x1={chart.left} x2={chart.right} y1={tick.y} y2={tick.y} stroke={c.line} />
+          <Text x={chart.left - 8} y={tick.y + 4} textAnchor="end" fill={c.muted} fontSize={11}>{tick.label}</Text>
+        </React.Fragment>)}
+        {!!chart.gapPath && <Path d={chart.gapPath} fill="none" stroke={c.accent} strokeWidth={2}
+          strokeDasharray="5 5" strokeLinecap="round" />}
+        <Path d={chart.solidPath} fill="none" stroke={c.accent} strokeWidth={2.5} strokeLinejoin="round" strokeLinecap="round" />
+        {dots.map((point) => <Circle key={point.time} cx={point.x} cy={point.y} r={3} fill={c.accent} />)}
+        {points.length === 1 ? <Text x={first.x} y={chart.height - 24} textAnchor="middle" fill={c.muted} fontSize={11}>{chart.startLabel}</Text> : <>
+          <Text x={chart.left} y={chart.height - 24} fill={c.muted} fontSize={11}>{chart.startLabel}</Text>
+          <Text x={chart.right} y={chart.height - 24} textAnchor="end" fill={c.muted} fontSize={11}>{chart.endLabel}</Text>
+        </>}
+        <Text x={(chart.left + chart.right) / 2} y={chart.height - 5} textAnchor="middle" fill={c.muted} fontSize={11}>
+          {chart.sameDay ? new Date(first.time).toLocaleDateString(i18n.language, { day: "numeric", month: "short" }) : t("monitor.date")}
+        </Text>
+        {active && <Circle cx={active.x} cy={active.y} r={5} fill={c.accent} stroke={c.panel} strokeWidth={2} />}
+      </Svg>
+    </Pressable>
+    {!!chart.gapPath && <Label style={{ fontSize: 11 }}>{t("monitor.historyGaps")}</Label>}
+    {active && <NativeText accessibilityLiveRegion="polite" style={{ color: c.text, fontSize: 12, textAlign: "center" }}>
+      {fullDate(active.time)} · {money(active.snapshot.balanceUSDT)} USDT
+    </NativeText>}
+  </View>;
 }
