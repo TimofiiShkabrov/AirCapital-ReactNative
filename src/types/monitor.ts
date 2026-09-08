@@ -1,5 +1,5 @@
 import type { Exchange, ExchangeAccount } from "./common";
-export type SyncState = "fresh" | "partial" | "stale" | "error";
+export type SyncState = "fresh" | "partial" | "stale" | "error" | "paused";
 export interface WalletBalance {
   id: string;
   name: string;

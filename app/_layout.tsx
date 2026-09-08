@@ -7,6 +7,7 @@ import { useSettingsStore } from "../src/store/settingsStore";
 import { useMonitorTheme } from "../src/components/monitor/theme";
 import PrivacyGuard from "../src/components/monitor/PrivacyGuard";
 import { AnalyticsBoundary } from "../src/analytics/AnalyticsControls";
+import { BillingBoundary } from "../src/billing/BillingBoundary";
 export default function RootLayout() {
   const hydrate = useSettingsStore((s) => s.hydrateSettings),
     c = useMonitorTheme();
@@ -17,6 +18,7 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <StatusBar style={c.mode === "dark" ? "light" : "dark"} />
       <PrivacyGuard>
+        <BillingBoundary>
         <AnalyticsBoundary>
           <Stack
             screenOptions={{
@@ -33,8 +35,10 @@ export default function RootLayout() {
             <Stack.Screen name="details/[accountId]" />
             <Stack.Screen name="flows" />
             <Stack.Screen name="connect-guide" />
+            <Stack.Screen name="subscription" options={{ presentation: "modal" }} />
           </Stack>
         </AnalyticsBoundary>
+        </BillingBoundary>
       </PrivacyGuard>
     </GestureHandlerRootView>
   );

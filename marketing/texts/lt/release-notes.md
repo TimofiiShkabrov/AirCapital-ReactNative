@@ -1,3 +1,3 @@
-# AirCapital 2.4.7 — internal testing
+# AirCapital 2.4.7 (3) — Android test update
 
-Pirmoji bandomoji „AirCapital“ versija: biržų likučiai vienoje vietoje, kapitalo pokyčių istorija ir daugiakalbė sąsaja. Stebėjimas tik su skaitymo teise.
+Sutikimo dėl analitikos dabar prašoma sistemos dialogo lange. Pašalinti nereikalingi prieigos prie nuotraukų ir vaizdo įrašų leidimai „Android“ sistemoje.

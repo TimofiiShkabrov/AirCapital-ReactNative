@@ -5,6 +5,7 @@ import ru from "./locales/ru";
 import { catalogs } from "./catalogs";
 import { DEFAULT_LANGUAGE, LANGUAGES } from "./languages";
 import { deviceLanguage } from "./deviceLanguage";
+import billingLocales from "../billing/locales.json";
 
 export const LANGUAGE_STORAGE_KEY = "aircapital.language.code";
 
@@ -18,7 +19,7 @@ i18n.use(initReactI18next).init({
     LANGUAGES.map(({ code }) => [
       code,
       {
-        translation: { ...(code === "ru" ? ru : en), monitor: catalogs[code] },
+        translation: { ...(code === "ru" ? ru : en), monitor: { ...catalogs[code], ...billingLocales[code] } },
       },
     ]),
   ),

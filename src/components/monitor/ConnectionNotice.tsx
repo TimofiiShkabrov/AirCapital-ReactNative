@@ -20,6 +20,7 @@ export default function ConnectionNotice({
     c = useMonitorTheme();
   if (!error) return null;
   const reconnect = needsReconnect(error);
+  const paused = error === "connectionPaused";
   return (
     <View style={{ gap: 10, paddingVertical: 12 }}>
       {showTitle && (
@@ -40,6 +41,7 @@ export default function ConnectionNotice({
       <Label>
         {t(`monitor.${error}`, { defaultValue: t("monitor.genericError") })}
       </Label>
+      {paused && <Action label={t("monitor.freeSelection")} onPress={() => router.push("/subscription")} />}
       {reconnect && (
         <>
           <Label>{t("monitor.reconnectHistory")}</Label>

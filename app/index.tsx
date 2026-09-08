@@ -54,6 +54,10 @@ import {
 import { useScreenLoad } from "../src/hooks/useScreenLoad";
 import { loadOverviewData } from "../src/services/screenData";
 import { LoadBoundary, BusyOverlay } from "../src/components/monitor/LoadState";
+import { useBillingStore } from "../src/billing/store";
+import { effectiveRange, hasPro } from "../src/billing/policy";
+import { ProCard } from "../src/billing/ProCard";
+import { comparePeriods } from "../src/domain/periodComparison";
 
 export default function HomeScreen() {
   const c = useMonitorTheme(),
@@ -63,6 +67,7 @@ export default function HomeScreen() {
   const { width, fontScale } = useWindowDimensions();
   const wide = width >= 768 && width / fontScale >= 700;
   const settings = useSettingsStore();
+  const billing = useBillingStore();
   const load = useScreenLoad(loadOverviewData);
   const { reload } = load;
   const history = load.data?.history ?? [];
@@ -104,6 +109,8 @@ export default function HomeScreen() {
     : (load.data?.observations ?? {});
   const sync = demoMode ? demo.sync : (load.data?.sync ?? {});
   const sourceHistory = demoMode ? demo.history : history;
+  const pro = demoMode || !billing.enabled || hasPro(billing.access);
+  const visibleRange = effectiveRange(range, pro);
   const now = demoMode ? demo.now : Date.now();
   const selected = accounts.filter(
     (a) => filter === "all" || a.exchange === filter,
@@ -114,7 +121,7 @@ export default function HomeScreen() {
       : { type: "exchange", exchange: filter as Exchange };
   const snapshots = periodHistory(
     sourceHistory.filter((snap) => scopeEquals(snap.scope, scope)),
-    range,
+    visibleRange,
     now,
     selected.map((a) => a.id),
   );
@@ -124,6 +131,9 @@ export default function HomeScreen() {
     demoMode ? demo.flows : ledger.flows,
     demoMode ? demo.coverage : ledger.coverage,
   );
+  const comparison = pro ? comparePeriods(sourceHistory.filter((snap) => scopeEquals(snap.scope, scope)),
+    visibleRange, now, selected.map((a) => a.id), demoMode ? demo.flows : ledger.flows,
+    demoMode ? demo.coverage : ledger.coverage) : undefined;
   const known = selected.flatMap((a) =>
     observations[a.id]?.balanceUSDT === undefined
       ? []
@@ -171,8 +181,8 @@ export default function HomeScreen() {
         <Pressable
           key={value}
           accessibilityRole="button"
-          accessibilityState={{ selected: range === value }}
-          onPress={() => setRange(value)}
+          accessibilityState={{ selected: visibleRange === value }}
+          onPress={() => value === "all" && !pro ? router.push("/subscription") : setRange(value)}
           style={{
             flex: 1,
             minHeight: 40,
@@ -180,12 +190,12 @@ export default function HomeScreen() {
             paddingHorizontal: 3,
             justifyContent: "center",
             borderRadius: 8,
-            backgroundColor: range === value ? c.panel : c.bg,
+            backgroundColor: visibleRange === value ? c.panel : c.bg,
           }}
         >
           <Text
             style={{
-              color: range === value ? c.text : c.muted,
+              color: visibleRange === value ? c.text : c.muted,
               textAlign: "center",
               fontSize: 12,
             }}
@@ -204,7 +214,7 @@ export default function HomeScreen() {
       sourceHistory.filter(
         (x) => x.scope.type === "account" && x.scope.accountId === account.id,
       ),
-      range,
+      visibleRange,
       now,
       [account.id],
     );
@@ -668,6 +678,7 @@ export default function HomeScreen() {
                   {page === "statistics" && (
                     <>
                       {periods}
+                      {!pro && <ProCard />}
                       {metrics ? (
                         <View
                           style={[
@@ -699,7 +710,7 @@ export default function HomeScreen() {
                               {t("monitor.to")}:{" "}
                               {labelDate(metrics.last.timestamp)}
                             </Label>
-                            {(
+                            {pro && (
                               [
                                 ["opening", metrics.first.balanceUSDT],
                                 ["closing", metrics.last.balanceUSDT],
@@ -740,7 +751,7 @@ export default function HomeScreen() {
                                 </Text>
                               </View>
                             ))}
-                            <View
+                            {pro && <View
                               style={{
                                 backgroundColor: c.tint,
                                 padding: 14,
@@ -760,8 +771,8 @@ export default function HomeScreen() {
                               >
                                 {money(metrics.result, true)} USDT
                               </Text>
-                            </View>
-                            <Label>
+                            </View>}
+                            {pro && <Label>
                               {t(
                                 metrics.complete
                                   ? demoMode
@@ -769,8 +780,8 @@ export default function HomeScreen() {
                                     : "monitor.flowComplete"
                                   : "monitor.flowsUnknown",
                               )}
-                            </Label>
-                            {!demoMode && (
+                            </Label>}
+                            {pro && !demoMode && (
                               <>
                                 <Action
                                   label={t("monitor.flows")}
@@ -798,8 +809,8 @@ export default function HomeScreen() {
                                 height={260}
                               />
                             )}
-                            <Heading>{t("monitor.contribution")}</Heading>
-                            {selected.map((account) => {
+                            {pro && <Heading>{t("monitor.contribution")}</Heading>}
+                            {pro && selected.map((account) => {
                               // Use the same exact endpoints as the aggregate; never mix differently covered periods.
                               const history = sourceHistory.filter(
                                 (s) =>
@@ -845,6 +856,12 @@ export default function HomeScreen() {
                           )}
                         </Card>
                       )}
+                      {pro && comparison && <Card>
+                        <Heading>{t("monitor.comparison")}</Heading>
+                        <Label>{t("monitor.previousPeriod")}: {labelDate(comparison.previous.first.timestamp)} — {labelDate(comparison.previous.last.timestamp)}</Label>
+                        <Text style={{ color: c.text }}>{money(comparison.previous.delta, true)} USDT</Text>
+                        <Label>{t("monitor.change")}: {money(comparison.current.delta, true)} USDT</Label>
+                      </Card>}
                     </>
                   )}
                   {snapshots[0] && page !== "statistics" && (

@@ -1,3 +1,3 @@
-# AirCapital 2.4.7 — internal testing
+# AirCapital 2.4.7 (3) — Android test update
 
-Primeira versão de teste do AirCapital: saldos das plataformas de câmbio num só lugar, histórico do capital e interface multilingue. Monitorização com acesso apenas de leitura.
+O consentimento para a análise de utilização é agora pedido numa caixa de diálogo do sistema. Foram removidas as permissões desnecessárias de acesso a fotografias e vídeos no Android.

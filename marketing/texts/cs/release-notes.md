@@ -1,3 +1,3 @@
-# AirCapital 2.4.7 — internal testing
+# AirCapital 2.4.7 (3) — Android test update
 
-První testovací verze AirCapital: zůstatky z burz na jednom místě, historie kapitálu a vícejazyčné rozhraní. Sledování pouze s oprávněním ke čtení.
+Souhlas s analytikou se nyní uděluje v systémovém dialogu. Odstranili jsme zbytečná oprávnění k fotkám a videím v Androidu.

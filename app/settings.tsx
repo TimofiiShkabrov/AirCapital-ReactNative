@@ -66,6 +66,11 @@ import { publicLegalReady, PRIVACY_URL, TERMS_URL, DELETION_URL } from "../src/p
 
 import { AnalyticsConsentSetting } from "../src/analytics/AnalyticsControls";
 import { analyticsAvailable, revokeAnalyticsForDeletion } from "../src/analytics/store";
+import { useBillingStore, proAccess } from "../src/billing/store";
+import { hasPro } from "../src/billing/policy";
+import { checkNewConnection } from "../src/billing/connections";
+import { AlertSettings } from "../src/alerts/AlertSettings";
+import { exportReport } from "../src/reports/exportReport";
 
 export default function SettingsScreen() {
   const c = useMonitorTheme(),
@@ -73,6 +78,8 @@ export default function SettingsScreen() {
     router = useRouter();
   const accounts = useAccountsStore(),
     settings = useSettingsStore();
+  const billing = useBillingStore();
+  const [alertsOpen, setAlertsOpen] = useState(false);
   const { reconnect } = useLocalSearchParams<{ reconnect?: string }>();
   const loadAccounts = useAccountsStore((s) => s.loadAccounts);
   const [exchange, setExchange] = useState<Exchange>("binance"),
@@ -219,6 +226,8 @@ export default function SettingsScreen() {
       passphrase: exchange === "okx" ? passphrase.trim() : undefined,
     };
     try {
+      await billing.refresh();
+      if (!reconnecting) checkNewConnection(accounts.accounts);
       await verifyReadOnly(exchange, keys);
       const rate =
         exchange === "okx" || exchange === "bybit"
@@ -584,6 +593,10 @@ export default function SettingsScreen() {
                         >
                           {connectionError.message}
                         </Text>
+                        {billing.enabled && !proAccess() && !reconnecting && accounts.accounts.length >= 2 && (
+                          <Action label={t("monitor.billingPlans")} disabled={busy}
+                            onPress={() => router.push("/subscription")} />
+                        )}
                       </View>
                     )}
                     <Action
@@ -654,6 +667,19 @@ export default function SettingsScreen() {
                 </View>
               ))}
             </SettingsGroup>
+            {billing.enabled && <SettingsGroup title="AirCapital">
+              <SettingsRow title={hasPro(billing.access) ? "AirCapital Pro" : t("monitor.billingFree")}
+                subtitle={t("monitor.billingPlans")} icon="diamond-outline" disabled={busy}
+                onPress={() => router.push("/subscription")} />
+              <SettingsRow title={t("monitor.proReports")} icon="document-text-outline" disabled={busy}
+                onPress={() => {
+                  if (!proAccess()) { router.push("/subscription"); return; }
+                  void savePreference(exportReport);
+                }} />
+              <SettingsRow title={t("monitor.alertsTitle")} icon="notifications-outline" expanded={alertsOpen}
+                disabled={busy} onPress={() => setAlertsOpen(!alertsOpen)} />
+              {alertsOpen && <SettingsDetail><AlertSettings /></SettingsDetail>}
+            </SettingsGroup>}
             <SettingsGroup title={t("monitor.interfaceSettings")}>
               <SettingsRow
                 title={t("monitor.theme")}

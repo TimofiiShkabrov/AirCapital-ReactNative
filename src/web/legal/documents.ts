@@ -1,4 +1,5 @@
 import operator from "./operator.json";
+import { billingEnabled } from "../../billing/config";
 
 export const legalReady = operator.verified && !!operator.name.trim() && !!operator.country.trim() && !!operator.address.trim();
 export const legalDate = "2026-09-08";
@@ -74,3 +75,24 @@ export const legalDocuments: Record<string, LegalDocument> = {
     ],
   },
 };
+
+if (billingEnabled) {
+  legalDocuments.terms.sections.find((section) => section.id === "stores")!.paragraphs = [
+    "AirCapital is free to download. The free plan includes two exchange account connections, their wallets, security features and the last 30 days of recorded history. AirCapital Pro adds unlimited account connections, full recorded history, detailed statistics and period comparisons, CSV reports and capital alerts checked while the app is open. Historical data is collected from your own monitoring; we do not promise to retrieve history from before a connection was added.",
+    "Pro is an optional auto-renewing subscription with a US base price of USD 4.99 per month or USD 39.99 per year. Your store displays the applicable local price, currency, taxes and billing period before purchase. The full selected period is charged at purchase; a monthly equivalent for the yearly plan is illustrative and is not a monthly payment option. The website demo remains free.",
+    "Subscriptions renew automatically unless cancelled in the store before renewal. Use Settings → AirCapital Pro → Manage subscription, or your Apple/Google subscription settings. Cancellation stops future renewals; access normally continues through the paid period unless the store revokes or refunds it. When Pro ends, your records remain on your device; choose two accounts to continue refreshing on the free plan. Deleting data or uninstalling does not cancel a subscription. Restore purchases uses the same store account; automatic transfer between Apple and Google is not provided.",
+    "The store processes payment and refund requests; RevenueCat verifies purchase status for AirCapital. Follow your store’s refund process. Nothing here excludes mandatory consumer withdrawal, conformity or refund rights. Your exchange and internet provider may apply their own charges. Apple downloads are also subject to Apple’s applicable standard licence; Google Play downloads are subject to the applicable store terms.",
+  ];
+  legalDocuments.privacy.sections.splice(3, 0, {
+    id: "subscriptions", title: "Subscription processing", paragraphs: [
+      "Versions with Pro subscriptions use RevenueCat to verify store purchases and provide paid access. It receives a pseudonymous app user identifier, product identifiers, purchase tokens or receipts, transaction and renewal dates, and subscription, cancellation, refund and billing status. The SDK also communicates technical information needed to process requests, including platform, app/SDK versions, locale and network connection information. We do not send RevenueCat your exchange keys, portfolio balances, account labels, email address or advertising identifiers. Apple or Google processes your payment details; AirCapital and RevenueCat do not receive your card details.",
+      "Purchase verification and entitlement management are needed to provide the plan you request (Article 6(1)(b) GDPR). Fraud prevention and aggregate subscription reporting support our legitimate interest in operating the service (Article 6(1)(f)). This billing processing is separate from optional Google/Firebase usage analytics consent; declining usage analytics does not disable purchases or restoration. We do not connect RevenueCat to advertising or cross-app tracking integrations.",
+      "Purchase records are retained as needed to maintain access, restore purchases, handle refunds and disputes, prevent fraud, and meet applicable legal obligations. Deleting local app data does not erase store or RevenueCat purchase records or cancel billing. Contact support for a proportionately verified deletion request; we will explain any records that must be retained. RevenueCat may process information outside the EEA under the applicable data processing agreement and transfer safeguards.",
+    ], links: [{ label: "RevenueCat privacy policy", href: "https://www.revenuecat.com/privacy-policy" },
+      { label: "RevenueCat data processing agreement", href: "https://www.revenuecat.com/dpa" }],
+  });
+  legalDocuments["data-deletion"].sections.push({ id: "subscriptions", title: "Subscriptions and billing records", paragraphs: [
+    "Deleting local data or uninstalling does not cancel an Apple or Google subscription. Cancel through your store’s subscription settings. To request deletion of RevenueCat billing records, contact support; we will ask only for information needed to locate and verify your purchase. Store records remain subject to that store’s responsibilities and retention rules. Deletion may affect future purchase restoration; we will explain applicable consequences and legal retention requirements before processing the request.",
+    "Delete CSV reports as well as JSON backups from any location where you saved or shared them. The app cannot erase external copies.",
+  ] });
+}

@@ -10,6 +10,7 @@ import { removeAccountHistory } from "../services/balanceHistory";
 import { removeAccountFlows } from "../services/cashFlows";
 import { usePortfolioStore } from "./portfolioStore";
 import type { ExchangeAccount, Exchange, APIKeys } from "../types/common";
+import { useBillingStore } from "../billing/store";
 interface AccountsState {
   accounts: ExchangeAccount[];
   isLoading: boolean;
@@ -43,6 +44,7 @@ export const useAccountsStore = create<AccountsState>((set, get) => ({
   },
   addAccount: async (keys, exchange, label) => {
     try {
+      await useBillingStore.getState().refresh();
       return await saveAccount(keys, exchange, label);
     } finally {
       await get().loadAccounts();

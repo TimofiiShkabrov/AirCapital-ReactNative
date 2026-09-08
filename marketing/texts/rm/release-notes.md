@@ -1,3 +1,3 @@
-# AirCapital 2.4.7 — internal testing
+# AirCapital 2.4.7 (3) — Android test update
 
-Emprima versiun da test dad AirCapital: saldos da las bursas en in sulet lieu, istorica dal chapital ed interfatscha plurilingua. Monitoradi cun access mo per leger.
+Il consentiment a l’analisa d’utilisaziun vegn ussa dumandà en ina fanestra da dialog dal sistem. Las permissiuns nunnecessarias per acceder a fotografias e videos sin Android èn vegnidas allontanadas.

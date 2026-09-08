@@ -61,7 +61,7 @@ export function connectionError(
   account: ExchangeAccount,
   sync?: AccountSync,
 ): string | undefined {
-  return account.state === "needsKeys" ? "missingKeys" : sync?.error;
+  return sync?.status === "paused" ? "connectionPaused" : account.state === "needsKeys" ? "missingKeys" : sync?.error;
 }
 
 export function connectionStatus(

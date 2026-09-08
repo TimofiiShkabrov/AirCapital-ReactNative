@@ -5,6 +5,7 @@ import type { ExchangeAccount, Exchange, APIKeys } from "../types/common";
 import { ALL_EXCHANGES } from "../types/common";
 import { readPrivate, writePrivate } from "./encryptedStorage";
 import { dataQueue as serial } from "./serial";
+import { checkNewConnection } from "../billing/connections";
 
 const ACCOUNTS_KEY = "aircapital.exchangeAccounts.v1";
 const options = {
@@ -50,6 +51,7 @@ export function saveAccount(
     )
       throw new Error("requiredKeys");
     const accounts = await getAllAccounts();
+    checkNewConnection(accounts);
     const account: ExchangeAccount = {
       id: bytesToHex(await getRandomBytesAsync(16)),
       exchange,

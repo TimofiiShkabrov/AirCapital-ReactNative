@@ -1,3 +1,3 @@
-# AirCapital 2.4.7 — internal testing
+# AirCapital 2.4.7 (3) — Android test update
 
-Erste Testversion von AirCapital: Börsenguthaben an einem Ort, Kapitalverlauf und eine mehrsprachige Oberfläche. Überwachung mit reinem Lesezugriff.
+Die Zustimmung zur Nutzungsanalyse wird jetzt in einem Systemdialog abgefragt. Unnötige Berechtigungen für Fotos und Videos unter Android wurden entfernt.

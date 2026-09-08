@@ -1,3 +1,3 @@
-# AirCapital 2.4.7 — internal testing
+# AirCapital 2.4.7 (3) — Android test update
 
-Prva testna verzija AirCapitala: stanja na burzama na jednom mjestu, povijest kapitala i višejezično sučelje. Praćenje uz pristup samo za čitanje.
+Privola za analitiku sada se traži u dijaloškom okviru sustava. Uklonjene su nepotrebne dozvole za pristup fotografijama i videozapisima na Androidu.

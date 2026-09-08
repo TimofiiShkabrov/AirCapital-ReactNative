@@ -30,6 +30,8 @@ import sl from "./sl.json";
 import sv from "./sv.json";
 import uk from "./uk.json";
 import type { LanguageCode } from "../../i18n/languages";
+import { billingEnabled } from "../../billing/config";
+import billingCopy from "../../billing/locales.json";
 export const siteCopy = {
   ar,
   bg,
@@ -63,3 +65,14 @@ export const siteCopy = {
   sv,
   uk,
 } satisfies Record<LanguageCode, typeof en>;
+
+// Roll out public pricing together with the native subscription release.
+// Checkout always uses the actual localized store price, never these base prices.
+if (billingEnabled) {
+  for (const code of Object.keys(siteCopy) as LanguageCode[]) {
+    const b = billingCopy[code];
+    siteCopy[code].priceAnswer = [b.billingIncluded,
+      b.billingMonthlyPrice.replace("{{price}}", "US$4.99") + "; " + b.billingAnnualPrice.replace("{{price}}", "US$39.99") + ".",
+      b.billingTerms].join(" ");
+  }
+}

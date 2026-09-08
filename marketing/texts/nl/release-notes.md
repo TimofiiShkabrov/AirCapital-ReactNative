@@ -1,3 +1,3 @@
-# AirCapital 2.4.7 — internal testing
+# AirCapital 2.4.7 (3) — Android test update
 
-Eerste testversie van AirCapital: beurssaldi op één plek, de ontwikkeling van je vermogen en een meertalige interface. Monitoring met alleen leestoegang.
+Toestemming voor gebruiksanalyse wordt nu gevraagd in een systeemdialoog. Onnodige machtigingen voor foto’s en video’s op Android zijn verwijderd.

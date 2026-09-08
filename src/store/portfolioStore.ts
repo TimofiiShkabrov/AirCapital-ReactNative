@@ -11,6 +11,8 @@ import { mapLimit } from "../services/request";
 import { sum } from "../domain/money";
 import type { ExchangeAccount, Exchange } from "../types/common";
 import type { AccountObservation, AccountSync } from "../types/monitor";
+import { monitoringSelection } from "../billing/connections";
+import { checkCapitalAlert } from "../alerts/service";
 
 const CACHE = "aircapital.observations.v2";
 interface PortfolioState {
@@ -94,6 +96,8 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => ({
       set({ isLoading: true, errorMessage: "" });
       try {
         const accounts = await getAllAccounts();
+        const selected = await monitoringSelection(accounts);
+        const monitored = accounts.filter((a) => selected.has(a.id));
         const cached = await readPrivate<Record<string, AccountObservation>>(
           CACHE,
           {},
@@ -117,12 +121,17 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => ({
                 : undefined),
           };
         set({ accounts, observations, sync, accountFailures: {} });
-        const rate = accounts.some(
+        const rate = monitored.some(
           (a) => a.exchange === "bybit" || a.exchange === "okx",
         )
           ? await usdToUSDT()
           : undefined;
-        await mapLimit(accounts, 2, async (account) => {
+        for (const account of accounts) {
+          if (!selected.has(account.id)) sync[account.id] = {
+            ...sync[account.id], status: "paused", error: "connectionPaused",
+          };
+        }
+        await mapLimit(monitored, 2, async (account) => {
           try {
             const keys = await loadKeys(account);
             if (!keys) throw new Error("missingKeys");
@@ -183,6 +192,8 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => ({
             ? sum(Object.values(balances))
             : undefined;
           await addSnapshots(total, current, balances, exchangeTotals);
+          // A notification delivery failure must not discard a successful balance refresh.
+          await checkCapitalAlert(total, current.map((a) => a.id), attempt).catch(() => {});
         }
         set({ lastRefresh: new Date().toISOString() });
       } catch (e) {

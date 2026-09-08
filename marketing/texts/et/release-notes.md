@@ -1,3 +1,3 @@
-# AirCapital 2.4.7 — internal testing
+# AirCapital 2.4.7 (3) — Android test update
 
-AirCapitali esimene testversioon: börside saldod ühes kohas, kapitali muutuste ajalugu ja mitmekeelne kasutajaliides. Jälgimine ainult lugemisõigusega.
+Kasutusanalüüsiks küsitakse nõusolekut nüüd süsteemi dialoogiaknas. Androidis eemaldati tarbetud fotodele ja videotele juurdepääsu õigused.

@@ -1,3 +1,3 @@
-# AirCapital 2.4.7 — internal testing
+# AirCapital 2.4.7 (3) — Android test update
 
-Az AirCapital első tesztverziója: tőzsdei egyenlegek egy helyen, a tőke alakulásának előzményei és többnyelvű felület. Nyomon követés kizárólag olvasási jogosultsággal.
+Az analitikához való hozzájárulást mostantól a rendszer párbeszédablakában kérjük. Eltávolítottuk a fényképek és videók eléréséhez szükségtelen androidos engedélyeket.

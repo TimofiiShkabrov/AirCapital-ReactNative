@@ -4,6 +4,10 @@ import { loadAllSnapshots, getSnapshots } from "./balanceHistory";
 import { loadFlows } from "./cashFlows";
 import { loadArchivedPlans } from "./legacyPlans";
 import { waitForAll } from "./loadTask";
+import { proAccess } from "../billing/store";
+import type { BalanceSnapshot } from "../types/common";
+const visibleHistory = (history: BalanceSnapshot[]) => proAccess() ? history :
+  history.filter((snapshot) => Date.parse(snapshot.timestamp) >= Date.now() - 30 * 86400000);
 
 function checkAccounts() {
   const state = useAccountsStore.getState();
@@ -27,7 +31,7 @@ export async function loadOverviewData() {
     accounts: portfolio.accounts,
     observations: portfolio.observations,
     sync: portfolio.sync,
-    history,
+    history: visibleHistory(history),
     ledger,
     lastRefresh: portfolio.lastRefresh,
   };
@@ -42,7 +46,7 @@ export async function loadAccountData(accountId: string) {
     account,
     observation: portfolio.observations[accountId],
     sync: portfolio.sync[accountId],
-    history,
+    history: visibleHistory(history),
   };
 }
 export async function loadFlowsData() {
