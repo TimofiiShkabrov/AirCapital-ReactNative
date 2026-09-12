@@ -27,7 +27,8 @@ function Stores() {
         {(["ios", "android"] as const).map((platform) => {
           const available =
             !!storeLinks[platform] && storeAvailability[platform];
-          const canOpen = !!storeLinks[platform] && (platform === "ios" || available);
+          // Never link to a store page before the app is actually published there.
+          const canOpen = available;
           const content = (
             <>
               <StoreIcon platform={platform} />
@@ -312,7 +313,7 @@ export function FaqPage() {
     { q: w.faqStats, a: [m.flowsUnknown, m.manualFlowsNote] },
     { q: w.faqRefresh, a: [m.background] },
     { q: w.faqPrice, a: [w.priceAnswer] },
-    { q: w.faqRelease, a: [w.releaseAnswer] },
+    { q: w.faqRelease, a: [storeAvailability.ios || storeAvailability.android ? w.releaseAnswer : w.storePending] },
   ];
   return (
     <>

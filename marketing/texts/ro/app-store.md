@@ -30,6 +30,16 @@ Conectează chei API doar cu drept de citire, stocate în siguranță pe dispozi
 
 AirCapital este un instrument de monitorizare: nu tranzacționează, nu inițiază retrageri și nu păstrează fondurile tale. Acoperirea și disponibilitatea datelor depind de API-ul fiecărei burse.
 
+AirCapital Pro
+Pro permite conectarea unui număr nelimitat de conturi de pe platformele de schimb. Două conturi, toate portofelele lor și funcțiile de securitate rămân gratuite.
+• Întregul istoric înregistrat
+• Statistici detaliate și comparații între perioade
+• Rapoarte de portofoliu în CSV
+• Alerte privind modificările capitalului
+AirCapital Pro — Lunar: US$4.99 pe lună. AirCapital Pro — Anual: US$39.99 pe an. La cumpărare se percepe prețul integral lunar sau anual. Abonamentul se reînnoiește automat dacă nu îl anulezi în magazin înainte de reînnoire. Anularea oprește reînnoirile viitoare; accesul rămâne până la sfârșitul perioadei plătite.
+Politica de confidențialitate: https://aircapital.app/privacy
+Condiții de utilizare: https://aircapital.app/terms
+
 Interfața acceptă 31 de limbi. La prima pornire se alege o limbă acceptată a dispozitivului sau, implicit, engleza.
 
 ## Keywords

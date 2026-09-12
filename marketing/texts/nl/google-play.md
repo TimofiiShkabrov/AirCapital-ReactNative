@@ -26,6 +26,16 @@ Koppel API-sleutels met uitsluitend leesrechten. Ze worden veilig op je apparaat
 
 AirCapital is een hulpmiddel voor monitoring: het handelt niet, start geen opnames en bewaart je geld niet. De dekking en beschikbaarheid van gegevens hangen af van de API van elke beurs.
 
+AirCapital Pro
+Met Pro kun je onbeperkt beursaccounts koppelen. Twee accounts, alle bijbehorende wallets en de beveiligingsfuncties blijven gratis.
+• Volledige vastgelegde geschiedenis
+• Uitgebreide statistieken en periodevergelijkingen
+• Portefeuillerapporten in CSV
+• Meldingen bij kapitaalveranderingen
+AirCapital Pro — Maandelijks: US$4.99 per maand. AirCapital Pro — Jaarlijks: US$39.99 per jaar. Bij aankoop wordt het volledige maand- of jaarbedrag in rekening gebracht. Het abonnement wordt automatisch verlengd, tenzij je het vóór de verlenging opzegt in je appstore. Opzeggen stopt toekomstige verlengingen; je behoudt toegang tot het einde van de betaalde periode.
+Privacybeleid: https://aircapital.app/privacy
+Gebruiksvoorwaarden: https://aircapital.app/terms
+
 De interface ondersteunt 31 talen. Bij de eerste start wordt een ondersteunde apparaattaal gekozen, anders Engels.
 
 ## Website

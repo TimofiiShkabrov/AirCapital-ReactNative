@@ -30,6 +30,16 @@ Colliai clavs API cun access mo per leger. Ellas vegnan memorisadas en moda segi
 
 AirCapital serva a survegliar: el na fa naginas transacziuns, na inizescha naginas retratgas e na conserva betg vos daners. La cuvrida e la disponibladad da las datas dependan da l’API da mintga bursa.
 
+AirCapital Pro
+Pro permetta da colliar in dumber illimità da contos da bursas. Dus contos, tut lur portafegls e las funcziuns da segirezza restan gratuits.
+• L’entira cronologia registrada
+• Statisticas detagliadas e cumparegliaziuns da periodas
+• Rapports dal portafegl en format CSV
+• Avis davart midadas dal chapital
+AirCapital Pro — Mensil: US$4.99 al mais. AirCapital Pro — Annual: US$39.99 ad onn. Al mument da la cumpra vegn adossà l’entir pretsch mensil u annual. L’abunament sa prolunghescha automaticamain, nun che ti al annulleschas en il store avant la prolungaziun. L’annullaziun ferma las prolungaziuns futuras; l’access resta fin a la fin da la perioda pajada.
+Decleraziun da protecziun da datas: https://aircapital.app/privacy
+Cundiziuns d’utilisaziun: https://aircapital.app/terms
+
 L’interfatscha sustegna 31 linguas. Tar l’emprima avertura vegn tschernida ina lingua sustegnida da l’apparat, uschiglio l’englais.
 
 ## Keywords

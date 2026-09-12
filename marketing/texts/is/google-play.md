@@ -26,6 +26,16 @@ Tengdu API-lykla sem veita aðeins lesaðgang. Þeir eru geymdir á öruggan há
 
 AirCapital er eftirlitstæki: það framkvæmir hvorki viðskipti né úttektir og varðveitir ekki fé þitt. Umfang og aðgengi gagna fer eftir API hvers markaðar.
 
+AirCapital Pro
+Pro leyfir ótakmarkaðan fjölda tengdra kauphallar­reikninga. Tveir reikningar, öll veski þeirra og öryggiseiginleikarnir eru áfram ókeypis.
+• Öll skráð saga
+• Ítarleg tölfræði og samanburður tímabila
+• Eignasafnsskýrslur á CSV-sniði
+• Tilkynningar um eignabreytingar
+AirCapital Pro — Mánaðarleg: US$4.99 á mánuði. AirCapital Pro — Árleg: US$39.99 á ári. Fullt mánaðar- eða ársgjald er innheimt við kaup. Áskriftin endurnýjast sjálfkrafa nema henni sé sagt upp í forritaversluninni fyrir endurnýjun. Uppsögn stöðvar næstu endurnýjanir; aðgangur helst út greidda tímabilið.
+Persónuverndarstefna: https://aircapital.app/privacy
+Notkunarskilmálar: https://aircapital.app/terms
+
 Viðmótið styður 31 tungumál. Við fyrstu opnun er tungumál tækisins valið ef forritið styður það, annars enska.
 
 ## Website

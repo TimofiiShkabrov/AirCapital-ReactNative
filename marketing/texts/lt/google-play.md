@@ -26,6 +26,16 @@ Prijunkite API raktus, turinčius tik skaitymo teises. Jie saugiai saugomi jūs�
 
 AirCapital skirtas stebėti: jis neprekiauja, neinicijuoja išėmimų ir nelaiko jūsų lėšų. Duomenų apimtis ir prieinamumas priklauso nuo kiekvienos biržos API.
 
+AirCapital Pro
+Pro leidžia prijungti neribotą skaičių biržų paskyrų. Dvi paskyros, visos jų piniginės ir saugumo funkcijos lieka nemokamos.
+• Visa užfiksuota istorija
+• Išsami statistika ir laikotarpių palyginimai
+• Portfelio ataskaitos CSV formatu
+• Pranešimai apie kapitalo pokyčius
+AirCapital Pro — Mėnesinis: US$4.99 per mėnesį. AirCapital Pro — Metinis: US$39.99 per metus. Perkant nuskaičiuojama visa mėnesio arba metų kaina. Prenumerata atnaujinama automatiškai, jei jos neatšaukiate parduotuvėje prieš atnaujinimą. Atšaukimas sustabdo būsimus atnaujinimus; prieiga išlieka iki apmokėto laikotarpio pabaigos.
+Privatumo politika: https://aircapital.app/privacy
+Naudojimo sąlygos: https://aircapital.app/terms
+
 Sąsaja palaiko 31 kalbą. Pirmą kartą paleidus pasirenkama palaikoma įrenginio kalba arba anglų kalba.
 
 ## Website

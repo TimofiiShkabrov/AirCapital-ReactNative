@@ -30,6 +30,16 @@ Csatlakoztass kizárólag olvasási jogosultságú API-kulcsokat, amelyeket az e
 
 Az AirCapital nyomon követésre szolgál: nem kereskedik, nem kezdeményez kifizetést, és nem őrzi a pénzedet. Az adatok köre és elérhetősége az egyes tőzsdék API-jától függ.
 
+AirCapital Pro
+A Pro korlátlan számú tőzsdei fiók csatlakoztatását teszi lehetővé. Két fiók, minden hozzájuk tartozó tárca és a biztonsági funkciók ingyenesek maradnak.
+• Teljes rögzített előzmények
+• Részletes statisztikák és időszakok összehasonlítása
+• Portfóliójelentések CSV-formátumban
+• Értesítések a tőke változásáról
+AirCapital Pro — Havi: US$4.99 havonta. AirCapital Pro — Éves: US$39.99 évente. Vásárláskor a teljes havi vagy éves díjat terheljük. Az előfizetés automatikusan megújul, ha a megújulás előtt nem mondod le az alkalmazásboltban. A lemondás leállítja a későbbi megújításokat; a hozzáférés a kifizetett időszak végéig megmarad.
+Adatvédelmi tájékoztató: https://aircapital.app/privacy
+Felhasználási feltételek: https://aircapital.app/terms
+
 A felület 31 nyelvet támogat. Első indításkor az eszköz támogatott nyelvét választja, egyébként az angolt.
 
 ## Keywords

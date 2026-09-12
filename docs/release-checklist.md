@@ -40,4 +40,4 @@ Inspect remaining npm advisories by reachability. Do not apply a forced Expo maj
 - History uses explicit observation dates and matching account membership; legacy calculations remain distinguishable.
 - Cash flows are labelled manual. Confirmed coverage is required for flow-adjusted results; percentages describe balance change.
 - All real credentials are rejected on web. No plaintext localStorage fallback exists.
-- No billing, push delivery or continuous server monitoring is advertised until implemented.
+- Push delivery and continuous server monitoring are not advertised until implemented. Public copy describes the free download + AirCapital Pro subscription model; it must match the store catalog (USD 4.99/month, 39.99/year) and the paywall strings in `src/billing/locales.json`.

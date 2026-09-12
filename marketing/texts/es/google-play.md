@@ -26,6 +26,16 @@ Conecta claves API de solo lectura, almacenadas de forma segura en tu dispositiv
 
 AirCapital sirve para consultar tus activos: no opera, no inicia retiradas ni custodia fondos. La disponibilidad y la cobertura de los datos dependen de la API de cada exchange.
 
+AirCapital Pro
+Pro permite conectar cuentas de exchanges sin límite. Dos cuentas, todas sus carteras y las funciones de seguridad siguen siendo gratis.
+• Todo el historial registrado
+• Estadísticas detalladas y comparación de periodos
+• Informes de cartera en CSV
+• Alertas de cambios en el capital
+AirCapital Pro — Mensual: US$4.99 al mes. AirCapital Pro — Anual: US$39.99 al año. Al comprar se cobra el importe completo del mes o del año. La suscripción se renueva automáticamente salvo que la canceles en tu tienda antes de la renovación. La cancelación detiene las renovaciones futuras; el acceso se mantiene hasta finalizar el periodo pagado.
+Política de privacidad: https://aircapital.app/privacy
+Condiciones de uso: https://aircapital.app/terms
+
 Interfaz en 31 idiomas. En el primer inicio se usa el idioma del dispositivo si está disponible; en caso contrario, el inglés.
 
 ## Website

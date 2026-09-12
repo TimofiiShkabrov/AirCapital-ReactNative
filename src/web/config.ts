@@ -28,11 +28,11 @@ export const storeLinks = {
   ios: publicLink(SITE.appStore, ["apps.apple.com"]),
   android: publicLink(SITE.googlePlay, ["play.google.com"]),
 };
+// Public storefront buttons. Both stores stay "coming soon" until the release
+// env flags are set on the web deploy; a registered store URL is not a release.
 export const storeAvailability = {
-  // Public storefront buttons: App Store is open; Google Play is coming soon.
-  // Keep this consistent even on deployments with older release env values.
-  ios: true,
-  android: false,
+  ios: process.env.EXPO_PUBLIC_IOS_RELEASED === "true",
+  android: process.env.EXPO_PUBLIC_ANDROID_RELEASED === "true",
 };
 export const contactEmail = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(SITE.email)
   ? SITE.email

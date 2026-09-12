@@ -26,6 +26,16 @@ Forbind API-nøgler, der kun giver læseadgang. De opbevares sikkert på din enh
 
 AirCapital er et overbliksværktøj. Appen handler ikke, starter ikke udbetalinger og opbevarer ikke dine midler. Datadækning og tilgængelighed afhænger af hver børs’ API.
 
+AirCapital Pro
+Pro giver ubegrænset antal tilsluttede børskonti. To konti, alle deres wallets og sikkerhedsfunktionerne forbliver gratis.
+• Hele den registrerede historik
+• Detaljeret statistik og periodesammenligninger
+• Porteføljerapporter i CSV-format
+• Notifikationer om kapitalændringer
+AirCapital Pro — Månedligt: US$4.99 om måneden. AirCapital Pro — Årligt: US$39.99 om året. Hele måneds- eller årsbeløbet opkræves ved købet. Abonnementet fornyes automatisk, medmindre du opsiger det i appbutikken inden fornyelsen. Opsigelse stopper fremtidige fornyelser; adgangen fortsætter til udgangen af den betalte periode.
+Privatlivspolitik: https://aircapital.app/privacy
+Brugsvilkår: https://aircapital.app/terms
+
 Brugerfladen understøtter 31 sprog. Ved første start vælges et understøttet enhedssprog, ellers engelsk.
 
 ## Website

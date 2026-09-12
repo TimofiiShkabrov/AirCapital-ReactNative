@@ -26,6 +26,16 @@ Associe chaves API apenas de leitura, guardadas de forma segura no seu dispositi
 
 O AirCapital é uma ferramenta de acompanhamento: não negoceia, não inicia levantamentos e não guarda os seus fundos. A cobertura e a disponibilidade dos dados dependem da API de cada exchange.
 
+AirCapital Pro
+O Pro permite ligar um número ilimitado de contas de plataformas de criptoativos. Duas contas, todas as respetivas carteiras e as funções de segurança continuam gratuitas.
+• Todo o histórico registado
+• Estatísticas detalhadas e comparação de períodos
+• Relatórios da carteira em CSV
+• Alertas de variação do capital
+AirCapital Pro — Mensal: US$4.99 por mês. AirCapital Pro — Anual: US$39.99 por ano. Na compra é cobrado o valor total do mês ou do ano. A subscrição renova-se automaticamente, salvo cancelamento na loja antes da renovação. O cancelamento interrompe as renovações futuras; o acesso mantém-se até ao fim do período pago.
+Política de privacidade: https://aircapital.app/privacy
+Condições de utilização: https://aircapital.app/terms
+
 A interface suporta 31 idiomas. No primeiro arranque, utiliza um idioma suportado do dispositivo ou, por predefinição, o inglês.
 
 ## Website

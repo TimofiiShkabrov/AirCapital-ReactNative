@@ -2,19 +2,19 @@
 
 **Single source of truth for "can we publish and sell".** Every other document ([app-store.md](app-store.md), [google-play.md](google-play.md), [subscriptions.md](subscriptions.md), [marketing/store-readiness.md](../marketing/store-readiness.md)) is a log of what was done. This file only lists what is still open. When an item is closed, delete it here and note the date and evidence in the relevant log. Do not submit for review while any item in the "Blocking" tables is open for that platform.
 
-Last reviewed: 12 September 2026. Repository version 2.5.0. Uploaded: iOS 2.4.7 build 12 (selected in App Store Connect; build 13 exists without billing), Android 2.4.7 versionCode 3 (internal + closed Alpha drafts, test not launched). Nothing has been submitted for review on either platform.
+Last reviewed: 12 September 2026 (evening). Repository version 2.5.0. iOS: builds 14 and 15 (2.5.0) are processed in TestFlight with status "Ready to Submit"; the App Store version card was renamed to **2.5.0** but still has build 12 (2.4.7) attached. Android 2.4.7 versionCode 3 (internal + closed Alpha drafts, test not launched). Nothing has been submitted for review on either platform.
 
 ## Decision: free download + AirCapital Pro subscription (taken 12 Sept 2026)
 
 The owner chose model (B). **Apple pricing was switched to Free (USD 0.00, all 175 regions) on 12 Sept 2026**; no paid-download customers existed. Google Play still shows the paid USD 4.99 listing and must be aligned before any Android release. The website and its FAQ still advertise a one-time USD 4.99 purchase — see the website section.
 
 - [ ] Google Play: change the app to free (Pricing) and remove "no subscriptions" wording from the listing when the Play Billing AAB is uploaded.
-- [ ] Align website copy, legal text and `EXPO_PUBLIC_SUBSCRIPTIONS_ENABLED` in one coordinated deploy with the subscription binary.
+- [x] 12 Sept: website copy and legal documents now describe the free + Pro model unconditionally (`src/web/copy/index.ts`, `src/web/legal/documents.ts`, legal date 2026-09-12); store descriptions in 31 languages carry an "AirCapital Pro" paragraph (prices, term, renewal, privacy and terms links) in `marketing/texts/catalog.json`; App Store Connect descriptions updated in all 22 localizations; review notes updated. Remaining: **redeploy the website** (Railway build) so the live site stops showing "one-time US$4.99".
 
 ## Live website — fix immediately, independent of the decision
 
-- [ ] `src/web/config.ts` hardcodes `storeAvailability.ios = true`; the site shows an active App Store button and "the App Store link for iOS is below", but `https://apps.apple.com/app/id6792837154` returns **404** (verified 12 Sept). Set `ios: false` (or drive it from `EXPO_PUBLIC_IOS_RELEASED`) and redeploy.
-- [ ] The FAQ states "One-time base price: US$4.99 … No subscription or in-app purchases." This is now wrong on Apple (free since 12 Sept). Switch the site to the subscription copy (`EXPO_PUBLIC_SUBSCRIPTIONS_ENABLED=true` on the web deploy) together with the subscription binary, or remove the price claim now.
+- [x] Source fixed 12 Sept: `storeAvailability` now follows `EXPO_PUBLIC_IOS_RELEASED` / `EXPO_PUBLIC_ANDROID_RELEASED` (default false), store buttons never link before release, the FAQ/pricing copy describes free + Pro.
+- [ ] **Redeploy the live site.** Until the Railway build runs, aircapital.app still shows the old paid-download copy and an App Store button that 404s. Set `EXPO_PUBLIC_IOS_RELEASED=true` only after the app is actually live.
 
 ## Apple — blocking
 
@@ -29,7 +29,7 @@ The owner chose model (B). **Apple pricing was switched to Free (USD 0.00, all 1
 | Regional legality | App Store Connect → Pricing and Availability | 175 regions selected as a technical setting only. Check mainland China ICP applicability (no number exists) and exclude regions whose rules the app cannot meet. |
 | Reviewer access | Review notes / build | Notes describe the demo. Confirm on the release build that the demo plus the connection workflow is enough for review without the owner's personal keys. |
 | Subscription review screenshots | Subscriptions → each product → Review Information | **Missing on both products.** Apple requires a real screenshot of the paywall (min. 640×920) from the billing build before "Add for Review" works. Take it on the `billing-test-ios` TestFlight build. Review notes were filled on 12 Sept. |
-| Build for review | App Store Connect → 2.4.7 | Build 12 (no billing) is selected. Under the chosen model this must be replaced by a new 2.5.0 build with billing enabled; Apple requires the first subscriptions to ship with a new app version. |
+| Build for review | App Store Connect → 2.5.0 | Version card renamed to 2.5.0 on 12 Sept; build **12 (2.4.7) is still attached**. Remove it (hover the build row → remove) and attach build **15** (2.5.0, "Ready to Submit" in TestFlight). Before that, confirm from the EAS build log that build 15 was built with `Subscription configuration: enabled`; a build with the flag off shows no paywall and the subscriptions cannot be reviewed. |
 
 ## Google — blocking
 
@@ -62,6 +62,9 @@ The owner chose model (B). **Apple pricing was switched to Free (USD 0.00, all 1
 Run [release-checklist.md](release-checklist.md) in full on the exact commit being built. The last documented run (227 tests, `tsc`, exports) predates the 12 Sept configuration changes; rerun. No signed native binary has yet been exercised with real exchange credentials or device authentication by the implementation itself — do that on the release candidate.
 
 ## Closed items (keep short, newest first)
+
+- 2026-09-12: App Store Connect version card renamed 2.4.7 → 2.5.0; English review notes replaced (free download, optional Pro, paywall path); descriptions in all 22 localizations extended with the AirCapital Pro paragraph (verified after reload for en, ar, hu, el, da, es, it, pl, ro, ru, sv; all 22 saves reported success).
+- 2026-09-12: Repository copy aligned with the model: website copy/legal (31 languages), store catalog (31 languages, regenerated `marketing/texts/*/app-store.md` and `google-play.md`), README, docs/website.md, release checklist, marketing README, Apple review notes source.
 
 - 2026-09-12: Apple app price changed from USD 4.99 to Free in all 175 regions (immediate).
 - 2026-09-12: Billing Grace Period enabled: 16 days, all renewals, production + sandbox.

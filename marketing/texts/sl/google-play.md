@@ -26,6 +26,16 @@ Povežite ključe API z dovoljenjem samo za branje, ki so varno shranjeni v vaš
 
 AirCapital je orodje za spremljanje: ne trguje, ne sproža dvigov in ne hrani vaših sredstev. Obseg in razpoložljivost podatkov sta odvisna od API-ja posamezne borze.
 
+AirCapital Pro
+Pro omogoča neomejeno število povezanih računov na borzah. Dva računa, vse njune denarnice in varnostne funkcije ostajajo brezplačni.
+• Celotna zabeležena zgodovina
+• Podrobna statistika in primerjava obdobij
+• Poročila o portfelju v obliki CSV
+• Opozorila o spremembah kapitala
+AirCapital Pro — Mesečno: US$4.99 na mesec. AirCapital Pro — Letno: US$39.99 na leto. Ob nakupu se zaračuna celotna mesečna ali letna cena. Naročnina se samodejno podaljšuje, razen če jo pred podaljšanjem prekličete v trgovini z aplikacijami. Preklic ustavi prihodnja podaljšanja; dostop ostane do konca plačanega obdobja.
+Pravilnik o zasebnosti: https://aircapital.app/privacy
+Pogoji uporabe: https://aircapital.app/terms
+
 Vmesnik podpira 31 jezikov. Ob prvem zagonu izbere podprti jezik naprave, sicer angleščino.
 
 ## Website

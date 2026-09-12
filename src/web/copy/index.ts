@@ -30,7 +30,6 @@ import sl from "./sl.json";
 import sv from "./sv.json";
 import uk from "./uk.json";
 import type { LanguageCode } from "../../i18n/languages";
-import { billingEnabled } from "../../billing/config";
 import billingCopy from "../../billing/locales.json";
 export const siteCopy = {
   ar,
@@ -66,14 +65,15 @@ export const siteCopy = {
   uk,
 } satisfies Record<LanguageCode, typeof en>;
 
-// Roll out public pricing together with the native subscription release.
-// Checkout always uses the actual localized store price, never these base prices.
-if (billingEnabled) {
-  for (const code of Object.keys(siteCopy) as LanguageCode[]) {
-    const b = billingCopy[code];
-    siteCopy[code].downloadBody = b.billingIncluded;
-    siteCopy[code].priceAnswer = [b.billingIncluded,
-      b.billingMonthlyPrice.replace("{{price}}", "US$4.99") + "; " + b.billingAnnualPrice.replace("{{price}}", "US$39.99") + ".",
-      b.billingTerms].join(" ");
-  }
+// Commercial model since 12 September 2026: free download, optional AirCapital Pro subscription.
+// The public copy always describes this model; the native purchase flow is separately gated by
+// EXPO_PUBLIC_SUBSCRIPTIONS_ENABLED. Checkout always uses the actual localized store price.
+export const PRO_BASE_PRICES = { monthly: "US$4.99", annual: "US$39.99" } as const;
+for (const code of Object.keys(siteCopy) as LanguageCode[]) {
+  const b = billingCopy[code];
+  siteCopy[code].downloadBody = b.billingIncluded;
+  siteCopy[code].priceAnswer = [b.billingIncluded,
+    "AirCapital Pro: " + b.billingMonthlyPrice.replace("{{price}}", PRO_BASE_PRICES.monthly) + "; " +
+      b.billingAnnualPrice.replace("{{price}}", PRO_BASE_PRICES.annual) + ".",
+    b.billingTerms].join(" ");
 }

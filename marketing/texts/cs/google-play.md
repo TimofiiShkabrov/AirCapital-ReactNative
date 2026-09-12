@@ -26,6 +26,16 @@ Připojte API klíče s oprávněním pouze pro čtení. Jsou bezpečně uložen
 
 AirCapital slouží ke sledování: neobchoduje, nezadává výběry a nedrží vaše prostředky. Rozsah a dostupnost dat závisí na API jednotlivých burz.
 
+AirCapital Pro
+Pro umožňuje připojit neomezený počet burzovních účtů. Dva účty, všechny jejich peněženky a bezpečnostní funkce zůstávají zdarma.
+• Celá zaznamenaná historie
+• Podrobné statistiky a porovnání období
+• Reporty portfolia v CSV
+• Upozornění na změny kapitálu
+AirCapital Pro — Měsíční: US$4.99 měsíčně. AirCapital Pro — Roční: US$39.99 ročně. Při nákupu se účtuje celá měsíční nebo roční cena. Předplatné se automaticky obnovuje, pokud je před obnovením nezrušíte v obchodě s aplikacemi. Zrušení zastaví další obnovování; přístup trvá do konce zaplaceného období.
+Zásady ochrany soukromí: https://aircapital.app/privacy
+Podmínky používání: https://aircapital.app/terms
+
 Rozhraní podporuje 31 jazyků. Při prvním spuštění vybere podporovaný jazyk zařízení, jinak angličtinu.
 
 ## Website

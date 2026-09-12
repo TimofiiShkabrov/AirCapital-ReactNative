@@ -58,4 +58,8 @@ Old terminal bookmarks redirect to Settings. Existing grid plans are preserved a
 
 Snapshots from the previous calculation method are preserved in storage/export and excluded from new performance comparisons. Local ciphertext is tied to the device key; an OS backup alone is not a reliable portable backup. JSON export is readable and must be handled accordingly; JSON v1/v2 import merges records and reconnects restored accounts after keys are entered again.
 
-Balances refresh on opening/resuming the app, manual refresh and every five minutes while active. Continuous cloud monitoring, push alerts, subscription billing and automatic flow import are subsequent development stages.
+Balances refresh on opening/resuming the app, manual refresh and every five minutes while active. Continuous cloud monitoring, push delivery and automatic flow import are subsequent development stages.
+
+## Commercial model
+
+Free download. The free plan covers two exchange accounts with all their wallets, 30 days of recorded history, manual cash-flow records, security features and all languages. **AirCapital Pro** (auto-renewing subscription, base prices USD 4.99/month and USD 39.99/year) adds unlimited accounts, full history, detailed statistics and period comparison, CSV reports and local capital-change alerts. Purchases run through the stores and RevenueCat; see [docs/subscriptions.md](docs/subscriptions.md). The native purchase flow is gated by `EXPO_PUBLIC_SUBSCRIPTIONS_ENABLED`; the public website and legal documents always describe this model.

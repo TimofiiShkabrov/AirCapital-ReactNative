@@ -30,6 +30,16 @@ Połącz klucze API z uprawnieniami tylko do odczytu. Są bezpiecznie przechowyw
 
 AirCapital służy do monitorowania: nie zawiera transakcji, nie inicjuje wypłat i nie przechowuje Twoich środków. Zakres i dostępność danych zależą od API każdej giełdy.
 
+AirCapital Pro
+Pro umożliwia podłączenie dowolnej liczby kont giełdowych. Dwa konta, wszystkie ich portfele i funkcje bezpieczeństwa pozostają bezpłatne.
+• Cała zapisana historia
+• Szczegółowe statystyki i porównania okresów
+• Raporty portfela w formacie CSV
+• Powiadomienia o zmianach kapitału
+AirCapital Pro — Miesięczny: US$4.99 miesięcznie. AirCapital Pro — Roczny: US$39.99 rocznie. Przy zakupie pobierana jest pełna opłata za miesiąc lub rok. Subskrypcja odnawia się automatycznie, jeśli nie anulujesz jej w sklepie przed odnowieniem. Anulowanie zatrzymuje przyszłe odnowienia; dostęp pozostaje do końca opłaconego okresu.
+Polityka prywatności: https://aircapital.app/privacy
+Warunki korzystania: https://aircapital.app/terms
+
 Interfejs obsługuje 31 języków. Przy pierwszym uruchomieniu wybiera obsługiwany język urządzenia lub domyślnie angielski.
 
 ## Keywords

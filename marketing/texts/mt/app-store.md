@@ -30,6 +30,16 @@ Qabbad ċwievet API b’aċċess għall-qari biss, maħżuna b’mod sigur fuq i
 
 AirCapital huwa għodda ta’ monitoraġġ: ma jagħmilx kummerċ, ma jibdiex ġbid u ma jżommx il-fondi tiegħek. Il-kopertura u d-disponibbiltà tad-data jiddependu mill-API ta’ kull skambju.
 
+AirCapital Pro
+Pro jippermetti numru bla limitu ta’ kontijiet konnessi fuq pjattaformi tal-iskambju. Żewġ kontijiet, il-kartieri kollha tagħhom u l-funzjonijiet tas-sigurtà jibqgħu bla ħlas.
+• L-istorja kollha rreġistrata
+• Statistika dettaljata u tqabbil ta’ perjodi
+• Rapporti tal-portafoll f’CSV
+• Avviżi dwar bidliet fil-kapital
+AirCapital Pro — Kull xahar: US$4.99 fix-xahar. AirCapital Pro — Kull sena: US$39.99 fis-sena. Il-prezz sħiħ tax-xahar jew tas-sena jiġi ċċarġjat max-xiri. L-abbonament jiġġedded awtomatikament sakemm ma tikkanċellahx fil-maħżen tal-apps qabel it-tiġdid. Il-kanċellazzjoni twaqqaf it-tiġdid futur; l-aċċess jibqa’ sa tmiem il-perjodu mħallas.
+Politika tal-privatezza: https://aircapital.app/privacy
+Termini tal-użu: https://aircapital.app/terms
+
 L-interfaċċa tappoġġja 31 lingwa. Mal-ewwel ftuħ tintgħażel lingwa appoġġjata tat-tagħmir, inkella l-Ingliż.
 
 ## Keywords

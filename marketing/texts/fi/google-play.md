@@ -26,6 +26,16 @@ Yhdistä vain lukuoikeuden antavat API-avaimet, jotka tallennetaan turvallisesti
 
 AirCapital on seurantatyökalu: se ei käy kauppaa, käynnistä nostoja eikä säilytä varojasi. Tietojen kattavuus ja saatavuus riippuvat kunkin pörssin API-rajapinnasta.
 
+AirCapital Pro
+Prolla voit yhdistää rajattomasti pörssitilejä. Kaksi tiliä, kaikki niiden lompakot ja turvaominaisuudet pysyvät ilmaisina.
+• Koko tallennettu historia
+• Yksityiskohtaiset tilastot ja kausivertailut
+• Salkkuraportit CSV-muodossa
+• Hälytykset pääoman muutoksista
+AirCapital Pro — Kuukausittain: US$4.99 kuukaudessa. AirCapital Pro — Vuosittain: US$39.99 vuodessa. Koko kuukausi- tai vuosihinta veloitetaan oston yhteydessä. Tilaus uusiutuu automaattisesti, ellet peruuta sitä sovelluskaupassa ennen uusimista. Peruuttaminen estää tulevat uusimiset; käyttöoikeus jatkuu maksetun kauden loppuun.
+Tietosuojakäytäntö: https://aircapital.app/privacy
+Käyttöehdot: https://aircapital.app/terms
+
 Käyttöliittymä tukee 31 kieltä. Ensimmäisellä käynnistyskerralla valitaan tuettu laitteen kieli tai oletuksena englanti.
 
 ## Website
