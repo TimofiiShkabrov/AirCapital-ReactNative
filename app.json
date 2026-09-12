@@ -13,11 +13,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "tim.AirCapital",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false,
         "CFBundleDevelopmentRegion": "en"
       },
       "appleTeamId": "QJJFV9YPU3",
-      "buildNumber": "12",
       "googleServicesFile": "./config/firebase/GoogleService-Info.plist"
     },
     "android": {
@@ -30,7 +28,6 @@
       "predictiveBackGestureEnabled": false,
       "package": "tim.AirCapital",
       "icon": "./assets/branding/icon.png",
-      "versionCode": 3,
       "permissions": [
         "android.permission.USE_BIOMETRIC",
         "android.permission.USE_FINGERPRINT"

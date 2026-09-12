@@ -25,7 +25,11 @@ Uploaded version: **2.4.7 (versionCode 3)**. No review submission or rollout per
 3. **Closed testing for production access:** at least 12 opted-in testers continuously for 14 days, followed by the production-access application. Merely saving email addresses does not satisfy this requirement. The console currently shows zero participating testers.
 4. **Payments/tax requirements:** bank details remain excluded by the owner's instruction. Applicable tax declarations need truthful owner information. The optional 15% service-fee programme needs disclosure of associated developer accounts; their absence has not been assumed.
 
-The release validator also warns about missing testers and a missing R8/ProGuard deobfuscation file. Native debug symbols are attached. Supply a deobfuscation mapping only if the release actually uses obfuscation; do not fabricate one.
+The release validator also warns about missing testers and a missing R8/ProGuard deobfuscation file. Native debug symbols are attached.
+
+**Deobfuscation warning: resolved as expected, no action.** Checked on 12 September 2026: the generated `android/app/build.gradle` sets `minifyEnabled` from `android.enableMinifyInReleaseBuilds`, which defaults to `false`; `android/gradle.properties` does not set it, and `expo-build-properties` in `app.json` configures nothing for Android. Release builds are therefore not minified or obfuscated, no `mapping.txt` is produced, and there is nothing to upload. Leave the field empty and ignore the warning. If R8 is ever enabled (`enableMinifyInReleaseBuilds`/`enableProguardInReleaseBuilds` via `expo-build-properties`), that is a native behavior change: test the release binary first, then upload the mapping that build actually produced.
+
+Uploaded versionCodes are recorded by EAS, not `app.json` (`appVersionSource: "remote"`, `autoIncrement`). Use `eas build:version:get -p android` to see the current value; the static `versionCode` was removed from `app.json` on 12 September 2026 because EAS ignores it.
 
 ## Verification of the shipped permission fix
 

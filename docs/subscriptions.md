@@ -51,6 +51,17 @@ RevenueCat owns its durable receipt/customer cache. App subscription state is me
 
 Free connection selection is an encrypted preference, never proof of a purchase. The account write queue enforces the two-account limit under concurrent additions. On expiry, extra accounts stop refreshing, but their saved data stays. Import cannot restore a Pro entitlement. A partially paused portfolio never creates a misleading fresh total snapshot.
 
+## Console state on 12 September 2026
+
+Verified in the consoles and changed with the owner's approval:
+
+- RevenueCat, app `appc6aa05a8c8`: bundle `tim.AirCapital`, IAP key `8KNB7XYBDF` / issuer `a25d125d-…` shows **Valid credentials**; Apple server-notification URL last received 2026-09-08; "Track new purchases from server-to-server notifications" off; forwarding URL empty; 0 integrations. Products `tim.AirCapital.pro.annual` / `.monthly` show **Could not check** only because no App Store Connect API key is uploaded. Entitlement `aircapital_pro` has 4 products (2 Apple + 2 Test Store). Offering `aircapital` has `$rc_annual` and `$rc_monthly` mapped to the Apple products; a second offering `default` holds the Test Store products and is unused by the app.
+- App Store Connect: both subscriptions are in group 22367980 at level 1 with 22 localizations and status "Prepare for Submission"; **review screenshots are missing on both** and must be real paywall screenshots from the billing build. Review notes were filled on both products. Family Sharing is off. Both App Store Server Notification URLs equal the RevenueCat webhook.
+- **Billing Grace Period enabled** (16 days, all renewals, production and sandbox). `accessFromCustomer` already honours `gracePeriodExpiresDate`.
+- **App Privacy** republished with Purchase History (App Functionality + Analytics, linked to the user, not used for tracking).
+- **App price changed to Free** (USD 0.00, 175 regions, effective immediately). No paid-download customers existed, so item 6 below is moot for Apple. Google Play still lists USD 4.99.
+- Paid Applications agreement is still "New" and the Business page still shows the old Ukrainian legal address with the note that the legal entity must be updated before signing. Owner action only.
+
 ## Required external setup before activation
 
 1. Complete the real Google Play connection to RevenueCat. The real Apple configuration is saved and its purchase key is valid; the existing Test Store is not a production configuration.

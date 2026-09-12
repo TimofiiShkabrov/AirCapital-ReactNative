@@ -1,9 +1,9 @@
-import React, { useMemo, useState } from "react";
+import React, { useId, useMemo, useState } from "react";
 import { View, Pressable, Text as NativeText } from "react-native";
-import Svg, { Path, Line, Circle, Text } from "react-native-svg";
+import Svg, { Path, Line, Circle, Text, Defs, LinearGradient, Stop } from "react-native-svg";
 import { useTranslation } from "react-i18next";
 import type { BalanceSnapshot } from "../../types/common";
-import { historyChartModel } from "../../domain/historyChart";
+import { historyChartModel, STROKE } from "../../domain/historyChart";
 import { useMonitorTheme } from "./theme";
 import { useSettingsStore } from "../../store/settingsStore";
 import { Label, useMoney } from "./primitives";
@@ -16,6 +16,8 @@ export default function HistoryChart({ snapshots, demo = false, height = 188 }: 
   const c = useMonitorTheme(), { t, i18n } = useTranslation(), money = useMoney();
   const hidden = useSettingsStore((s) => s.hideAmounts);
   const [width, setWidth] = useState(300), [selectedTime, setSelectedTime] = useState<number>();
+  // One gradient per chart instance: several charts can be mounted at once.
+  const gradientId = `history-fill-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
   const chart = useMemo(() => historyChartModel(snapshots, width, height, i18n.language, demo),
     [snapshots, width, height, i18n.language, demo]);
   if (hidden) return <View style={{ height, alignItems: "center", justifyContent: "center" }}><Label>••••</Label></View>;
@@ -23,7 +25,6 @@ export default function HistoryChart({ snapshots, demo = false, height = 188 }: 
   const { points } = chart;
   const first = points[0], last = points[points.length - 1];
   const active = points.find((point) => point.time === selectedTime);
-  const dots = points.length < 20 ? points : [first, last];
   const fullDate = (time: number) => new Date(time).toLocaleString(i18n.language);
   return <View onLayout={(event) => {
     const next = event.nativeEvent.layout.width;
@@ -39,15 +40,21 @@ export default function HistoryChart({ snapshots, demo = false, height = 188 }: 
       }}
     >
       <Svg width="100%" height={chart.height} viewBox={`0 0 ${chart.width} ${chart.height}`}>
+        <Defs>
+          <LinearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+            <Stop offset="0" stopColor={c.accent} stopOpacity={c.mode === "dark" ? 0.28 : 0.18} />
+            <Stop offset="1" stopColor={c.accent} stopOpacity={0} />
+          </LinearGradient>
+        </Defs>
         <Text x={0} y={12} fill={c.muted} fontSize={11}>USDT</Text>
         {chart.ticks.map((tick, i) => <React.Fragment key={i}>
           <Line x1={chart.left} x2={chart.right} y1={tick.y} y2={tick.y} stroke={c.line} />
           <Text x={chart.left - 8} y={tick.y + 4} textAnchor="end" fill={c.muted} fontSize={11}>{tick.label}</Text>
         </React.Fragment>)}
-        {!!chart.gapPath && <Path d={chart.gapPath} fill="none" stroke={c.accent} strokeWidth={2}
-          strokeDasharray="5 5" strokeLinecap="round" />}
-        <Path d={chart.solidPath} fill="none" stroke={c.accent} strokeWidth={2.5} strokeLinejoin="round" strokeLinecap="round" />
-        {dots.map((point) => <Circle key={point.time} cx={point.x} cy={point.y} r={3} fill={c.accent} />)}
+        {!!chart.areaPath && <Path d={chart.areaPath} fill={`url(#${gradientId})`} stroke="none" />}
+        {points.length === 1
+          ? <Circle cx={first.x} cy={first.y} r={STROKE * 1.4} fill={c.accent} />
+          : <Path d={chart.linePath} fill="none" stroke={c.accent} strokeWidth={STROKE} strokeLinejoin="round" strokeLinecap="round" />}
         {points.length === 1 ? <Text x={first.x} y={chart.height - 24} textAnchor="middle" fill={c.muted} fontSize={11}>{chart.startLabel}</Text> : <>
           <Text x={chart.left} y={chart.height - 24} fill={c.muted} fontSize={11}>{chart.startLabel}</Text>
           <Text x={chart.right} y={chart.height - 24} textAnchor="end" fill={c.muted} fontSize={11}>{chart.endLabel}</Text>
@@ -55,10 +62,9 @@ export default function HistoryChart({ snapshots, demo = false, height = 188 }: 
         <Text x={(chart.left + chart.right) / 2} y={chart.height - 5} textAnchor="middle" fill={c.muted} fontSize={11}>
           {chart.sameDay ? new Date(first.time).toLocaleDateString(i18n.language, { day: "numeric", month: "short" }) : t("monitor.date")}
         </Text>
-        {active && <Circle cx={active.x} cy={active.y} r={5} fill={c.accent} stroke={c.panel} strokeWidth={2} />}
+        {active && <Circle cx={active.x} cy={active.y} r={5.5} fill={c.accent} stroke={c.panel} strokeWidth={2} />}
       </Svg>
     </Pressable>
-    {!!chart.gapPath && <Label style={{ fontSize: 11 }}>{t("monitor.historyGaps")}</Label>}
     {active && <NativeText accessibilityLiveRegion="polite" style={{ color: c.text, fontSize: 12, textAlign: "center" }}>
       {fullDate(active.time)} · {money(active.snapshot.balanceUSDT)} USDT
     </NativeText>}
